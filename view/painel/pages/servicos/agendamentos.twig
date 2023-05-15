@@ -1,0 +1,76 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Agendamentos{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Meus agendamentos</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produto</th>
+                                                    <th>Valor</th>
+                                                    <th>Status</th>
+                                                    <th>Conclusão</th>
+                                                    <th width="100" class="text-end">Data Compra</th>
+                                                    <th width="100" class="text-end">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for agendamento in agendamentos %}
+                                                <tr>
+                                                    <td>
+                                                        <div><a href="{{ DOMAIN }}/painel/servicos/agendamento/{{ agendamento.id }}" class="title text-uppercase">{{ agendamento.itemTitle }}</a></div>
+                                                        <div><small><span class="text-white">Cliente: </span>{{ agendamento.c_nome }}</small></div>
+                                                    </td>
+                                                    <td>R$ <b>{{ agendamento.total|number_format(2, ',', '.') }}</b></td>
+                                                    <td>{{ agendamento.status|payStatus|raw }}</td>
+                                                    <td>
+                                                        <span>{{ ( agendamento.situacao == 'Pendente') ? '<span class="badge badge-pill badge-light-warning">Pendente</span>' : '<span class="badge badge-pill badge-light-success">Concluído</span>' }}</span>
+                                                    </td>
+                                                    <td width="100" class="text-end">{{ agendamento.created|date("d-m-Y H:i:s", "America/Sao_Paulo") }}</td>
+                                                    <td width="100" class="text-end"><a data-bs-toggle="modal-remote" data-remote="{{ DOMAIN }}/view/painel/src/modal/agendamentos/link.php?id={{ agendamento.id }}" data-bs-target="#add_link" href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa-solid fa-link"></i> LINK</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="add_link" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body p-0"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="text-center">
+			<h2><b>BEM-VINDO AO PROGRAMA <br>SAMPEL TOUR</b></h2>
+		</div>
+
+		<hr class="w-25 m-auto mb-3">
+
+		<div class="text-center">O Programa Sampel Tour aproxima você do dia a dia das fábricas da Sampel. É uma satisfação contar com seu interesse em nos visitar!</div>
+
+
+		<div class="d-flex d-flex justify-content-evenly my-5 options-home-menu">
+			
+			<a href="{{ DOMAIN }}/agendar">
+				<div class="card bg-transparent text-center border-2 border-white text-white" style="width: 15rem;">
+					<div class="card-body">
+						<div><i class="fa-thin fa-calendar-plus fa-4x"></i></div>
+						<h4 class="card-title mt-3">AGENDAR VISITAS</h4>
+					</div>
+				</div>
+			</a>
+
+			<a href="{{ DOMAIN }}/visitas">
+				<div class="card bg-transparent text-center border-2 border-white text-white" style="width: 15rem;">
+					<div class="card-body">
+						<div><i class="fa-thin fa-calendar-check fa-4x"></i></div>
+						<h4 class="card-title mt-3">VISITAS AGENDADAS</h4>
+					</div>
+				</div>
+			</a>
+
+			<a href="{{ DOMAIN }}/minha-conta">
+				<div class="card bg-transparent text-center border-2 border-white text-white" style="width: 15rem;">
+					<div class="card-body">
+							<div><i class="fa-thin fa-calendar-lines-pen fa-4x"></i></div>
+							<h4 class="card-title mt-3">EDITAR CADASTRO</h4>
+					</div>
+				</div>
+			</a>
+
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}

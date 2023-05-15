@@ -1,0 +1,63 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Vendas{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Minhas Vendas</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produto</th>
+                                                    <th>Valor</th>
+                                                    <th>Status</th>
+                                                    <th class="text-end" width="100">Horário</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for venda in vendas %}
+                                                <tr>
+                                                    <td>
+                                                        <div><a href="{{ DOMAIN }}/painel/produtos/venda/{{ venda.id }}" class="title text-uppercase">{{ venda.itemTitle }}</a></div>
+                                                        <div><small><b>Cliente: </b>{{ venda.c_nome }}</small></div>
+                                                    </td>
+                                                    <td>R$ <b>{{ venda.total|number_format(2, ',', '.') }}</b></td>
+                                                    <td>{{ venda.status|payStatus|raw }}</td>
+                                                    <td class="text-end" width="100">{{ venda.created|date("d-m-Y H:i:s", "America/Sao_Paulo") }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

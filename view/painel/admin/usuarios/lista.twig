@@ -1,0 +1,77 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Usuários{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-body p-0 pb-2">
+                                    <div class="table-responsive">
+                                        <table class="table" id="table-users">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Email</th>
+                                                    <th>Telefone</th>
+                                                    <th class="dt-filter" width="150">Tipo</th>
+                                                    <th class="dt-filter" width="125" >Status</th>
+                                                    <th width="100" class="text-end">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for usuario in usuarios %}
+                                                <tr>
+                                                    <td>
+                                                        <div><a href="{{ DOMAIN }}/painel/admin/usuarios/editar/{{ usuario.id }}" class="title text-uppercase">{{ usuario.nome }}</a></div>
+                                                        <div class="row-actions">
+                                                            <span class="edit"><a href="{{ DOMAIN }}/painel/admin/usuarios/editar/{{ usuario.id }}">Editar</a></span>
+                                                            {# <span class="delete"><a href="javascript:void(0);" data-toggle="modal" data-remote="assets/modal/produtos/status.php?id=1&status=Desativado" data-target="#alterar_status" class="text-danger">Lixeira</a></span>#}
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ usuario.email }}</td>
+                                                    <td>{{ usuario.telefone }}</td>
+                                                    <td >{{ usuario.tipo|userType|raw }}</td>
+                                                    <td class="user-status-{{ usuario.id }}">{{ usuario.status|userStatus|raw }}</td>
+                                                    <td class="text-end">
+                                                        <div class="btn-group dropstart">
+                                                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">ALTERAR</button>
+                                                          <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item text-success" href="javascript:void(0);" onclick="userStatus('1', '{{ usuario.id }}')">ATIVAR</a></li>
+                                                                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="userStatus('3', '{{ usuario.id }}')">DESATIVAR</a></li>
+                                                          </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/admin/usuarios/usuarios.js"></script>
+
+{% endblock %}

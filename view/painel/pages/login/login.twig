@@ -1,0 +1,73 @@
+{% extends "layout/layoutPanelLogin.twig" %}
+
+{% block title %}56 minutos - Login{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/pages/authentication.css">
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        <!-- Login basic -->
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="javascript:void(0)" class="brand-logo">
+                                    <img src="{{ PATH }}/view/painel/src/images/logo/logo.png" alt="">
+                                </a>
+                                <div class="text-center">
+                                    <h4 class="card-title mb-1">Bem vindo a 56 minutos!! 👋</h4>
+                                    <p class="card-text mb-2">Faça login abaixo para acessar o painel</p>
+                                </div>
+
+                                <div id="info-login" class="col-md-12 alert alert-danger text-center rounded-0" style="display: none;">Usuário ou Senha incorreto.</div>
+                                
+                                <form class="auth-login-form mt-2" action="javascript:void(0)" id="login-form" method="POST">
+                                    <div class="mb-1">
+                                        <label for="login-email" class="form-label">E-mail</label>
+                                        <input type="text" class="form-control" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label" for="login-password">Senha</label>
+                                            <a href="{{ DOMAIN }}/painel/login/recover">
+                                                <small>Esqueceu a senha?</small>
+                                            </a>
+                                        </div>
+                                        <div class="input-group input-group-merge form-password-toggle">
+                                            <input type="password" class="form-control form-control-merge" data-type="hide" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
+                                            <span class="input-group-text cursor-pointer" onclick="show_pass('login-password')"><i data-feather="eye"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="remember-me" tabindex="3" />
+                                            <label class="form-check-label" for="remember-me"> Lembrar de mim </label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100" tabindex="4">Entrar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- /Login basic -->
+                    </div>
+                    <div class="login-load" style="display: none;"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/login.js"></script>
+    
+{% endblock %}

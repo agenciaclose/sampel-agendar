@@ -1,0 +1,14 @@
+vendor/
+uploads/
+config/config.php
+config/db.php
+node_modules/
+composer.lock
+.idea
+backup
+.DS_Store
+view/src/dist
+log_error
+error_log
+legacy/pdf/downloads
+legacy/config/db.php

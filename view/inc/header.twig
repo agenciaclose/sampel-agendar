@@ -1,0 +1,86 @@
+<header class="wbc-sticky wbc-nomenu-shadow wbc-sticky-img-logo header-bar mobile-menu">
+    <div class="sticky-menu">
+        <div class="menu-bar-wrapper">
+            <div class="container">
+
+                <div class="header-inner d-flex justify-content-between align-items-center mt-2">
+
+                    <nav class="primary-menu flex-fill">
+                        <ul id="main-menu" class="wbc_menu">
+                            <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
+                                <a href="{{ DOMAIN }}" class="ps-0"><i class="fas fa-house-chimney"></i> Home</a>
+                            </li>
+                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                <a href="https://www.sampel.com.br/empresa"><i class="fab fa-fort-awesome"></i> Empresa</a>
+                            </li>
+                            <li class="menu-item {{ menu == 'produtos' ? 'current-menu-item' }}">
+                                <a href="https://buscanarede.com.br/sampel"><i class="fas fa-globe"></i> Catálogos</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="site-logo-title flex-fill">
+                      <a href="{{ DOMAIN }}" class="text-center">
+                        <img class="wbc-main-logo" src="{{ PATH }}/view/src/media/logo.png" alt="Sampel">
+                      </a>
+                    </div>
+
+                    <nav class="primary-menu flex-fill">
+                        <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center">
+                            {% if _session.sampel_user_id %}
+
+                                <li class="menu-item">
+                                    <a class="nav-link dropdown-toggle dropdown-user-link d-flex align-items-center" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <div class="text-end me-2">
+                                                <div class="lh-sm">{{ _session.sampel_user_nome }}</div>
+                                                <div class="lh-sm text-white-50"><small>{{ _session.sampel_user_email }}</small></div>
+                                            </div>
+                                            <i class="fa-thin fa-circle-user fa-3x"></i>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end user-menu" aria-labelledby="dropdown-user">
+                                        {% if (_session.sampel_user_tipo == 3) %}
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta"><i class="fa-light fa-user me-1"></i> Minha Conta</a>
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta/orders"><i class="fa-light fa-cart-shopping me-1"></i> Minhas Compras</a>
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta/schedules"><i class="fa-light fa-cart-shopping me-1"></i> Meus Agendamentos</a>
+                                        {% else %}
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/painel"><i class="fa-light fa-album-collection me-1"></i> Meu Painel</a>
+                                        {% endif %}
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/logout"><i class="fa-light fa-right-from-bracket me-1"></i> Sair</a>
+                                    </div>
+                                </li>
+
+                            {% else %}
+                                <li>
+                                    <a href="{{ DOMAIN }}/login"><i class="fa-solid fa-unlock-alt me-2"></i>Entrar</a>
+                                </li>
+                                <li>
+                                    <a href="{{ DOMAIN }}/cadastro"><i class="fa-solid fa-user-tie me-2"></i>Cadastre-se</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+                </div>
+
+
+                <a href="#" class="menu-icon"><i class="fa fa-bars"></i></a>
+                <nav id="mobile-nav-menu" class="mobile-nav-menu">
+                  <ul id="mobile-nav-menu-ul" class="wbc_menu">
+                    <li class="menu-item current_page_item">
+                        <a href="{{ DOMAIN }}" aria-current="page">Home</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ DOMAIN }}/areas-de-atendimento">Áreas de Atendimento</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ DOMAIN }}/loja">Nossa Loja</a>
+                    </li>
+                  </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</header>

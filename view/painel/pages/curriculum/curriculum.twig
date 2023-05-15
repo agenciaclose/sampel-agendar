@@ -1,0 +1,313 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Curriculum{% endblock %}
+
+  {% block body %}
+
+	<!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper p-0">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <section class="app-user-view-account">
+                    <div class="row">
+                        <!-- User Sidebar -->
+                        <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                            <!-- User Card -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="user-avatar-section">
+                                        <div class="d-flex align-items-center flex-column">
+                                            <img class="img-fluid rounded mt-3 mb-2" src="{{ PATH }}/uploads/{{ user.imagem }}" height="110" width="110" />
+                                            <div class="user-info text-center">
+                                                <h4>{{ user.nome }}</h4>
+                                                <span class="badge bg-light-secondary">
+                                                    {% if user.status == 1 %}
+                                                        <span class="user-status text-success text-capitalize">Ativo</span>
+                                                    {% elseif user.status == 2  %}
+                                                        <span class="user-status text-warning text-capitalize">Pendente</span>
+                                                    {% else %}
+                                                        <span class="user-status text-danger text-capitalize">Inativo</span>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-around my-2 pt-75">
+                                        <div class="d-flex align-items-start me-2">
+                                            <span class="badge bg-light-primary p-75 rounded">
+                                                <i class="fa-light fa-briefcase font-medium-2"></i>
+                                            </span>
+                                            <div class="ms-75">
+                                                <h4 class="mb-0">{{ servicos|length }}</h4>
+                                                <small>Serviços</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start">
+                                            <span class="badge bg-light-primary p-75 rounded">
+                                                <i class="fa-light fa-basket-shopping font-medium-2"></i>
+                                            </span>
+                                            <div class="ms-75">
+                                                <h4 class="mb-0">{{ produtos|length }}</h4>
+                                                <small>Produtos</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="fw-bolder border-bottom pb-50 mb-1">Minha Conta</h4>
+                                    <div class="info-container">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">CPF/CNPJ:</span>
+                                                <span>{{ user.cpf }}{{ (user.cnpj != '') ? ' / '~user.cnpj }}</span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">E-mail:</span>
+                                                <span>{{ user.email }}</span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">Status:</span>
+                                                <span class="badge bg-light-success">
+                                                    {% if user.status == 1 %}
+                                                        <span class="user-status text-success text-capitalize">Ativo</span>
+                                                    {% elseif user.status == 2  %}
+                                                        <span class="user-status text-warning text-capitalize">Pendente</span>
+                                                    {% else %}
+                                                        <span class="user-status text-danger text-capitalize">Inativo</span>
+                                                    {% endif %}
+                                                </span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">Telefone:</span>
+                                                <span>{{ user.telefone }}</span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">Endereço:</span>
+                                                <span>{{ user.empresa_logradouro }}, {{ user.empresa_numero }} - {{ user.empresa_bairro }}</span>
+                                            </li>
+                                            <li class="mb-75">
+                                                <span class="fw-bolder me-25 text-primary">Cidade/Estado:</span>
+                                                <span>{{ user.empresa_cidade }} / {{ user.empresa_uf }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /User Card -->
+                        </div>
+                        <!--/ User Sidebar -->
+
+                        <!-- User Content -->
+                        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+
+                            <ul class="nav nav-pills mb-2 curriculum-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link nav-account active" href="javascript:void(0);" onclick="cContent('account')">
+                                        <i data-feather="user" class="font-medium-3 me-50"></i>
+                                        <span class="fw-bold">Minha Conta</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-security" href="javascript:void(0);" onclick="cContent('security')">
+                                        <i data-feather="lock" class="font-medium-3 me-50"></i>
+                                        <span class="fw-bold">Segurança</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-terms" href="javascript:void(0);" onclick="cContent('terms')">
+                                        <i data-feather="bookmark" class="font-medium-3 me-50"></i>
+                                        <span class="fw-bold">Termos e Condições</span>
+                                    </a>
+                                </li>
+                                {# <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);">
+                                        <i data-feather="bell" class="font-medium-3 me-50"></i><span class="fw-bold">Notificações</span>
+                                    </a>
+                                </li> #}
+                            </ul>
+
+                            <div class="card curriculum-content" id="account">
+                                <h4 class="card-header border-bottom">Editar minhas informações</h4>
+                                <div class="card-body pt-1">
+                                    
+                                    <form action="javascript:void(0);" id="editar-consultor-form" method="POST" enctype="multipart/form-data">
+
+                                        <div class="row">
+
+                                            <div class="col-md-3 col-12">
+                                                <div class="text-start position-relative">
+                                                    {% if (user.imagem) %}
+                                                        <img src="{{ PATH }}/uploads/{{ user.imagem }}" id="account-upload-img" class="uploadedAvatar rounded" alt="profile" height="150" width="150" />
+                                                    {% else %}
+                                                        <img src="{{ PATH }}/view/painel/src/images/produtos/produto-placeholder.png" id="account-upload-img" class="uploadedAvatar rounded" height="150" width="150" />
+                                                    {% endif %}
+                                                    <div class="d-flex justify-content-center mt-75 ms-1">
+                                                        <div>
+                                                            <label for="account-upload" class="btn btn-sm btn-primary position-absolute top-0 start-0"><i class="fa-regular fa-pen-to-square"></i></label>
+                                                            <input type="file" name="imagem" id="account-upload" hidden accept="image/*" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-9 col-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-12 mb-1">
+                                                        <label class="form-label">Seu Nome</label>
+                                                        <input type="text" class="form-control" name="nome" value="{{ user.nome }}" placeholder="Nome Completo" required />
+                                                    </div>
+
+                                                    <div class="col-md-6 col-12 mb-1">
+                                                        <label class="form-label">Seu E-mail</label>
+                                                        <input type="email" class="form-control" name="email" value="{{ user.email }}" placeholder="john@gmail.com" readonly="readonly" />
+                                                    </div>
+
+                                                    <div class="col-md-6 col-12 mb-1">
+                                                        <label class="form-label">CNPJ</label>
+                                                        <input type="text" class="form-control cnpj" id="empresa_cnpj" name="cnpj" value="{{ user.cnpj }}" required />
+                                                    </div>
+
+                                                    <div class="col-md-6 col-12 mb-1">
+                                                        <label class="form-label">CPF</label>
+                                                        <input type="text" class="form-control cpf" id="cpf" name="cpf" value="{{ user.cpf }}"  />
+                                                    </div>
+                                                </div>
+                                            </div>
+                              
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Seu Telefone</label>
+                                                <input type="text" class="form-control telefone" name="telefone" value="{{ user.telefone }}" required/>
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Setor de Atuação</label>
+                                                <select class="form-control" name="setor" required>
+                                                    <option>Selecione</option>
+                                                    <option {{user.setor == 'Saúde' ? 'selected'}} value="Saúde">Saúde</option>
+                                                    <option {{user.setor == 'Segurança' ? 'selected'}} value="Segurança">Segurança</option>
+                                                    <option {{user.setor == 'Educação' ? 'selected'}} value="Educação">Educação</option>
+                                                    <option {{user.setor == 'Negócios' ? 'selected'}} value="Negócios">Negócios</option>
+                                                    <option {{user.setor == 'Engenharia' ? 'selected'}} value="Engenharia">Engenharia</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Nome da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_nome" name="empresa_nome" value="{{ user.empresa_nome }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Nome da Fantasia</label>
+                                                <input type="text" class="form-control" id="empresa_fantasia" name="empresa_fantasia" value="{{ user.empresa_fantasia }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Atividade</label>
+                                                <input type="text" class="form-control" id="empresa_atividade" name="empresa_atividade" value="{{ user.empresa_atividade }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Telefone da Empresa</label>
+                                                <input type="text" class="form-control telefone" id="empresa_telefone" name="empresa_telefone" value="{{ user.empresa_telefone }}"  />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Email da Empresa</label>
+                                                <input type="email" class="form-control" id="empresa_email" name="empresa_email" value="{{ user.empresa_email }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Endereço da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_logradouro" name="empresa_logradouro" value="{{ user.empresa_logradouro }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Nº</label>
+                                                <input type="text" class="form-control" id="empresa_numero" name="empresa_numero" value="{{ user.empresa_numero }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Complemento</label>
+                                                <input type="text" class="form-control" id="empresa_complemento" name="empresa_complemento" value="{{ user.empresa_complemento }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Bairro da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_bairro" name="empresa_bairro" value="{{ user.empresa_bairro }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Cidade da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_cidade" name="empresa_cidade" value="{{ user.empresa_cidade }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">Estado da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_uf" name="empresa_uf" value="{{ user.empresa_uf }}" />
+                                            </div>
+
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label">CEP da Empresa</label>
+                                                <input type="text" class="form-control" id="empresa_cep" name="empresa_cep" value="{{ user.empresa_cep }}" />
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="rounded-pill btn btn-lg btn-primary" id="salvar"><i class="fa-solid fa-unlock-alt"></i> Salvar Alterações</button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="card curriculum-content" id="security" style="display: none;">
+                                <h4 class="card-header border-bottom">Alterar sua senha</h4>
+                                <div class="card-body pt-1">
+                                    <form action="javascript:void(0)" id="editar-consultor-password" method="POST">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <label class="form-label" for="login-password">Senha</label>
+                                                <div class="input-group input-group-merge form-password-toggle">
+                                                    <input type="password" class="form-control" id="consultor-password" name="senha" required />
+                                                    <span class="input-group-text bg-transparent cursor-pointer" onclick="show_pass('consultor-password')"><i class="fa-solid fa-eye"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <label class="form-label" for="login-password">Confirmar Senha</label>
+                                                <div class="input-group input-group-merge form-password-toggle">
+                                                    <input type="password" class="form-control" id="confirm-password" name="confirmarsenha" required />
+                                                    <span class="input-group-text bg-transparent cursor-pointer" onclick="show_pass('confirm-password')"><i class="fa-solid fa-eye"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="rounded-pill btn btn-lg btn-primary" id="salvar"><i class="fa-solid fa-unlock-alt"></i> Salvar Alterações</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="card curriculum-content" id="terms" style="display: none;">
+                                <h4 class="card-header border-bottom">Informe os seus Termos e Condições de Uso para seus agendamentos e vendas.</h4>
+                                <div class="card-body pt-1">
+                                    <form action="javascript:void(0)" id="editar-consultor-termos" method="POST">
+                                        <textarea name="termos" class="form-control" id="editor">{{ user.termos }}</textarea>
+
+                                        <button type="submit" class="rounded-pill btn btn-lg btn-primary mt-1" id="salvar"><i class="fa-solid fa-unlock-alt"></i> Salvar Alterações</button>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/ User Content -->
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/curriculum.js"></script>
+
+  {% endblock %}

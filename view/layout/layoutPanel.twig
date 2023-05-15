@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ PATH }}/view/painel/src/images/logo/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    {% if (_session.sampel_user_tipo == 3) %}
+        <script>window.location.replace('{{ DOMAIN }}');</script>
+    {% endif %}
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/vendors/css/extensions/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/js/scripts/tables/datatables.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/components.css">
+    {%  if (_cookie.siteStyle == 'dark-layout') %}
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/themes/dark-layout.css">
+    {% endif %}
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/plugins/charts/chart-apex.css">
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/css/plugins/extensions/ext-component-toastr.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ PATH }}/view/painel/src/assets/css/style.css">
+    <!-- END: Custom CSS -->
+    <script src="{{ PATH }}/view/painel/src/vendors/js/vendors.min.js"></script>
+    <script src="{{ PATH }}/view/painel/src/assets/js/core.js"></script>
+
+</head>
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static {{ (_cookie.siteStyle == 'light-layout') ? 'light-layout' : 'dark-layout' }}" data-layout="{{ _cookie.siteStyle }}" data-open="click" data-menu="vertical-menu-modern" data-col="" data-domain="{{ DOMAIN }}">
+    <script>let domain = $('body').data('domain');</script>
+
+    {{ include('painel/_inc/nav.twig') }}
+
+    {% if (_session.sampel_user_tipo == 1) %}
+        {{ include('painel/_inc/menu_admin.twig') }}
+    {% else %}
+        {{ include('painel/_inc/menu.twig') }}
+    {% endif %}
+
+    {% block body %} {% endblock %}
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- END: Content-->
+    {{ include('painel/_inc/footer.twig') }}
+
+    <script src="{{ PATH }}/view/painel/src/vendors/js/extensions/toastr.min.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/tables/datatables.min.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/core/app-menu.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/core/app.js"></script>
+    <script src="{{ PATH }}/view/painel/src/assets/js/scripts.js"></script>
+    <script>$(window).on('load', function() {if (feather) {feather.replace({width: 14,height: 14});}})</script>
+
+</body>
+
+</html>

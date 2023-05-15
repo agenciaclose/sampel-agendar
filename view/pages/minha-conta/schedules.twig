@@ -1,0 +1,75 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %}Minha Conta{% endblock %}
+
+{% block body %}
+
+<div class="page-title-wrap">
+    <div class="container">
+        <h2 class="entry-title">Minha Conta</h2>
+        <ul class="breadcrumb">
+            <li><a href="{{ DOMAIN }}">Home</a></li>
+            <li>Minha Conta</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+	<div class="py-5">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-3 col-sm-12">
+					{% include'pages/minha-conta/menu-user.twig' %}
+				</div>
+				<div class="col-md-9 col-sm-12">
+
+					<div class="card w-100 rounded-0 border-0">
+						<div class="card-header bg-primary text-white"><h5 class="mb-0"><b>Minha lista de agendamentos</b></h5></div>
+						<ul class="list-group list-group-flush">
+							{% for agendamento in schedules %}
+							<li class="list-group-item">
+								<div class="d-flex justify-content-between flex-wrap">
+									<div>
+										<div><a href="{{ DOMAIN }}/minha-conta/schedules/{{ agendamento.id }}" class="title text-uppercase"><b>{{ agendamento.titulo }}</b></a></div>
+										<div><small><b>Consultor: </b>{{ agendamento.c_nome }}</small></div>
+									</div>
+									<div>
+										<div>R$ <b>{{ agendamento.total|number_format(2, ',', '.') }}</b></div>
+										<div><i class="fa-regular fa-credit-card"></i> <b class="text-uppercase">{{ agendamento.tipo_pg }}</b></div>
+									</div>
+									<div>
+										<div>{{ agendamento.status|payStatus|raw }}</div>
+										<div>{{ ( agendamento.situacao == 'Pendente') ? '<span class="badge bg-warning" title="Status do Consultor. Será concluído após 24h data do agendamento.">Pendente</span>' : '<span class="badge bg-success" title="Agendamento realizado.">Concluído</span>' }}</div>
+									</div>
+									<div>
+										<div class="text-end"><i class="fa-light fa-clock"></i> {{ agendamento.dia_agendamento|date("d-m-Y", "America/Sao_Paulo") }} ás {{ agendamento.horario_agendamento }}</div>
+										<div class="text-end">
+											{% if agendamento.link_consultor != '' %}
+												<a href="{{ agendamento.link_consultor }}" target="_blank"><i class="fa-solid fa-link"></i> Link do agendamento</a>
+											{% else %}
+												<a href="javascript:void(0)" class="text-danger"><i class="fa-solid fa-link"></i> Link indisponível</a>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+
+					{% if schedules|length == 0 %}
+						<div class="alert alert-warning" role="alert">
+							Nenhuma compra foi feita ainda.
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

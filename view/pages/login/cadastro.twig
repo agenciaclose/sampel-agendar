@@ -1,0 +1,186 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block body %}
+
+<!-- BEGIN: Content-->
+<div class="container">
+
+    <div class="app-content content ">
+
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-6">
+                        <div class="auth-wrapper auth-basic">
+                            <div class="auth-inner my-5">
+                                <!-- Login basic -->
+                                <div class="card bg-transparent text-white border-white border-2">
+                                    <div class="card-body p-5">
+                                        <div class="text-center">
+                                            <h4 class="card-title mb-1 text-white fw-bold">FAÇA SEU CADASTRADO</h4>
+                                            <p class="card-text mb-1"></p>
+                                        </div>
+
+                                        <form class="mt-2" action="javascript:void(0)" id="register-client-form" method="POST">
+
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <div class="d-none">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Nome da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_nome" name="empresa_nome" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Nome da Fantasia</label>
+                                                            <input type="text" class="form-control" id="empresa_fantasia" name="empresa_fantasia" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Atividade</label>
+                                                            <input type="text" class="form-control" id="empresa_atividade" name="empresa_atividade" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Telefone da Empresa</label>
+                                                            <input type="text" class="form-control telefone" id="empresa_telefone" name="empresa_telefone" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Email da Empresa</label>
+                                                            <input type="email" class="form-control" id="empresa_email" name="empresa_email" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Endereço da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_logradouro" name="empresa_logradouro" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Nº</label>
+                                                            <input type="text" class="form-control" id="empresa_numero" name="empresa_numero" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Complemento</label>
+                                                            <input type="text" class="form-control" id="empresa_complemento" name="empresa_complemento" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Bairro da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_bairro" name="empresa_bairro" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Cidade da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_cidade" name="empresa_cidade" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Estado da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_uf" name="empresa_uf" />
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">CEP da Empresa</label>
+                                                            <input type="text" class="form-control" id="empresa_cep" name="empresa_cep" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-12">
+
+                                                    <div class="d-flex justify-content-center">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input cursor-pointer" type="radio" name="tipo_cadastro" id="tipo_cpf" value="tipo_cpf" checked>
+                                                            <label class="form-check-label cursor-pointer" for="tipo_cpf">Pessoa Física</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input cursor-pointer" type="radio" name="tipo_cadastro" id="tipo_cnpj" value="tipo_cnpj">
+                                                            <label class="form-check-label cursor-pointer" for="tipo_cnpj">Pessoa Jurídica</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3 tipo_cpf" style="display: none;">
+                                                        <label class="form-label">CNPJ</label>
+                                                        <input type="text" class="form-control cnpj" placeholder="00.000.000/0000-00" id="empresa_cnpj" name="cnpj" />
+                                                    </div>
+
+                                                    <div class="mb-3 tipo_cnpj">
+                                                        <label class="form-label">CPF</label>
+                                                        <input type="text" class="form-control cpf" placeholder="000.000.000-00" id="cpf" name="cpf" />
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Setor de Atuação</label>
+                                                        <select class="form-control" id="setor" name="setor" required="required">
+                                                            <option value="">Selecione</option>
+                                                            <option value="Proprietário de Veículo">Proprietário de Veículo</option>
+                                                            <option value="Mecânico / Reparador">Mecânico / Reparador</option>
+                                                            <option value="Frotista">Frotista</option>
+                                                            <option value="Varejista">Varejista</option>
+                                                            <option value="Oficina Reparadora">Oficina Reparadora</option>
+                                                            <option value="Taxista">Taxista</option>
+                                                            <option value="Auto Center">Auto Center</option>
+                                                            <option value="Transportadora">Transportadora</option>
+                                                            <option value="Distribuidora">Distribuidora</option>
+                                                            <option value="Outros">Outros</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Seu Nome</label>
+                                                        <input type="text" class="form-control" name="nome" placeholder="Nome Completo" required/>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Seu Telefone</label>
+                                                        <input type="text" class="form-control telefone" name="telefone" required/>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Seu E-mail</label>
+                                                        <input type="email" class="form-control" name="email" placeholder="john@gmail.com" required />
+                                                    </div>
+
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="login-password">Senha</label>
+                                                        <div class="input-group input-group-merge form-password-toggle">
+                                                            <input type="password" class="form-control" id="register-consultor-password" name="senha" />
+                                                            <span class="input-group-text cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <button type="submit" class="rounded-pill btn btn-lg btn-light" id="salvar"><i class="fa-solid fa-unlock-alt me-2"></i> Salvar Cadastro</button>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <!-- /Login basic -->
+                            </div>
+                            <div class="login-load" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- END: Content-->
+    
+</div>
+
+{% endblock %}

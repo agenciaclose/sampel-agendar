@@ -1,0 +1,72 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Usuários{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row">
+
+                        {% for manual in manuais %}
+                        <div class="col-lg-4 col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="d-flex">
+                                        <div>
+                                            <p class="contact-icon text-primary m-0">
+                                                <i class="fa-solid fa-{{ manual.ordem }}"></i>
+                                            </p>
+                                        </div>
+                                        <div class="mx-1">
+                                            <p class="tx-13 mb-0 tx-semibold">{{ manual.titulo }}</p>
+                                            <p class="tx-12 mb-0 text-muted">{{ manual.descricao }}</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#video_{{ manual.id }}">
+                                                <p class="contact-icon text-primary m-0">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="video_{{ manual.id }}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <video style="width: 100%;" height="450" controls>
+                                            <source src="{{ DOMAIN }}/{{ manual.video }}" type="video/mp4">
+                                        </video>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --env NODE_ENV=local --mode development",
+    "watch": "webpack --watch --env NODE_ENV=local --mode development",
+    "prod": "webpack --env NODE_ENV=evento --mode production"
+  },
+  "author": "Agnência Close",
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "caniuse-lite": "^1.0.30001446",
+    "highcharts": "^9.2.1",
+    "jquery": "^3.5.1",
+    "jquery-mask-plugin": "^1.14.16",
+    "remove-files-webpack-plugin": "^1.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "node": "^16.0.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-manifest-plugin": "^2.2.0"
+  }
+}

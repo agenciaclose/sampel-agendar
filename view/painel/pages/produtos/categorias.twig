@@ -1,0 +1,205 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Categorias{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="product_archive">
+
+                        <div class="row">
+
+                            <!-- NOVA CATEGORIA -->
+                            <div class="col-md-4">
+
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <form method="post" action="/painel/assets/data/categorias/insert_cadastro.php">
+                                            <input type="hidden" name="action" value="cadastrar">
+                                            <div class="form-group mb-2">
+                                                <label class="form-label">Nome</label>
+                                                <input name="newproduct_cat" id="newproduct_cat" type="text" value="" size="40" aria-required="true" class="form-control" placeholder="Nome da Categoria" onfocusout="slug($(this).val())">
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label">Slug</label>
+                                                <input name="newproduct_slug" id="newproduct_slug" type="text" value="" size="40" class="form-control cat_slug" onfocusout="slug($(this).val())">
+                                                <p>O “slug” é uma versão amigável do URL. Normalmente, é todo em minúsculas e contém apenas letras, números e hífens.</p>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label">Categoria Ascendente</label>
+                                                <select name="novacategoria_parent" id="novacategoria_parent" class="form-select">
+                                                    <option value="0">— Categoria Ascendente —</option>
+                                         
+                                                    {% macro list(categorias) %}
+                                                        {% for categoria in categorias %}
+                                                            <option value="{{ categoria.id }}">
+                                                                {% for space in 0..categoria.nivel %}&nbsp;&nbsp;&nbsp;{% endfor %}
+                                                                {{ categoria.nome }}
+                                                                {% if categoria.children %}{{ _self.list(categoria.children) }}{% endif %}
+                                                            </option>
+                                                        {% endfor %}
+                                                    {% endmacro %}
+
+                                                    {% if categorias %}
+                                                        {{ _self.list(categorias) }}
+                                                    {% endif %}
+
+                                                </select>
+                                                <small>Ao contrário das tags, as categorias, podem ter uma hierarquia. Você pode ter uma categoria chamada MPB e nela haver categorias para Bossa Nova e Baião. Totalmente opcional.</small>
+                                            </div>
+
+                                            <p class="submit">
+                                                <input type="submit" id="add-categoria" class="btn btn-primary" value="Adicionar nova categoria">
+                                            </p>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                            <!-- LISTA DE CATEGORIAS -->
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <form method="POST" action="/painel/assets/data/categorias/deletar_categoria.php">
+
+                                            <div class="filtro-top-table pull-left">
+                                                
+                                                <div class="d-flex justify-content-between align-items-end flex-wrap">
+                                                    
+                                                    <div>
+                                                        <div class="input-group input-group-sm mb-2">
+                                                            <select name="action" class="form-select action_select">
+                                                                <option value="-1" selected>Ações em massa</option>
+                                                                <option value="delete_all">Excluir</option>
+                                                            </select>
+                                                            <div class="input-group-append ms-1">
+                                                                <button class="btn btn btn-primary btn-sm" id="action_list" type="button">Aplicar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="lista">
+                                                <div class="p-0">
+                                                    <div class="product_archive filter-bar">
+
+
+                                                        <table class="table tabela" id="categorias">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="check-column ps-1 pe-0" width="25">
+                                                                        <div class="form-check">
+                                                                            <input type="checkbox" class="form-check-input cb-select-all header" data-location="header" name="delete_cat_all[]" value="all">
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="manage-column">Nome</th>
+                                                                    <th class="manage-column">Slug</th>
+                                                                    <th class="manage-column">Nível</th>
+                                                                    <th class="manage-column text-right" width="100">Total</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+
+                                                                <tr>
+                                                                    <td class="check-column ps-1 pe-0" width="25"></td>
+                                                                    <td class="">
+                                                                        <span class="title link">SEM CATEGORIA</span>
+                                                                        <div class="clearfix"></div>
+                                                                    </td>
+                                                                    <td>—</td>
+                                                                    <td>—</td>
+                                                                    <td class="text-center column-posts" width="100">
+                                                                        <a href="{{ DOMAIN }}/painel/produtos.php?codigos=<?php echo $codigos_filtro; ?>">0</a>
+                                                                    </td>
+                                                                </tr>
+
+                                                                {% macro tableListCat(categorias) %}
+                                                                    {% for categoria in categorias %}
+                                                                        <tr id="cat_item_{{ categoria.id }}">
+                                                                            <td class="check-column ps-1 pe-0" width="25">
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" name="delete_cat[]" value="{{ categoria.id }}">
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="#" class="title">
+                                                                                    {% if categoria.nivel > 0 %}
+                                                                                        {% for space in 0..(categoria.nivel -1) %}— {% endfor %}
+                                                                                    {% endif %}
+                                                                                    {{ categoria.nome }}
+                                                                                </a>
+                                                                                <div class="row-actions">
+                                                                                    <span class="edit"><a href="categorias-edit.php?action=editar&cat_ID=<?php echo $categoria['id']; ?>">Editar</a> | </span>
+                                                                                    <span class="delete"><a href="javascript:void(0);" onclick="deletar_cat({{ categoria.id }});" class="delete-tag text-danger">Excluir</a></span>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>{{ categoria.slug }}</td>
+                                                                            <td>Nível {{ categoria.nivel }}</td>
+                                                                            <td class="text-center column-posts" width="100"><a href="#">0</a></td>
+                                                                        </tr>
+                                                                        {% if categoria.children %}{{ _self.tableListCat(categoria.children) }}{% endif %}
+                                                                     
+                                                                    {% endfor %}
+                                                                {% endmacro %}
+
+                                                                {% if categorias %}
+                                                                    {{ _self.tableListCat(categorias) }}
+                                                                {% endif %}
+
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>                                                  
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group edit-term-notes">
+                                                <p>
+                                                    <strong>Nota:</strong><br>
+                                                    Excluindo uma categoria não exclui os produtos naquela categoria. Ao invés disso, produtos que eram atribuídos apenas a categoria deletada serão atribuídos a categoria <strong>Sem categoria</strong>.
+                                                </p>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/categorias_produtos.js"></script>
+
+{% endblock %}

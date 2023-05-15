@@ -1,0 +1,30 @@
+<div class="border-bottom px-3 py-1 mb-2">
+    <h4 class="mb-0">ALTERAR STATUS DO SAQUE</h4>
+</div>
+<div class="px-3 py-2 pt-0">
+    <form action="javascript:void(0);" method="POST" id="add_save_saque_status">
+       
+        <div class="mb-2">
+			<label>Status do Saque</label>
+			<select class="form-select" name="status" id="status" required="required">
+				<option value="Pendente" {{ saque.status == 'Pendente' ? 'selected' }}>Pendente</option>
+				<option value="Concluido" {{ saque.status == 'Concluido' ? 'selected' }}>Concluido</option>
+				<option value="Rejeitado" {{ saque.status == 'Rejeitado' ? 'selected' }}>Rejeitado</option>
+			</select>
+		</div>
+
+		<div class="mb-2">
+			<label>Nota</label>
+			<textarea class="form-control" name="nota" placeholder="Digite uma nota de para o consultor se necessário...">{{ saque.nota }}</textarea>
+		</div>
+
+        <div class="col-md-12 col-sm-12 mb-1">
+            <div class="d-flex justify-content-start w-100">
+            	<input type="hidden" name="id" value="{{ saque.id }}">
+                <button type="submit" id="salvar" class="btn btn-lg btn-primary">SALVAR SAQUE</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/admin/saques/saques.js"></script>

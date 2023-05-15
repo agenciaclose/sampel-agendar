@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><base href="">
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+        <link href="view/src/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="view/src/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="view/src/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="view/src/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="view/src/css/app.css" rel="stylesheet" type="text/css" />
+
+        <link href="view/src/css/login.css" rel="stylesheet" type="text/css" />
+
+        <link rel="shortcut icon" href="view/src/media/logos/favicon.ico" />
+    </head>
+<body data-domain="{{ DOMAIN }}" id="kt_body" style="background-image: url(view/src/media/bg/bg-10.jpg)" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
+
+    {% block body %}{% endblock %}
+
+    <script>var hostUrl = "{{ PATH }}/view/src/";</script>
+    <script src="{{ PATH }}/view/src/plugins/global/plugins.bundle.js"></script>
+    <script src="{{ PATH }}/view/src/js/scripts.bundle.js"></script>
+    <script src="{{ PATH }}/view/src/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="{{ PATH }}/view/src/js/custom/widgets.js"></script>
+    
+    {{ include('inc/script.twig') }}
+    <script>loadScriptsLogin();</script>
+</body>
+</html>

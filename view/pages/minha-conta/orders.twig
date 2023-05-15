@@ -1,0 +1,70 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %}Minha Conta{% endblock %}
+
+{% block body %}
+
+<div class="page-title-wrap">
+    <div class="container">
+        <h2 class="entry-title">Minha Conta</h2>
+        <ul class="breadcrumb">
+            <li><a href="{{ DOMAIN }}">Home</a></li>
+            <li>Minha Conta</li>
+        </ul>
+    </div>
+</div>
+
+<section>
+	<div class="py-5">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-3 col-sm-12">
+					{% include'pages/minha-conta/menu-user.twig' %}
+				</div>
+				<div class="col-md-9 col-sm-12">
+
+					<div class="card w-100 rounded-0 border-0">
+						<div class="card-header bg-primary text-white"><h5 class="mb-0"><b>Minhas compras de produtos</b></h5></div>
+						<ul class="list-group list-group-flush">
+							{% for venda in orders %}
+							<li class="list-group-item">
+								<div class="d-flex justify-content-between flex-wrap">
+									<div>
+										<div><a href="{{ DOMAIN }}/minha-conta/orders/{{ venda.id }}" class="title text-uppercase"><b>{{ venda.itemTitle }}</b></a></div>
+										<div><small><b>Vendedor: </b>{{ venda.vendedor }}</small></div>
+									</div>
+									<div>
+										<div>R$ <b>{{ venda.total|number_format(2, ',', '.') }}</b></div>
+										<div><i class="fa-regular fa-credit-card"></i> <b class="text-uppercase">{{ venda.tipo_pg }}</b></div>
+									</div>
+									<div>
+										<div>{{ venda.status|payStatus|raw }}</div>
+									</div>
+									<div>
+										<div class="text-end"><i class="fa-light fa-clock"></i> {{ venda.created|date("d-m-Y H:i:s", "America/Sao_Paulo") }}</div>
+										<div class="text-end">
+											<a href="{{ DOMAIN }}/minha-conta/orders/{{ venda.id }}" class="text-primary"><i class="fa-solid fa-link"></i> Ver arquivos disponíveis</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+
+					{% if orders|length == 0 %}
+						<div class="alert alert-warning" role="alert">
+							Nenhuma compra foi feita ainda.
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

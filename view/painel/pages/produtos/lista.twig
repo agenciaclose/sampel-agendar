@@ -1,0 +1,94 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Meus Produtos{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Meus Produtos</h5>
+                                    <div class="heading-elements">
+                                        <a class="btn btn-primary" href="{{ DOMAIN }}/painel/produtos/add"><i class="fa-regular fa-plus"></i> Add Novo</a>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50" class="text-center"><i class="fa-duotone fa-image"></i></th>
+                                                    <th>Nome</th>
+                                                    <th>SKU</th>
+                                                    <th>Estoque</th>
+                                                    <th>Valor</th>
+                                                    <th>Categorias</th>
+                                                    <th width="150" class="text-end">Data</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               {% for produto in produtos %}
+                                                <tr class="produto-{{ produto.id }}">
+                                                    <td class="text-center">
+                                                        {% if(produto.imagem == '') %}
+                                                    	    <img src="{{ PATH }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="40">
+                                                        {% else %}
+                                                            <img src="{{ produto.imagem }}" width="40">
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <div><a href="{{ DOMAIN }}/painel/produtos/edit/{{ produto.id }}" class="title text-uppercase">{{ produto.title }}</a></div>
+                                                        <div class="row-actions">
+                                                            <span class="edit"><a href="{{ DOMAIN }}/painel/produtos/edit/{{ produto.id }}">Editar</a> | </span>
+                                                            {% if(produto.status == 'Publicado') %}
+                                                            <span class="view"><a href="{{ DOMAIN }}/produto/{{ produto.id }}/{{ produto.slug }}" target="_blank">Ver</a> | </span>
+                                                            {% endif %}
+                                                            <span class="delete"><a href="javascript:void(0);" onclick="deleteProduct('{{ produto.id }}')" class="text-danger">Excluir</a></span>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ produto.sku }}</td>
+                                                    <td>
+                                                        {% if(produto.stock_status == 'instock') %}
+                                                        <div><span class="text-success">Em estoque</span> ({{ produto.stock_qty }})</div>
+                                                        {% else %}
+                                                        <div class="text-danger">Sem estoque</div>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>R$ <b>{{ produto.price|number_format(2, ',', '.') }}</b></td>
+                                                    <td>{{ (produto.categories == '') ? 'Sem Categoria' : produto.categories }}</td>
+                                                    <td class="text-end">
+                                                    	<div><span class="badge bg-{{ (produto.status == 'Rascunho') ? 'warning' : 'success' }}">{{ produto.status }}</span></div>
+                                                    	{{ produto.date_create|date('d-m-Y \\a\\s H:i') }}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/vendors/js/repeater/jquery.repeater.min.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/produto.js"></script>
+{% endblock %}

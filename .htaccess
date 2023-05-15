@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+
+   # ROUTER URL Rewrite
+   RewriteCond %{SCRIPT_FILENAME} !-f
+   RewriteCond %{SCRIPT_FILENAME} !-d
+   RewriteRule ^(.*)$ index.php?route=/$1 [L,QSA]
+
+   DirectoryIndex index.php
+
+</IfModule>

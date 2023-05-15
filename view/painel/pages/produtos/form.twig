@@ -1,0 +1,285 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Criar Produto{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <form action="javascript:void(0)" method="post" id="produto_post" enctype="multipart/form-data">
+                    <section id="dashboard-ecommerce">
+
+                        <div class="row">
+
+                            <div class="col-lg-9 col-md-9 col-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input value="{{ produto['title'] }}" type="text" id="product_title" class="form-control text-uppercase {{ (produto['id'] == '') ? 'novo_produto' : 'editar_produto' }}" name="title" maxlength="80" placeholder="NOME DO PRODUTO" required="required" onfocusout="format_slug($(this).val(), 'slug_link')">
+                                        <div class="edit-slug-box" style="{{ (produto['id'] != '') ? 'display:block;'}}">
+                                            <strong>Link permanente:</strong> https://56minutos.com.br/produto/<span id="slug-show">{{ produto['id'] }}/<span id="slug_link">{{ produto['slug'] }}</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Descrição</div>
+                                    <div class="card-body">
+                                        <textarea name="description" class="form-control" id="editor">{{ produto['description'] }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <div>Dados do produto </div>
+                                            <div><span data-bs-toggle="tooltip" data-bs-placement="top" title="Produtos baixáveis dão acesso a um ou mais arquivos mediante pagamento."><i class="fa-solid fa-cloud-question"></i></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0 pb-3">
+                                        <div class="nav-vertical">
+                                            <ul class="nav nav-tabs nav-left flex-column" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link pe-5 active" id="tap-geral" data-bs-toggle="tab" aria-controls="geral-content" href="#geral-content" role="tab" aria-selected="true">Geral</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link pe-5" id="tab-estoque" data-bs-toggle="tab" aria-controls="estoque-content" href="#estoque-content" role="tab" aria-selected="false">Estoque</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link pe-5" id="tab-arquivos" data-bs-toggle="tab" aria-controls="arquivos-content" href="#arquivos-content" role="tab" aria-selected="false">Arquivos</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+
+                                                <div class="tab-pane p-0 active" id="geral-content" role="tabpanel" aria-labelledby="tap-geral">
+
+                                                    <div class="col-12">
+                                                        <div class="mb-1 mx-0 row">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">SKU</label>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6 d-flex justify-content-between align-items-center">
+                                                                <input type="text" class="form-control" name="sku" placeholder="Código de identificação único" value="{{ produto['sku'] }}" />
+                                                                <span class="ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="SKU se refere a Unidade de Manutenção de Estoque, uma identificação exclusiva para cada produto distinto ou serviço que possa ser adquirido."><i class="fa-duotone fa-circle-question"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-1 mx-0 row">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">Preço (R$)</label>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <input type="text" class="form-control money" name="price" value="{{ (produto['price'] != '') ? produto['price'] }}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-1 mx-0 row align-items-center">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">Preço promocional (R$)</label>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <input type="text" class="form-control money" name="price_promo" value="{{ (produto['price_promo'] != '') ? produto['price_promo'] }}" />
+                                                            </div>
+                                                            <div class="col-sm-2 ps-0">
+                                                                <a data-bs-toggle="collapse" href="#promocao" promocaoaria-expanded="false" aria-controls="promocao">Programar</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="collapse {{ (produto['promo_from'] != '0000-00-00') and (produto['promo_from'] != '') ? 'show' }}" id="promocao">
+                                                            <div class="mb-1 mx-0 row align-items-center">
+                                                                <div class="col-sm-3">
+                                                                    <label class="form-label">Promoção de</label>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-6 position-relative">
+                                                                    <input type="date" class="form-control promo_from" name="promo_from" value="{{ produto['promo_from'] }}" />
+                                                                    <span class="clear-date" onclick="reset_date('promo_from');" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Limpar"><i class="fa-duotone fa-octagon-xmark"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-1 mx-0 row align-items-center">
+                                                                <div class="col-sm-3">
+                                                                    <label class="form-label">Promoção até</label>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-6 position-relative">
+                                                                    <input type="date" class="form-control promo_to" name="promo_to" value="{{ produto['promo_to'] }}" />
+                                                                    <span class="clear-date" onclick="reset_date('promo_to');" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Limpar"><i class="fa-duotone fa-octagon-xmark"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="tab-pane" id="estoque-content" role="tabpanel" aria-labelledby="tab-estoque">
+
+                                                    <div class="col-12">
+                                                        <div class="mb-1 mx-0 row align-items-center">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">Gerenciar estoque?</label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="manage_stock" id="manage_stock" {{ (produto['manage_stock'] == 'S') ? 'checked' }}>
+                                                                    <label class="form-check-label" for="manage_stock">Ativar gerenciamento de estoque a nível de produto</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-1 mx-0 row">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">Status do estoque</label>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6 d-flex justify-content-between align-items-center">
+                                                                <select id="stock_status" name="stock_status" class="form-select">
+                                                                    <option value="instock" {{ (produto['manage_stock'] == 'instock') ? 'selected="selected"' }}>Em estoque</option>
+                                                                    <option value="outofstock" {{ (produto['manage_stock'] == 'outofstock') ? 'selected="selected"' }}>Fora de estoque</option>
+                                                                </select>
+                                                                <span class="ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Controla se o produto é listado na loja como 'em estoque' ou 'não disponível'."><i class="fa-duotone fa-circle-question"></i></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-1 mx-0 row">
+                                                            <div class="col-sm-3">
+                                                                <label class="form-label">Quantidade em estoque</label>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <input type="number" class="form-control" name="stock_qty" value="{{ produto['stock_qty'] }}" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="tab-pane" id="arquivos-content" role="tabpanel" aria-labelledby="tab-arquivos">
+                                                    <div class="mb-1 pb-1 d-flex justify-content-between align-items-center border-bottom w-100">
+                                                        <div class="flex-fill me-4">Nome <span class="ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Este é o nome do download exibido para o cliente."><i class="fa-duotone fa-circle-question"></i></span></div>
+                                                        <div class="flex-fill">URL do Arquivo <span class="ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Selecione os arquivos que ficarão disponíveis após conclusão da compra do produto."><i class="fa-duotone fa-circle-question"></i></span></div>
+                                                    </div>
+
+                                                    <div class="repeater pe-2">
+                                                        <div data-repeater-list="arquivo">
+
+                                                            {% for arquivo in arquivos %}
+                                                                <div class="arquivo-{{ arquivo.id }}">
+                                                                    <div class="mb-1 pb-1 d-flex justify-content-between align-items-center border-bottom">
+                                                                        <span class="flex-fill form-control me-2">{{ arquivo.file_name }}</span>
+                                                                        <div class="input-group me-2">
+                                                                            <a href="{{ PATH }}/uploads/{{ arquivo.file }}" class="form-control flex-fill form-control bg-transparent" target="_blank"><i class="fa-duotone fa-folder-open"></i> Acessar Arquivo</a>
+                                                                        </div>
+                                                                        <span data-repeater-delete class="cursor-pointer text-danger" onclick="deleteFile('{{ arquivo.id }}','{{ produto['id'] }}', '{{ arquivo.file }}');" data-bs-toggle="tooltip" data-bs-placement="top" title="Deletar"><i class="fa-solid fa-trash"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+
+                                                            <div data-repeater-item>
+                                                                <div class="mb-1 pb-1 d-flex justify-content-between align-items-center border-bottom">
+                                                                    <input type="text" name="file_name" value="" class="flex-fill form-control me-2" placeholder="Nome do Arquivo">
+                                                                    <div class="input-group me-2">
+                                                                        <input type="file" name="file" class="form-control flex-fill form-control me-2" placeholder="URL do Arquivo" accept="application/msword, application/pdf, application/vnd.ms-powerpoint, application/zip, application/rar">
+                                                                    </div>
+                                                                    <span data-repeater-delete class="cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover"><i class="fa-duotone fa-circle-xmark"></i></span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <input class="btn btn-primary btn-sm" data-repeater-create type="button" value="Adicionar Arquivo"/>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-12">
+
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <div>Finalizar</div>
+                                            <div>
+                                                <input type="hidden" name="id" id="produto_id" value="{{ produto['id'] }}">
+                                                <button type="submit" id="salvar" class="btn btn-primary waves-effect waves-float waves-light">Salvar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="w-100 mb-25 d-flex justify-content-between">
+                                            <div><i class="fa-regular fa-key-skeleton me-1"></i>Status: <b>{{ (produto['status']) ? produto['status'] : 'Rascunho' }}</b></div>
+                                            <div><a data-bs-toggle="collapse" href="#produtoStatus" role="button" aria-expanded="false" aria-controls="produtoStatus">Editar</a></div>
+                                        </div>
+                                        <div class="collapse {{ (produto['status'] == 'Rascunho') ? 'show' }}" id="produtoStatus">
+                                           <select name="status" class="form-select">
+                                               <option value="Publicado" {{ (produto['status'] == 'Publicado') ? 'selected' }}>Publicado</option>
+                                               <option value="Rascunho" {{ (produto['status'] == 'Rascunho') ? 'selected' }}>Rascunho</option>
+                                           </select>
+                                        </div>
+                                        <div class="w-100 d-flex justify-content-between mt-1">
+                                            {% if (produto['date_create']) %}
+                                            <div><i class="fa-duotone fa-calendar-days me-1"></i>Publicado: <b>{{ produto['date_create']|date("d-m-Y \\a\\s H:i", "America/Sao_Paulo") }}</b></div>
+                                            {% else %}
+                                            <div><i class="fa-duotone fa-calendar-days me-1"></i>Publicar: <b>Imediatamente</b></div>
+                                            {% endif %}
+                                            <div><a data-bs-toggle="collapse" href="#produtoData" role="button" aria-expanded="false" aria-controls="produtoData">Editar</a></div>
+                                        </div>
+                                        <div class="collapse mt-1" id="produtoData">
+                                            <input class="form-control" type="datetime-local" name="data" value="{{ (produto['date_create']) ? produto['date_create']|date("Y-m-d\\TH:i", "America/Sao_Paulo") : "now"|date("Y-m-d\\TH:i", "America/Sao_Paulo") }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Categorias de Produtos</div>
+                                    <div class="card-body">
+                                        {% set cat_produto = produto['categories_id']|split(',') %}
+                                        {% macro list(categorias, cat_produto) %}
+                                            {% for categoria in categorias %}
+                                                <div class="form-check mb-25">
+                                                    <input class="form-check-input" name="categories_id[]" type="checkbox" id="categoria{{ categoria.id }}" value="{{ categoria.id }}" {{ (categoria.id in cat_produto) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="categoria{{ categoria.id }}">
+                                                        {% if categoria.nivel > 0 %}
+                                                            {% for space in 0..(categoria.nivel -1) %}— {% endfor %}
+                                                        {% endif %}
+                                                        {{ categoria.nome }}
+                                                    </label>
+                                                </div>
+                                                {% if categoria.children %}{{ _self.list(categoria.children, cat_produto) }}{% endif %}
+                                            {% endfor %}
+                                        {% endmacro %}
+
+                                        {% if categorias %}
+                                            {{ _self.list(categorias, cat_produto) }}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Galeria de Imagens</div>
+                                    <div class="card-body">
+                                        {{ include('painel/pages/produtos/imagens.twig') }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if(produto['id'] != '') %}<script>start_product_gallery()</script>{% endif %}
+    <script src="{{ PATH }}/view/painel/src/vendors/js/repeater/jquery.repeater.min.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/produto.js"></script>
+{% endblock %}

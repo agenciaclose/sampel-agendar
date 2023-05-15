@@ -1,0 +1,152 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}56 minutos - Criar Saques{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row"></div>
+            <div class="content-body">
+
+                <form action="javascript:void(0)" method="post" id="servico_post" enctype="multipart/form-data">
+
+                    <section id="dashboard-ecommerce">
+
+                        <div class="row">
+
+                            <div class="col-lg-9 col-md-9 col-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input type="text" class="form-control text-uppercase" name="titulo" maxlength="80" value="{{ servicos['titulo'] }}" placeholder="Título do serviço" required="required" onfocusout="format_slug($(this).val(), 'slug_link')">
+                                        <input type="hidden" name="slug" id="slug_link" value="{{ servicos['slug'] }}">
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Descrição</div>
+                                    <div class="card-body">
+                                        <textarea name="descricao" class="form-control" id="editor">{{ servicos['descricao'] }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Configurações</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <input type="text" class="form-control money" name="preco" placeholder="Preço do serviço" value="{{ servicos['preco'] }}" required="required">
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <input type="text" class="form-control" name="video" placeholder="Link do youtube" value="{{ servicos['video'] }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-12">
+                                
+                                <div class="card">
+                                    <div class="card-header card-header-post">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <div>Finalizar</div>
+                                            <div>
+                                                <input type="hidden" name="id" value="{{ servicos['id'] }}">
+                                                <button type="submit" class="btn btn-primary btn-sm waves-effect waves-float waves-light">Publicar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="w-100 mb-25 d-flex justify-content-between">
+                                            <div><i class="fa-regular fa-key-skeleton me-1"></i>Status: <b>{{ (servicos['status']) ? servicos['status'] : 'Publicado' }}</b></div>
+                                            <div><a data-bs-toggle="collapse" href="#servicosStatus" role="button" aria-expanded="false" aria-controls="servicosStatus">Editar</a></div>
+                                        </div>
+                                        <div class="collapse" id="servicosStatus">
+                                           <select name="status" class="form-select">
+                                               <option value="Publicado" {{ (servicos['status'] == 'Publicado') ? 'selected' }}>Publicado</option>
+                                               <option value="Rascunho" {{ (servicos['status'] == 'Rascunho') ? 'selected' }}>Rascunho</option>
+                                               <option value="Deletado" {{ (servicos['status'] == 'Deletado') ? 'selected' }}>Deletado</option>
+                                           </select>
+                                        </div>
+                                        <div class="w-100 d-flex justify-content-between mt-1">
+                                            {% if (servicos['data']) %}
+                                            <div><i class="fa-duotone fa-calendar-days me-1"></i>Publicado: <b>{{ servicos['data']|date("d-m-Y H:i:s", "America/Sao_Paulo") }}</b></div>
+                                            {% else %}
+                                            <div><i class="fa-duotone fa-calendar-days me-1"></i>Publicar: <b>Imediatamente</b></div>
+                                            {% endif %}
+                                            <div><a data-bs-toggle="collapse" href="#servicosData" role="button" aria-expanded="false" aria-controls="servicosData">Editar</a></div>
+                                        </div>
+                                        <div class="collapse mt-1" id="servicosData">
+                                            <input class="form-control" type="datetime-local" name="data" value="{{ (servicos['data']) ? servicos['data']|date("Y-m-d\\TH:i", "America/Sao_Paulo") : "now"|date("Y-m-d\\TH:i", "America/Sao_Paulo") }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Tipo do Serviço</div>
+                                    {% set tipos_selected = servicos['tipo']|split(',') %}
+                                    <div class="card-body">
+                                        {% for tipo in tipos %}
+                                        <div class="form-check mb-25">
+                                            <input class="form-check-input" name="tipo[]" type="checkbox" id="tipo{{ tipo.id }}" value="{{ tipo.nome }}" {{ (tipo.nome in tipos_selected) ? 'checked' }}>
+                                            <label class="form-check-label" for="tipo{{ tipo.id }}">{{ tipo.nome }}</label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Categorias de Serviço</div>
+                                    {% set categorias_selected =  servicos['categoria']|split(',') %}
+                                    <div class="card-body">
+                                        {% for categoria in categorias %}
+                                        <div class="form-check mb-25">
+                                            <input class="form-check-input" name="categoria[]" type="checkbox" id="categoria{{ categoria.id }}" value="{{ categoria.nome }}" {{ (categoria.nome in categorias_selected) ? 'checked' }}>
+                                            <label class="form-check-label" for="categoria{{ categoria.id }}">{{ categoria.nome }}</label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header card-header-post">Imagem de destaque</div>
+                                    <div class="card-body">
+                                    
+                                        <div class="text-center">
+                                            {% if (servicos['imagem']) %}
+                                                <img src="{{ PATH }}/uploads/{{ servicos['imagem'] }}" id="account-upload-img" class="uploadedAvatar rounded" alt="profile image" height="250" width="250" />
+                                            {% else %}
+                                                <img src="{{ PATH }}/view/painel/src/images/produtos/produto-placeholder.png" id="account-upload-img" class="uploadedAvatar rounded" alt="profile image" height="250" width="250" />
+                                            {% endif %}
+                                            <div class="d-flex justify-content-center mt-75 ms-1">
+                                                <div>
+                                                    <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Adicionar imagem</label>
+                                                    <input type="file" name="imagem" id="account-upload" hidden accept="image/*" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/servico.js"></script>
+
+{% endblock %}

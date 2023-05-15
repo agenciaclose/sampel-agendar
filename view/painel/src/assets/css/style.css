@@ -1,0 +1,153 @@
+/*==== */
+.text-primary {
+    color: #1194dc !important;
+}
+.primary-tooltip .tooltip-inner {
+  background-color: var(--bs-primary);
+}
+.danger-tooltip .tooltip-inner {
+  background-color: var(--bs-danger);
+}
+.primary-tooltip.bs-tooltip-top .tooltip-arrow::before, .primary-tooltip.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+  border-top-color: var(--bs-primary) !important;
+}
+.danger-tooltip.bs-tooltip-top .tooltip-arrow::before, .danger-tooltip.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+  border-top-color: var(--bs-danger) !important;
+}
+.bg-warning, .btn-warning {
+    color: #000 !important;
+}
+.form-select-sm {
+    font-size: 1rem !important;
+}
+.dataTables_length, .dataTables_info {
+    padding-left: 15px;
+}
+.dataTables_filter, .dataTables_paginate {
+    padding-right: 15px;
+}
+.dark-layout .main-menu-content .navigation-main .nav-item.active.open > a {
+    background-color: #1194dc !important;
+}
+.table tbody td .title {
+    font-size: 14px;
+    font-weight: 600;
+}
+.table .row-actions {
+    font-size: 13px;
+    padding: 2px 0 0;
+    position: relative;
+    left: -9999em;
+}
+.table tr:hover .row-actions {
+    position: static;
+}
+.row-actions span.delete a {
+    color: #a00;
+}
+.ck.ck-toolbar {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+}
+.ck.ck-editor__main>.ck-editor__editable {
+    background: transparent !important;
+    min-height: 250px;
+}
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border-color: initial;
+}
+.ck.ck-editor {
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: 5px;
+}
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border: none;
+}
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+    border: 0 !important; 
+    box-shadow: none !important;
+    outline: none !important;
+}
+.card-header-post {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid rgb(216 214 222);
+}
+.card-header-post + .card-body {
+    padding-top: 1.5rem !important;
+}
+.ck.ck-toolbar .ck.ck-toolbar__separator {
+    height: 20px;
+    margin-top: 9px !important;
+}
+.form-select {
+  background-position: right 0.5rem center;
+}
+.nav-tabs .nav-link:after {
+    background: linear-gradient(30deg, #1194dc, rgb(23 119 176)) !important;
+}
+.nav-pills .nav-link.active {
+    border-color: #1194dc;
+    box-shadow: 0 4px 18px -4px rgb(23 119 176 / 65%);
+}
+.login-load {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: rgb(255 255 255 / 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-load:before {
+    content: "\f110";
+    font-weight: 900;
+    font-family: "Font Awesome 6 Pro";
+    -webkit-animation: fa-spin 1s steps(8) infinite;
+    animation: fa-spin 1s steps(8) infinite;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-size: 2rem;
+}
+span.ck-file-dialog-button {
+    display: none;
+}
+.edit-slug-box {
+    display: none;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.clear-date {
+    position: absolute;
+    right: 50px;
+    top: 9px;
+}
+.input-saque > * {
+  font-size: 3rem !important;
+}
+.badge i, .badge svg {
+    height: auto;
+    width: auto;
+    font-size: normal;
+}
+.contact-icon {
+    display: inline-flex;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 4px;
+    background-color: rgba(158,207,250,.3);
+    color: var(--primary-bg-color);
+}
