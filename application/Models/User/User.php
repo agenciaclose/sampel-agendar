@@ -52,6 +52,7 @@ class User extends Model
     {
         $params['senha'] = sha1($params['senha']);
         unset($params['tipo_cadastro']);
+        unset($params['visita_id']);
         $create = new Create();
         $create->ExeCreate($this->table, $params);
         return $create->getResult();

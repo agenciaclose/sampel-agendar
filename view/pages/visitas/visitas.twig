@@ -1,0 +1,60 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Visitas {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="mb-4">
+			<h3>Sua listas de agendamentos de visitas</h3>
+			<div>Aqui você ver e gerencia sua visitas agendadas.</div>
+		</div>
+
+		<hr>
+
+		<div class="table-responsive">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+		        <thead>
+		            <tr>
+		                <th class="d-none">#</th>
+		                <th>Visita</th>
+		                <th>Responsável</th>
+		                <th>Pessoas</th>
+		                <th>Status</th>
+		                <th class="text-end">Data da Visita</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        	{% for visita in visitas %}
+					<tr>
+						<td class="d-none">{{ visita.visita_id }}</td>
+						<td>
+							<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
+						</td>
+						<td>
+							{{ visita.nome }} - <small class="text-lowercase text-white-50">{{ visita.empresa_fantasia }}</small>
+							<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+						</td>
+						<td>
+							{{ visita.inscricoes }} / {{ visita.qtd_visitas }}
+							<div><small><a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}">Ver lista</a></small></div>
+						</td>
+						<td><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></td>
+						<td class="text-end">
+							{{ visita.data_visita | date("m-d-Y H:i") }}
+							<div><small><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="text-warning"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a></small></div>
+						</td>
+					</tr>
+					{% endfor %}
+		        </tbody>
+		    </table>
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}

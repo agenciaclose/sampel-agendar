@@ -22,6 +22,14 @@ class Logon
         }
     }
 
+    public function loginByEmailReturn($email, $password)
+    {
+        $login = new Login();
+        $result = $login->getUserByEmailAndPassword($email, $password);
+        $this->actionsAfterFoundUser($result);
+        return $result;
+    }
+
     public function loginByOnlyEmail(string $email): bool
     {
         $login = new Login();

@@ -35,7 +35,7 @@ $(document).ready(function () {
         $('.login-load').show();
         $('.error-resete').html('');
         event.preventDefault();
-        var DOMAIN = $('body').data('domain');;
+        var DOMAIN = $('body').data('domain');
         let form = $(this);
         $.ajax({
             type: "POST", async: true, data: form.serialize(),

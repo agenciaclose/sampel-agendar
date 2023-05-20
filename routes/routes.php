@@ -8,11 +8,17 @@ $router = new Router(DOMAIN);
 $router->namespace("Agencia\Close\Controllers\Site\Home");
 $router->get("/", "HomeController:index", "home");
 
-
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Agendar");
 $router->get("/agendar", "AgendarController:index", "index");
 $router->post("/agendar/cadastro", "AgendarController:cadastro", "cadastro");
+
+// PAGE AGENDAR
+$router->namespace("Agencia\Close\Controllers\Site\Visitas");
+$router->get("/visitas", "VisitasController:index", "index");
+$router->get("/visita/lista/{id}", "VisitasController:lista", "lista");
+$router->get("/visita/inscricao/{id}", "VisitasController:inscricao", "inscricao");
+$router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro", "inscricaoCadastro");
 
 // LOAD LOGIN
 $router->namespace("Agencia\Close\Controllers\Site\Login");
@@ -94,45 +100,6 @@ $router->get("/painel/produtos/venda/{id}", "ProdutosController:vendaView", "ven
 
 $router->namespace("Agencia\Close\Controllers\Painel\Produtos");
 $router->get("/painel/produtos/categorias", "CategoriasController:index", "index");
-
-
-// PAINEL ADMIN
-
-// ADMIN USUARIOS
-$router->namespace("Agencia\Close\Controllers\Admin\Usuarios");
-$router->get("/painel/admin/usuarios", "UsuariosController:list", "list");
-$router->post("/painel/admin/usuarios/status", "UsuariosController:status", "status");
-$router->get("/painel/admin/usuarios/editar/{id}", "UsuariosController:editar", "editar");
-$router->get("/painel/admin/manuais-admin", "UsuariosController:manuaisAdmin", "manuaisAdmin");
-
-// SAQUES
-$router->namespace("Agencia\Close\Controllers\Admin\Saques");
-$router->get("/painel/admin/saques", "SaquesController:index", "index");
-$router->get("/painel/admin/saques/verificarModal/{sampel_user_id}", "SaquesController:verificarModal", "verificarModal");
-$router->get("/painel/admin/saques/statusModal/{id}", "SaquesController:statusModal", "statusModal");
-$router->post("/painel/admin/saques/statusSave", "SaquesController:statusSave", "statusSave");
-
-// ADMIN TIPOS SERVICOS
-$router->namespace("Agencia\Close\Controllers\Admin\Servicos");
-$router->get("/painel/admin/servicos/tipos", "TiposController:index", "index");
-$router->get("/painel/admin/servicos/tipos/{id}", "TiposController:edit", "edit");
-$router->post("/painel/admin/servicos/tipos/save", "TiposController:save", "save");
-//AGENDAMENTOS
-$router->get("/painel/admin/servicos/agendamentos", "ServicosController:agendamentos", "agendamentos");
-$router->get("/painel/admin/servicos/agendamento/{id}", "ServicosController:agendamentoView", "agendamentoView");
-
-//ADMIN PRODUTOS
-$router->namespace("Agencia\Close\Controllers\Admin\Produtos");
-$router->get("/painel/admin/produtos/vendas", "ProdutosController:vendas", "vendas");
-$router->get("/painel/admin/produtos/venda/{id}", "ProdutosController:vendaView", "vendaView");
-
-
-
-// ADMIN CATEGORIAS SERVICOS
-$router->namespace("Agencia\Close\Controllers\Admin\Servicos");
-$router->get("/painel/admin/servicos/categorias", "CategoriasController:index", "index");
-$router->get("/painel/admin/servicos/categorias/{id}", "CategoriasController:edit", "edit");
-$router->post("/painel/admin/servicos/categorias/save", "CategoriasController:save", "save");
 
 
 // ERROR

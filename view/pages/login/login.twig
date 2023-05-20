@@ -30,7 +30,7 @@
                                         <form class="auth-login-form mt-2" action="javascript:void(0)" id="login-form" method="POST">
                                             <div class="mb-3">
                                                 <label for="login-email" class="form-label">E-mail</label>
-                                                <input type="text" class="form-control" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
+                                                <input type="text" class="form-control rounded-pill" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
                                             </div>
 
                                             <div class="mb-3">
@@ -40,9 +40,9 @@
                                                         <small>Esqueceu a senha?</small>
                                                     </a>
                                                 </div>
-                                                <div class="input-group input-group-merge form-password-toggle">
-                                                    <input type="password" class="form-control form-control-merge" data-type="hide" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
-                                                    <span class="input-group-text bg-white cursor-pointer" onclick="show_pass('login-password')"><i class="fa-solid fa-eye"></i></span>
+                                                <div class="form-password-toggle">
+                                                    <input type="password" class="form-control rounded-pill form-control-merge" data-type="hide" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
+                                                    <span class="show-pass cursor-pointer" onclick="show_pass('login-password')"><i class="fa-solid fa-eye"></i></span>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
@@ -51,7 +51,7 @@
                                                     <label class="form-check-label" for="remember-me"> Lembrar de mim </label>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="rounded-pill btn btn-lg btn-light" tabindex="4"><i class="fa-solid fa-unlock-alt me-2"></i> Fazer Login</button>
+                                            <button type="submit" class="rounded-pill btn btn-warning" tabindex="4"><i class="fa-solid fa-unlock-alt me-2"></i> Fazer Login</button>
                                         </form>
 
                                     </div>

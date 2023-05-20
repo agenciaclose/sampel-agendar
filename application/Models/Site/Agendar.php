@@ -10,11 +10,11 @@ use Agencia\Close\Models\Model;
 class Agendar extends Model
 {
 
-    public function saveCadastro($dataToSave)
+    public function saveCadastro($params)
     {
         $params['id_empresa'] = $_SESSION['sampel_user_id'];
         $create = new Create();
-        $create->ExeCreate('visitas', $dataToSave);
+        $create->ExeCreate('visitas', $params);
         return $create->getResult();
     }
 

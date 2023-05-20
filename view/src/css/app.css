@@ -65,6 +65,13 @@ html{
   height:100%;
   min-height: 100%;
 }
+input::placeholder {
+  opacity: 0.5;
+  color: white;
+}
+.alert-none {
+  display: none;
+}
 .form-check-input:checked {
   background-color: var(--bs-yellow);
   border-color: var(--bs-yellow);
@@ -122,11 +129,12 @@ ul, ol {
 
 body{
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  line-height: 1.3em;
   font-size: 16px;
+  font-weight: 400;
   position: relative;
+  line-height: 1.3em;
+  letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif;
 }
 
 a,
@@ -169,6 +177,14 @@ blockquote{
 }
 video {
   border: 1px solid #333;
+}
+.limit-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+         line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -319,7 +335,7 @@ img.alignright{
 .table th,
 .table td {
   padding: 0.75rem;
-  vertical-align: top;
+  vertical-align: middle;
   border-top: 1px solid #dee2e6;
 }
 
@@ -4004,15 +4020,36 @@ footer .special-heading-2:before {
   position: relative;
   display: block;
   margin-bottom: 10px;
-  color: #fff;
+  color: #FFFFFF;
 }
 .menu-suporte li i {
-  color: #fff;
   margin-right: 5px;
+  color: #FFFFFF;
 }
 .options-home-menu a:hover .card {
   background-color: rgb(255 255 255 / 5%) !important;
 }
 .cadastrar_visita_success {
   display: none;
+}
+.dataTables_wrapper .dataTables_length select, .dataTables_wrapper .dataTables_filter input {
+  background-color: #246CB1 !important;
+  outline-offset: 0;
+  color: #FFFFFF;
+  outline: thin;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  color: #b3b0b0 !important;
+}
+.table-hover>tbody>tr:hover>* {
+  color: #ffffff;
+}
+.form-password-toggle {
+  position: relative;
+}
+.show-pass {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #000;
 }

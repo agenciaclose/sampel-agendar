@@ -77,7 +77,7 @@ class RecoverController extends Controller
     {
         if (!isset($this->params['email'])) {
             $this->result->setError(true);
-            $this->result->setMessage('E-mail não foi enviado!');
+            $this->result->setMessage('Email não foi enviado!');
         }
     }
 
@@ -90,7 +90,7 @@ class RecoverController extends Controller
 
         if (!EmailUser::verifyIfEmailExist($identification)) {
             $this->result->setError(true);
-            $this->result->setMessage('E-mail não encontrado!');
+            $this->result->setMessage('Email não encontrado!');
         }
     }
 
