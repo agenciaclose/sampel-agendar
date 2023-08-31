@@ -1,0 +1,71 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+@media print {
+    body {-webkit-print-color-adjust: exact;}
+    html, body {
+        width: 210mm;
+        height: 297mm;
+        max-width: 210mm;
+        max-height: 297mm;
+    }
+    .conteudo .cargo {
+        background-color: #000 !important;
+        color: #FFFFFF !important;
+    }
+}
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+}
+.p-3 {
+    padding: 1rem 0;
+}
+.m-auto {
+    margin: 0 auto;
+}
+.w-50 {
+    width: 50%;
+}
+.w-100{
+    width: 100%;
+}
+.text-center {
+    text-align: center;
+}
+.conteudo {
+    width: 210mm;
+    height: 297mm;
+}
+.conteudo > div {
+    width: 49.9%;
+    height: 49.9%;
+    max-width: 49.9%;
+    max-height: 49.9%;
+    float: left;
+}
+.conteudo .titulo {
+    text-transform: uppercase;
+}
+.conteudo .coluna1, .conteudo .coluna3 {
+    border-right: 1px solid #000;
+}
+.conteudo .coluna3, .conteudo .coluna4 {
+    border-top: 1px solid #000;
+}
+.conteudo .coluna > div {
+    padding: 15px;
+}
+.conteudo .cargo {
+    padding: 15px 10px;
+    text-align: center;
+    background-color: #000;
+    color: #FFFFFF;
+    font-size: 20px;
+    letter-spacing: 2px;
+}

@@ -42,12 +42,12 @@
                                     <div class="dropdown-menu dropdown-menu-end user-menu" aria-labelledby="dropdown-user">
                                         {% if (_session.sampel_user_tipo == 3) %}
                                         <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta"><i class="fa-light fa-user me-1"></i> Minha Conta</a>
-                                        <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta/orders"><i class="fa-light fa-cart-shopping me-1"></i> Minhas Compras</a>
-                                        <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta/schedules"><i class="fa-light fa-cart-shopping me-1"></i> Meus Agendamentos</a>
-                                        {% else %}
-                                        <a class="dropdown-item" href="{{ DOMAIN }}/painel"><i class="fa-light fa-album-collection me-1"></i> Meu Painel</a>
-                                        {% endif %}
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/visitas"><i class="fa-light fa-calendar-check me-1"></i> Minhas Visitas</a>
                                         <a class="dropdown-item" href="{{ DOMAIN }}/logout"><i class="fa-light fa-right-from-bracket me-1"></i> Sair</a>
+                                        {% else %}
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/painel"><i class="fa-light fa-user me-1"></i> Painel Admin</a>
+                                        <a class="dropdown-item" href="{{ DOMAIN }}/logout"><i class="fa-light fa-right-from-bracket me-1"></i> Sair</a>
+                                        {% endif %}
                                     </div>
                                 </li>
 

@@ -24,4 +24,16 @@ class AgendarController extends Controller
             echo '0';
         }
     }
+
+    public function editar($params)
+    {
+        $this->setParams($params);
+        $editar = new Agendar();
+        $editar = $editar->saveEditar($this->params);
+        if ($editar) {
+            echo '1';
+        } else {
+            echo '0';
+        }
+    }
 }

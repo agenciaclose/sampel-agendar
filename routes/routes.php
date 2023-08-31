@@ -12,6 +12,7 @@ $router->get("/", "HomeController:index", "home");
 $router->namespace("Agencia\Close\Controllers\Site\Agendar");
 $router->get("/agendar", "AgendarController:index", "index");
 $router->post("/agendar/cadastro", "AgendarController:cadastro", "cadastro");
+$router->post("/agendar/editar", "AgendarController:editar", "editar");
 
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");
@@ -19,6 +20,11 @@ $router->get("/visitas", "VisitasController:index", "index");
 $router->get("/visita/lista/{id}", "VisitasController:lista", "lista");
 $router->get("/visita/inscricao/{id}", "VisitasController:inscricao", "inscricao");
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro", "inscricaoCadastro");
+$router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoCadastroQRcode", "inscricaoCadastroQRcode");
+$router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
+
+$router->namespace("Agencia\Close\Controllers\Site\Feedback");
+$router->get("/visita/feedback/{user}/{id}", "FeedbackController:pergunta", "pergunta");
 
 // LOAD LOGIN
 $router->namespace("Agencia\Close\Controllers\Site\Login");
@@ -44,7 +50,6 @@ $router->get("/minha-conta/edit-account", "MinhaContaController:editaccount");
 //PAINEL HOME
 $router->namespace("Agencia\Close\Controllers\Painel\Home");
 $router->get("/painel", "HomeController:index");
-$router->get("/painel/manuais-consultor", "HomeController:manuaisConsultor", "manuaisConsultor");
 
 // PAINEL LOGIN
 $router->namespace("Agencia\Close\Controllers\Painel\LoginPainel");
@@ -53,53 +58,32 @@ $router->get("/painel/login/recover", "LoginPainelController:recover");
 $router->post("/painel/login/sign", "LoginPainelController:sign");
 $router->get("/painel/login/logout", "LoginPainelController:logout");
 
-// PAINEL SAQUES
-$router->namespace("Agencia\Close\Controllers\Painel\Saques");
-$router->get("/painel/saques", "SaquesController:index", "index");
-$router->get("/painel/saques/conta/add-saque", "SaquesController:SaqueModal", "SaqueModal");
-$router->post("/painel/saques/conta/check", "SaquesController:CarteiraCheck", "CarteiraCheck");
-$router->post("/painel/saques/conta/save-saque", "SaquesController:SaveSaque", "SaveSaque");
-
-$router->get("/painel/saques/conta/criar", "SaquesController:ContaCriar", "ContaCriar");
-$router->get("/painel/saques/conta/editar/{id}", "SaquesController:ContaEditar", "ContaEditar");
-$router->post("/painel/saques/conta/salvar", "SaquesController:ContaSalvar", "ContaSalvar");
-
 // PAINEL CURRICULUM
 $router->namespace("Agencia\Close\Controllers\Painel\Curriculum");
 $router->get("/painel/curriculum", "CurriculumController:index", "index");
-$router->post("/painel/curriculum/account", "CurriculumController:accountUpdate", "accountUpdate");
-$router->post("/painel/curriculum/security", "CurriculumController:accountSecurity", "accountSecurity");
-$router->post("/painel/curriculum/terms", "CurriculumController:accountTerms", "accountTerms");
+$router->post("/painel/curriculum/account", "CurriculumController:accountUpdate");
+$router->post("/painel/curriculum/security", "CurriculumController:accountSecurity");
+$router->post("/painel/curriculum/terms", "CurriculumController:accountTerms");
 
-// PAINEL SERVICOS
-$router->namespace("Agencia\Close\Controllers\Painel\Servicos");
-$router->get("/painel/servicos", "ServicosController:index", "index");
-$router->get("/painel/servicos/add", "ServicosController:add", "add");
-$router->get("/painel/servicos/edit/{id}", "ServicosController:edit", "edit");
-$router->get("/painel/servicos/horarios", "ServicosController:horarios", "horarios");
-$router->post("/painel/servicos/horarios/save", "ServicosController:horariosSave", "horariosSave");
-$router->post("/painel/servicos/save", "ServicosController:save", "save");
-$router->get("/painel/servicos/agendamentos", "ServicosController:agendamentos", "agendamentos");
-$router->post("/painel/servicos/agendamentos/link", "ServicosController:linkSave", "linkSave");
-$router->get("/painel/servicos/agendamentos/modal-link", "ServicosController:modalLink", "modalLink");
-$router->get("/painel/servicos/agendamento/{id}", "ServicosController:agendamentoView", "agendamentoView");
-$router->get("/painel/servicos/agendamentos/agendamento-concluido/{item}", "ServicosController:agendamentoConcluido", "agendamentoConcluido");
+// PAINEL VISTAS
+$router->namespace("Agencia\Close\Controllers\Painel\Visitas");
+$router->get("/painel/visitas", "VisitasController:index", "index");
+$router->get("/painel/visita/ver/{id}", "VisitasController:view", "view");
+$router->get("/painel/visita/status/aprovar/{id}", "VisitasController:aprovar");
+$router->get("/painel/visita/status/reprovar/{id}", "VisitasController:reprovar");
 
-// PAINEL PRODUTOS
-$router->namespace("Agencia\Close\Controllers\Painel\Produtos");
-$router->get("/painel/produtos", "ProdutosController:index", "index");
-$router->get("/painel/produtos/add", "ProdutosController:add", "add");
-$router->get("/painel/produtos/edit/{id}", "ProdutosController:edit", "edit");
-$router->get("/painel/produtos/vendas", "ProdutosController:vendas", "vendas");
-$router->post("/painel/produtos/save_draft", "ProdutosController:save_draft", "save_draft");
-$router->post("/painel/produtos/update", "ProdutosController:update", "update");
-$router->post("/painel/produtos/excluir", "ProdutosController:excluir", "excluir");
-$router->post("/painel/produtos/delete-file", "ProdutosController:deleteFile", "deleteFile");
-$router->get("/painel/produtos/vendas", "ProdutosController:vendas", "vendas");
-$router->get("/painel/produtos/venda/{id}", "ProdutosController:vendaView", "vendaView");
+// PAINEL VISITAS CRIAR
+$router->get("/painel/visitas/add", "VisitasController:criar");
+$router->get("/painel/visitas/editar/{id}", "VisitasController:editar");
 
-$router->namespace("Agencia\Close\Controllers\Painel\Produtos");
-$router->get("/painel/produtos/categorias", "CategoriasController:index", "index");
+// PAINEL VISITAS INSCRICAO
+$router->namespace("Agencia\Close\Controllers\Painel\Inscricao");
+$router->get("/painel/visita/inscricao/{id}", "InscricaoController:inscricao", "inscricao");
+
+// PAINEL VISITAS CONFIGURACOES
+$router->namespace("Agencia\Close\Controllers\Painel\Config");
+$router->get("/painel/visitas/config", "ConfigController:index");
+$router->post("/painel/visitas/config/save", "ConfigController:save");
 
 
 // ERROR

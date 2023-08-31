@@ -30,17 +30,6 @@ class CurriculumController extends Controller
     {
         $this->setParams($params);
 
-        //var_dump($_FILES);
-
-        if($_FILES['imagem']['tmp_name']) {
-            $upload = new Upload;
-            $upload->Image($_FILES['imagem'], microtime(), null, 'usuarios/'.$_SESSION['sampel_user_slug']);
-        }
-
-        if(isset($upload) && $upload->getResult()) {
-            $this->params['imagem'] = $upload->getResult();
-        }
-
         $accountUpdate = new CurriculumPainel();
         $accountUpdate = $accountUpdate->accountUpdate($this->params);
 

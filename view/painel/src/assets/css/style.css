@@ -1,4 +1,8 @@
 /*==== */
+.mx-05 {
+    margin-right: 0.5rem !important;
+    margin-left: 0.5rem !important;
+}
 .text-primary {
     color: #1194dc !important;
 }
@@ -150,4 +154,25 @@ span.ck-file-dialog-button {
     margin: 4px;
     background-color: rgba(158,207,250,.3);
     color: var(--primary-bg-color);
+}
+.cadastrar_visita_success, .editar_visita_success {
+    display: none;
+}
+.form-load {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  color: #333333;
+  font-size: 2rem;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background-color: rgb(255 255 255 / 30%);
+}
+.form-load.show {
+  display: flex;
 }

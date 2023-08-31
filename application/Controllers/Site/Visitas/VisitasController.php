@@ -13,7 +13,11 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         $visitas = new Visitas();
-        $visitas = $visitas->listarVisitas()->getResult();
+        if($_SESSION['sampel_user_tipo'] == '3'){
+            $visitas = $visitas->listarVisitasUser()->getResult();
+        }else{
+            $visitas = $visitas->listarVisitas()->getResult();
+        }
         $this->render('pages/visitas/visitas.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }
 
@@ -31,42 +35,48 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         $visita = new Visitas();
+
         $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
-        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita]);
+
+        if(isset($_GET['action'])){
+            $inscricao = new Visitas();
+            $inscricao = $inscricao->getInscricao($visita['visita_id'])->getResult()[0];
+        }else{
+            $inscricao = '';
+        }
+
+        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
     }
 
     public function inscricaoCadastro($params)
     {
         $this->setParams($params);
 
-        if( !$this->checkCadastro($params['cpf'], $params['email'], $params['visita_id']) ){
-
+        if( !$this->checkCadastro($params['cpf'], $params['email'], $params['id_visita']) ){
             if(!empty($_SESSION['sampel_user_id'])){
-
                 $params['sampel_user_id'] = $_SESSION['sampel_user_id'];
-
             }else{
-
                 $user = new User();
                 $user->saveClient($params);
-                
                 $logon = new Logon();
                 $params['sampel_user_id'] = $logon->loginByEmailReturn($params['email'], $params['senha'])->getResult()[0]['id'];
-                
             }
-
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
             if ($cadastro) {
                 echo "1";
             }
-
         }else{
-
             echo '2';
-
         }
 
+    }
+
+    public function inscricaoCadastroQRcode($params)
+    {
+        $this->setParams($params);
+        $update = new Visitas();
+        $update = $update->inscricaoCadastroQRcode($params);
     }
 
     public function checkCadastro($cpf, $email, $visita_id)
@@ -75,4 +85,18 @@ class VisitasController extends Controller
         $checkCadastro = $checkCadastro->checkCadastro($cpf, $email, $visita_id)->getResult();
         return $checkCadastro;
     }
+
+    public function printEtiqueta($params)
+    {
+        $this->setParams($params);
+
+        $inscricao = new Visitas();
+        $inscricao = $inscricao->getInscricaoByCode($params['codigo'])->getResult()[0];
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($inscricao['id_visita'])->getResult()[0];
+
+        $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
+    }
+
 }

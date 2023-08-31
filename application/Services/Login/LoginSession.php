@@ -8,6 +8,7 @@ class LoginSession
     {
         $_SESSION = [
             'sampel_user_id' => $login['id'],
+            'sampel_user_tipo' => $login['tipo'],
             'sampel_user_slug' => $login['slug'],
             'sampel_user_nome' => $login['nome'],
             'sampel_user_email' => $login['email'],

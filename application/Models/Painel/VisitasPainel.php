@@ -1,0 +1,52 @@
+<?php
+
+namespace Agencia\Close\Models\Painel;
+
+use Agencia\Close\Conn\Conn;
+use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Read;
+use Agencia\Close\Conn\Update;
+use Agencia\Close\Models\Model;
+use mysql_xdevapi\Result;
+
+class VisitasPainel extends Model
+{
+	private string $table = 'produtos';
+
+    public function getVisitasList(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id
+                        FROM visitas AS v
+                        INNER JOIN usuarios AS u ON u.id = v.id_empresa ORDER BY v.id DESC");
+        return $read;
+    }
+
+    public function getVisitaID($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id
+                        FROM visitas AS v
+                        INNER JOIN usuarios AS u ON u.id = v.id_empresa
+                        WHERE v.id = :id_visita ORDER BY v.id DESC", "id_visita={$id_visita}");
+        return $read;
+    }
+
+    public function listarInscricoes($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*
+                        FROM visitas_inscricoes AS v
+                        INNER JOIN usuarios AS u ON u.id = v.id_user
+                        WHERE v.id_visita = :id_visita ORDER BY v.`data` DESC", "id_visita={$id_visita}");
+        return $read;
+    }
+
+    public function visitaStatus($id_visita, $action): read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `status_visita` = :action WHERE `id` = :id_visita", "id_visita={$id_visita}&action={$action}");
+        return $read;
+    }
+
+}

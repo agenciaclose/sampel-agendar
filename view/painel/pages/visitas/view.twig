@@ -1,0 +1,115 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Venda{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row">
+
+						<div class="col-md-6">
+
+							<div class="card">
+
+								<div class="card-body">
+								
+									<div class="mb-2">
+										<h3>Informações dessa Solicitação de Visita</h3>
+										<div>Informações do solicitante e empresa responsável abaixo.</div>
+									</div>
+
+									<hr>
+
+									<div class="d-flex justify-content-between flex-wrap">
+										<h4 class="text-primary"><b>{{ visita.title }}</b></h4>
+										<div><b>Data para a visita:</b> {{ visita.data_visita | date("m-d-Y H:i") }}</div>
+									</div>
+
+									<hr>
+
+									<div class="my-1 row">
+
+										<div class="col-12 col-sm-12 col-md-6">
+											<div><h5 class="text-primary">Responsavel:</h5></div>
+											<b>{{ visita.nome }}</b>
+											<div class="text-lowercase">{{ visita.email }}</div>
+											<div class="text-lowercase">{{ visita.empresa_telefone }}</div>
+										</div>
+
+										<div class="col-12 col-sm-12 col-md-6">
+											<div><h5 class="text-primary">Empresa:</h5></div>
+											<div>{{ visita.empresa_fantasia }}</div>
+											<div>{{ visita.empresa_email }}</div>
+											<div>{{ visita.empresa_telefone }}</div>
+											<div>{{ visita.empresa_logradouro }}, {{ visita.empresa_numero }}</div>
+											<div>{{ visita.empresa_cidade }} - {{ visita.empresa_uf }}</div>
+										</div>
+
+									</div>
+
+									<hr>
+									
+									<div class="mt-1">
+										<div><b>Informações:</b></div>
+										<div class="">{{ visita.descricao }}</div>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="card">
+								<div class="card-header border-bottom">
+									<div><h3>Lista de Inscritos</h3></div>
+								</div>
+								<div class="card-body">
+									<table class="table">
+										<tbody>
+											{% for lista in listas %}
+												<tr>
+													<td class="d-none">{{ lista.visita_id }}</td>
+
+													<td class="ps-0">
+														{{ lista.nome }}
+														<div class="text-lowercase">
+															<small>{{ lista.email }} - {{ lista.telefone }}</small>
+														</div>
+													</td>
+
+													<td class="text-end pe-0">
+														{{ lista.data_visita | date("m-d-Y H:i") }}
+														<div><a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a></div>
+													</td>
+
+												</tr>
+												{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

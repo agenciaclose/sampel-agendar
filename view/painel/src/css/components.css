@@ -1053,16 +1053,19 @@ footer.footer-border {
 .main-menu .navbar-header {
   height: 100%;
   width: 260px;
-  height: 4.45rem;
+  height: 6.9rem;
   position: relative;
   padding: 0.35rem 1rem 0.3rem 1.64rem;
   transition: 300ms ease all, background 0s;
+  display: flex;
+  align-content: center;
+  align-items: center;
 }
 
 .main-menu .navbar-header .navbar-brand {
   display: flex;
   align-items: center;
-  margin-top: 1.35rem;
+  margin: 0;
   font-size: inherit;
 }
 

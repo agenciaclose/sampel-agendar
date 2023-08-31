@@ -1,0 +1,95 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Formulário de Visita{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+           
+            <div class="content-header row">
+            </div>
+
+            <div class="content-body">
+                
+                <div class="mb-2">
+                    <h3>{{ visita.id != '' ? 'Preencha o formulário para editar essa visita.' : 'Preencha o formulário para agendar a sua visita.' }}</h3>
+                    <div>Campos marcados com asterisco ( <span class="text-danger">*</span> ) são obrigatórios.</div>
+                </div>
+
+                <hr>
+
+                <form action="javascript:void(0)" id="{{ visita.id != '' ? 'editar_visita' : 'cadastrar_visita' }}" method="POST">
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <div class="position-relative {{ visita.id != '' ? 'editar_visita' : 'cadastrar_visita' }}">
+
+                                <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Qual o motivo da visita? <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" id="title" value="{{ visita.title }}">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <label for="qtd_visitas" class="form-label">Quantidade de pessoas na visita <span class="text-danger">*</span></label>
+                                            <input type="text" maxlength="2" name="qtd_visitas" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <label for="qtd_visitas" class="form-label">Data da Visita <span class="text-danger">*</span></label>
+                                            <input type="datetime-local" name="data_visita" class="form-control" id="data_visita" value="{{ visita.data_visita }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descricao" class="form-label">Descreva por completo os objetivos para esse agendamento de visita. <span class="text-danger">*</span></label>
+                                    <textarea id="descricao" class="form-control" name="descricao" rows="5">{{ visita.descricao }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    {% if visita.id == '' %}
+                                    <input type="hidden" name="status_visita" value="Aprovado">
+                                    {% else %}
+                                    <input type="hidden" name="id" value="{{ visita.id }}">
+                                    {% endif %}
+                                    <button type="submit" class="rounded-pill btn btn-lg btn-primary">
+                                        <i class="fa-light fa-paper-plane"></i> {{ visita.id != '' ? 'SALVAR EDIÇÃO' : 'FINALIZAR CADASTRO' }}
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="cadastrar_visita_success mt-2">
+                                <div class="alert alert-primary p-2" role="alert">
+                                    <div><h4>Agendamento enviado com sucesso!</h4></div>
+                                </div>
+                            </div>
+                            <div class="editar_visita_success mt-2">
+                                <div class="alert alert-primary p-2" role="alert">
+                                    <div><h4>Agendamento editado com sucesso!</h4></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-12 mt-2">
+                            <div class="alert alert-primary p-2" role="alert">
+                                <div><h4>Número de visitantes</h4></div>
+                                O número de visitantes será validado posteriormente na lista de visitantes, na qual não será possível cadastrar um número diferente do que foi solicitado originalmente.
+                            </div>
+                            <div class="alert alert-warning p-2" role="alert">
+                                * Visitas devem ser maiores de 18 anos.
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js"></script>
+{% endblock %}

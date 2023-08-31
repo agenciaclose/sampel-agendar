@@ -1,0 +1,161 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %} Inscrição {% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+           
+            <div class="content-header row">
+            </div>
+
+            <div class="content-body">
+
+				<div class="mb-2">
+					<h3>Faça sua inscrição para essa visita</h3>
+					<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
+				</div>
+
+				<hr>
+
+				<div class="row">
+
+					<div class="col-md-6 col-sm-12 col-12 mb-4 position-relative">
+
+						<div class="card">
+							<div class="card-body">
+					
+								{% if visita.status_visita == 'Pendente' %}
+
+									<div class="form_inscricao">
+										<div class="alert alert-warning text-center py-5" role="alert">
+											<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+											<h4>Esse evento ainda está <b>Pendente</b>.</h4> 
+											<div>Assim que for aprovado será liberado para inscrições.</div>
+										</div>
+									</div>
+
+								{% else %}
+
+									{% if visita.inscricoes >= visita.qtd_visitas %}
+
+										<div class="form_inscricao">
+											<div class="alert alert-warning text-center py-5" role="alert">
+												<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+												<h4>Inscrições esgotadas</h4> 
+												<div>Limite de inscrições para esse evento foi alcançado.</div>
+											</div>
+										</div>
+
+									{% else %}
+
+										<div class="form_inscricao">
+	
+											<form action="javascript:void(0)" id="form_inscricao" method="POST">
+											
+												<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+												<div class="row">
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+															<label for="nome" class="form-label">Seu Nome</label>
+															<input type="text" name="nome" class="form-control" id="nome" value="" required="required">
+														</div>
+													</div>
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+															<label for="email" class="form-label">Seu Email</label>
+															<input type="email" name="email" class="form-control" id="email" value="" required="required">
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+															<label for="telefone" class="form-label">Seu Telefone</label>
+															<input type="text" name="telefone" class="form-control telefone" id="telefone" value="" required="required">
+														</div>
+													</div>
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+															<label for="cpf" class="form-label">Seu CPF</label>
+															<input type="text" name="cpf" class="form-control cpf" id="cpf" value="" required="required">
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+							                                <label class="form-label">Setor de Atuação</label>
+							                                <select class="form-control" id="setor" name="setor" required="required">
+							                                    <option value="">Selecione</option>
+							                                    <option value="Proprietário de Veículo">Proprietário de Veículo</option>
+							                                    <option value="Mecânico / Reparador">Mecânico / Reparador</option>
+							                                    <option value="Frotista">Frotista</option>
+							                                    <option value="Varejista">Varejista</option>
+							                                    <option value="Oficina Reparadora">Oficina Reparadora</option>
+							                                    <option value="Taxista">Taxista</option>
+							                                    <option value="Auto Center">Auto Center</option>
+							                                    <option value="Transportadora">Transportadora</option>
+							                                    <option value="Distribuidora">Distribuidora</option>
+							                                    <option value="Outros">Outros</option>
+							                                </select>
+							                            </div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-6 col-12">
+														<div class="mb-1">
+															<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+															<button type="submit" class="btn btn-primary">SALVAR INSCRIÇÃO</button>
+														</div>
+													</div>
+												</div>
+
+											</form>
+										</div>
+
+									{% endif %}
+
+								{% endif %}
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-md-6 col-sm-12 col-12 mb-4">
+
+						<div class="card">
+							<div class="card-body">
+								<h4 class="text-warning"><b>{{ visita.title }}</b></h4>
+								<div class="my-2">
+									<b>{{ visita.nome }}</b> - <small class="text-white-50">{{ visita.empresa_fantasia }}</small>
+									<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+								</div>
+								<div><b>Data para a visita:</b> {{ visita.data_visita | date("m-d-Y H:i") }}</div>
+								<div class="mt-2">
+									<div><b>Informações:</b></div>
+									<div class="text-white-50">{{ visita.descricao }}</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</session>
+
+		</div>
+	</div>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/inscricao.js"></script>
+{% endblock %}

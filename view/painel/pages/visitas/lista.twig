@@ -1,0 +1,100 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Visitas{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Lista de Visitas</h5>
+                                    <div class="heading-elements">
+                                        <a class="btn btn-primary" href="{{ DOMAIN }}/painel/visitas/add"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th class="d-none">#</th>
+                                                    <th>Visita</th>
+                                                    <th>Responsável</th>
+                                                    <th>Pessoas</th>
+                                                    <th width="75">Status</th>
+                                                    <th class="text-end">Data da Visita</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for visita in visitas %}
+                                                <tr>
+                                                    <td class="d-none">{{ visita.visita_id }}</td>
+
+                                                    <td>
+                                                        <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="text-uppercase"><b>{{ visita.title }}</b></a>
+                                                        <div class="d-flex">
+                                                            <a href="{{ DOMAIN }}/painel/visitas/editar/{{ visita.visita_id }}" class="opacity-75">Editar</a>
+                                                            <span class="mx-05">|</span>
+                                                            <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="opacity-75">Ver detalhes</a>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        {{ visita.nome }} - <small class="text-lowercase">{{ visita.empresa_fantasia }}</small>
+                                                        <div class="text-lowercase"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+                                                    </td>
+
+                                                    <td>
+                                                        {{ visita.inscricoes }} / {{ visita.qtd_visitas }}
+                                                        <div><small><a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}">Ver lista</a></small></div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="badge {{ visita.status_visita == 'Aprovado' ? 'bg-info'}} {{ visita.status_visita == 'Pendente' ? 'bg-warning'}} {{ visita.status_visita == 'Recusado' ? 'bg-danger'}} text-black">{{ visita.status_visita }}</span>
+                                                        </div>
+
+                                                        {% if visita.status_visita != 'Aprovado' %}
+                                                        <div class="d-flex justify-content-between" style="margin-top: 5px;">
+                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="aprovar" class="visita-status badge bg-info text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aprovar"><i class="fa-solid fa-check"></i></a>
+                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status badge bg-danger text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar"><i class="fa-regular fa-xmark"></i></a>
+                                                        </div>
+                                                        {% endif %}
+
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        {{ visita.data_visita | date("m-d-Y H:i") }}
+                                                        <div><a href="{{ DOMAIN }}/painel/visita/inscricao/{{ visita.visita_id }}" class="badge bg-info text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> Fazer Inscrições</a></div>
+                                                    </td>
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js"></script>
+{% endblock %}

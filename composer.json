@@ -25,8 +25,7 @@
     "ext-iconv": "*",
     "codeinc/strip-accents": "^1.1",
     "ext-curl": "*",
-    "ext-simplexml": "*",
-    "mercadopago/dx-php": "2.5.3"
+    "ext-simplexml": "*"
   },
   "autoload": {
     "psr-4": {

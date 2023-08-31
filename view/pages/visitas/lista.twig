@@ -32,6 +32,7 @@
 					<tr>
 						<td class="d-none">{{ visita.visita_id }}</td>
 						<td>
+						{{ visitas|json_encode() }}
 							<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
 						</td>
 						<td>
