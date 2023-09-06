@@ -1,0 +1,75 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Palestras{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Lista de Palestras</h5>
+                                    <div class="heading-elements">
+                                        <a class="btn btn-primary" href="{{ DOMAIN }}/painel/palestras/add"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th>Palestra</th>
+                                                    <th>Pessoas</th>
+                                                    <th class="text-end">Data da Palestra</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for palestra in palestras %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ DOMAIN }}/painel/palestra/ver/{{ palestra.id }}" class="text-uppercase"><b>{{ palestra.title }}</b></a>
+                                                        <div class="d-flex">
+                                                            <a href="{{ DOMAIN }}/painel/palestras/editar/{{ palestra.id }}" class="opacity-75">Editar</a>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        {{ palestra.inscricoes }}
+                                                        <div><small><a href="{{ DOMAIN }}/painel/palestra/ver/{{ palestra.id }}">Ver lista</a></small></div>
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        {{ palestra.data_palestra | date("m-d-Y H:i") }}
+                                                        <div><a href="{{ DOMAIN }}/painel/palestra/ver/{{ palestra.id }}" class="badge bg-info text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> Fazer Inscrições</a></div>
+                                                    </td>
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/palestras.js"></script>
+{% endblock %}

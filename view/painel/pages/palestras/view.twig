@@ -1,0 +1,126 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}{{ palestra.title }} - {{ palestra.data_palestra | date("m-d-Y H:i") }} {% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row">
+
+						<div class="col-md-4">
+
+							<div class="card">
+
+								<div class="card-body">
+								
+									<div class="mb-2">
+										<h3>{{ editar.id ? 'Editar de Participante' : 'Cadastro de Participantes' }}</h3>
+										<div>{{ editar.id ? 'Editar' : 'Adicionar' }} um partecipante preenchendo o formulário abaixo.</div>
+									</div>
+
+									<hr>
+
+									<div>
+										<form method="POST" action="javascript:void(0);" id="{{ editar.id ? 'editar_participante' : 'cadastro_participante' }}">
+											{% if editar.id %}
+												<input type="hidden" name="id" value="{{ editar.id }}">
+											{% endif %}
+											<input type="hidden" name="id_palestra" value="{{ palestra.id }}">
+											<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+			                                <div class="mb-1">
+			                                    <label for="title" class="form-label">Email</label>
+			                                    <input type="email" class="form-control" name="email" id="email" value="{{ editar.email }}">
+			                                </div>
+			                                <div class="mb-1">
+			                                    <label for="title" class="form-label">Nome</label>
+			                                    <input type="text" class="form-control" name="nome" id="nome" value="{{ editar.nome }}">
+			                                </div>
+			                                <div class="mb-1">
+			                                    <label for="title" class="form-label">Telefone</label>
+			                                    <input type="text" class="form-control" name="telefone" id="telefone" value="{{ editar.telefone }}">
+			                                </div>
+			                                <div class="mb-1">
+			                                    <button type="submit" class="rounded-pill btn btn-lg btn-primary">
+			                                        <i class="fa-light fa-paper-plane"></i> INSERIR PARTICIPAÇÃO
+			                                    </button>
+			                                </div>
+										</form>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="col-md-8">
+
+							<div class="card">
+								<div class="card-header border-bottom">
+									<div><h3>Lista de Inscritos</h3></div>
+								</div>
+								<div class="card-body">
+									<table class="table dataTable_list_export">
+										<thead>
+                                            <tr>
+                                                <th class="d-none">#</th>
+                                                <th>Nome</th>
+                                                <th>Email</th>
+                                                <th>Telefone</th>
+                                                <th width="25" class="text-end">Ações</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+											{% for lista in listas %}
+												<tr>
+													<td class="d-none">{{ lista.id }}</td>
+
+													<td class="ps-0">
+														{{ lista.nome }}
+													</td>
+													<td class="ps-0">
+														{{ lista.email }}
+													</td>
+													<td class="ps-0">
+														{{ lista.telefone }}
+													</td>
+
+													<td class="text-end pe-0">
+														<div class="d-flex justify-content-between" style="margin-top: 5px;">
+                                                            <a href="{{ DOMAIN }}/painel/palestra/ver/{{ palestra.id }}/{{ lista.id }}" class="visita-status badge bg-info text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i class="fa-solid fa-edit"></i></a>
+                                                            <a href="javascript:void(0);" data-id="{{ lista.id }}" class="excluir_participante badge bg-danger text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Excluir"><i class="fa-regular fa-xmark"></i></a>
+                                                        </div>
+													</td>
+
+												</tr>
+												{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/palestras.js"></script>
+
+{% endblock %}

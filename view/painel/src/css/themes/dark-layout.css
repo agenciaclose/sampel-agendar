@@ -805,23 +805,6 @@ body.dark-layout {
 .dark-layout .table.table-striped tbody tr:nth-of-type(odd) {
   --bs-table-accent-bg: #242b3d; }
 
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-copy,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-excel,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-pdf,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-print,
-.dark-layout .dataTables_wrapper .dt-buttons .btn-secondary,
-.dark-layout .dataTables_wrapper .dt-buttons .dt-button-collection [class*='buttons-'] {
-  color: #fff;
-  background-color: #161d31 !important; }
-
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-copy:active,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-excel:active,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-pdf:active,
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-print:active,
-.dark-layout .dataTables_wrapper .dt-buttons .btn-secondary:active,
-.dark-layout .dataTables_wrapper .dt-buttons .dt-button-collection [class*='buttons-']:active {
-  background-color: #1194dc !important;
-  color: #fff; }
 
 .dark-layout .dataTables_wrapper .dt-button-collection > div[role='menu'] {
   box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24); }

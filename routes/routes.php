@@ -85,6 +85,23 @@ $router->namespace("Agencia\Close\Controllers\Painel\Config");
 $router->get("/painel/visitas/config", "ConfigController:index");
 $router->post("/painel/visitas/config/save", "ConfigController:save");
 
+// PAINEL PALESTRAS
+$router->namespace("Agencia\Close\Controllers\Painel\Palestras");
+$router->get("/painel/palestras", "PalestrasController:index", "index");
+$router->get("/painel/palestra/ver/{id}", "PalestrasController:view", "view");
+$router->get("/painel/palestra/ver/{id}/{id_inscricao}", "PalestrasController:viewEdit", "viewEdit");
+
+// PAINEL PALESTRAS CRIAR
+$router->get("/painel/palestras/add", "PalestrasController:criar");
+$router->get("/painel/palestras/editar/{id}", "PalestrasController:editar");
+$router->post("/painel/palestras/cadastro", "PalestrasController:SaveCadastro", "SaveCadastro");
+$router->post("/painel/palestras/editar", "PalestrasController:SaveEditar", "SaveEditar");
+
+// PAINEL PALESTRAS PARTICIPANTES
+$router->post("/painel/palestras/participante/cadastro", "PalestrasController:SaveCadastroParticipante", "SaveCadastroParticipante");
+$router->post("/painel/palestras/participante/editar", "PalestrasController:SaveEditarParticipante", "SaveEditarParticipante");
+$router->post("/painel/palestras/participante/excluir", "PalestrasController:excluirParticipante", "excluirParticipante");
+
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");

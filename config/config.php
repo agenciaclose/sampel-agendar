@@ -1,6 +1,6 @@
 <?php
-    define('DOMAIN', 'https://www.sampel.com.br/evento');
-    define('PATH', 'https://www.sampel.com.br/evento');
+    define('DOMAIN', 'http://localhost/evento');
+    define('PATH', 'http://localhost/evento');
     define('NAME', 'Sampel - Evento');
     define('PRODUCTION', false);
 

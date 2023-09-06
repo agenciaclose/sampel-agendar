@@ -25,10 +25,13 @@
     font-size: 1rem !important;
 }
 .dataTables_length, .dataTables_info {
-    padding-left: 15px;
+    padding-left: 0;
 }
 .dataTables_filter, .dataTables_paginate {
-    padding-right: 15px;
+    padding-right: 0;
+}
+div.dataTables_wrapper div.dataTables_filter select, div.dataTables_wrapper div.dataTables_length select {
+    margin: 0;
 }
 .dark-layout .main-menu-content .navigation-main .nav-item.active.open > a {
     background-color: #1194dc !important;
@@ -155,7 +158,7 @@ span.ck-file-dialog-button {
     background-color: rgba(158,207,250,.3);
     color: var(--primary-bg-color);
 }
-.cadastrar_visita_success, .editar_visita_success {
+.cadastrar_visita_success, .editar_visita_success, .cadastrar_palestra_success, .editar_palestra_success {
     display: none;
 }
 .form-load {
@@ -175,4 +178,30 @@ span.ck-file-dialog-button {
 }
 .form-load.show {
   display: flex;
+}
+.dt-buttons, .dataTables_length {
+    float: left;
+}
+.dt-buttons .dt-button {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1;
+    color: #6e6b7b;
+    margin: 15px 10px 0 0px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.786rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.358rem;
+    border-color: #1194dc !important;
+    background-color: #1194dc !important;
+    color: #fff !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background 0s, border 0s;
+}
+.dt-buttons .dt-button:hover:not(.disabled):not(:disabled) {
+    box-shadow: 0 8px 25px -8px #1194dc;
 }

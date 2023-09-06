@@ -1,0 +1,111 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Formulário de Visita{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+           
+            <div class="content-header row">
+            </div>
+
+            <div class="content-body">
+                
+                <div class="mb-2">
+                    <h3>{{ palestra.id != '' ? 'Preencha o formulário para editar essa Palestra.' : 'Preencha o formulário para agendar a sua Palestra.' }}</h3>
+                    <div>Campos marcados com asterisco ( <span class="text-danger">*</span> ) são obrigatórios.</div>
+                </div>
+
+                <hr>
+
+                <form action="javascript:void(0)" id="{{ palestra.id != '' ? 'editar_palestra' : 'cadastrar_palestra' }}" method="POST">
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <div class="position-relative {{ palestra.id != '' ? 'editar_palestra' : 'cadastrar_palestra' }}">
+
+                                <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Nome da Palestras <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" id="title" value="{{ palestra.title }}">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <label for="qtd_visitas" class="form-label">Estado da Palestra <span class="text-danger">*</span></label>
+                                            <select name="estado" class="form-control">
+                                                <option>Selecione</option>
+                                                <option {{ palestra.estado == 'Acre' ? 'selected' }} value="Acre">Acre</option>
+                                                <option {{ palestra.estado == 'Alagoas' ? 'selected' }} value="Alagoas">Alagoas</option>
+                                                <option {{ palestra.estado == 'Amapá' ? 'selected' }} value="Amapá">Amapá</option>
+                                                <option {{ palestra.estado == 'Amazonas' ? 'selected' }} value="Amazonas">Amazonas</option>
+                                                <option {{ palestra.estado == 'Bahia' ? 'selected' }} value="Bahia">Bahia</option>
+                                                <option {{ palestra.estado == 'Ceará' ? 'selected' }} value="Ceará">Ceará</option>
+                                                <option {{ palestra.estado == 'Distrito Federal' ? 'selected' }} value="Distrito Federal">Distrito Federal</option>
+                                                <option {{ palestra.estado == 'Espírito Santo' ? 'selected' }} value="Espírito Santo">Espírito Santo</option>
+                                                <option {{ palestra.estado == 'Goiás' ? 'selected' }} value="Goiás">Goiás</option>
+                                                <option {{ palestra.estado == 'Maranhão' ? 'selected' }} value="Maranhão">Maranhão</option>
+                                                <option {{ palestra.estado == 'Mato Grosso' ? 'selected' }} value="Mato Grosso">Mato Grosso</option>
+                                                <option {{ palestra.estado == 'Mato Grosso do Sul' ? 'selected' }} value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                                                <option {{ palestra.estado == 'Minas Gerais' ? 'selected' }} value="Minas Gerais">Minas Gerais</option>
+                                                <option {{ palestra.estado == 'Pará' ? 'selected' }} value="Pará">Pará</option>
+                                                <option {{ palestra.estado == 'Paraíba' ? 'selected' }} value="Paraíba">Paraíba</option>
+                                                <option {{ palestra.estado == 'Paraná' ? 'selected' }} value="Paraná">Paraná</option>
+                                                <option {{ palestra.estado == 'Pernambuco' ? 'selected' }} value="Pernambuco">Pernambuco</option>
+                                                <option {{ palestra.estado == 'Piauí' ? 'selected' }} value="Piauí">Piauí</option>
+                                                <option {{ palestra.estado == 'Rio de Janeiro' ? 'selected' }} value="Rio de Janeiro">Rio de Janeiro</option>
+                                                <option {{ palestra.estado == 'Rio Grande do Norte' ? 'selected' }} value="Rio Grande do Norte">Rio Grande do Norte</option>
+                                                <option {{ palestra.estado == 'Rio Grande do Sul' ? 'selected' }} value="Rio Grande do Sul">Rio Grande do Sul</option>
+                                                <option {{ palestra.estado == 'Rondônia' ? 'selected' }} value="Rondônia">Rondônia</option>
+                                                <option {{ palestra.estado == 'Roraima' ? 'selected' }} value="Roraima">Roraima</option>
+                                                <option {{ palestra.estado == 'Santa Catarina' ? 'selected' }} value="Santa Catarina">Santa Catarina</option>
+                                                <option {{ palestra.estado == 'São Paulo' ? 'selected' }} value="São Paulo">São Paulo</option>
+                                                <option {{ palestra.estado == 'Sergipe' ? 'selected' }} value="Sergipe">Sergipe</option>
+                                                <option {{ palestra.estado == 'Tocantins' ? 'selected' }} value="Tocantins">Tocantins</option>
+                                                <option {{ palestra.estado == 'Estrangeiro' ? 'selected' }} value="Estrangeiro">Estrangeiro</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <label for="data_palestra" class="form-label">Data da Palestra <span class="text-danger">*</span></label>
+                                            <input type="datetime-local" name="data_palestra" class="form-control" id="data_palestra" value="{{ palestra.data_palestra }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    {% if palestra.id == '' %}
+                                    {% else %}
+                                    <input type="hidden" name="id" value="{{ palestra.id }}">
+                                    {% endif %}
+                                    <button type="submit" class="rounded-pill btn btn-lg btn-primary">
+                                        <i class="fa-light fa-paper-plane"></i> {{ palestra.id != '' ? 'SALVAR EDIÇÃO' : 'FINALIZAR CADASTRO' }}
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="cadastrar_palestra_success mt-2">
+                                <div class="alert alert-primary p-2" role="alert">
+                                    <div><h4>Palestra enviado com sucesso!</h4></div>
+                                </div>
+                            </div>
+                            <div class="editar_palestra_success mt-2">
+                                <div class="alert alert-primary p-2" role="alert">
+                                    <div><h4>Palestra editado com sucesso!</h4></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/palestras.js"></script>
+{% endblock %}
