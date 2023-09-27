@@ -53,6 +53,10 @@
 
 									{% else %}
 
+										<div class="alert alert-success bg-success text-center p-2 alert-sucesso" role="alert" style="display:none;">
+											<h4 class="m-0"><i class="fa-solid fa-circle-exclamation"></i> Cadastrado com sucesso</h4>
+										</div>
+
 										<div class="form_inscricao">
 	
 											<form action="javascript:void(0)" id="form_inscricao" method="POST">
@@ -78,13 +82,13 @@
 													<div class="col-md-6 col-12">
 														<div class="mb-1">
 															<label for="telefone" class="form-label">Seu Telefone</label>
-															<input type="text" name="telefone" class="form-control telefone" id="telefone" value="" required="required">
+															<input type="text" name="telefone" class="form-control telefone" id="telefone" value="">
 														</div>
 													</div>
 													<div class="col-md-6 col-12">
 														<div class="mb-1">
 															<label for="cpf" class="form-label">Seu CPF</label>
-															<input type="text" name="cpf" class="form-control cpf" id="cpf" value="" required="required">
+															<input type="text" name="cpf" class="form-control cpf" id="cpf" value="">
 														</div>
 													</div>
 												</div>
@@ -93,7 +97,7 @@
 													<div class="col-md-6 col-12">
 														<div class="mb-1">
 							                                <label class="form-label">Setor de Atuação</label>
-							                                <select class="form-control" id="setor" name="setor" required="required">
+							                                <select class="form-control" id="setor" name="setor">
 							                                    <option value="">Selecione</option>
 							                                    <option value="Proprietário de Veículo">Proprietário de Veículo</option>
 							                                    <option value="Mecânico / Reparador">Mecânico / Reparador</option>
@@ -157,5 +161,5 @@
 		</div>
 	</div>
 </div>
-<script src="{{ PATH }}/view/painel/src/js/scripts/pages/inscricao.js"></script>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/inscricao.js?11"></script>
 {% endblock %}

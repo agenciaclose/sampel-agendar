@@ -49,4 +49,11 @@ class VisitasPainel extends Model
         return $read;
     }
 
+    public function visitaExcluir($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `visitas` WHERE `id` = :id_visita", "id_visita={$id_visita}");
+        return $read;
+    }
+   
 }

@@ -52,42 +52,61 @@ class InscricaoPainel extends Model
     public function inscricaoCadastroQRcode($params)
     {
         $read = new Read();
-
         $read->FullRead("UPDATE `visitas` SET `inscricoes` = (`inscricoes` + 1) WHERE `id` = :id_visita", "id_visita={$params['id_visita']}");
-
         $read->FullRead("UPDATE `visitas_inscricoes` SET `qrcode` = :qrcode WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}&id_user={$params['id_user']}");
-
-
         return $read;
     }
 
-    public function checkCadastro($cpf, $email, $id_visita)
+    public function checkClient($email)
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM usuarios WHERE email = :email", "email={$email}");
+        return $read;
+    }
+
+    public function checkCadastro($email, $id_visita)
     {
         $read = new Read();
         $read->FullRead("SELECT v.*
                         FROM visitas_inscricoes AS v
                         INNER JOIN usuarios AS u ON u.id = v.id_user
-                        WHERE v.id_visita = :visita_id AND u.email = :email AND u.cpf = :cpf", 
-                        "visita_id={$id_visita}&email={$email}&cpf={$cpf}");
+                        WHERE v.id_visita = :visita_id AND u.email = :email",
+                        "visita_id={$id_visita}&email={$email}");
         return $read;
     }
 
     function genCode($id_visita) { 
 
-        $chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789"; 
-        srand((double)microtime() * 1000000); 
-        $i = 0; 
-        $pass = ''; 
+        $chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789";
+        srand((double)microtime() * 1000000);
+        $i = 0;
+        $pass = '';
 
         while ($i <= 5) {
-            $num = rand() % 33; 
-            $tmp = substr($chars, $num, 1); 
-            $pass = $pass . $tmp; 
-            $i++; 
-        } 
+            $num = rand() % 33;
+            $tmp = substr($chars, $num, 1);
+            $pass = $pass . $tmp;
+            $i++;
+        }
 
-        return $id_visita.$pass; 
+        return $id_visita.$pass;
 
-    } 
+    }
+
+    public function saveClient(array $params)
+    {
+        $params['senha'] = sha1('sampel2310');
+
+        unset($params['id_visita']);
+
+        $create = new Create();
+        $create->ExeCreate('usuarios', $params);
+
+        $read = new Read();
+        $read->FullRead("SELECT * FROM usuarios WHERE email = :email", "email={$params['email']}");
+        return $read;
+
+    }
+
 
 }

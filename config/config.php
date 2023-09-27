@@ -1,11 +1,11 @@
 <?php
     define('DOMAIN', 'http://localhost/evento');
     define('PATH', 'http://localhost/evento');
-    define('NAME', 'Sampel - Evento');
+    define('NAME', 'Sampel - Eventos');
     define('PRODUCTION', false);
 
-    define('DOMAIN_MAIN', 'https://www.sampel.com.br/evento');
-    define('PATH_MAIN', 'https://www.sampel.com.br/evento');
+    define('DOMAIN_MAIN', 'https://sampel.com.br/eventos');
+    define('PATH_MAIN', 'https://sampel.com.br/eventos');
 
     // CONFIGURAÇÕES DO BANCO ########################
     define('HOST_MAIN', '177.234.145.178');

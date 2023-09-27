@@ -47,6 +47,13 @@ class VisitasController extends Controller
         $visita = $visita->visitaStatus($params['id'], 'Recusado');
     }
 
+    public function excluir($params)
+    {
+        $this->setParams($params);
+        $visita = new VisitasPainel();
+        $visita = $visita->visitaExcluir($params['id']);
+    }
+
     public function criar($params)
     {
         $this->setParams($params);

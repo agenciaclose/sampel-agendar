@@ -71,6 +71,7 @@ $router->get("/painel/visitas", "VisitasController:index", "index");
 $router->get("/painel/visita/ver/{id}", "VisitasController:view", "view");
 $router->get("/painel/visita/status/aprovar/{id}", "VisitasController:aprovar");
 $router->get("/painel/visita/status/reprovar/{id}", "VisitasController:reprovar");
+$router->get("/painel/visita/excluir/{id}", "VisitasController:excluir");
 
 // PAINEL VISITAS CRIAR
 $router->get("/painel/visitas/add", "VisitasController:criar");
@@ -79,6 +80,8 @@ $router->get("/painel/visitas/editar/{id}", "VisitasController:editar");
 // PAINEL VISITAS INSCRICAO
 $router->namespace("Agencia\Close\Controllers\Painel\Inscricao");
 $router->get("/painel/visita/inscricao/{id}", "InscricaoController:inscricao", "inscricao");
+$router->post("/painel/visita/inscricao/cadastro", "InscricaoController:inscricaoCadastro", "inscricaoCadastro");
+$router->post("/painel/visita/inscricao/cadastro-qrcode", "InscricaoController:inscricaoCadastroQRcode", "inscricaoCadastroQRcode");
 
 // PAINEL VISITAS CONFIGURACOES
 $router->namespace("Agencia\Close\Controllers\Painel\Config");
@@ -101,6 +104,7 @@ $router->post("/painel/palestras/editar", "PalestrasController:SaveEditar", "Sav
 $router->post("/painel/palestras/participante/cadastro", "PalestrasController:SaveCadastroParticipante", "SaveCadastroParticipante");
 $router->post("/painel/palestras/participante/editar", "PalestrasController:SaveEditarParticipante", "SaveEditarParticipante");
 $router->post("/painel/palestras/participante/excluir", "PalestrasController:excluirParticipante", "excluirParticipante");
+$router->post("/painel/palestras/participante/importar", "PalestrasController:importar", "importar");
 
 
 // ERROR

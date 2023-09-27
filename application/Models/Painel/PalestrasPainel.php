@@ -78,5 +78,16 @@ class PalestrasPainel extends Model
         return $read;
     }
 
+    public function getParticipantesImportar($dados, $id_palestra): read
+    {
+        $read = new Read();
+
+        $nome       = $dados[0];
+        $telefone   = $dados[1];
+        $email      = $dados[2];
+
+        $read->FullRead("INSERT INTO `palestras_participantes` (`id_palestra`, `nome`, `telefone`, `email`) VALUES (:id_palestra, :nome, :telefone, :email)", "id_palestra={$id_palestra}&nome={$nome}&telefone={$telefone}&email={$email}");
+        return $read;
+    }
 
 }

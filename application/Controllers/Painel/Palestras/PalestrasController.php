@@ -3,8 +3,8 @@
 namespace Agencia\Close\Controllers\Painel\Palestras;
 
 use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Helpers\Upload;
 use Agencia\Close\Models\Painel\PalestrasPainel;
+use Shuchkin\SimpleXLSX;
 
 class PalestrasController extends Controller
 {
@@ -123,4 +123,29 @@ class PalestrasController extends Controller
             echo '0';
         }
     }
+
+    public function importar($params)
+    {
+        $this->setParams($params);
+
+        if ($xlsx = SimpleXLSX::parse($_FILES['informacoes_arquivo']['tmp_name'])) {
+			$arquivo = $xlsx->rows();
+
+            for($x = 0;$x < count($arquivo);$x++){
+				if($x > 0){
+                    $palestras = new PalestrasPainel();
+                    $palestras = $palestras->getParticipantesImportar($arquivo[$x], $params['id']);
+                }
+            }
+
+            echo "1";
+
+		} else {
+			echo "ALGUM ERRO AO IMPORTAR";
+		}
+
+
+        
+    }
+
 }

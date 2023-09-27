@@ -25,7 +25,8 @@
     "ext-iconv": "*",
     "codeinc/strip-accents": "^1.1",
     "ext-curl": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "shuchkin/simplexlsx": "^1.0"
   },
   "autoload": {
     "psr-4": {

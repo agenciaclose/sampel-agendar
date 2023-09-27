@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    $('.visita-excluir').click(function(){
+		var domain = $('body').attr('data-domain');
+		var visita = $(this).attr('data-visita');
+		$.ajax({url: domain+'/painel/visita/excluir/'+visita, 
+			success: function(result){
+				location.reload();
+			}
+		});
+	});
+   
 	$('.visita-status').click(function(){
 		var domain = $('body').attr('data-domain');
 		var visita = $(this).attr('data-visita');
@@ -68,5 +78,4 @@ $(document).ready(function () {
         });
 
     });
-
 });

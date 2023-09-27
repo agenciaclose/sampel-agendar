@@ -13,22 +13,16 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/visita/inscricao/cadastro',
+            url: DOMAIN + '/painel/visita/inscricao/cadastro',
             success: function (data) {
 
-                if (data == "1") {
+
+                if (data != "0") {
 
                     var id_visita = $('#id_visita').val();
-                    var user_email = $('#user_email').val();
-                    var id_user = $('#id_user').val();
+                    var id_user = data;
                     
-                    qrcodeGen(id_visita, user_email, id_user);
-
-                } else if (data == "2") {
-
-                    $('.alert-2').show();
-                    $('button[type="submit"]').prop("disabled", false);
-                    $('.form-load').removeClass('show');
+                    qrcodeGen(id_visita, id_user);
 
                 }else{
 
@@ -37,6 +31,7 @@ $(document).ready(function () {
                     $('.form-load').removeClass('show');
 
                 }
+
             }
         });
 
@@ -44,14 +39,14 @@ $(document).ready(function () {
 
 });
 
-function qrcodeGen(id_visita, user_email, id_user) {
+function qrcodeGen(id_visita, id_user) {
 	var DOMAIN = $('body').data('domain');
     $.ajax({
         type: "POST", 
         async: true, 
         data: {
                 "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/visita/feedback/'+id_user+'/'+id_visita,
+                "qr_code_text": DOMAIN + '/painel/visita/feedback/'+id_user+'/'+id_visita,
                 "image_format": "SVG",
                 "frame_color": "#246CB1",
                 "frame_text_color": "#ffffff",
@@ -70,20 +65,26 @@ function qrcodeGen(id_visita, user_email, id_user) {
 }
 
 function qrcodeSave (id_visita, id_user, qrcode){
+    var DOMAIN = $('body').data('domain');
     const formData = new FormData()
     formData.append('id_visita', id_visita);
     formData.append('id_user', id_user);
     formData.append('qrcode', qrcode);
     $.ajax({
         type: "POST",
-        url: DOMAIN + '/visita/inscricao/cadastro-qrcode',
+        url: DOMAIN + '/painel/visita/inscricao/cadastro-qrcode',
         data: formData,
         async: false,
         cache: false,
         contentType: false,
         processData: false,
         success: function(data) {
-            window.location.href = DOMAIN + '/visita/inscricao/'+id_visita+'?action=success';
+            $('.alert-sucesso').show();
+            // $('button[type="submit"]').prop("disabled", false);
+            $('.form-load').removeClass('show');
+            setTimeout(function(){
+                window.location.reload();
+            }, 2000);
         }
     });
 }
