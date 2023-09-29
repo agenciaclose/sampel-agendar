@@ -42,7 +42,7 @@ class LoginPainelController extends Controller
         setcookie("CookieLoginEmail", "", time() - 3600);
         setcookie("CookieLoginHash", "", time() - 3600);
 
-        $this->router->redirect("painel/login");
+        $this->router->redirect("/login");
     }
 
     private function createUser(string $name, string $email, array $arrayIdentification): void

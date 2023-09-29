@@ -29,104 +29,90 @@
 						<div class="card">
 							<div class="card-body">
 					
-								{% if visita.status_visita == 'Pendente' %}
+								{% if visita.inscricoes >= visita.qtd_visitas %}
 
 									<div class="form_inscricao">
 										<div class="alert alert-warning text-center py-5" role="alert">
 											<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-											<h4>Esse evento ainda está <b>Pendente</b>.</h4> 
-											<div>Assim que for aprovado será liberado para inscrições.</div>
+											<h4>Inscrições esgotadas</h4> 
+											<div>Limite de inscrições para esse evento foi alcançado.</div>
 										</div>
 									</div>
 
 								{% else %}
 
-									{% if visita.inscricoes >= visita.qtd_visitas %}
+									<div class="alert alert-success bg-success text-center p-2 alert-sucesso" role="alert" style="display:none;">
+										<h4 class="m-0"><i class="fa-solid fa-circle-exclamation"></i> Cadastrado com sucesso</h4>
+									</div>
 
-										<div class="form_inscricao">
-											<div class="alert alert-warning text-center py-5" role="alert">
-												<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-												<h4>Inscrições esgotadas</h4> 
-												<div>Limite de inscrições para esse evento foi alcançado.</div>
+									<div class="form_inscricao">
+
+										<form action="javascript:void(0)" id="form_inscricao" method="POST">
+										
+											<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+											<div class="row">
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+														<label for="nome" class="form-label">Seu Nome</label>
+														<input type="text" name="nome" class="form-control" id="nome" value="" required="required">
+													</div>
+												</div>
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+														<label for="email" class="form-label">Seu Email</label>
+														<input type="email" name="email" class="form-control" id="email" value="" required="required">
+													</div>
+												</div>
 											</div>
-										</div>
 
-									{% else %}
-
-										<div class="alert alert-success bg-success text-center p-2 alert-sucesso" role="alert" style="display:none;">
-											<h4 class="m-0"><i class="fa-solid fa-circle-exclamation"></i> Cadastrado com sucesso</h4>
-										</div>
-
-										<div class="form_inscricao">
-	
-											<form action="javascript:void(0)" id="form_inscricao" method="POST">
-											
-												<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-
-												<div class="row">
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-															<label for="nome" class="form-label">Seu Nome</label>
-															<input type="text" name="nome" class="form-control" id="nome" value="" required="required">
-														</div>
-													</div>
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-															<label for="email" class="form-label">Seu Email</label>
-															<input type="email" name="email" class="form-control" id="email" value="" required="required">
-														</div>
+											<div class="row">
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+														<label for="telefone" class="form-label">Seu Telefone</label>
+														<input type="text" name="telefone" class="form-control telefone" id="telefone" value="">
 													</div>
 												</div>
-
-												<div class="row">
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-															<label for="telefone" class="form-label">Seu Telefone</label>
-															<input type="text" name="telefone" class="form-control telefone" id="telefone" value="">
-														</div>
-													</div>
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-															<label for="cpf" class="form-label">Seu CPF</label>
-															<input type="text" name="cpf" class="form-control cpf" id="cpf" value="">
-														</div>
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+														<label for="cpf" class="form-label">Seu CPF</label>
+														<input type="text" name="cpf" class="form-control cpf" id="cpf" value="">
 													</div>
 												</div>
+											</div>
 
-												<div class="row">
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-							                                <label class="form-label">Setor de Atuação</label>
-							                                <select class="form-control" id="setor" name="setor">
-							                                    <option value="">Selecione</option>
-							                                    <option value="Proprietário de Veículo">Proprietário de Veículo</option>
-							                                    <option value="Mecânico / Reparador">Mecânico / Reparador</option>
-							                                    <option value="Frotista">Frotista</option>
-							                                    <option value="Varejista">Varejista</option>
-							                                    <option value="Oficina Reparadora">Oficina Reparadora</option>
-							                                    <option value="Taxista">Taxista</option>
-							                                    <option value="Auto Center">Auto Center</option>
-							                                    <option value="Transportadora">Transportadora</option>
-							                                    <option value="Distribuidora">Distribuidora</option>
-							                                    <option value="Outros">Outros</option>
-							                                </select>
-							                            </div>
+											<div class="row">
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+						                                <label class="form-label">Setor de Atuação</label>
+						                                <select class="form-control" id="setor" name="setor">
+						                                    <option value="">Selecione</option>
+						                                    <option value="Proprietário de Veículo">Proprietário de Veículo</option>
+						                                    <option value="Mecânico / Reparador">Mecânico / Reparador</option>
+						                                    <option value="Frotista">Frotista</option>
+						                                    <option value="Varejista">Varejista</option>
+						                                    <option value="Oficina Reparadora">Oficina Reparadora</option>
+						                                    <option value="Taxista">Taxista</option>
+						                                    <option value="Auto Center">Auto Center</option>
+						                                    <option value="Transportadora">Transportadora</option>
+						                                    <option value="Distribuidora">Distribuidora</option>
+						                                    <option value="Outros">Outros</option>
+						                                </select>
+						                            </div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-6 col-12">
+													<div class="mb-1">
+														<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+														<button type="submit" class="btn btn-primary">SALVAR INSCRIÇÃO</button>
 													</div>
 												</div>
+											</div>
 
-												<div class="row">
-													<div class="col-md-6 col-12">
-														<div class="mb-1">
-															<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
-															<button type="submit" class="btn btn-primary">SALVAR INSCRIÇÃO</button>
-														</div>
-													</div>
-												</div>
-
-											</form>
-										</div>
-
-									{% endif %}
+										</form>
+									</div>
 
 								{% endif %}
 
@@ -149,6 +135,10 @@
 									<div><b>Informações:</b></div>
 									<div class="text-white-50">{{ visita.descricao }}</div>
 								</div>
+								<div class="mt-2">
+									<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id }}" target="_blank" class="btn btn-warning"><i class="fa-duotone fa-arrow-up-right-from-square"></i> VER LINK DE INSCRIÇÃO EXTERNO</a>
+								</div>
+								
 							</div>
 						</div>
 

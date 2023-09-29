@@ -87,6 +87,18 @@ class PalestrasController extends Controller
         }
     }
 
+    public function palestraExcluir($params)
+    {
+        $this->setParams($params);
+        $excluir = new PalestrasPainel();
+        $excluir = $excluir->palestraExcluir($params);
+        if ($excluir) {
+            echo '1';
+        } else {
+            echo '0';
+        }
+    }
+
 
     public function SaveCadastroParticipante($params)
     {
@@ -142,10 +154,7 @@ class PalestrasController extends Controller
 
 		} else {
 			echo "ALGUM ERRO AO IMPORTAR";
-		}
-
-
-        
+		}        
     }
 
 }

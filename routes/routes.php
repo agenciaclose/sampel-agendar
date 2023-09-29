@@ -99,6 +99,7 @@ $router->get("/painel/palestras/add", "PalestrasController:criar");
 $router->get("/painel/palestras/editar/{id}", "PalestrasController:editar");
 $router->post("/painel/palestras/cadastro", "PalestrasController:SaveCadastro", "SaveCadastro");
 $router->post("/painel/palestras/editar", "PalestrasController:SaveEditar", "SaveEditar");
+$router->post("/painel/palestras/excluir", "PalestrasController:palestraExcluir", "palestraExcluir");
 
 // PAINEL PALESTRAS PARTICIPANTES
 $router->post("/painel/palestras/participante/cadastro", "PalestrasController:SaveCadastroParticipante", "SaveCadastroParticipante");

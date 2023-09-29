@@ -35,121 +35,107 @@
 
 				{% if _get.action == '' %}
 
-					{% if visita.status_visita == 'Pendente' %}
+					{% if visita.inscricoes >= visita.qtd_visitas %}
 
 						<div class="form_inscricao">
 							<div class="alert alert-warning text-center py-5" role="alert">
 								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-								<h4>Esse evento ainda está <b>Pendente</b>.</h4> 
-								<div>Assim que for aprovado será liberado para inscrições.</div>
+								<h4>Inscrições esgotadas</h4> 
+								<div>Limite de inscrições para esse evento foi alcançado.</div>
 							</div>
 						</div>
 
 					{% else %}
-
-						{% if visita.inscricoes >= visita.qtd_visitas %}
-
-							<div class="form_inscricao">
-								<div class="alert alert-warning text-center py-5" role="alert">
-									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-									<h4>Inscrições esgotadas</h4> 
-									<div>Limite de inscrições para esse evento foi alcançado.</div>
+						<div class="form_inscricao">
+							<div class="alert-3 alert-none">
+								<div class="alert alert-danger" role="alert">
+									<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
 								</div>
 							</div>
-
-						{% else %}
-							<div class="form_inscricao">
-								<div class="alert-3 alert-none">
-									<div class="alert alert-danger" role="alert">
-										<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
-									</div>
+							<div class="alert-2 alert-none">
+								<div class="alert alert-warning" role="alert">
+									<i class="fa-solid fa-circle-exclamation"></i> Já existe uma inscrição para esse usuário para essa visita.
 								</div>
-								<div class="alert-2 alert-none">
-									<div class="alert alert-warning" role="alert">
-										<i class="fa-solid fa-circle-exclamation"></i> Já existe uma inscrição para esse usuário para essa visita.
-									</div>
-								</div>
-								<form action="javascript:void(0)" id="form_inscricao" method="POST">
-								
-									<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-
-									<div class="row">
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<label for="nome" class="form-label">Seu Nome</label>
-												<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="{{ _session.sampel_user_nome }}" required="required">
-											</div>
-										</div>
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<label for="telefone" class="form-label">Seu Telefone</label>
-												<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="{{ _session.sampel_user_telefone }}" required="required">
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<label for="email" class="form-label">Seu Email</label>
-												<input type="email" name="email" class="form-control rounded-pill" id="email" value="{{ _session.sampel_user_email }}" required="required">
-											</div>
-										</div>
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<label for="cpf" class="form-label">Seu CPF</label>
-												<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ _session.sampel_user_cpf }}" required="required">
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-				                                <label class="form-label">Setor de Atuação</label>
-				                                <select class="form-control rounded-pill" id="setor" name="setor" required="required">
-				                                    <option value="">Selecione</option>
-				                                    <option {{ _session.sampel_user_setor == 'Proprietário de Veículo' ? 'selected' }} value="Proprietário de Veículo">Proprietário de Veículo</option>
-				                                    <option {{ _session.sampel_user_setor == 'Mecânico / Reparador' ? 'selected' }} value="Mecânico / Reparador">Mecânico / Reparador</option>
-				                                    <option {{ _session.sampel_user_setor == 'Frotista' ? 'selected' }} value="Frotista">Frotista</option>
-				                                    <option {{ _session.sampel_user_setor == 'Varejista' ? 'selected' }} value="Varejista">Varejista</option>
-				                                    <option {{ _session.sampel_user_setor == 'Oficina Reparadora' ? 'selected' }} value="Oficina Reparadora">Oficina Reparadora</option>
-				                                    <option {{ _session.sampel_user_setor == 'Taxista' ? 'selected' }} value="Taxista">Taxista</option>
-				                                    <option {{ _session.sampel_user_setor == 'Auto Center' ? 'selected' }} value="Auto Center">Auto Center</option>
-				                                    <option {{ _session.sampel_user_setor == 'Transportadora' ? 'selected' }} value="Transportadora">Transportadora</option>
-				                                    <option {{ _session.sampel_user_setor == 'Distribuidora' ? 'selected' }} value="Distribuidora">Distribuidora</option>
-				                                    <option {{ _session.sampel_user_setor == 'Outros' ? 'selected' }} value="Outros">Outros</option>
-				                                </select>
-				                            </div>
-										</div>
-										{% if _session.sampel_user_id is empty %}
-											<div class="col-md-6 col-12">
-												<div class="mb-3">
-													<label class="form-label" for="register-consultor-password">Senha</label>
-					                                <div class="form-password-toggle">
-					                                    <input type="password" class="form-control rounded-pill" id="register-consultor-password" name="senha" required="required" />
-					                                    <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
-					                                </div>
-												</div>
-											</div>
-										{% endif %}
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
-												<input type="hidden" name="user_email" id="user_email" value="{{ _session.sampel_user_email }}">
-												<input type="hidden" name="id_user" id="id_user" value="{{ _session.sampel_user_id }}">
-												<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
-											</div>
-										</div>
-									</div>
-
-								</form>
 							</div>
-						{% endif %}
+							<form action="javascript:void(0)" id="form_inscricao" method="POST">
+							
+								<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<label for="nome" class="form-label">Seu Nome</label>
+											<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="{{ _session.sampel_user_nome }}" required="required">
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<label for="telefone" class="form-label">Seu Telefone</label>
+											<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="{{ _session.sampel_user_telefone }}" required="required">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<label for="email" class="form-label">Seu Email</label>
+											<input type="email" name="email" class="form-control rounded-pill" id="email" value="{{ _session.sampel_user_email }}" required="required">
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<label for="cpf" class="form-label">Seu CPF</label>
+											<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ _session.sampel_user_cpf }}" required="required">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+			                                <label class="form-label">Setor de Atuação</label>
+			                                <select class="form-control rounded-pill" id="setor" name="setor" required="required">
+			                                    <option value="">Selecione</option>
+			                                    <option {{ _session.sampel_user_setor == 'Proprietário de Veículo' ? 'selected' }} value="Proprietário de Veículo">Proprietário de Veículo</option>
+			                                    <option {{ _session.sampel_user_setor == 'Mecânico / Reparador' ? 'selected' }} value="Mecânico / Reparador">Mecânico / Reparador</option>
+			                                    <option {{ _session.sampel_user_setor == 'Frotista' ? 'selected' }} value="Frotista">Frotista</option>
+			                                    <option {{ _session.sampel_user_setor == 'Varejista' ? 'selected' }} value="Varejista">Varejista</option>
+			                                    <option {{ _session.sampel_user_setor == 'Oficina Reparadora' ? 'selected' }} value="Oficina Reparadora">Oficina Reparadora</option>
+			                                    <option {{ _session.sampel_user_setor == 'Taxista' ? 'selected' }} value="Taxista">Taxista</option>
+			                                    <option {{ _session.sampel_user_setor == 'Auto Center' ? 'selected' }} value="Auto Center">Auto Center</option>
+			                                    <option {{ _session.sampel_user_setor == 'Transportadora' ? 'selected' }} value="Transportadora">Transportadora</option>
+			                                    <option {{ _session.sampel_user_setor == 'Distribuidora' ? 'selected' }} value="Distribuidora">Distribuidora</option>
+			                                    <option {{ _session.sampel_user_setor == 'Outros' ? 'selected' }} value="Outros">Outros</option>
+			                                </select>
+			                            </div>
+									</div>
+									{% if _session.sampel_user_id is empty %}
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label class="form-label" for="register-consultor-password">Senha</label>
+				                                <div class="form-password-toggle">
+				                                    <input type="password" class="form-control rounded-pill" id="register-consultor-password" name="senha" required="required" />
+				                                    <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
+				                                </div>
+											</div>
+										</div>
+									{% endif %}
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+											<input type="hidden" name="user_email" id="user_email" value="{{ _session.sampel_user_email }}">
+											<input type="hidden" name="id_user" id="id_user" value="{{ _session.sampel_user_id }}">
+											<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
+										</div>
+									</div>
+								</div>
+
+							</form>
+						</div>
 					{% endif %}
 
 				{% endif %}

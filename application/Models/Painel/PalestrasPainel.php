@@ -56,6 +56,18 @@ class PalestrasPainel extends Model
     
     }
 
+    public function palestraExcluir($params)
+    {
+
+        $read = new Read();
+        $read->FullRead("DELETE FROM `palestras_participantes` WHERE id_palestra = :id_palestra", "id_palestra={$params['id']}");
+
+        $read = new Read();
+        $read->FullRead("DELETE FROM `palestras` WHERE id = :id", "id={$params['id']}");
+        return $read;
+    
+    }
+
     public function saveExcluirParticipante($params)
     {
         $read = new Read();
@@ -83,8 +95,9 @@ class PalestrasPainel extends Model
         $read = new Read();
 
         $nome       = $dados[0];
-        $telefone   = $dados[1];
-        $email      = $dados[2];
+        $email      = $dados[1];
+        $telefone   = $dados[2];
+
 
         $read->FullRead("INSERT INTO `palestras_participantes` (`id_palestra`, `nome`, `telefone`, `email`) VALUES (:id_palestra, :nome, :telefone, :email)", "id_palestra={$id_palestra}&nome={$nome}&telefone={$telefone}&email={$email}");
         return $read;

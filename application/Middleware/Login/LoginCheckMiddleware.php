@@ -13,7 +13,7 @@ class LoginCheckMiddleware extends Middleware
     {
         $loginSession = new LoginSession();
         if ( !$loginSession->userIsLogged() AND (strpos($this->getCurrentUrl(), 'painel') !== false) AND (strpos($this->getCurrentUrl(), 'login') === false)) {
-           header('Location: '. DOMAIN .'/painel/login');
+           header('Location: '. DOMAIN .'/login');
         }
     }
 

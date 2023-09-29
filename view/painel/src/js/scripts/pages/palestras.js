@@ -58,6 +58,39 @@ $(document).ready(function () {
 
     });
 
+    $(".excluir_palestra").click(function (c) {
+        c.preventDefault();
+        var id = $(this).attr('data-id');
+        var DOMAIN = $('body').data('domain');
+
+        Swal.fire({
+          title: 'Tem certeza que deseja excluir?',
+          showCancelButton: true,
+          confirmButtonText: 'SIM',
+          cancelButtonText: `NÃO`,
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    data: {id: id},
+                    url: DOMAIN + '/painel/palestras/excluir',
+                    success: function (data) {
+                        if (data == "1") {
+                            swal({type: 'success', title: 'EXCLUIDO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1500);
+                        }else{
+                            swal({type: 'warning', title: 'ERRO AO EXCLUIR', showConfirmButton: false, timer: 2000});
+                        }
+                    }
+                });
+            }
+        });
+
+
+    });
+
 
     $("#cadastro_participante").submit(function (c) {
 
@@ -177,6 +210,10 @@ $(document).ready(function () {
             }
         });
         return false;
+    });
+
+    $('.file_importa_participantes').on('change', function(){ 
+        $('#informacoes_uploadFile').prop("disabled", false);
     });
 
 });
