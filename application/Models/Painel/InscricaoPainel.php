@@ -99,6 +99,11 @@ class InscricaoPainel extends Model
 
         unset($params['id_visita']);
 
+        if($params['setor'] == 'Outros'){
+            $params['setor'] = $params['setor_outros'];
+        }
+        unset($params['setor_outros']);
+
         $create = new Create();
         $create->ExeCreate('usuarios', $params);
 

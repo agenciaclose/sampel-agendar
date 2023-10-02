@@ -121,17 +121,20 @@
                                                         <label class="form-label">Setor de Atuação</label>
                                                         <select class="form-control rounded-pill" id="setor" name="setor" required="required">
                                                             <option value="">Selecione</option>
-                                                            <option value="Proprietário de Veículo">Proprietário de Veículo</option>
                                                             <option value="Mecânico / Reparador">Mecânico / Reparador</option>
-                                                            <option value="Frotista">Frotista</option>
-                                                            <option value="Varejista">Varejista</option>
-                                                            <option value="Oficina Reparadora">Oficina Reparadora</option>
-                                                            <option value="Taxista">Taxista</option>
+                                                            <option value="Balconista">Balconista</option>
+                                                            <option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+                                                            <option value="Estoquista">Estoquista</option>
+                                                            <option value="Autopeças">Autopeças</option>
                                                             <option value="Auto Center">Auto Center</option>
-                                                            <option value="Transportadora">Transportadora</option>
+                                                            <option value="Frotista">Frotista</option>
+                                                            <option value="Oficina Reparadora">Oficina Reparadora</option>
                                                             <option value="Distribuidora">Distribuidora</option>
                                                             <option value="Outros">Outros</option>
                                                         </select>
+                                                    </div>
+                                                    <div class="mb-3 outros" style="display: none">
+                                                        <input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
                                                     </div>
 
                                                     <div class="mb-3">
@@ -183,4 +186,13 @@
     
 </div>
 
+<script>
+$('#setor').change(function() {
+    if($(this).val() == 'Outros'){
+        $('.outros').show();
+    }else{
+        $('.outros').hide();
+    }
+});
+</script>
 {% endblock %}

@@ -97,17 +97,20 @@
 			                                <label class="form-label">Setor de Atuação</label>
 			                                <select class="form-control rounded-pill" id="setor" name="setor" required="required">
 			                                    <option value="">Selecione</option>
-			                                    <option {{ _session.sampel_user_setor == 'Proprietário de Veículo' ? 'selected' }} value="Proprietário de Veículo">Proprietário de Veículo</option>
-			                                    <option {{ _session.sampel_user_setor == 'Mecânico / Reparador' ? 'selected' }} value="Mecânico / Reparador">Mecânico / Reparador</option>
-			                                    <option {{ _session.sampel_user_setor == 'Frotista' ? 'selected' }} value="Frotista">Frotista</option>
-			                                    <option {{ _session.sampel_user_setor == 'Varejista' ? 'selected' }} value="Varejista">Varejista</option>
-			                                    <option {{ _session.sampel_user_setor == 'Oficina Reparadora' ? 'selected' }} value="Oficina Reparadora">Oficina Reparadora</option>
-			                                    <option {{ _session.sampel_user_setor == 'Taxista' ? 'selected' }} value="Taxista">Taxista</option>
-			                                    <option {{ _session.sampel_user_setor == 'Auto Center' ? 'selected' }} value="Auto Center">Auto Center</option>
-			                                    <option {{ _session.sampel_user_setor == 'Transportadora' ? 'selected' }} value="Transportadora">Transportadora</option>
-			                                    <option {{ _session.sampel_user_setor == 'Distribuidora' ? 'selected' }} value="Distribuidora">Distribuidora</option>
-			                                    <option {{ _session.sampel_user_setor == 'Outros' ? 'selected' }} value="Outros">Outros</option>
+												<option {{ _session.sampel_user_setor == 'Mecânico / Reparador' ? 'selected' }} value="Mecânico / Reparador">Mecânico / Reparador</option>
+												<option {{ _session.sampel_user_setor == 'Balconista' ? 'selected' }} value="Balconista">Balconista</option>
+												<option {{ _session.sampel_user_setor == 'Vendas / Telemarketing' ? 'selected' }} value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+												<option {{ _session.sampel_user_setor == 'Estoquista' ? 'selected' }} value="Estoquista">Estoquista</option>
+												<option {{ _session.sampel_user_setor == 'Autopeças' ? 'selected' }} value="Autopeças">Autopeças</option>
+												<option {{ _session.sampel_user_setor == 'Auto Center' ? 'selected' }} value="Auto Center">Auto Center</option>
+												<option {{ _session.sampel_user_setor == 'Frotista' ? 'selected' }} value="Frotista">Frotista</option>
+												<option {{ _session.sampel_user_setor == 'Oficina Reparadora' ? 'selected' }} value="Oficina Reparadora">Oficina Reparadora</option>
+												<option {{ _session.sampel_user_setor == 'Distribuidora' ? 'selected' }} value="Distribuidora">Distribuidora</option>
+												<option {{ _session.sampel_user_setor == 'Outros' ? 'selected' }} value="Outros">Outros</option>
 			                                </select>
+			                            </div>
+			                            <div class="mb-3 outros" style="display: none">
+			                            	<input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
 			                            </div>
 									</div>
 									{% if _session.sampel_user_id is empty %}
@@ -173,5 +176,12 @@ var printDiv = function (divName){
 	window.print();
 	document.body.innerHTML = originalContents;
 }
+$('#setor').change(function() {
+	if($(this).val() == 'Outros'){
+		$('.outros').show();
+	}else{
+		$('.outros').hide();
+	}
+});
 </script>
 {% endblock %}

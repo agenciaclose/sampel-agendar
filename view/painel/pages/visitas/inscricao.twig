@@ -86,19 +86,25 @@
 													<div class="mb-1">
 						                                <label class="form-label">Setor de Atuação</label>
 						                                <select class="form-control" id="setor" name="setor">
-						                                    <option value="">Selecione</option>
-						                                    <option value="Proprietário de Veículo">Proprietário de Veículo</option>
-						                                    <option value="Mecânico / Reparador">Mecânico / Reparador</option>
-						                                    <option value="Frotista">Frotista</option>
-						                                    <option value="Varejista">Varejista</option>
-						                                    <option value="Oficina Reparadora">Oficina Reparadora</option>
-						                                    <option value="Taxista">Taxista</option>
-						                                    <option value="Auto Center">Auto Center</option>
-						                                    <option value="Transportadora">Transportadora</option>
-						                                    <option value="Distribuidora">Distribuidora</option>
-						                                    <option value="Outros">Outros</option>
+															<option value="">Selecione</option>
+                                                            <option value="Mecânico / Reparador">Mecânico / Reparador</option>
+                                                            <option value="Balconista">Balconista</option>
+                                                            <option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+                                                            <option value="Estoquista">Estoquista</option>
+                                                            <option value="Autopeças">Autopeças</option>
+                                                            <option value="Auto Center">Auto Center</option>
+                                                            <option value="Frotista">Frotista</option>
+                                                            <option value="Oficina Reparadora">Oficina Reparadora</option>
+                                                            <option value="Distribuidora">Distribuidora</option>
+                                                            <option value="Outros">Outros</option>
 						                                </select>
 						                            </div>
+												</div>
+												<div class="col-md-6 col-12">
+													<div class="mb-1 outros" style="display: none">
+														<label class="form-label">Qual?</label>
+                                                        <input type="text" name="setor_outros" class="form-control" placeholder="">
+                                                    </div>
 												</div>
 											</div>
 
@@ -151,5 +157,14 @@
 		</div>
 	</div>
 </div>
-<script src="{{ PATH }}/view/painel/src/js/scripts/pages/inscricao.js?11"></script>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/inscricao.js"></script>
+<script>
+$('#setor').change(function() {
+    if($(this).val() == 'Outros'){
+        $('.outros').show();
+    }else{
+        $('.outros').hide();
+    }
+});
+</script>
 {% endblock %}
