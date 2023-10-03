@@ -25,14 +25,14 @@
                       </a>
                     </div>
 
-                    <nav class="primary-menu flex-fill">
-                        <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center">
+                    <nav class="flex-fill">
+                        <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center m-0">
                             {% if _session.sampel_user_id %}
 
                                 <li class="menu-item">
                                     <a class="nav-link dropdown-toggle dropdown-user-link d-flex align-items-center" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="d-flex justify-content-end align-items-center">
-                                            <div class="text-end me-2">
+                                            <div class="text-end me-2 d-none d-sm-block">
                                                 <div class="lh-sm">{{ _session.sampel_user_nome }}</div>
                                                 <div class="lh-sm text-white-50"><small>{{ _session.sampel_user_email }}</small></div>
                                             </div>
@@ -63,22 +63,6 @@
                     </nav>
 
                 </div>
-
-
-                <a href="#" class="menu-icon"><i class="fa fa-bars"></i></a>
-                <nav id="mobile-nav-menu" class="mobile-nav-menu">
-                  <ul id="mobile-nav-menu-ul" class="wbc_menu">
-                    <li class="menu-item current_page_item">
-                        <a href="{{ DOMAIN }}" aria-current="page">Home</a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="{{ DOMAIN }}/areas-de-atendimento">Áreas de Atendimento</a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="{{ DOMAIN }}/loja">Nossa Loja</a>
-                    </li>
-                  </ul>
-                </nav>
 
             </div>
         </div>

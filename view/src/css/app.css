@@ -1442,7 +1442,6 @@ img.alignright{
 .site-logo-title img{
   max-width: 125px;
   max-height: 100%;
-  margin: 0 auto;
   display: block;
   width: auto;
   z-index: 0;
@@ -2909,6 +2908,9 @@ label, .form-label {
   }
   .header-bar:not(.wbc-mobile-always-visible):not(.wbc-mobile-visible-at) .menu-icon{
     display: block;
+  }
+  table.dataTable thead > tr > th:before, table.dataTable thead > tr > th:after {
+    display: none !important;
   }
 }
 .consultores{
