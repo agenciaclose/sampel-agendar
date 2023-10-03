@@ -17,10 +17,10 @@
 		<div class="text-center">O Programa Sampel Tour aproxima você do dia a dia das fábricas da Sampel. É uma satisfação contar com seu interesse em nos visitar!</div>
 
 
-		<div class="d-flex d-flex justify-content-evenly flex-wrap my-5 options-home-menu">
+		<div class="d-flex d-flex justify-content-between flex-wrap my-5 options-home-menu">
 			
-			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/agendar">{% else %}<a href="{{ DOMAIN }}/login">{% endif %}
-				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0" style="width: 15rem;">
+			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/agendar" class="flex-fill">{% else %}<a href="{{ DOMAIN }}/login" class="flex-fill">{% endif %}
+				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0 mx-0 mx-sm-5">
 					<div class="card-body">
 						<div><i class="fa-thin fa-calendar-plus fa-4x"></i></div>
 						<h4 class="card-title mt-3">AGENDAR VISITAS</h4>
@@ -28,8 +28,8 @@
 				</div>
 			</a>
 
-			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/visitas">{% else %}<a href="{{ DOMAIN }}/login">{% endif %}
-				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0" style="width: 15rem;">
+			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/visitas" class="flex-fill">{% else %}<a href="{{ DOMAIN }}/login" class="flex-fill">{% endif %}
+				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0 mx-0 mx-sm-5">
 					<div class="card-body">
 						<div><i class="fa-thin fa-calendar-check fa-4x"></i></div>
 						<h4 class="card-title mt-3">VISITAS AGENDADAS</h4>
@@ -37,8 +37,8 @@
 				</div>
 			</a>
 
-			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/minha-conta">{% else %}<a href="{{ DOMAIN }}/login">{% endif %}
-				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0" style="width: 15rem;">
+			{% if _session.sampel_user_id %}<a href="{{ DOMAIN }}/minha-conta" class="flex-fill">{% else %}<a href="{{ DOMAIN }}/login" class="flex-fill">{% endif %}
+				<div class="card bg-transparent text-center border-2 border-white text-white mb-4 mb-sm-0 mx-0 mx-sm-5">
 					<div class="card-body">
 							<div><i class="fa-thin fa-calendar-lines-pen fa-4x"></i></div>
 							<h4 class="card-title mt-3">EDITAR CADASTRO</h4>
