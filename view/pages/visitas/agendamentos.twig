@@ -37,11 +37,11 @@
 					<tr>
 						<td>{{ visita.visita_id }}</td>
 
-						<td>
+						<td width="250">
 							<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
 						</td>
 
-						<td>
+						<td width="250">
 							{{ visita.nome }} - <small class="text-lowercase text-white-50">{{ visita.empresa_fantasia }}</small>
 							<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
 						</td>
@@ -52,7 +52,7 @@
 						</td>
 						<td><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></td>
 
-						<td class="text-end">
+						<td width="250" class="text-end">
 							{{ visita.data_visita | date("m-d-Y H:i") }}
 							<div><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> LINK DE INSCRIÇÃO</a></div>
 						</td>
