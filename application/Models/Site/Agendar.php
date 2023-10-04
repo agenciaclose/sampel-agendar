@@ -11,6 +11,14 @@ use Agencia\Close\Models\Model;
 class Agendar extends Model
 {
 
+    
+    public function getEstados(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_limites ORDER BY estado ASC");
+        return $read;
+    }
+
     public function saveCadastro($params)
     {
         $params['id_empresa'] = $_SESSION['sampel_user_id'];
@@ -25,6 +33,12 @@ class Agendar extends Model
         $update->ExeUpdate('visitas', $params, 'WHERE id = :id', "id={$params['id']}");
         return $update;
     
+    }
+
+    public function getLast(){
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas ORDER BY id DESC LIMIT 1");
+        return $read;
     }
 
 }

@@ -16,7 +16,8 @@ $router->post("/agendar/editar", "AgendarController:editar", "editar");
 
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");
-$router->get("/visitas", "VisitasController:index", "index");
+$router->get("/visitas", "VisitasController:visitas", "visitas");
+$router->get("/agendamentos", "VisitasController:agendamentos", "agendamentos");
 $router->get("/visita/lista/{id}", "VisitasController:lista", "lista");
 $router->get("/visita/inscricao/{id}", "VisitasController:inscricao", "inscricao");
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro", "inscricaoCadastro");

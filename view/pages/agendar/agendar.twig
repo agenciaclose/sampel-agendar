@@ -29,10 +29,18 @@
 						</div>
 						<div class="mb-3">
 							<div class="row">
+
 								<div class="col-md-6 col-sm-12 col-12">
-									<label for="qtd_visitas" class="form-label">Quantidade de pessoas na visita <span class="text-danger">*</span></label>
-									<input type="text" maxlength="2" name="qtd_visitas" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" class="form-control" id="qtd_visitas">
+									<label for="qtd_visitas" class="form-label">Selecione seu Estado <span class="text-danger">*</span></label>
+									<select class="form-control" name="estado" id="estado">
+										<option>Selecione</option>
+										{% for estado in estados %}
+											<option data-min="{{ estado.limit_min }}" data-max="{{ estado.limit }}" value="{{ estado.sigla }}">{{ estado.estado }}</option>
+	                                    {% endfor %}
+									</select>
+									<input type="hidden" name="qtd_visitas"class="form-control" id="qtd_visitas">
 								</div>
+
 								<div class="col-md-6 col-sm-12 col-12">
 									<label for="qtd_visitas" class="form-label">Data da Visita <span class="text-danger">*</span></label>
 									<input type="datetime-local" name="data_visita" class="form-control" id="data_visita">
@@ -51,15 +59,22 @@
 					<div class="cadastrar_visita_success mt-4">
 						<div class="alert alert-primary" role="alert">
 							<div><h4>Agendamento enviado com sucesso!</h4></div>
-							Sua solicitação de visita passará por aprovação prévia. Aguarde e você receberá em seu Email a confirmação e o link de inscrições para sua visita solicitada.
+							Seu agentamento precisa chegar a quantidade <b>mínima de <span class="minimo">1</span></b> para ser aprovado. Enquanto isso, compartilhe o link de inscrição abaixo para as pessoas poderem se inscrever em seu agendamento.
+							<div><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" id="share_link" class="btn btn-warning mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> LINK DE INSCRIÇÃO</a></div>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-12 col-12 mt-4">
+					<div class="alert alert-success qty" role="alert" style="display: none;">
+						<div class="mb-2">Número mínimo e máximo para seu Estado:</div>
+						<div>
+							<span class="me-4"><b>MÍNIMO: </b><span class="minimo"></span></span><span><b>MÁXIMO: </b><span class="maximo"></span></span>
+						</div>
+					</div>
 					<div class="alert alert-primary" role="alert">
-						<div><h4>Número de visitantes</h4></div>
-						O número de visitantes será validado posteriormente na lista de visitantes, na qual não será possível cadastrar um número diferente do que foi solicitado originalmente.
+						<div><h4>Aviso</h4></div>
+						O número de visitantes depende do seu estado. Caso precise de um valor maior, entre em contato após criar seu agendamento.
 					</div>
 					<div class="alert alert-warning" role="alert">
 						* Visitas devem ser maiores de 18 anos.

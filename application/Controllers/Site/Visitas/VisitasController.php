@@ -9,16 +9,20 @@ use Agencia\Close\Services\Login\Logon;
 
 class VisitasController extends Controller
 {
-    public function index($params)
+    public function visitas($params)
     {
         $this->setParams($params);
         $visitas = new Visitas();
-        if($_SESSION['sampel_user_tipo'] == '3'){
-            $visitas = $visitas->listarVisitasUser()->getResult();
-        }else{
-            $visitas = $visitas->listarVisitas()->getResult();
-        }
+        $visitas = $visitas->listarVisitasUser()->getResult();
         $this->render('pages/visitas/visitas.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
+    }
+
+    public function agendamentos($params)
+    {
+        $this->setParams($params);
+        $visitas = new Visitas();
+        $visitas = $visitas->listarVisitas()->getResult();
+        $this->render('pages/visitas/agendamentos.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }
 
     public function lista($params)

@@ -30,13 +30,28 @@
                                     <div class="position-relative configuracoes_visita">
 
                                         <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-                                        
-                                        {% for estado in estados %}
-                                        <div class="col-12">
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-text text-uppercase col-9 rounded-0">{{ estado.estado }}</div>
-                                                <input type="number" name="{{ estado.sigla }}" value="{{ estado.limit }}" class="form-control col-3 rounded-0" placeholder="0">
+                                        <div class="row">
+                                            <div class="col-8 pe-0">
+                                                <label>ESTADO</label>
                                             </div>
+                                            <div class="col-2 p-0">
+                                                <label>MIN</label>
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <label>MAX</label>
+                                            </div>                                                
+                                        </div>
+                                        {% for estado in estados %}
+                                        <div class="row">
+                                            <div class="col-8 pe-0">
+                                                <div class="form-control form-control-sm text-uppercase rounded-0">{{ estado.estado }}</div>
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <input type="number" name="{{ estado.sigla }}_min" value="{{ estado.limit_min }}" class="form-control form-control-sm rounded-0" placeholder="0">
+                                            </div>
+                                            <div class="col-2 p-0">
+                                                <input type="number" name="{{ estado.sigla }}_max" value="{{ estado.limit }}" class="form-control form-control-sm rounded-0" placeholder="0">
+                                            </div>                                                
                                         </div>
                                         {% endfor %}
                                         

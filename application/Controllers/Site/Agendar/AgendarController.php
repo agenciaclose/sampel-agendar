@@ -10,7 +10,9 @@ class AgendarController extends Controller
     public function index($params)
     {
         $this->setParams($params);
-        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar']);
+        $estados = new Agendar();
+        $estados = $estados->getEstados()->getResult();
+        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar', 'estados' => $estados]);
     }
 
     public function cadastro($params)
@@ -18,8 +20,10 @@ class AgendarController extends Controller
     	$this->setParams($params);
         $save = new Agendar();
         $save = $save->saveCadastro($this->params);
+        $last = new Agendar();
+        $last = $last->getLast()->getResult()[0];
         if ($save) {
-            echo '1';
+            echo $last['id'];
         } else {
             echo '0';
         }

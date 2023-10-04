@@ -14,7 +14,8 @@ $(document).ready(function () {
             url: DOMAIN + '/agendar/cadastro',
             success: function (data) {
 
-                if (data == "1") {
+                if (data != "0") {
+                    $('#share_link').attr('href', DOMAIN + '/visita/inscricao/'+data);
                     $('.form-load').removeClass('show');
                     $('.cadastrar_visita').html('');
                     $('.cadastrar_visita_success').show();
@@ -26,6 +27,24 @@ $(document).ready(function () {
                 }
             }
         });
+
+    });
+
+
+
+    $('#estado').on('change', function (e) {
+
+        var selected = $(this).find("option:selected");
+        var data_min  = selected.attr('data-min');
+        var data_max  = selected.attr('data-max');
+        if(data_max != undefined){
+            $('.qty').show();
+            $('#qtd_visitas').val(data_max);
+            $('.minimo').text(data_min);
+            $('.maximo').text(data_max);
+        }else{
+            $('.qty').hide();
+        }
 
     });
 

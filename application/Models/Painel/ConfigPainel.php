@@ -23,8 +23,18 @@ class ConfigPainel extends Model
     {
         $read = new Read();
 		foreach($params as $key => $valor) {
-	        $read->FullRead("UPDATE `visitas_limites` SET `limit` = '".$valor."' WHERE `sigla` = '".$key."' LIMIT 1");
+
+            $estado = explode('_', $key);
+
+            if (str_contains($key, 'max')) { 
+                $read->FullRead("UPDATE `visitas_limites` SET `limit` = '".$valor."' WHERE `sigla` = '".$estado[0]."' LIMIT 1");
+            }else{
+                $read->FullRead("UPDATE `visitas_limites` SET `limit_min` = '".$valor."' WHERE `sigla` = '".$estado[0]."' LIMIT 1");
+            }
+
+
 		}
+
 	    return $read;
 
     }
