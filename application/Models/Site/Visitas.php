@@ -34,37 +34,34 @@ class Visitas extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT v.*, u.*, v.id AS visita_id
-        				FROM visitas AS v
-        				INNER JOIN usuarios AS u ON u.id = v.id_empresa
-        				WHERE v.id = :id_visita ORDER BY v.`data` DESC", "id_visita={$id_visita}");
+                        FROM visitas AS v
+                        INNER JOIN usuarios AS u ON u.id = v.id_empresa
+                        WHERE v.id = :id_visita ORDER BY v.`data` DESC", "id_visita={$id_visita}");
         return $read;
     }
 
-    public function getInscricao($id_visita): read
+    public function getInscricao($id_visita, $inscricao): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visitas_inscricoes AS vi
-                        INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        INNER JOIN usuarios AS u ON u.id = vi.id_user
-                        WHERE vi.id_visita = :id_visita AND vi.id_user = :user_id ORDER BY vi.`data` DESC", "id_visita={$id_visita}&user_id={$_SESSION['sampel_user_id']}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND id = :inscricao", "id_visita={$id_visita}&inscricao={$inscricao}");
         return $read;
     }
     
     public function getInscricaoByCode($codigo): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visitas_inscricoes AS vi
-                        INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        INNER JOIN usuarios AS u ON u.id = vi.id_user
-                        WHERE vi.codigo = :codigo ORDER BY vi.`data` DESC", "codigo={$codigo}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE codigo = :codigo", "codigo={$codigo}");
         return $read;
     }
 
     public function inscricaoCadastro($params)
     {
         $read = new Read();
+
         $codigo = $this->genCode($params['id_visita']);
-        $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `id_user`, `codigo`) VALUES (:id_visita, :id_user, :codigo)", "id_visita={$params['id_visita']}&id_user={$params['sampel_user_id']}&codigo={$codigo}");
+        $cpf = $this->clearCPF($params['cpf']);
+
+        $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `codigo`, `nome`, `cpf`, `email`, `telefone`, `setor`, `cep`, `cidade`, `estado`) VALUES (:id_visita, :codigo, :nome, :cpf, :email, :telefone, :setor, :cep, :cidade, :estado)", "id_visita={$params['id_visita']}&codigo={$codigo}&nome={$params['nome']}&cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}&setor={$params['setor']}&cep={$params['cep']}&cidade={$params['cidade']}&estado={$params['estado']}");
         return $read;
 
     }
@@ -74,21 +71,24 @@ class Visitas extends Model
         $read = new Read();
 
         $read->FullRead("UPDATE `visitas` SET `inscricoes` = (`inscricoes` + 1) WHERE `id` = :id_visita", "id_visita={$params['id_visita']}");
+       
+        $cpf = $this->clearCPF($params['cpf']);
 
-        $read->FullRead("UPDATE `visitas_inscricoes` SET `qrcode` = :qrcode WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}&id_user={$params['id_user']}");
-
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `qrcode` = :qrcode WHERE `id_visita` = :id_visita AND `cpf` = :cpf", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}&cpf={$cpf}");
 
         return $read;
     }
 
-    public function checkCadastro($cpf, $email, $id_visita)
+    public function checkCadastro($cpf, $id_visita)
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*
-                        FROM visitas_inscricoes AS v
-                        INNER JOIN usuarios AS u ON u.id = v.id_user
-                        WHERE v.id_visita = :visita_id AND u.email = :email AND u.cpf = :cpf", 
-                        "visita_id={$id_visita}&email={$email}&cpf={$cpf}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND cpf = :cpf", "id_visita={$id_visita}&cpf={$cpf}");
+        return $read;
+    }
+
+    public function lastInscricao(){
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_inscricoes ORDER BY id DESC LIMIT 1");
         return $read;
     }
 
@@ -109,5 +109,17 @@ class Visitas extends Model
         return $id_visita.$pass; 
 
     } 
+
+    function clearCPF($palavra){
+        $palavra = trim(preg_replace("/[\s]+/", " ", $palavra));
+        trim($palavra);
+        $palavra = str_replace("(","",$palavra);
+        $palavra = str_replace(")","",$palavra);
+        $palavra = str_replace("+","",$palavra);
+        $palavra = str_replace("-","",$palavra);
+        $palavra = str_replace(".","",$palavra);
+        $palavra = str_replace(" ","",$palavra);
+        return($palavra);
+    }
 
 }

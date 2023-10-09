@@ -43,8 +43,10 @@ class VisitasController extends Controller
         $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
         if(isset($_GET['action'])){
+
             $inscricao = new Visitas();
-            $inscricao = $inscricao->getInscricao($visita['visita_id'])->getResult()[0];
+            $inscricao = $inscricao->getInscricao($params['id'], $params['inscricao'])->getResult()[0];
+
         }else{
             $inscricao = '';
         }
@@ -56,22 +58,20 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
 
-        if( !$this->checkCadastro($params['cpf'], $params['email'], $params['id_visita']) ){
-            if(!empty($_SESSION['sampel_user_id'])){
-                $params['sampel_user_id'] = $_SESSION['sampel_user_id'];
-            }else{
-                $user = new User();
-                $user->saveClient($params);
-                $logon = new Logon();
-                $params['sampel_user_id'] = $logon->loginByEmailReturn($params['email'], $params['senha'])->getResult()[0]['id'];
-            }
+        if( !$this->checkCadastro($params['cpf'], $params['id_visita']) ){
+
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
             if ($cadastro) {
-                echo "1";
+                $last = new Visitas();
+                $last = $last->lastInscricao()->getResult()[0];
+                echo $last['id'];
             }
+
         }else{
-            echo '2';
+
+            echo '0';
+
         }
 
     }
@@ -83,10 +83,10 @@ class VisitasController extends Controller
         $update = $update->inscricaoCadastroQRcode($params);
     }
 
-    public function checkCadastro($cpf, $email, $visita_id)
+    public function checkCadastro($cpf, $visita_id)
     {
         $checkCadastro = new Visitas();
-        $checkCadastro = $checkCadastro->checkCadastro($cpf, $email, $visita_id)->getResult();
+        $checkCadastro = $checkCadastro->checkCadastro($cpf, $visita_id)->getResult();
         return $checkCadastro;
     }
 

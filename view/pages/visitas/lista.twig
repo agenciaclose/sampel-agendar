@@ -45,7 +45,7 @@
 						</td>
 						<td><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></td>
 						<td class="text-end">
-							{{ visita.data_visita | date("m-d-Y H:i") }}
+							{{ visita.data_visita | date("d-m-Y H:i") }}
 							<div><small><a href="#" class="text-warning"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a></small></div>
 						</td>
 					</tr>

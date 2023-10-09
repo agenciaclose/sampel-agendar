@@ -20,6 +20,7 @@ $router->get("/visitas", "VisitasController:visitas", "visitas");
 $router->get("/agendamentos", "VisitasController:agendamentos", "agendamentos");
 $router->get("/visita/lista/{id}", "VisitasController:lista", "lista");
 $router->get("/visita/inscricao/{id}", "VisitasController:inscricao", "inscricao");
+$router->get("/visita/inscricao/{id}/{inscricao}", "VisitasController:inscricao", "inscricao");
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro", "inscricaoCadastro");
 $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoCadastroQRcode", "inscricaoCadastroQRcode");
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
