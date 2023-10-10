@@ -69,6 +69,9 @@ input::placeholder {
   opacity: 0.5;
   color: white;
 }
+.modal-backdrop {
+  z-index: 0 !important;
+}
 .alert-none {
   display: none;
 }
