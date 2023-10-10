@@ -35,10 +35,7 @@ class VisitasPainel extends Model
     public function listarInscricoes($id_visita): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.*
-                        FROM visitas_inscricoes AS v
-                        INNER JOIN usuarios AS u ON u.id = v.id_user
-                        WHERE v.id_visita = :id_visita ORDER BY v.`data` DESC", "id_visita={$id_visita}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita ORDER BY `id` DESC", "id_visita={$id_visita}");
         return $read;
     }
 
