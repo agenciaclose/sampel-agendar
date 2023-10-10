@@ -1325,6 +1325,14 @@ img.alignright{
 .wbc-nomenu-sticky-shadow .menu-bar-wrapper.is-sticky{
   box-shadow:none;
 }
+.modal-content {
+  -webkit-box-shadow: 0px 0px 80px 0px rgba(0,0,0,0.56);
+  -moz-box-shadow: 0px 0px 80px 0px rgba(0,0,0,0.56);
+  box-shadow: 0px 0px 80px 0px rgba(0,0,0,0.56);
+}
+.modal-backdrop {
+  display: none !important;
+}
 .home .header-bar {
   position: absolute;
 }
