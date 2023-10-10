@@ -72,17 +72,15 @@ $(document).ready(function () {
             type: "POST", async: true, data: form.serialize(),
             url: DOMAIN + '/cadastro/create-user',
             success: function (data) {
-                $('#info-cadastro-cliente').hide();
-                $('#info-cadastro-cliente2').hide();
                 if (data == "1") {
                     window.location.href = DOMAIN;
                 } else  if (data == "2")  {
                     $('button[type="submit"]').prop("disabled", false);
-                    $('#info-cadastro-cliente2').show();
+                    swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
                 }else{
                     $('button[type="submit"]').prop("disabled", false);
-                    $('#info-cadastro-cliente').show();
+                    swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
                 }
             }
@@ -104,11 +102,11 @@ $(document).ready(function () {
                     window.location.href = DOMAIN;
                 } else  if (data == "2")  {
                     $('button[type="submit"]').prop("disabled", false);
-                    $('#info-cadastro-cliente2').show();
+                    swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
                 }else{
                     $('button[type="submit"]').prop("disabled", false);
-                    $('#info-cadastro-cliente').show();
+                    swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
                 }
             }

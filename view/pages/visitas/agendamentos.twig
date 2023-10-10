@@ -14,7 +14,7 @@
 				<div>Aqui você ver e gerencia sua visitas agendadas.</div>
 			</div>
 			<div>
-				<a href="{{ DOMAIN }}/agendar" class="btn btn-warning btn-lg mt-2 mt-sm-0"><i class="fa-solid fa-plus"></i> CRIAR NOVO AGENDAMENTO</a>
+				<a href="{{ DOMAIN }}/agendar" class="btn btn-light btn-lg mt-2 mt-sm-0"><i class="fa-solid fa-plus"></i> CRIAR NOVO AGENDAMENTO</a>
 			</div>
 		</div>
 
@@ -83,6 +83,7 @@
 										</div>
 									</div>
 								</div>
+								<div class="ms-4 d-lg-none d-md-none d-sm-block d-block"><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></div>
 								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
 							</div>
 						</td>

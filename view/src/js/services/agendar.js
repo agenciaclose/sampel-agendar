@@ -15,10 +15,13 @@ $(document).ready(function () {
             success: function (data) {
 
                 if (data != "0") {
-                    $('#share_link').attr('data-link', DOMAIN + '/visita/inscricao/'+data);
                     $('.form-load').removeClass('show');
                     $('.cadastrar_visita').html('');
                     $('.cadastrar_visita_success').show();
+                    $('.share_link_click').attr('data-link', DOMAIN + '/visita/inscricao/'+data);
+                    $('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+ DOMAIN +'/visita/inscricao/'+data);
+                    $('.share_link_twitter').attr('href', 'https://twitter.com/intent/tweet?url='+ DOMAIN +'/visita/inscricao/'+data+'&amp;text=Confira%20esse%20agendamento%20em');
+                    $('.share_link_whatsapp').attr('href', 'https://api.whatsapp.com/send/?text='+ DOMAIN +'/visita/inscricao/'+data);
                 } else {
 
                     $('button[type="submit"]').prop("disabled", false);
@@ -37,10 +40,42 @@ $(document).ready(function () {
         var data_min  = selected.attr('data-min');
         var data_max  = selected.attr('data-max');
 
+        if(selected.val() == 'SP'){
+            data_min = (60 / 100) * data_max;
+        }else{
+            data_min  = selected.attr('data-min');
+        }
+        console.log(data_min);
         if(data_max != undefined){
             $('.qty').show();
+            $('#qtd_visitas_min').val(Math.round(data_min));
             $('#qtd_visitas').val(data_max);
-            $('.minimo').text(data_min);
+            $('.minimo').text(Math.round(data_min));
+            $('.maximo').text(data_max);
+        }else{
+            $('.qty').hide();
+        }
+
+        if(selected.val() == 'SP'){
+            $('.digitar_qtd').show();
+        }else{
+            $('.digitar_qtd').hide();
+        }
+
+    });
+
+    $('#qtd_visitas').on('keyup', function (e) {
+
+        var data_min  = $('#qtd_visitas_min').val();
+        var data_max  = $(this).val();
+
+        data_min = (60 / 100) * data_max;
+        
+        if(data_max != undefined){
+            $('.qty').show();
+            $('#qtd_visitas_min').val(data_min.toFixed(0));
+            $('#qtd_visitas').val(data_max);
+            $('.minimo').text(data_min.toFixed(0));
             $('.maximo').text(data_max);
         }else{
             $('.qty').hide();
