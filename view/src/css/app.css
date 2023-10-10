@@ -69,9 +69,6 @@ input::placeholder {
   opacity: 0.5;
   color: white;
 }
-.modal-backdrop {
-  z-index: 0 !important;
-}
 .alert-none {
   display: none;
 }
@@ -1332,7 +1329,7 @@ img.alignright{
   position: absolute;
 }
 .header-bar{
-  z-index: 2000;
+  z-index: 0;
   position: relative;
   width: 100%;
 }
@@ -3005,16 +3002,6 @@ label, .form-label {
   background-color: #01A6D7;
   color: #FFFFFF;
 }
-.modal-open .modal {
-  z-index: 999999 !important;
-}
-.modal-backdrop.show {
-  z-index: 99999 !important;
-}
-.modal-backdrop.show {
-  z-index: 99999 !important;
-}
-
 .social-footer {
   list-style: none;
   padding: 0;
