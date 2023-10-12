@@ -56,13 +56,17 @@
                                 </div>
 
                                 <div class="row digitar_qtd">
-                                    <div class="mb-2 col-md-6 col-sm-12 col-12">
-                                        <label for="qtd_visitas_min" class="form-label">Quantidade mínima</label>
-                                        <input type="text" name="qtd_visitas_min" class="form-control" id="qtd_visitas_min" value="{{ visita.qtd_visitas_min }}">
-                                    </div>
-                                    <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                    <div class="mb-2 col-md-4 col-sm-12 col-12">
                                         <label for="qtd_visitas" class="form-label">Quantidade máxima</label>
-                                        <input type="text" name="qtd_visitas" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
+                                        <input type="number" name="qtd_visitas" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
+                                    </div>
+                                    <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                        <label for="porcentagem" class="form-label">Porcentagem</label>
+                                        <input type="number" name="porcentagem" class="form-control" id="porcentagem" value="{{ visita.porcentagem == '' ? '60' : visita.porcentagem }}">
+                                    </div>
+                                    <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                        <label for="qtd_visitas_min" class="form-label">Quantidade mínima</label>
+                                        <input type="number" name="qtd_visitas_min" class="form-control" id="qtd_visitas_min" value="{{ visita.qtd_visitas_min }}">
                                     </div>
                                 </div>
 
@@ -101,5 +105,5 @@
 
         </div>
     </div>
-    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js?123424234"></script>
 {% endblock %}

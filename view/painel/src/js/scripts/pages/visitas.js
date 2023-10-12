@@ -82,4 +82,42 @@ $(document).ready(function () {
         });
 
     });
+
+    $('#qtd_visitas').on('keyup', function (e) {
+
+        var data_min  = $('#qtd_visitas_min').val();
+        var data_max  = $('#qtd_visitas').val();
+        var porcentagem = $('#porcentagem').val();
+        data_min = (porcentagem / 100) * data_max;
+        
+        if(data_max != undefined){
+            $('.qty').show();
+            $('#qtd_visitas_min').val(data_min.toFixed(0));
+            $('#qtd_visitas').val(data_max);
+            $('.minimo').text(data_min.toFixed(0));
+            $('.maximo').text(data_max);
+        }else{
+            $('.qty').hide();
+        }
+
+    });
+
+    $('#porcentagem').on('keyup', function (e) {
+        console.log(porcentagem);
+        var data_min  = $('#qtd_visitas_min').val();
+        var data_max  = $('#qtd_visitas').val();
+        var porcentagem = $('#porcentagem').val();
+        data_min = (porcentagem / 100) * data_max;
+        
+        if(data_max != undefined){
+            $('.qty').show();
+            $('#qtd_visitas_min').val(data_min.toFixed(0));
+            $('#qtd_visitas').val(data_max);
+            $('.minimo').text(data_min.toFixed(0));
+            $('.maximo').text(data_max);
+        }else{
+            $('.qty').hide();
+        }
+
+    });
 });
