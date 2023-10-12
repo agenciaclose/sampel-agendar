@@ -3,8 +3,6 @@
 namespace Agencia\Close\Controllers\Painel\Visitas;
 
 use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Helpers\Upload;
-use Agencia\Close\Models\Painel\CategoriasVisitasPainel;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Models\Painel\InscricaoPainel;
 
@@ -63,11 +61,14 @@ class VisitasController extends Controller
     public function editar($params)
     {
         $this->setParams($params);
+
+        $estados = new VisitasPainel();
+        $estados = $estados->getEstados()->getResult();
         
         $visita = new VisitasPainel();
         $visita = $visita->getVisitaID($params['id'])->getResult()[0];
 
-        $this->render('painel/pages/visitas/form.twig', ['menu' => 'visitas', 'visita' => $visita,]);
+        $this->render('painel/pages/visitas/form.twig', ['menu' => 'visitas', 'visita' => $visita, 'estados' => $estados]);
     }
 
     public function inscricao($params)

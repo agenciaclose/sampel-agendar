@@ -37,8 +37,10 @@ $(document).ready(function () {
 
                 if (data == "1") {
                     $('.form-load').removeClass('show');
-                    $('.cadastrar_visita').html('');
-                    $('.cadastrar_visita_success').show();
+                    swal({type: 'success', title: 'CADASTRADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
                 } else {
 
                     $('button[type="submit"]').prop("disabled", false);
@@ -66,8 +68,10 @@ $(document).ready(function () {
 
                 if (data == "1") {
                     $('.form-load').removeClass('show');
-                    $('.editar_visita').html('');
-                    $('.editar_visita_success').show();
+                    swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
                 } else {
 
                     $('button[type="submit"]').prop("disabled", false);

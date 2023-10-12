@@ -4,8 +4,8 @@ namespace Agencia\Close\Models\Painel;
 
 use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Create;
-use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Update;
+use Agencia\Close\Conn\Read;
 use Agencia\Close\Models\Model;
 use mysql_xdevapi\Result;
 
@@ -19,6 +19,13 @@ class VisitasPainel extends Model
         $read->FullRead("SELECT v.*, u.*, v.id AS visita_id
                         FROM visitas AS v
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa ORDER BY v.id DESC");
+        return $read;
+    }
+
+    public function getEstados(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_limites ORDER BY estado ASC");
         return $read;
     }
 
