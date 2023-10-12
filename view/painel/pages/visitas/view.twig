@@ -91,7 +91,13 @@
 										<thead>
                                             <tr>
 												<th class="d-none">#</th>
-                                                <th>Inscrito</th>
+                                                <th>Nome</th>
+                                                <th>CPF</th>
+                                                <th>Telefone</th>
+                                                <th>Email</th>
+                                                <th>Setor</th>
+                                                <th>Cidade</th>
+                                                <th>Estado</th>
                                                 <th width="25" class="text-end">Data</th>
                                             </tr>
                                         </thead>
@@ -100,12 +106,13 @@
 												<tr>
 													<td class="d-none">{{ lista.visita_id }}</td>
 
-													<td class="ps-0">
-														{{ lista.nome }}
-														<div class="text-lowercase">
-															<small>{{ lista.email }} - {{ lista.telefone }}</small>
-														</div>
-													</td>
+													<td class="ps-0">{{ lista.nome }}</td>
+													<td class="ps-0">{{ lista.cpf }}</td>
+													<td class="ps-0">{{ lista.telefone }}</td>
+													<td class="ps-0">{{ lista.email }}</td>
+													<td class="ps-0">{{ lista.setor }}</td>
+													<td class="ps-0">{{ lista.cidade }}</td>
+													<td class="ps-0">{{ lista.estado }}</td>
 
 													<td class="text-end pe-0">
 														{{ lista.data_visita | date("m-d-Y H:i") }}
