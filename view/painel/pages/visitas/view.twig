@@ -31,7 +31,11 @@
 									<hr>
 
 									<div class="d-flex justify-content-between flex-wrap">
-										<h4 class="text-primary"><b>{{ visita.title }}</b></h4>
+										<h4 class="text-primary m-0"><b>{{ visita.title }}</b></h4>
+
+										<div><b class="text-primary">Quantidade Mínima:</b> <b>{{ visita.qtd_visitas_min }}</b></div>
+										<div><b class="text-primary">Quantidade Máxima:</b> <b>{{ visita.qtd_visitas }}</b></div>
+
 										<div><b class="text-primary">Data para a visita:</b> {{ visita.data_visita | date("d-m-Y") }} as {{ visita.horario_visita }}</div>
 									</div>
 
@@ -39,14 +43,14 @@
 
 									<div class="my-1 row">
 
-										<div class="col-12 col-sm-12 col-md-6">
+										<div class="col-12 col-sm-12 col-md-4">
 											<div><h5 class="text-primary">Responsavel:</h5></div>
 											<b>{{ visita.nome }}</b>
 											<div class="text-lowercase">{{ visita.email }}</div>
 											<div class="text-lowercase">{{ visita.empresa_telefone }}</div>
 										</div>
 
-										<div class="col-12 col-sm-12 col-md-6">
+										<div class="col-12 col-sm-12 col-md-4">
 											<div><h5 class="text-primary">Empresa:</h5></div>
 											<div>{{ visita.empresa_fantasia }}</div>
 											<div>{{ visita.empresa_email }}</div>
@@ -55,14 +59,11 @@
 											<div>{{ visita.empresa_cidade }} - {{ visita.empresa_uf }}</div>
 										</div>
 
-										<div class="col-12 col-sm-12 col-md-6 mt-2">
-											<div><h5 class="text-primary">Quantidade Mínima:</h5></div>
-											<b>{{ visita.qtd_visitas_min }}</b>
-										</div>
-
-										<div class="col-12 col-sm-12 col-md-6 mt-2">
-											<div><h5 class="text-primary">Quantidade Máxima:</h5></div>
-											<b>{{ visita.qtd_visitas }}</b>
+										<div class="col-12 col-sm-12 col-md-4">
+											<div><h5 class="text-warning">Estatísticas da Visita:</h5></div>
+											{% for grupo in grupos %}
+												<div class="badge {{ _get.setor == grupo.setor ? 'bg-warning' : 'bg-light' }} mb-1 me-1"><a class="text-black" href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}?setor={{ grupo.setor }}">{{ grupo.setor }} <span class="badge bg-black">{{ grupo.total }}</span></a></div>
+											{% endfor %}
 										</div>
 
 									</div>
