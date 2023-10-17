@@ -89,6 +89,7 @@ $router->post("/painel/visita/inscricao/cadastro-qrcode", "InscricaoController:i
 $router->namespace("Agencia\Close\Controllers\Painel\Config");
 $router->get("/painel/visitas/config", "ConfigController:index");
 $router->post("/painel/visitas/config/save", "ConfigController:save");
+$router->post("/painel/visitas/config/save/regras", "ConfigController:saveRegras");
 
 // PAINEL PALESTRAS
 $router->namespace("Agencia\Close\Controllers\Painel\Palestras");

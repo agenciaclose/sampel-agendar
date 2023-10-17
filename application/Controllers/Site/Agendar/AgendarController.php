@@ -10,9 +10,14 @@ class AgendarController extends Controller
     public function index($params)
     {
         $this->setParams($params);
+
         $estados = new Agendar();
         $estados = $estados->getEstados()->getResult();
-        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar', 'estados' => $estados]);
+
+        $configuracoes = new Agendar();
+        $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+
+        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar', 'estados' => $estados, 'config' => $configuracoes]);
     }
 
     public function cadastro($params)

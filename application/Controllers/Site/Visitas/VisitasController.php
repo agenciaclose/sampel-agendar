@@ -51,7 +51,10 @@ class VisitasController extends Controller
             $inscricao = '';
         }
 
-        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
+        $configuracoes = new Visitas();
+        $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+
+        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
     public function inscricaoCadastro($params)

@@ -41,7 +41,7 @@
 									</select>
 								</div>
 								<div class="mb-3 col-md-6 col-sm-12 col-12">
-									<label for="data_visita" class="form-label">Data da Visita <span class="text-danger">*</span></label>
+									<label for="data_visita" class="form-label">Data prevista da Visita<span class="text-danger">*</span> <i class="fa-solid fa-circle-question" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A data poderá ser alterada pela Sampel dependo de disponibilidade ou outros fatores."></i></label>
 									<input type="date" name="data_visita" class="form-control" id="data_visita">
 								</div>
 							</div>
@@ -141,11 +141,7 @@
 							<div id="horarios_tab" class="accordion-collapse collapse show" data-bs-parent="#regras_visita">
 								<div class="accordion-body">
 									<small>
-										<b>ATENÇÃO:</b> Os horários são aproximados e podem sofrer ajustes durante o evento. Nossa visita tem como objetivo compartilhar informações importantes sobre os nossos processos de fabricação.
-										<br><b>* 07:00 às 08:00:</b> Recepção com Café da Manhã
-										<br><b>* 08:00 às 09:30:</b> Palestra sobre os Processos de Fabricação e Tour nas 4 Plantas
-										<br><b>* 12:00:</b> Almoço
-										<br><b>* 13:00:</b> Sorteio de Brindes Especiais
+										{{ config.sobre_horarios|raw }}
 									</small>
 								</div>
 							</div>
@@ -157,9 +153,7 @@
 							<div id="regras_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
 								<div class="accordion-body">
 									<small>
-										* <b>Vestimenta Adequada:</b> Durante a visita, é estritamente proibido o uso de camisetas regatas, shorts ou bermudas por razões de segurança. Recomendamos o uso de roupas confortáveis e apropriadas para ambientes industriais, pois essas medidas visam garantir a sua segurança durante a visita à fábrica.
-										<br>* <b>Vestuário Adequado:</b>  Não toque ou manuseie qualquer peça, sem autorização prévia. Isso é essencial para sua segurança e para evitar danos às peças, além de prevenir possíveis queimaduras.
-										<br><i>* Agradecemos por sua compreensão e cooperação no cumprimento dessas regras. A sua segurança e a integridade dos nossos processos são nossa prioridade durante a visita à nossa fábrica.</i>
+										{{ config.regras_visita|raw }}
 									</small>
 								</div>
 							</div>

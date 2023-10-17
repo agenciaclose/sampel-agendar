@@ -28,10 +28,13 @@ class VisitasController extends Controller
         $listas = new VisitasPainel();
         $listas = $listas->listarInscricoes($params['id'])->getResult();
 
+        $total = new VisitasPainel();
+        $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
+
         $grupos = new VisitasPainel();
         $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
 
-        $this->render('painel/pages/visitas/view.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $listas, 'grupos' => $grupos]);
+        $this->render('painel/pages/visitas/view.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $listas, 'grupos' => $grupos, 'total' => $total]);
     }
 
     public function aprovar($params)

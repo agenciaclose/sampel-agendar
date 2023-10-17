@@ -19,6 +19,13 @@ class Agendar extends Model
         return $read;
     }
 
+    public function getConfiguracoes(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM configuracoes WHERE id = '1' LIMIT 1");
+        return $read;
+    }
+
     public function saveCadastro($params)
     {
         $params['id_empresa'] = $_SESSION['sampel_user_id'];

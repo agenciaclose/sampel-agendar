@@ -46,6 +46,13 @@ class Visitas extends Model
         $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND id = :inscricao", "id_visita={$id_visita}&inscricao={$inscricao}");
         return $read;
     }
+
+    public function getConfiguracoes(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM configuracoes WHERE id = '1' LIMIT 1");
+        return $read;
+    }
     
     public function getInscricaoByCode($codigo): read
     {

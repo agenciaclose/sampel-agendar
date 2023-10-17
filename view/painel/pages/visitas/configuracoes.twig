@@ -4,6 +4,11 @@
 
 {% block body %}
 
+    <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+    <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
+    <script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+    <script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
+
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -22,6 +27,7 @@
                 <hr>
 
                 <div class="row">
+
                     <div class="col-md-3 col-sm-12 col-12">
                         <form action="javascript:void(0)" id="configuracoes_visita" method="POST">
 
@@ -65,6 +71,30 @@
 
                         </form>
                     </div>
+
+                    <div class="col-md-4 col-sm-12 col-12">
+                        <form action="javascript:void(0)" id="configuracoes_regras" method="POST">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <label>SOBRE HORÁRIOS E EVENTOS</label>
+                                        <textarea name="sobre_horarios" id="sobre_horarios">{{ configuracoes.sobre_horarios }}</textarea>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>REGRAS PARA VISITA NA FÁBRICA SAMPEL</label>
+                                        <textarea name="regras_visita" id="regras_visita">{{ configuracoes.regras_visita }}</textarea>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="rounded-pill btn btn-lg btn-primary">ATUALIZAR</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+
                 </div>
 
             </div>

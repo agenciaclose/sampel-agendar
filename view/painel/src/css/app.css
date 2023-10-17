@@ -3818,3 +3818,6 @@ tr.group {
   background-color: #b8c2cc !important;
   opacity: 1;
 }
+.fr-quick-insert {
+  display: none;
+}

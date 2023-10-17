@@ -16,7 +16,10 @@ class ConfigController extends Controller
         $estados = new ConfigPainel();
         $estados = $estados->getEstados()->getResult();
 
-        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados]);
+        $configuracoes = new ConfigPainel();
+        $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+
+        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados, 'configuracoes' => $configuracoes]);
     }
 
     public function save($params)
@@ -28,5 +31,17 @@ class ConfigController extends Controller
         echo "1";
     }
 
+    public function saveRegras($params)
+    {
+        $this->setParams($params);
+
+        $regras = new ConfigPainel();
+        $regras = $regras->saveRegras($this->params)->getResult();
+        if(!$regras){
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
 
 }
