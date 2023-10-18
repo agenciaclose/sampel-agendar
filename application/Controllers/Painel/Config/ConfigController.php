@@ -19,7 +19,10 @@ class ConfigController extends Controller
         $configuracoes = new ConfigPainel();
         $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
 
-        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados, 'configuracoes' => $configuracoes]);
+        $motivos = new ConfigPainel();
+        $motivos = $motivos->getMotivos()->getResult();
+
+        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados, 'configuracoes' => $configuracoes, 'motivos' => $motivos]);
     }
 
     public function save($params)
@@ -38,6 +41,45 @@ class ConfigController extends Controller
         $regras = new ConfigPainel();
         $regras = $regras->saveRegras($this->params)->getResult();
         if(!$regras){
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
+
+    public function saveMotivo($params)
+    {
+        $this->setParams($params);
+
+        $motivo = new ConfigPainel();
+        $motivo = $motivo->saveMotivo($this->params)->getResult();
+        if(!$motivo){
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
+
+    public function editMotivo($params)
+    {
+        $this->setParams($params);
+
+        $motivo = new ConfigPainel();
+        $motivo = $motivo->editMotivo($this->params)->getResult();
+        if(!$motivo){
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
+
+    public function deleteMotivo($params)
+    {
+        $this->setParams($params);
+
+        $motivo = new ConfigPainel();
+        $motivo = $motivo->deleteMotivo($this->params)->getResult();
+        if(!$motivo){
             echo '1';
         }else{
             echo '0';

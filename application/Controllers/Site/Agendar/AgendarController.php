@@ -16,8 +16,11 @@ class AgendarController extends Controller
 
         $configuracoes = new Agendar();
         $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+        
+        $motivos = new Agendar();
+        $motivos = $motivos->getMotivos()->getResult();
 
-        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar', 'estados' => $estados, 'config' => $configuracoes]);
+        $this->render('pages/agendar/agendar.twig', ['menu' => 'agendar', 'estados' => $estados, 'config' => $configuracoes, 'motivos' => $motivos]);
     }
 
     public function cadastro($params)

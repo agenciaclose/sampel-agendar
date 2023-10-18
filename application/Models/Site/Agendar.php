@@ -48,4 +48,11 @@ class Agendar extends Model
         return $read;
     }
 
+    public function getMotivos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM motivos ORDER BY `id` DESC");
+        return $read;
+    }
+
 }

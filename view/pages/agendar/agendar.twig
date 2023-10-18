@@ -25,7 +25,12 @@
 						<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 						<div class="mb-3">
 							<label for="title" class="form-label">Qual o motivo da visita? <span class="text-danger">*</span></label>
-							<input type="text" class="form-control" name="title" id="title">
+							<select class="form-control" name="title" id="title">
+								<option>SELECIONE</option>
+								{% for motivo in motivos %}
+									<option value="{{ motivo.motivo }}">{{ motivo.motivo }}</option>
+								{% endfor %}
+							</select>
 						</div>
 
 						<div class="">
@@ -34,7 +39,7 @@
 								<div class="mb-3 col-md-6 col-sm-12 col-12">
 									<label for="qtd_visitas" class="form-label">Selecione seu Estado <span class="text-danger">*</span></label>
 									<select class="form-control" name="estado" id="estado">
-										<option>Selecione</option>
+										<option>SELECIONE</option>
 										{% for estado in estados %}
 											<option data-min="{{ estado.limit_min }}" data-max="{{ estado.limit }}" value="{{ estado.sigla }}">{{ estado.estado }}</option>
 	                                    {% endfor %}

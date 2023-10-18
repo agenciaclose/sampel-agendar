@@ -79,11 +79,9 @@ $(document).ready(function () {
 
 
     $("#configuracoes_regras").submit(function (c) {
-
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
-
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
             url: DOMAIN + '/painel/visitas/config/save/regras',
@@ -106,7 +104,91 @@ $(document).ready(function () {
                 }
             }
         });
-
     });
+
+    $("#add_motivo").submit(function (c) {
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+        var form = $(this);
+        $.ajax({
+            type: "POST", async: true, data: form.serialize(),
+            url: DOMAIN + '/painel/visitas/config/save/motivo',
+            success: function (data) {
+
+                if (data == "1") {
+
+                    Swal.fire({ title: 'Salvo com sucesso!', icon: 'success', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+
+                } else {
+
+                    Swal.fire({ title: 'Error ao salvar!', icon: 'error', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
+
+                }
+            }
+        });
+    });
+
+    $(".edit_motivo").submit(function (c) {
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+        var form = $(this);
+        $.ajax({
+            type: "POST", async: true, data: form.serialize(),
+            url: DOMAIN + '/painel/visitas/config/edit/motivo',
+            success: function (data) {
+
+                if (data == "1") {
+
+                    Swal.fire({ title: 'Editado com sucesso!', icon: 'success', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+
+                } else {
+
+                    Swal.fire({ title: 'Error ao editar!', icon: 'error', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
+
+                }
+            }
+        });
+    });
+
+    window.deleteMotivo = function (id){
+        var DOMAIN = $('body').data('domain');
+        $.ajax({
+            type: "POST", 
+            async: true, 
+            data: {id: id},
+            url: DOMAIN + '/painel/visitas/config/delete/motivo',
+            success: function (data) {
+
+                if (data == "1") {
+
+                    Swal.fire({ title: 'Deletado com sucesso!', icon: 'success', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+
+                } else {
+
+                    Swal.fire({ title: 'Error ao deletar!', icon: 'error', showCancelButton: false, showConfirmButton: false, timer: 2000 });
+
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
+
+                }
+            }
+        });
+    }
+
 
 });

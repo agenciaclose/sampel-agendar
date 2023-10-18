@@ -68,7 +68,12 @@ class Visitas extends Model
         $codigo = $this->genCode($params['id_visita']);
         $cpf = $this->clearCPF($params['cpf']);
 
-        $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `codigo`, `nome`, `cpf`, `email`, `telefone`, `setor`, `cep`, `cidade`, `estado`) VALUES (:id_visita, :codigo, :nome, :cpf, :email, :telefone, :setor, :cep, :cidade, :estado)", "id_visita={$params['id_visita']}&codigo={$codigo}&nome={$params['nome']}&cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}&setor={$params['setor']}&cep={$params['cep']}&cidade={$params['cidade']}&estado={$params['estado']}");
+        if($params['setor'] == 'Outros'){
+            $params['setor'] = $params['setor_outros'];
+        }
+        unset($params['setor_outros']);
+
+        $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `codigo`, `empresa`, `nome`, `cpf`, `email`, `telefone`, `setor`, `cep`, `cidade`, `estado`) VALUES (:id_visita, :codigo, :empresa, :nome, :cpf, :email, :telefone, :setor, :cep, :cidade, :estado)", "id_visita={$params['id_visita']}&codigo={$codigo}&empresa={$params['empresa']}&nome={$params['nome']}&cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}&setor={$params['setor']}&cep={$params['cep']}&cidade={$params['cidade']}&estado={$params['estado']}");
         return $read;
 
     }

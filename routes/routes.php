@@ -90,6 +90,9 @@ $router->namespace("Agencia\Close\Controllers\Painel\Config");
 $router->get("/painel/visitas/config", "ConfigController:index");
 $router->post("/painel/visitas/config/save", "ConfigController:save");
 $router->post("/painel/visitas/config/save/regras", "ConfigController:saveRegras");
+$router->post("/painel/visitas/config/save/motivo", "ConfigController:saveMotivo");
+$router->post("/painel/visitas/config/edit/motivo", "ConfigController:editMotivo");
+$router->post("/painel/visitas/config/delete/motivo", "ConfigController:deleteMotivo");
 
 // PAINEL PALESTRAS
 $router->namespace("Agencia\Close\Controllers\Painel\Palestras");
