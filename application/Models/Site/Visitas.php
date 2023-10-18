@@ -23,10 +23,10 @@ class Visitas extends Model
     public function listarVisitasUser(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT *, v.id AS visita_id FROM visitas_inscricoes AS vi
+        $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
-                        WHERE vi.id_user = :user_id ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
+                        WHERE v.id_empresa = :user_id ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
         return $read;
     }
 

@@ -32,7 +32,10 @@ class VisitasController extends Controller
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
-        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita]);
+        $lista = new Visitas();
+        $lista = $lista->listarVisitasUser()->getResult();
+
+        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista]);
     }
 
     public function inscricao($params)

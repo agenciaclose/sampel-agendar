@@ -19,36 +19,28 @@
 			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 		        <thead>
 		            <tr>
-		                <th class="d-none">#</th>
-		                <th>Nome</th>
-		                <th>Cargo</th>
-		                <th>Email</th>
-		                <th>Telefone</th>
-		                <th class="text-end">Data da Visita</th>
-		            </tr>
+						<th class="d-none">#</th>
+						<th>Nome</th>
+						<th>Email</th>
+						<th>Setor</th>
+						<th>Endereço</th>
+						<th class="text-end">Crachá</th>
+					</tr>
 		        </thead>
 		        <tbody>
-		        	{% for visita in visitas %}
-					<tr>
-						<td class="d-none">{{ visita.visita_id }}</td>
-						<td>
-						{{ visitas|json_encode() }}
-							<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
-						</td>
-						<td>
-							{{ visita.nome }} - <small class="text-lowercase text-white-50">{{ visita.empresa_fantasia }}</small>
-							<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
-						</td>
-						<td>
-							{{ visita.inscricoes }} / {{ visita.qtd_visitas }}
-							<div><small><a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}">Ver lista</a></small></div>
-						</td>
-						<td><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></td>
-						<td class="text-end">
-							{{ visita.data_visita | date("d-m-Y H:i") }}
-							<div><small><a href="#" class="text-warning"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a></small></div>
-						</td>
-					</tr>
+		        	{% for lista in listas %}
+						<tr>
+							<td class="d-none">{{ lista.visita_id }}</td>
+
+							<td class="ps-0 text-uppercase">{{ lista.nome }}</td>
+							<td class="ps-0">{{ lista.email }}</td>
+							<td class="ps-0">{{ lista.setor }}</td>
+							<td class="ps-0">{{ lista.cidade }}, {{ lista.estado }}</td>
+							<td class="text-end pe-0">
+								<a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+							</td>
+
+						</tr>
 					{% endfor %}
 		        </tbody>
 		    </table>
