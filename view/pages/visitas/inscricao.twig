@@ -85,6 +85,16 @@
 							</div>
 						</div>
 
+					{% elseif visita.status_visita == 'Recusado' %}
+
+						<div class="form_inscricao">
+							<div class="alert alert-danger text-center py-5" role="alert">
+								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+								<h4>Inscrições encerradas</h4> 
+								<div>Tempo para inscrição encerrado ou o evento foi recusado por <br>disponíbilidade ou não atingiu o mínimo de inscrições</div>
+							</div>
+						</div>
+
 					{% else %}
 						<div class="form_inscricao">
 							<div class="alert-3 alert-none">
