@@ -87,7 +87,7 @@
 								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
 							</div>
 							
-							{% set porcentagem = (visita.inscricoes / visita.qtd_visitas_min) * 100  %}
+							{% set porcentagem = (visita.inscricoes / visita.qtd_visitas) * 100  %}
 							{% if porcentagem >= 100 %}
 								{% set porcentagem = 100 %}
 							{% endif %}
