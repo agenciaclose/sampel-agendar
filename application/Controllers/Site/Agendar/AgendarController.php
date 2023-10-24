@@ -48,4 +48,11 @@ class AgendarController extends Controller
             echo '0';
         }
     }
+
+    public function checkCloseEventsClose()
+    {
+        $editar = new Agendar();
+        $editar = $editar->listCheckEventsClose();
+    }
+
 }

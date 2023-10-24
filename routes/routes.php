@@ -13,6 +13,7 @@ $router->namespace("Agencia\Close\Controllers\Site\Agendar");
 $router->get("/agendar", "AgendarController:index", "index");
 $router->post("/agendar/cadastro", "AgendarController:cadastro", "cadastro");
 $router->post("/agendar/editar", "AgendarController:editar", "editar");
+$router->post("/agendar/checkCloseEventsClose", "AgendarController:checkCloseEventsClose", "checkCloseEventsClose");
 
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");

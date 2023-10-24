@@ -55,4 +55,11 @@ class Agendar extends Model
         return $read;
     }
 
+    public function listCheckEventsClose(): Read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `status_inscricoes` = 'Fechadas' WHERE data_visita BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 5 DAY)");
+        return $read;
+    }
+
 }
