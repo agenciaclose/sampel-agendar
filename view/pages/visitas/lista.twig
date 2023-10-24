@@ -10,7 +10,8 @@
 
 		<div class="row mb-4">
 			<div class="col-sm-12 col-md-8">
-				<h3>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h3>
+				<div><h5>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h5></div>
+				<div><h5>Data da Visita: <span class="text-warning">{{ visita.data_visita | date("d-m-Y") }} as {{ visita.horario_visita }}</span></h5></div>
 				<div class="limit-3">{{ visita.descricao }}</div>
 			</div>
 			<div class="col-sm-12 col-md-4">

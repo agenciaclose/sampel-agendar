@@ -7,13 +7,13 @@
 <div class="conteudo">
 	<div class="coluna coluna1">
 		<div>
-			<div class="text-center w-100 titulo"><h2><b>{{ inscricao.nome }}</b></h2></div>
-			<div class="text-center w-100"><b>{{ inscricao.cpf }}</b></div>
+			<div class="w-10 text-center"><h2><b>{{ visita.title }}</b></h2></div>
 			<div class="p-3"></div>
 			<div class="w-50 m-auto">{{ inscricao.qrcode|raw }}</div>
 			<div class="w-10 text-center"><b>{{ inscricao.codigo }}</b></div>
 			<div class="p-3"></div>
-			<div class="w-10 text-center"><h2><b>{{ visita.title }}</b></h2></div>
+			<div class="text-center w-100 titulo"><h2><b>{{ inscricao.nome }}</b></h2></div>
+			<div class="text-center w-100"><b>{{ inscricao.cpf }}</b></div>
 			<div class="p-3"></div>
 			<div class="cargo"><b>{% if inscricao.id_user == visita.id_empresa %} RESPONSÁVEL {% else %} VISITANTE {% endif %}</b></div>
 		</div>
