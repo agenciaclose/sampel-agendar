@@ -80,7 +80,7 @@
                                                     </td>
 
                                                     <td class="text-end">
-                                                        {{ visita.data_visita | date("m-d-Y H:i") }}
+                                                        {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}
                                                         <div><a href="{{ DOMAIN }}/painel/visita/inscricao/{{ visita.visita_id }}" class="badge bg-info text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> Fazer Inscrições</a></div>
                                                     </td>
 
