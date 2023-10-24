@@ -84,7 +84,7 @@
 									</div>
 								</div>
 								<div class="ms-4 d-lg-none d-md-none d-sm-block d-block"><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></div>
-								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
+								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4">Inscritos: {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
 							</div>
 							
 							{% set porcentagem = (visita.inscricoes / visita.qtd_visitas) * 100  %}
@@ -105,9 +105,9 @@
 						</td>
 
 						<td class="no-mobile" width="50">
-							{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark">{{ visita.status_visita }}</span>{% endif %}
-							{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-dark">{{ visita.status_visita }}</span>{% endif %}
-							{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger">{{ visita.status_visita }}</span>{% endif %}
+							{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+							{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+							{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 						</td>
 
 						<td class="text-end no-mobile">

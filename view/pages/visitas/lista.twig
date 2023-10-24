@@ -8,9 +8,18 @@
 	
 	<session>
 
-		<div class="mb-4">
-			<h3>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h3>
-			<div class="limit-3">{{ visita.descricao }}</div>
+		<div class="row mb-4">
+			<div class="col-sm-12 col-md-8">
+				<h3>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h3>
+				<div class="limit-3">{{ visita.descricao }}</div>
+			</div>
+			<div class="col-sm-12 col-md-4">
+				<div><h5 class="text-warning">Estatísticas da Visita:</h5></div>
+				<div class="badge {{ _get.setor == '' ? 'bg-warning' : 'bg-light' }} mb-1 me-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}">Total <span class="badge bg-black">{{ total.total }}</span></a></div>
+				{% for grupo in grupos %}
+					<div class="badge {{ _get.setor == grupo.setor ? 'bg-warning' : 'bg-light' }} mb-1 me-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?setor={{ grupo.setor }}">{{ grupo.setor }} <span class="badge bg-black">{{ grupo.total }}</span></a></div>
+				{% endfor %}
+			</div>
 		</div>
 
 		<hr>

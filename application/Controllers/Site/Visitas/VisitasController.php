@@ -35,7 +35,13 @@ class VisitasController extends Controller
         $lista = new Visitas();
         $lista = $lista->listarVisitasUser()->getResult();
 
-        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista]);
+        $total = new Visitas();
+        $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
+
+        $grupos = new Visitas();
+        $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
+
+        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total]);
     }
 
     public function inscricao($params)
