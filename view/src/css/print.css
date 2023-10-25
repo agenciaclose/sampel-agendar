@@ -52,14 +52,14 @@ h1,h2,h3,h4,h5,h6 {
 .conteudo .titulo {
     text-transform: uppercase;
 }
-.conteudo .coluna1, .conteudo .coluna3 {
+/* .conteudo .coluna1, .conteudo .coluna3 {
     border-right: 1px solid #000;
 }
 .conteudo .coluna3, .conteudo .coluna4 {
     border-top: 1px solid #000;
-}
+} */
 .conteudo .coluna > div {
-    padding: 15px;
+    padding: 25px;
 }
 .conteudo .cargo {
     padding: 15px 10px;
