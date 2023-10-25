@@ -106,13 +106,16 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
 
+        $configuracoes = new Visitas();
+        $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+
         $inscricao = new Visitas();
         $inscricao = $inscricao->getInscricaoByCode($params['codigo'])->getResult()[0];
 
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($inscricao['id_visita'])->getResult()[0];
 
-        $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
+        $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
 }

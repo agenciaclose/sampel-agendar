@@ -153,6 +153,5 @@ class Visitas extends Model
         $palavra = str_replace(" ","",$palavra);
         return($palavra);
     }
-    
 
 }

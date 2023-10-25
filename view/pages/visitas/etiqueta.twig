@@ -12,14 +12,17 @@
 			<div class="w-50 m-auto">{{ inscricao.qrcode|raw }}</div>
 			<div class="w-10 text-center"><b>{{ inscricao.codigo }}</b></div>
 			<div class="p-3"></div>
-			<div class="text-center w-100 titulo"><h2><b>{{ inscricao.nome }}</b></h2></div>
-			<div class="text-center w-100"><b>{{ inscricao.cpf }}</b></div>
+			<div class="text-center w-100 titulo"><h2><b>{{ inscricao.nome|AbreviarNome }}</b></h2></div>
+			<div class="text-center w-100"><b>{{ inscricao.cidade }}</b></div>
 			<div class="p-3"></div>
 			<div class="cargo"><b>{% if inscricao.id_user == visita.id_empresa %} RESPONSÁVEL {% else %} VISITANTE {% endif %}</b></div>
 		</div>
 	</div>
 	<div class="coluna coluna2">
-		<div></div>
+		<div class="regras">
+			<div><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></div>
+			{{ config.regras_visita|raw }}
+		</div>
 	</div>
 	<div class="coluna coluna3">
 		<div></div>

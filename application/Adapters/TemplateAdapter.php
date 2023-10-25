@@ -2,6 +2,7 @@
 
 namespace Agencia\Close\Adapters;
 
+use Agencia\Close\Adapters\Twig\AbreviarNome;
 use Agencia\Close\Adapters\Twig\PayStatus;
 use Agencia\Close\Adapters\Twig\DayTranslate;
 use Agencia\Close\Adapters\Twig\MonthTranslate;
@@ -31,6 +32,7 @@ class TemplateAdapter
         $this->twig->addExtension(new PriceCheck());
         $this->twig->addExtension(new UserType());
         $this->twig->addExtension(new UserStatus());
+        $this->twig->addExtension(new AbreviarNome());
         $this->globals();
 
         return $this->twig;

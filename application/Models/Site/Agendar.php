@@ -10,8 +10,6 @@ use Agencia\Close\Models\Model;
 
 class Agendar extends Model
 {
-
-    
     public function getEstados(): read
     {
         $read = new Read();
