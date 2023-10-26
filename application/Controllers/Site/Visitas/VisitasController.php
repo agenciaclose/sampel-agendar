@@ -21,7 +21,9 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         $visitas = new Visitas();
+        
         $visitas = $visitas->listarVisitas()->getResult();
+
         $this->render('pages/visitas/agendamentos.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }
 
