@@ -4104,15 +4104,12 @@ footer .special-heading-2:before {
 
 #contBtn {
   position: relative;
-  top: 1.5em;
+  display: inline-block;
   text-decoration: none;
   background: #8bc34a;
   color: #fff;
   margin: auto;
-  padding: .8em 2em;
-  -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
-  -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
-  box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);
+  padding: .6em 2em;
   border-radius: 25px;
   -webkit-transition: all .4s ease;
     -moz-transition: all .4s ease;

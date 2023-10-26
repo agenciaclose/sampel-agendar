@@ -70,7 +70,7 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
 
-        if( !$this->checkCadastro($params['cpf'], $params['id_visita']) ){
+        if( !$this->checkCadastro($params) ){
 
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
@@ -96,10 +96,10 @@ class VisitasController extends Controller
         $update = $update->inscricaoCadastroQRcode($params);
     }
 
-    public function checkCadastro($cpf, $visita_id)
+    public function checkCadastro($params)
     {
         $checkCadastro = new Visitas();
-        $checkCadastro = $checkCadastro->checkCadastro($cpf, $visita_id)->getResult();
+        $checkCadastro = $checkCadastro->checkCadastro($params)->getResult();
         return $checkCadastro;
     }
 

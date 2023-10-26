@@ -111,10 +111,11 @@ class Visitas extends Model
         return $read;
     }
 
-    public function checkCadastro($cpf, $id_visita)
+    public function checkCadastro($params)
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND cpf = :cpf", "id_visita={$id_visita}&cpf={$cpf}");
+        $cpf = $this->clearCPF($params['cpf']);
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE (cpf = :cpf OR email = :email OR telefone = :telefone)", "cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}");
         return $read;
     }
 

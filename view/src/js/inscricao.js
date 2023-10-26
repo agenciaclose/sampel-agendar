@@ -101,12 +101,12 @@ $('#setor').change(function() {
 	}
 });
 
-
 function limpa_formulário_cep() {
     $("#cidade").val('');
     $("#estado").val('');
     $('.endereco').html('');
 }
+
 $("#cep").blur(function() {
     var cep = $(this).val().replace(/\D/g, '');
     if (cep != '') {
