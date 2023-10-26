@@ -148,6 +148,7 @@
 										<div class="mb-3">
 											<label for="email" class="form-label">Seu Email *</label>
 											<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
+											<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
 										</div>
 									</div>
 									<div class="col-md-6 col-12">
@@ -184,17 +185,19 @@
 										<div class="mb-3">
 											<label for="telefone" class="form-label">Seu Whatsapp *</label>
 											<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
+											<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
 										</div>
 									</div>
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label for="cpf" class="form-label">Seu CPF *</label>
 											<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="" required="required">
+											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
 										</div>
 									</div>
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
-											<label for="cpf" class="form-label"></label>
+											<label class="form-label"></label>
 											<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
 											<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
 										</div>

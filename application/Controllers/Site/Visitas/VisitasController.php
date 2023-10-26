@@ -66,27 +66,32 @@ class VisitasController extends Controller
         $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
+    public function checkCadastroCampo($params)
+    {
+        $this->setParams($params);
+        $check = new Visitas();
+        $check = $check->checkCadastroCampo($this->params)->getResult();
+        if ($check) {
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
+
     public function inscricaoCadastro($params)
     {
         $this->setParams($params);
-
         if( !$this->checkCadastro($params) ){
-
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
-            
             if ($cadastro) {
                 $last = new Visitas();
                 $last = $last->lastInscricao()->getResult()[0];
                 echo $last['id'];
             }
-
         }else{
-
             echo '0';
-
         }
-
     }
 
     public function inscricaoCadastroQRcode($params)

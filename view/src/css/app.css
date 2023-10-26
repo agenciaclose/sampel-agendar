@@ -4116,7 +4116,10 @@ footer .special-heading-2:before {
     -o-transition: all .4s ease;
     transition: all .4s ease;
 }
-
+.invalid-feedback {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-warning-rgb),var(--bs-text-opacity))!important;
+}
 #contBtn:hover {
   -webkit-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);
   -moz-box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);

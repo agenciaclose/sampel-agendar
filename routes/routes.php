@@ -25,6 +25,7 @@ $router->get("/visita/inscricao/{id}/{inscricao}", "VisitasController:inscricao"
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro", "inscricaoCadastro");
 $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoCadastroQRcode", "inscricaoCadastroQRcode");
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
+$router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo", "checkCadastroCampo");
 
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:pergunta", "pergunta");

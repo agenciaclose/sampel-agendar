@@ -103,9 +103,7 @@ class Visitas extends Model
         $read = new Read();
 
         $read->FullRead("UPDATE `visitas` SET `inscricoes` = (`inscricoes` + 1) WHERE `id` = :id_visita", "id_visita={$params['id_visita']}");
-       
         $cpf = $this->clearCPF($params['cpf']);
-
         $read->FullRead("UPDATE `visitas_inscricoes` SET `qrcode` = :qrcode WHERE `id_visita` = :id_visita AND `cpf` = :cpf", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}&cpf={$cpf}");
 
         return $read;
@@ -122,6 +120,15 @@ class Visitas extends Model
     public function lastInscricao(){
         $read = new Read();
         $read->FullRead("SELECT * FROM visitas_inscricoes ORDER BY id DESC LIMIT 1");
+        return $read;
+    }
+
+    public function checkCadastroCampo($params){
+        $read = new Read();
+        if($params['campo'] == 'cpf'){
+            $params['valor'] = $this->clearCPF($params['valor']);
+        }
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' ORDER BY id DESC LIMIT 1");
         return $read;
     }
 
