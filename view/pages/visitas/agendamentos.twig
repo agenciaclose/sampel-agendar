@@ -84,13 +84,14 @@
 									</div>
 								</div>
 								<div class="ms-4 d-lg-none d-md-none d-sm-block d-block"><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></div>
-								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4">Inscritos: {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
+								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</a>
 							</div>
 							
 							{% set porcentagem = (visita.inscricoes / visita.qtd_visitas) * 100  %}
 							{% if porcentagem >= 100 %}
 								{% set porcentagem = 100 %}
 							{% endif %}
+
 							<div class="mt-1">
 								<div class="progress" role="progressbar" aria-valuenow="{{porcentagem}}" aria-valuemin="0" aria-valuemax="100">
 									<div class="progress-bar {{ porcentagem < 100 ? 'bg-warning' : 'bg-success'}} text-black" style="width: {{porcentagem}}%">{{porcentagem|round(0, 'floor')}}%</div>

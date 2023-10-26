@@ -74,6 +74,7 @@ class VisitasController extends Controller
 
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
+            
             if ($cadastro) {
                 $last = new Visitas();
                 $last = $last->lastInscricao()->getResult()[0];

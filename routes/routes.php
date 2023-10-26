@@ -27,7 +27,7 @@ $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoC
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
 
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
-$router->get("/visita/feedback/{user}/{id}", "FeedbackController:pergunta", "pergunta");
+$router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:pergunta", "pergunta");
 
 // LOAD LOGIN
 $router->namespace("Agencia\Close\Controllers\Site\Login");

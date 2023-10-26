@@ -44,7 +44,7 @@ function qrcodeGen(id_visita, user_email, cpf, last) {
     $.ajax({
         type: "POST", 
         async: true, 
-        data: {
+        data: { 
                 "frame_name": "bottom-frame",
                 "qr_code_text": DOMAIN + '/visita/feedback/'+cpf+'/'+id_visita,
                 "image_format": "SVG",
