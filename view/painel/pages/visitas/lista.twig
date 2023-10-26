@@ -49,7 +49,7 @@
                                                             <a href="{{ DOMAIN }}/painel/visitas/editar/{{ visita.visita_id }}" class="opacity-75">Editar</a>
                                                             <span class="mx-05">|</span>
                                                             <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="opacity-75">Ver detalhes</a>
-                                                            {% if visita.inscricoes == 0 %}
+                                                            {% if visita.total_inscricao == 0 %}
                                                             <span class="mx-05">|</span>
                                                             <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" class="text-danger visita-excluir">Excluir</a>
                                                             {% endif %}
@@ -62,7 +62,7 @@
                                                     </td>
 
                                                     <td>
-                                                        {{ visita.inscricoes }} / {{ visita.qtd_visitas }}
+                                                        {{ visita.total_inscricao }} / {{ visita.qtd_visitas }}
                                                         <div><small><a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}">Ver lista</a></small></div>
                                                     </td>
                                                     <td>
