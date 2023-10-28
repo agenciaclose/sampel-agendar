@@ -4280,3 +4280,7 @@ img.fancybox__image {
   background-color: var(--bs-yellow);
   border-color: var(--bs-yellow);
 }
+.timer-number {
+  font-size: 4rem;
+  line-height: 4rem;
+}

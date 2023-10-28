@@ -164,4 +164,12 @@ class Visitas extends Model
         return($palavra);
     }
 
+    public function sortear($params){
+        
+        var_dump($params)
+
+        // $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' ORDER BY id DESC LIMIT 1");
+        // return $read;
+    }
+
 }

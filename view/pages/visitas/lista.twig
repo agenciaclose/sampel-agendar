@@ -17,7 +17,7 @@
 				{% set datavisita = visita.data_visita|date("Y-m-d") %}
 
 				{% if agora >= datavisita %}
-					<button type="button" class="btn btn-warning btn-lg px-5 mt-4" data-bs-toggle="modal" data-bs-target="#sorteio">Realizar Sorteio</button>
+					<button type="button" class="btn btn-warning btn-lg px-5 mt-4" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
 				{% endif %}
 
 			</div>
@@ -48,7 +48,6 @@
 		        	{% for lista in listas %}
 						<tr>
 							<td class="d-none">{{ lista.visita_id }}</td>
-
 							<td class="ps-0 text-uppercase">{{ lista.nome }}</td>
 							<td class="ps-0 text-uppercase">{{ lista.email }}</td>
 							<td class="ps-0">{{ lista.setor }}</td>
@@ -77,12 +76,12 @@
 			</div>
 			<div class="modal-body">
 				<form id="sorteioForm">
-					<div class="form-group my-4">
-						<input type="number" name="quantidade" class="form-control" min="1" value="1" id="quantidade" required>
+					<div class="form-group mt-2 mb-4">
+						<input type="number" name="quantidade" class="form-control form-control-lg text-center" min="1" value="1" id="quantidade" required>
+						<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
 					</div>
 					<div id="timer" class="text-black my-4 text-center"></div>
-
-					<button type="submit" class="btn btn-warning btn-lg px-5">REALIZAR SORTEIO</button>
+					<button type="submit" class="btn btn-warning btn-lg w-100">REALIZAR SORTEIO</button>
 				</form>
 			</div>
 		</div>

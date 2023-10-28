@@ -11,24 +11,28 @@ function sendAjaxRequest() {
     let countdown = 6;
     let timerInterval = setInterval(function () {
         countdown--;
-        $('#timer').text(`O Sorteio será realizado em <div class="">${countdown}</div>`);
+        $('#timer').html(`O Sorteio será realizado em <div class="timer-number">${countdown}</div>`);
     
         if (countdown <= 0) {
+
             clearInterval(timerInterval);
+
+            var DOMAIN = $('body').data('domain');
             const quantidade = $('#quantidade').val();
-        
+            const id_visita = $('#id_visita').val();
+
             $.ajax({
                 type: "POST",
-                url: "/api/sorteio", // URL da API ou backend que irá processar os dados
-                data: { quantidade: quantidade },
+                url: DOMAIN + '/visita/sortear', // URL da API ou backend que irá processar os dados
+                data: { quantidade: quantidade, id_visita: id_visita },
                 success: function (response) {
-                    alert('Dados enviados com sucesso!');
-                    $('#myModal').modal('hide');
+                    window.location.href = DOMAIN + '/visita/sorteados/'+id_visita;
                 },
                 error: function (error) {
-                    alert('Erro ao enviar os dados!');
+                    alert('Erro ao sortear');
                 }
             });
+
         }
 
     }, 1000);

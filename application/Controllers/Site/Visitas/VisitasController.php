@@ -126,4 +126,11 @@ class VisitasController extends Controller
         $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
+    public function sortear($params)
+    {
+        $this->setParams($params);
+        $sortear = new Visitas();
+        $sortear = $sortear->sortear($params);
+    }
+
 }
