@@ -28,7 +28,8 @@ $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiq
 $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo", "checkCadastroCampo");
 
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
-$router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:pergunta", "pergunta");
+$router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:feedback", "feedback");
+$router->post("/visita/feedback/save", "FeedbackController:saveFeedback", "saveFeedback");
 
 // LOAD LOGIN
 $router->namespace("Agencia\Close\Controllers\Site\Login");
@@ -115,6 +116,10 @@ $router->post("/painel/palestras/participante/editar", "PalestrasController:Save
 $router->post("/painel/palestras/participante/excluir", "PalestrasController:excluirParticipante", "excluirParticipante");
 $router->post("/painel/palestras/participante/importar", "PalestrasController:importar", "importar");
 
+// PAINEL FEEDBACK
+$router->namespace("Agencia\Close\Controllers\Painel\Feedback");
+$router->get("/painel/feedback/perguntas", "FeedbackController:perguntas", "perguntas");
+$router->post("/painel/feedback/perguntas/save", "FeedbackController:savePerguntas", "savePerguntas");
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");

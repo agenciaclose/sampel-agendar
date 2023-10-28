@@ -46,6 +46,8 @@ class Visitas extends Model
         return $read;
     }
 
+    
+
     public function listarInscricoesTotal($id_visita): read
     {
         $read = new Read();

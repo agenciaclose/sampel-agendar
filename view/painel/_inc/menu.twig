@@ -19,7 +19,7 @@
                     <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i data-feather="grid"></i><span class="menu-title text-truncate">Home</span></a>
                 </li>
 
-                <li class=" navigation-header"><span>Lista de Visitas</span><i data-feather="more-horizontal"></i></li>
+                <li class=" navigation-header"><span>Listas de Visitas</span><i data-feather="more-horizontal"></i></li>
                 <li class="{{ (menu == 'visitas') ? 'active open' }} nav-item">
                     <a class="d-flex align-items-center" href="javascript:void(0);"><i class="fa-thin fa-calendar-check"></i><span class="menu-title text-truncate">Visitas</span></a>
                     <ul class="menu-content">
@@ -29,13 +29,21 @@
                     </ul>
                 </li>
 
-                <li class=" navigation-header"><span>Lista de Palestras</span><i data-feather="more-horizontal"></i></li>
+                <li class=" navigation-header"><span>Listas de Palestras</span><i data-feather="more-horizontal"></i></li>
                 <li class="{{ (menu == 'palestras') ? 'active open' }} nav-item">
                     <a class="d-flex align-items-center" href="javascript:void(0);"><i data-feather="file-text"></i><span class="menu-title text-truncate">Palestras</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/palestras"><i data-feather="circle"></i><span class="menu-item">Ver Todas</span></a></li>
                         <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/palestras/add"><i data-feather="circle"></i><span class="menu-item">Criar Nova</span></a></li>
                     </ul>
+                </li>
+
+                <li class=" navigation-header"><span>Listas de Feedback</span><i data-feather="more-horizontal"></i></li>
+                <li class="{{ (menu == 'feedback') ? 'active open' }} nav-item">
+                    <a class="d-flex align-items-center" href="javascript:void(0);"><i class="fa-thin fa-message-dots"></i><span class="menu-title text-truncate">Feedbacks</span></a>
+                </li>
+                <li class="{{ (menu == 'perguntas') ? 'active open' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/perguntas"><i class="fa-thin fa-messages"></i><span class="menu-title text-truncate">Perguntas</span></a>
                 </li>
 
             </ul>
