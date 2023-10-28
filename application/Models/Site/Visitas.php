@@ -166,7 +166,8 @@ class Visitas extends Model
 
     public function sortear($params){
         
-        var_dump($params)
+        var_dump($params);
+        die();
 
         // $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' ORDER BY id DESC LIMIT 1");
         // return $read;
