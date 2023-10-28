@@ -29,10 +29,16 @@ class Visitas extends Model
             $setor = "";
         }
 
+        if(!empty($_GET['presenca'])){
+            $presenca = "AND vi.presenca = '".$_GET['presenca']."'";
+        }else{
+            $presenca = "";
+        }
+
         $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
-                        WHERE v.id_empresa = :user_id $setor ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
+                        WHERE v.id_empresa = :user_id $setor $presenca ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
         return $read;
     }
 
