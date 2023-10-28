@@ -14,10 +14,16 @@ class FeedbackController extends Controller
         $this->setParams($params);
 
         $visita = new Visitas();
-        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+        $visita = $visita->listarVisitaID($params['id']);
+        if($visita->getResult()){
+            $visita = $visita->getResult()[0];
+        }
 
         $user = new Feedback();
-        $user = $user->getUserVisita($params['id'], $params['cpf'])->getResult()[0];
+        $user = $user->getUserVisita($params['id'], $params['cpf']);
+        if($user->getResult()){
+            $user = $user->getResult()[0];
+        }
 
         $check = new Feedback();
         $check = $check->checkFeedback($params['id'], $params['cpf']);

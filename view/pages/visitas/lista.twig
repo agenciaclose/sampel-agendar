@@ -13,6 +13,13 @@
 				<div><h5>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h5></div>
 				<div><h5>Data da Visita: <span class="text-warning">{{ visita.data_visita | date("d-m-Y") }} as {{ visita.horario_visita }}</span></h5></div>
 				<div class="limit-3">{{ visita.descricao }}</div>
+				{% set agora = "now"|date("Y-m-d") %}
+				{% set datavisita = visita.data_visita|date("Y-m-d") %}
+
+				{% if agora >= datavisita %}
+					<button type="button" class="btn btn-warning btn-lg px-5 mt-4" data-bs-toggle="modal" data-bs-target="#sorteio">Realizar Sorteio</button>
+				{% endif %}
+
 			</div>
 			<div class="col-sm-12 col-md-4">
 				<div><h5 class="text-warning">Estatísticas da Visita:</h5></div>
@@ -60,5 +67,28 @@
 	</session>
 
 </div>
+
+{% if agora >= datavisita %}
+<div class="modal fade" id="sorteio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title text-black" id="exampleModalLabel">Digite a Quantidade de Sorteados</h6>
+			</div>
+			<div class="modal-body">
+				<form id="sorteioForm">
+					<div class="form-group my-4">
+						<input type="number" name="quantidade" class="form-control" min="1" value="1" id="quantidade" required>
+					</div>
+					<div id="timer" class="text-black my-4 text-center"></div>
+
+					<button type="submit" class="btn btn-warning btn-lg px-5">REALIZAR SORTEIO</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{{ PATH }}/view/src/js/services/sorteio.js"></script>
+{% endif %}
 
 {% endblock %}

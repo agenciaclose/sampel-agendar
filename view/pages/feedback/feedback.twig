@@ -30,73 +30,83 @@
 					</div>
 
 					{% if check.user_codigo == '' %}
+
+						{% if check.codigo != '' %}
 						
-					<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-					<form action="javascript:void(0)" id="save_feedback" method="POST">
+						<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+						<form action="javascript:void(0)" id="save_feedback" method="POST">
 
-						{% for pergunta in perguntas %}
+							{% for pergunta in perguntas %}
 
-							{% if pergunta.tipo == 'Campo' %}
-								<div class="pergunta mb-4 border-bottom">
-									<h6>{{ pergunta.pergunta }}</h6>
-									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
-									<div class="mb-3">
-										<input type="text" class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required">
-									</div>
-								</div>
-							{% endif %}
-
-							{% if pergunta.tipo == 'Texto' %}
-								<div class="pergunta mb-4 border-bottom">
-									<h6>{{ pergunta.pergunta }}</h6>
-									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
-									<div class="mb-3">
-										<textarea class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required"></textarea>
-									</div>
-								</div>
-							{% endif %}
-
-							{% if pergunta.tipo == 'Opcoes' %}
-								<div class="pergunta mb-4 border-bottom">
-									<h6>{{ pergunta.pergunta }}</h6>
-									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
-									
-									<div class="d-flex">
-										{% set opcoes = pergunta.opcoes|split('|') %}
-
-										{% for opcao in opcoes %}
-										<div class="form-check resposta-check me-3">
-											<input class="resposta_{{ pergunta.id }}" type="checkbox" name="resposta[]" value="{{ opcao }}" id="resposta_{{ pergunta.id }}_{{ loop.index }}" {{ loop.index == 1 ? 'checked' }}>
-											<label class="form-check-label" for="resposta_{{ pergunta.id }}_{{ loop.index }}">{{ opcao }}</label>
+								{% if pergunta.tipo == 'Campo' %}
+									<div class="pergunta mb-4 border-bottom">
+										<h6>{{ pergunta.pergunta }}</h6>
+										<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
+										<div class="mb-3">
+											<input type="text" class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required">
 										</div>
-										{% endfor %}
 									</div>
+								{% endif %}
 
-								</div>
-							{% endif %}
+								{% if pergunta.tipo == 'Texto' %}
+									<div class="pergunta mb-4 border-bottom">
+										<h6>{{ pergunta.pergunta }}</h6>
+										<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
+										<div class="mb-3">
+											<textarea class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required"></textarea>
+										</div>
+									</div>
+								{% endif %}
 
-							{% if pergunta.tipo == 'Estrela' %}
-								<div class="pergunta mb-4 border-bottom">
-									<h6>{{ pergunta.pergunta }}</h6>
-									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
+								{% if pergunta.tipo == 'Opcoes' %}
+									<div class="pergunta mb-4 border-bottom">
+										<h6>{{ pergunta.pergunta }}</h6>
+										<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
+										
+										<div class="d-flex">
+											{% set opcoes = pergunta.opcoes|split('|') %}
 
-									<label class="rating-label">
-										<input name="resposta[]" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:1" type="range" value="1" required="required">
-									</label>
+											{% for opcao in opcoes %}
+											<div class="form-check resposta-check me-3">
+												<input class="resposta_{{ pergunta.id }}" type="checkbox" name="resposta[]" value="{{ opcao }}" id="resposta_{{ pergunta.id }}_{{ loop.index }}" {{ loop.index == 1 ? 'checked' }}>
+												<label class="form-check-label" for="resposta_{{ pergunta.id }}_{{ loop.index }}">{{ opcao }}</label>
+											</div>
+											{% endfor %}
+										</div>
 
-								</div>
-							{% endif %}
+									</div>
+								{% endif %}
 
-						{% endfor %}
+								{% if pergunta.tipo == 'Estrela' %}
+									<div class="pergunta mb-4 border-bottom">
+										<h6>{{ pergunta.pergunta }}</h6>
+										<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 
-						<div class="mb-3">
-							<input type="hidden" name="user_codigo" id="user_codigo" value="{{ user.codigo }}">
-							<input type="hidden" name="user_cpf" id="user_cpf" value="{{ user.cpf }}">
-							<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
-							<button type="submit" class="rounded-pill btn btn-warning btn-lg"><i class="fa-solid fa-paper-plane me-2"></i> ENVIAR FEEDBACK</button>
-						</div>
-					
-					</form>
+										<label class="rating-label">
+											<input name="resposta[]" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:1" type="range" value="1" required="required">
+										</label>
+
+									</div>
+								{% endif %}
+
+							{% endfor %}
+
+							<div class="mb-3">
+								<input type="hidden" name="user_codigo" id="user_codigo" value="{{ user.codigo }}">
+								<input type="hidden" name="user_cpf" id="user_cpf" value="{{ user.cpf }}">
+								<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+								<button type="submit" class="rounded-pill btn btn-warning btn-lg"><i class="fa-solid fa-paper-plane me-2"></i> ENVIAR FEEDBACK</button>
+							</div>
+						
+						</form>
+
+						{% else %}
+
+							<div class="alert alert-danger" role="alert">
+								Usuário não encontrado!!!
+							</div>
+							
+						{% endif %}
 
 					{% endif %}
 					
