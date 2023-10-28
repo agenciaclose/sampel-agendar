@@ -43,7 +43,10 @@ class VisitasController extends Controller
         $grupos = new Visitas();
         $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
 
-        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total]);
+        $sorteados = new Visitas();
+        $sorteados = $sorteados->listarVisitasUserSorteados($params['id'])->getResult();
+
+        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados]);
     }
 
     public function inscricao($params)
