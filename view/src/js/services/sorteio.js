@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Enviar o formulário
     $('#sorteioForm').submit(function (event) {
+        $('button[type="submit"]').prop("disabled", true);
         event.preventDefault();
         sendAjaxRequest();
     });
@@ -26,7 +27,7 @@ function sendAjaxRequest() {
                 url: DOMAIN + '/visita/sortear', // URL da API ou backend que irá processar os dados
                 data: { quantidade: quantidade, id_visita: id_visita },
                 success: function (response) {
-                    window.location.href = DOMAIN + '/visita/sorteados/'+id_visita;
+                    //window.location.href = DOMAIN + '/visita/sorteados/'+id_visita;
                 },
                 error: function (error) {
                     alert('Erro ao sortear');

@@ -165,12 +165,16 @@ class Visitas extends Model
     }
 
     public function sortear($params){
-        
-        var_dump($params);
-        die();
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `sorteado` = 'Sim' WHERE id_visita = '".$params['id_visita']."' AND presenca = 'Sim' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['quantidade']."");
+        return $read;
+    }
 
-        // $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' ORDER BY id DESC LIMIT 1");
-        // return $read;
+    public function listarVisitasUserSorteados($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND sorteado = 'Sim'", "id_visita={$id_visita}");
+        return $read;
     }
 
 }

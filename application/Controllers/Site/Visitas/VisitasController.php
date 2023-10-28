@@ -133,4 +133,17 @@ class VisitasController extends Controller
         $sortear = $sortear->sortear($params);
     }
 
+    public function sorteados($params)
+    {
+        $this->setParams($params);
+        
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+
+        $lista = new Visitas();
+        $lista = $lista->listarVisitasUserSorteados($params['id'])->getResult();
+
+        $this->render('pages/visitas/sorteados.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista]);
+    }
+
 }

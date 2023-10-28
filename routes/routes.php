@@ -27,6 +27,10 @@ $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoC
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
 $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo", "checkCadastroCampo");
 
+//SORTEIO
+$router->post("/visita/sortear", "VisitasController:sortear", "sortear");
+$router->get("/visita/sorteados/{id}", "VisitasController:sorteados", "sorteados");
+
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:feedback", "feedback");
 $router->post("/visita/feedback/save", "FeedbackController:saveFeedback", "saveFeedback");
