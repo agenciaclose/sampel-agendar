@@ -21,7 +21,7 @@ class FeedbackController extends Controller
 
         $check = new Feedback();
         $check = $check->checkFeedback($params['id'], $params['cpf']);
-        if($check){
+        if($check->getResult()){
             $check = $check->getResult()[0];
         }
         $perguntas = new Feedback();
@@ -37,5 +37,4 @@ class FeedbackController extends Controller
         $save = $save->saveFeedback($params);
         echo '1';
     }
-
 }

@@ -9,8 +9,8 @@
 	<session>
 
 		<div class="mb-4">
-			<h3>Seu Feedback: <span class="text-warning">{{ visita.title }}</span></h3>
-			<div>Deixe o seu Feedback e concorra a prêmios variados.</div>
+			<h5>Seu Feedback: <span class="text-warning">{{ visita.title }}</span></h5>
+			<div>Ei, <span class="text-warning">{{ user.nome|AbreviarNome }}</span>. Tudo bem? AQUI NÓS VALORIZAMOS A SUA OPINIÃO!</div>
 		</div>
 
 		<hr>
@@ -18,16 +18,14 @@
 
 			<div class="row">
 				<div class="col-md-6">
-					
-					{% if check.user_codigo != '' %}
-					
+										
 					<div class="success-feedback text-center my-5" {{ check.user_codigo == '' ? 'style="display:none;"' }}>
 						<div><i class="fa-thin fa-message-smile fa-5x"></i></div>
 						<div><h3>Obrigado pelo seu Feedback</h3></div>
 						<div>Agradecemos seu Feedback e a partir de agora você pode concorrer a sorteios e em breve receberá o seu certificado por email.</div>
 					</div>
 
-					{% else %}
+					{% if check.user_codigo == '' %}
 						
 					<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 					<form action="javascript:void(0)" id="save_feedback" method="POST">
@@ -36,7 +34,7 @@
 
 							{% if pergunta.tipo == 'Campo' %}
 								<div class="pergunta mb-4 border-bottom">
-									<h5>{{ pergunta.pergunta }}</h5>
+									<h6>{{ pergunta.pergunta }}</h6>
 									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 									<div class="mb-3">
 										<input type="text" class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required">
@@ -46,7 +44,7 @@
 
 							{% if pergunta.tipo == 'Texto' %}
 								<div class="pergunta mb-4 border-bottom">
-									<h5>{{ pergunta.pergunta }}</h5>
+									<h6>{{ pergunta.pergunta }}</h6>
 									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 									<div class="mb-3">
 										<textarea class="form-control" name="resposta[]" id="resposta_{{ pergunta.id }}" required="required"></textarea>
@@ -56,7 +54,7 @@
 
 							{% if pergunta.tipo == 'Opcoes' %}
 								<div class="pergunta mb-4 border-bottom">
-									<h5>{{ pergunta.pergunta }}</h5>
+									<h6>{{ pergunta.pergunta }}</h6>
 									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 									
 									<div class="d-flex">
@@ -75,7 +73,7 @@
 
 							{% if pergunta.tipo == 'Estrela' %}
 								<div class="pergunta mb-4 border-bottom">
-									<h5>{{ pergunta.pergunta }}</h5>
+									<h6>{{ pergunta.pergunta }}</h6>
 									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 
 									<label class="rating-label">

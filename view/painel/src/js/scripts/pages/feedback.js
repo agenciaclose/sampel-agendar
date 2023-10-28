@@ -40,5 +40,28 @@ $(document).ready(function () {
 
     });
 
+
+    $('.pergunta-excluir').click(function(){
+        var domain = $('body').attr('data-domain');
+        var pergunta = $(this).attr('data-pergunta');
+        Swal.fire({
+            title: 'Deseja realmente excluir?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Excluir'
+        }).then((result) => {
+            if (result.value == true) {
+                $.ajax({url: domain+'/painel/feedback/perguntas/excluir/'+pergunta, 
+                    success: function(result){
+                        location.reload();
+                    }
+                });
+            }
+        })
+	});
+
     
 });

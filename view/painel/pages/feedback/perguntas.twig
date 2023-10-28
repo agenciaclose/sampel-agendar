@@ -32,10 +32,10 @@
 
                             <td>
                                 <b>{{ pergunta.pergunta }}</b>
-                                <div class="d-flex d-none">
-                                    <a href="{{ DOMAIN }}/painel/pergunta/editar/{{ visita.visita_id }}" class="opacity-75">Editar</a>
-                                    <span class="mx-05">|</span>
-                                    <a href="javascript:void(0);" data-pergunta="{{ visita.visita_id }}" class="text-danger visita-excluir">Excluir</a>
+                                <div class="d-flex">
+                                    {# <a href="{{ DOMAIN }}/painel/pergunta/editar/{{ pergunta.id }}" class="opacity-75">Editar</a>
+                                    <span class="mx-05">|</span> #}
+                                    <a href="javascript:void(0);" data-pergunta="{{ pergunta.id }}" class="text-danger pergunta-excluir">Excluir</a>
                                 </div>
                             </td>
 

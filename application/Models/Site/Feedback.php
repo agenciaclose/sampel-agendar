@@ -28,6 +28,7 @@ class Feedback extends Model
     public function getUserVisita($id_visita, $cpf): read
     {
         $read = new Read();
+        $cpf = $this->clearCPF($cpf);
         $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND cpf = :cpf", "id_visita={$id_visita}&cpf={$cpf}");
         return $read;
     }
@@ -37,8 +38,9 @@ class Feedback extends Model
         if (is_countable($params['pergunta']) && count($params['pergunta']) > 0){
             for ($i=0; $i < count($params['pergunta']); $i++) {
                 $read = new Read();
+                $cpf = $this->clearCPF($params['user_cpf']);
                 $read->FullRead("INSERT INTO `feedback` (`id_visita`, `user_codigo`, `user_cpf`, `pergunta`, `resposta`) 
-                        VALUES ('".$params['id_visita']."', '".$params['user_codigo']."', '".$params['user_cpf']."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."')");
+                        VALUES ('".$params['id_visita']."', '".$params['user_codigo']."', '".$cpf."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."')");
             }
         }
 
@@ -49,8 +51,21 @@ class Feedback extends Model
     public function checkFeedback($id_visita, $cpf): Read
     {
         $read = new Read();
+        $cpf = $this->clearCPF($cpf);
         $read->FullRead("SELECT * FROM feedback WHERE id_visita = :id_visita AND user_cpf = :user_cpf LIMIT 1", "id_visita={$id_visita}&user_cpf={$cpf}");
         return $read;
+    }
+
+    function clearCPF($palavra){
+        $palavra = trim(preg_replace("/[\s]+/", " ", $palavra));
+        trim($palavra);
+        $palavra = str_replace("(","",$palavra);
+        $palavra = str_replace(")","",$palavra);
+        $palavra = str_replace("+","",$palavra);
+        $palavra = str_replace("-","",$palavra);
+        $palavra = str_replace(".","",$palavra);
+        $palavra = str_replace(" ","",$palavra);
+        return($palavra);
     }
 
 }

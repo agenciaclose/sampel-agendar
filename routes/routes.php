@@ -120,6 +120,7 @@ $router->post("/painel/palestras/participante/importar", "PalestrasController:im
 $router->namespace("Agencia\Close\Controllers\Painel\Feedback");
 $router->get("/painel/feedback/perguntas", "FeedbackController:perguntas", "perguntas");
 $router->post("/painel/feedback/perguntas/save", "FeedbackController:savePerguntas", "savePerguntas");
+$router->get("/painel/feedback/perguntas/excluir/{id}", "FeedbackController:excluirPergunta");
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");

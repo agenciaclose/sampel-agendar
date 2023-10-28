@@ -24,6 +24,12 @@ class FeedbackPainel extends Model
         $create->ExeCreate('feedback_perguntas', $params);
         return $create;
     }
-    
+
+    public function excluirPergunta($id): read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `feedback_perguntas` WHERE `id` = :id", "id={$id}");
+        return $read;
+    }
 
 }

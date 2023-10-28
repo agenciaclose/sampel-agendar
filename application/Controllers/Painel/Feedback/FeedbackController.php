@@ -22,4 +22,11 @@ class FeedbackController extends Controller
         $save = $save->savePerguntas($params);
         if($save){echo '1';}else{echo '0';}
     }
+
+    public function excluirPergunta($params)
+    {
+        $this->setParams($params);
+        $pergunta = new FeedbackPainel();
+        $pergunta = $pergunta->excluirPergunta($params['id']);
+    }
 }
