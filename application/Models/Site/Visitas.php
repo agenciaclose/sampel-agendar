@@ -93,15 +93,21 @@ class Visitas extends Model
     {
         $read = new Read();
 
-        $codigo = $this->genCode($params['id_visita']);
-        $cpf = $this->clearCPF($params['cpf']);
+        $params['codigo'] = $this->genCode($params['id_visita']);
+        $params['cpf'] = $this->clearCPF($params['cpf']);
 
         if($params['setor'] == 'Outros'){
             $params['setor'] = $params['setor_outros'];
         }
         unset($params['setor_outros']);
 
+        $create = new Create();
+        $create->ExeCreate('visitas_inscricoes', $params);
+        return $create;
+
         $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `codigo`, `empresa`, `nome`, `cpf`, `email`, `telefone`, `setor`, `cep`, `cidade`, `estado`) VALUES (:id_visita, :codigo, :empresa, :nome, :cpf, :email, :telefone, :setor, :cep, :cidade, :estado)", "id_visita={$params['id_visita']}&codigo={$codigo}&empresa={$params['empresa']}&nome={$params['nome']}&cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}&setor={$params['setor']}&cep={$params['cep']}&cidade={$params['cidade']}&estado={$params['estado']}");
+        var_dump($read);
+        die();
         return $read;
 
     }
