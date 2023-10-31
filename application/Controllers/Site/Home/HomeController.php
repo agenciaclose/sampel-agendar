@@ -10,9 +10,12 @@ class HomeController extends Controller
     public function index($params)
     {
         $this->setParams($params);
-
-        $visitas = new Visitas();
-        $visitas = $visitas->listarVisitasOutros()->getResult();
+        if(!empty($_SESSION['sampel_user_id'])){
+            $visitas = new Visitas();
+            $visitas = $visitas->listarVisitasOutros()->getResult();
+        }else{
+            $visitas = array();
+        }
 
         $this->render('pages/home/home.twig', ['menu' => 'home', 'visitas' => $visitas]);
     }
