@@ -50,8 +50,8 @@
 
 		{% if visitas %}
 		
-		<div class="text-center">
-			<h4><b>Outros agendamentos do grupo <br>SAMPEL TOUR</b></h4>
+		<div class="text-center mb-3 mb-sm-0">
+			<h4 class="text-warning"><b>Outros agendamentos do grupo <br>SAMPEL TOUR</b></h4>
 		</div>
 
 		<div>
@@ -71,7 +71,13 @@
 						<tr>
 							<td class="d-none">{{ visita.visita_id }}</td>
 							<td>
-								<span class="text-uppercase"><a href="javascript:void(0)"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a></span>
+								<span class="text-uppercase">
+									<a href="javascript:void(0)"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
+									<div class="d-flex justify-content-between text-warning d-lg-none d-md-none d-sm-block d-block">
+										<div><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}</div>
+										<div><b><i class="fa-solid fa-user"></i> {{ visita.nome }}</b></div>
+									</div>
+								</span>
 								<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
 									<a href="javascript:void(0);" class="badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
 									<div class="modal fade" id="shared_{{ visita.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ visita.visita_id }}" aria-hidden="true">
@@ -117,7 +123,11 @@
 											</div>
 										</div>
 									</div>
-									<div class="ms-4 d-lg-none d-md-none d-sm-block d-block"><span class="badge bg-{{ visita.status_visita == 'Pendente' ? 'warning' : 'info' }} text-dark">{{ visita.status_visita }}</span></div>
+									<div class="ms-4 d-lg-none d-md-none d-sm-block d-block">
+										{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+										{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+										{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+									</div>
 									<a href="javascript:void(0)" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.total_inscricao }} / {{ visita.qtd_visitas }}</a>
 								</div>
 								
@@ -155,7 +165,7 @@
 				</table>
 			</div>
 		</div>
-		
+
 		{% endif %}
 
 	</session>
