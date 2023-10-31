@@ -20,6 +20,16 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listarVisitasOutros(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao
+						FROM visitas AS v
+						INNER JOIN usuarios AS u ON u.id = v.id_empresa
+						WHERE v.id_empresa <> :user_id ORDER BY v.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
+        return $read;
+    }
+
     public function listarVisitasUser($id_visita): read
     {
         $read = new Read();

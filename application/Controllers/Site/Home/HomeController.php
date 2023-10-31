@@ -3,12 +3,17 @@
 namespace Agencia\Close\Controllers\Site\Home;
 
 use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Site\Visitas;
 
 class HomeController extends Controller
 {
     public function index($params)
     {
         $this->setParams($params);
-        $this->render('pages/home/home.twig', ['menu' => 'home']);
+
+        $visitas = new Visitas();
+        $visitas = $visitas->listarVisitasOutros()->getResult();
+
+        $this->render('pages/home/home.twig', ['menu' => 'home', 'visitas' => $visitas]);
     }
 }
