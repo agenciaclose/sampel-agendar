@@ -29,4 +29,13 @@ class FeedbackController extends Controller
         $pergunta = new FeedbackPainel();
         $pergunta = $pergunta->excluirPergunta($params['id']);
     }
+
+    public function feedbacks()
+    {
+        $visitas = new FeedbackPainel();
+        $visitas = $visitas->getVisitasList()->getResult();
+
+        $this->render('painel/pages/feedback/feedbacks.twig', ['menu' => 'feedback', 'visitas' => $visitas]);
+    }
+
 }

@@ -35,7 +35,7 @@ class VisitasController extends Controller
         $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
         $lista = new Visitas();
-        $lista = $lista->listarVisitasUser()->getResult();
+        $lista = $lista->listarVisitasUser($params['id'])->getResult();
 
         $total = new Visitas();
         $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];

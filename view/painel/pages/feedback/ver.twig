@@ -1,0 +1,71 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Feedbacks{% endblock %}
+
+{% block body %}
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+
+    <div class="card card-company-table">
+        <div class="card-header pb-0">
+            <h5 class="card-title">Lista de Feedbacks</h5>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table dataTable_list">
+                    <thead>
+                        <tr>
+                            <th class="d-none">#</th>
+                            <th>Visita</th>
+                            <th>Responsável</th>
+                            <th>Pessoas</th>
+                            <th width="75">Status</th>
+                            <th class="text-end">Data da Visita</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for visita in visitas %}
+                        <tr>
+                            <td class="d-none">{{ visita.visita_id }}</td>
+
+                            <td>
+                                <a href="{{ DOMAIN }}/painel/feedback/ver/{{ visita.visita_id }}" class="text-uppercase"><b>{{ visita.title }}</b></a>
+                                <div class="d-flex">
+                                    <a href="{{ DOMAIN }}/painel/feedback/ver/{{ visita.visita_id }}" class="opacity-75">Ver Feedbacks</a>
+                                </div>
+                            </td>
+
+                            <td>
+                                {{ visita.nome }} - <small class="text-lowercase">{{ visita.empresa_fantasia }}</small>
+                                <div class="text-lowercase"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+                            </td>
+
+                            <td>
+                                {{ visita.total_inscricao }}
+                            </td>
+                            <td>
+                                <div>
+                                    <span class="badge {{ visita.status_visita == 'Aprovado' ? 'bg-info'}} {{ visita.status_visita == 'Pendente' ? 'bg-warning'}} {{ visita.status_visita == 'Recusado' ? 'bg-danger'}} text-black">{{ visita.status_visita }}</span>
+                                </div>
+                            </td>
+
+                            <td class="text-end">
+                                {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/feedback.js"></script>
+
+{% endblock %}

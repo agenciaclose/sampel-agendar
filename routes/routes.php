@@ -126,6 +126,9 @@ $router->get("/painel/feedback/perguntas", "FeedbackController:perguntas", "perg
 $router->post("/painel/feedback/perguntas/save", "FeedbackController:savePerguntas", "savePerguntas");
 $router->get("/painel/feedback/perguntas/excluir/{id}", "FeedbackController:excluirPergunta");
 
+$router->get("/painel/feedback/lista", "FeedbackController:feedbacks", "feedbacks");
+$router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "feedbacksList");
+
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
 $router->get("/{errorCode}", "ErrorController:show", 'error');

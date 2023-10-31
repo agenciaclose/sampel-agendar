@@ -32,4 +32,13 @@ class FeedbackPainel extends Model
         return $read;
     }
 
+    public function getVisitasList(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao
+                        FROM visitas AS v
+                        INNER JOIN usuarios AS u ON u.id = v.id_empresa WHERE status_visita = 'Aprovado' ORDER BY v.id DESC");
+        return $read;
+    }
+
 }

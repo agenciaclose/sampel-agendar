@@ -20,7 +20,7 @@ class Visitas extends Model
         return $read;
     }
 
-    public function listarVisitasUser(): read
+    public function listarVisitasUser($id_visita): read
     {
         $read = new Read();
         if(!empty($_GET['setor'])){
@@ -38,7 +38,7 @@ class Visitas extends Model
         $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
-                        WHERE v.id_empresa = :user_id $setor $presenca ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
+                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}&id_visita={$id_visita}");
         return $read;
     }
 
