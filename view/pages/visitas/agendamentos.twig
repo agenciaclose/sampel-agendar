@@ -39,9 +39,9 @@
 						<td>
 							<span class="text-uppercase">
 								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
-								<div class="d-flex justify-content-between text-warning d-lg-none d-md-none d-sm-block d-block">
+								<div class="d-flex justify-content-between text-info d-lg-none d-md-none d-sm-block d-block">
 									<div><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}</div>
-									<div><b><i class="fa-solid fa-user"></i> {{ visita.nome }}</b></div>
+									<div><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
 								</div>
 							</span>
 							<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
