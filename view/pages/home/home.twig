@@ -57,7 +57,7 @@
 				<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 					<thead>
 						<tr>
-							<th class="">#</th>
+							<th class="d-none">#</th>
 							<th class="no-mobile flex-grow-1">Visita</th>
 							<th class="no-mobile">Responsável</th>
 							<th width="50" class="no-mobile">Status</th>
@@ -67,7 +67,7 @@
 					<tbody>
 						{% for visita in visitas %}
 						<tr>
-							<td class="">{{ visita.visita_id }}</td>
+							<td class="d-none">{{ visita.visita_id }}</td>
 							<td>
 								<span class="text-uppercase"><a href="javascript:void(0)"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a></span>
 								<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
