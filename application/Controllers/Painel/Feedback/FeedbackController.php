@@ -38,4 +38,13 @@ class FeedbackController extends Controller
         $this->render('painel/pages/feedback/feedbacks.twig', ['menu' => 'feedback', 'visitas' => $visitas]);
     }
 
+    public function feedbacksList($params)
+    {
+        $this->setParams($params);
+
+        $listas = new FeedbackPainel();
+        $listas = $listas->getFeedbacksList($params['id'])->getResult();
+        $this->render('painel/pages/feedback/ver.twig', ['menu' => 'feedback', 'listas' => $listas]);
+    }
+
 }

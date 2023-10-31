@@ -41,4 +41,11 @@ class FeedbackPainel extends Model
         return $read;
     }
 
+    public function getFeedbacksList($id_visita): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM `feedback` WHERE `id_visita` = :id_visita", "id_visita={$id_visita}");
+        return $read;
+    }
+
 }

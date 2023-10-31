@@ -58,6 +58,13 @@ h1,h2,h3,h4,h5,h6 {
 .conteudo .coluna3, .conteudo .coluna4 {
     border-top: 1px solid #000;
 } */
+.p-1 {
+    padding: 0.25rem!important;
+}
+.text-black-50 {
+    --bs-text-opacity: 1;
+    color: rgba(0,0,0,.5)!important;
+}
 .conteudo .coluna > div {
     padding: 25px;
 }

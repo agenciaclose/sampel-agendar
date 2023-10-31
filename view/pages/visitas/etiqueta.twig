@@ -8,11 +8,13 @@
 	<div class="coluna coluna1">
 		<div>
 			<div class="w-10 text-center"><h3><b>{{ visita.title }}</b></h3></div>
-			<div class="p-3"></div>
+			<div class="w-10 text-center text-black-50"><small>{{ visita.data_visita | date("d-m-Y") }} as {{ visita.horario_visita }}</small></div>
+			<div class="w-10 text-center text-black-50"><small>{{ visita.nome }}</small></div>
+			<div class="p-1"></div>
 			<div class="w-50 m-auto">{{ inscricao.qrcode|raw }}</div>
 			<div class="w-10 text-center"><b>{{ inscricao.codigo }}</b></div>
 			<div class="p-3"></div>
-			<div class="text-center w-100 titulo"><h3><b>{{ inscricao.nome|AbreviarNome }}</b></h3></div>
+			<div class="text-center w-100 titulo"><h3><b>{{ inscricao.nome }}</b></h3></div>
 			<div class="text-center w-100"><b>{{ inscricao.cidade }}</b></div>
 			<div class="p-3"></div>
 			<div class="cargo"><b>{% if inscricao.id_user == visita.id_empresa %} RESPONSÁVEL {% else %} VISITANTE {% endif %}</b></div>
