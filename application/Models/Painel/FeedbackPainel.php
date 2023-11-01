@@ -51,7 +51,7 @@ class FeedbackPainel extends Model
     public function getFeedbacksList($id_visita, $pergunta): Read
     {
         $read = new Read();
-        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `id_visita` = :id_visita AND `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "id_visita={$id_visita}&pergunta={$pergunta}");
+        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `id_visita` = :id_visita AND `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd ASC ", "id_visita={$id_visita}&pergunta={$pergunta}");
         return $read;
     }
 }
