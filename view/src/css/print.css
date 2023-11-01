@@ -58,12 +58,24 @@ h1,h2,h3,h4,h5,h6 {
 .conteudo .coluna3, .conteudo .coluna4 {
     border-top: 1px solid #000;
 } */
+.border {
+    border: var(--bs-border-width) var(--bs-border-style) rgba(0,0,0,1) !important;
+}
+.border-2 {
+    border-width: 2px!important;
+}
 .p-1 {
     padding: 0.25rem!important;
+}
+.my-2 {
+    margin: 0.5rem!important;
 }
 .text-black-50 {
     --bs-text-opacity: 1;
     color: rgba(0,0,0,.5)!important;
+}
+.text-secondary {
+    color: #2b2f32;
 }
 .conteudo .coluna > div {
     padding: 25px;
@@ -75,4 +87,8 @@ h1,h2,h3,h4,h5,h6 {
     color: #FFFFFF;
     font-size: 20px;
     letter-spacing: 2px;
+}
+.linha {
+    height: 2px;
+    background-color: #000;
 }
