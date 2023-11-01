@@ -46,8 +46,9 @@
                 name: 'Notas',
                 colorByPoint: true,
                 data: [
-                    {% for i in 0..5 %}
-                        {name: '{{ i }}', y:{{ pergunta.estatisticas[i].qtd == null ? '0' : pergunta.estatisticas[i].qtd }}}{% if i != 5 %},{% endif %}
+                    {% for j in 0..5 %}
+                        {% set i = 5 - j %}
+                        {name: '{{ j }}', y:{{ pergunta.estatisticas[i].qtd == null ? '0' : pergunta.estatisticas[i].qtd }}}{% if j != 5 %},{% endif %}
                     {% endfor %}
                 ]
             }
