@@ -129,6 +129,13 @@ $router->get("/painel/feedback/perguntas/excluir/{id}", "FeedbackController:excl
 $router->get("/painel/feedback/lista", "FeedbackController:feedbacks", "feedbacks");
 $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "feedbacksList");
 
+// PAINEL EQUIPE
+$router->namespace("Agencia\Close\Controllers\Painel\Equipes");
+$router->get("/painel/equipes", "EquipesController:equipes", "equipes");
+$router->get("/painel/equipe/cadastro", "EquipesController:cadastro", "cadastro");
+$router->post("/painel/equipe/cadastrosave", "EquipesController:cadastroSave", "cadastroSave");
+$router->get("/painel/equipe/editar/{id}", "EquipesController:editar", "editar");
+
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
 $router->get("/{errorCode}", "ErrorController:show", 'error');

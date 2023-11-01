@@ -214,3 +214,9 @@ span.ck-file-dialog-button {
 .dt-buttons .dt-button:hover:not(.disabled):not(:disabled) {
     box-shadow: 0 8px 25px -8px #1194dc;
 }
+.show-pass {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #000;
+}

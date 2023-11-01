@@ -13,7 +13,7 @@ class RegisterController extends Controller
     
     public function index(array $params)
     {
-        $this->setParams($params);        
+        $this->setParams($params);
         $this->render('pages/login/cadastro.twig', []);
     }
 
@@ -38,8 +38,8 @@ class RegisterController extends Controller
         $idUser = $user->saveClient($this->params);
         if ($idUser) {
 
-            $logon = new Logon();
-            $logon->loginByEmail($this->params['email'], $this->params['senha']);
+            //$logon = new Logon();
+            //$logon->loginByEmail($this->params['email'], $this->params['senha']);
             echo '1';
 
         } else {

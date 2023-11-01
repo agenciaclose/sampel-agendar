@@ -1,0 +1,70 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Equipes{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Lista de Equipes</h5>
+                                    <div class="heading-elements">
+                                        <a class="btn btn-primary" href="{{ DOMAIN }}/painel/equipe/cadastro"><i class="fa-regular fa-plus"></i> Add Novo</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nome</th>
+                                                    <th>Email</th>
+                                                    <th>Telefone</th>
+                                                    <th class="text-end">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for equipe in equipes %}
+                                                    <tr>
+                                                        <td>{{ equipe.id }}</td>
+                                                        <td class="text-uppercase">{{ equipe.nome }}</td>
+                                                        <td class="text-lowercase">{{ equipe.email }}</td>
+                                                        <td>{{ equipe.telefone }}</td>
+                                                        <td class="text-end">
+                                                            <div class="d-flex justify-content-end">
+                                                                <a href="{{ DOMAIN }}/painel/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a> 
+                                                                <a href="#" class="ms-1 btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a> 
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipe.js"></script>
+{% endblock %}

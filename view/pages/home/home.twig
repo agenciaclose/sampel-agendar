@@ -78,14 +78,14 @@
 							<td class="d-none">{{ visita.visita_id }}</td>
 							<td>
 								<span class="text-uppercase">
-									<a href="javascript:void(0);"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
+									<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
 									<div class="d-flex justify-content-between text-black-50 d-lg-none d-md-none d-sm-block d-block">
 										<div><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}</div>
 										<div><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
 									</div>
 								</span>
 								<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
-									<a href="javascript:void(0);" class="badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
+									<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
 									<div class="modal fade" id="shared_{{ visita.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ visita.visita_id }}" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 											<div class="modal-content text-black">

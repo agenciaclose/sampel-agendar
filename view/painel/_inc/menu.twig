@@ -18,6 +18,12 @@
                 <li class="{{ (menu == 'home') ? 'active' }} nav-item">
                     <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i data-feather="grid"></i><span class="menu-title text-truncate">Home</span></a>
                 </li>
+                
+                <li class=" navigation-header"><span>Listas de Usuário</span><i data-feather="more-horizontal"></i></li>
+
+                <li class="{{ (menu == 'equipes') ? 'active' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/equipes"><i data-feather="grid"></i><span class="menu-title text-truncate">Equipes</span></a>
+                </li>
 
                 <li class=" navigation-header"><span>Listas de Visitas</span><i data-feather="more-horizontal"></i></li>
                 <li class="{{ (menu == 'visitas') ? 'active open' }} nav-item">

@@ -1,0 +1,180 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Cadastro de Equipe{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-xl-4 col-lg-6 col col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Cadastro de Equipe</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form class="mt-2" action="javascript:void(0)" id="register-client-form" method="POST">
+
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+                                                <div class="d-none">
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Nome da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_nome" name="empresa_nome" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Nome da Fantasia</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_fantasia" name="empresa_fantasia" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Atividade</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_atividade" name="empresa_atividade" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Telefone da Empresa</label>
+                                                        <input type="text" class="form-control telefone" id="empresa_telefone" name="empresa_telefone" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Email da Empresa</label>
+                                                        <input type="email" class="form-control rounded-pill" id="empresa_email" name="empresa_email" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Endereço da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_logradouro" name="empresa_logradouro" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Nº</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_numero" name="empresa_numero" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Complemento</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_complemento" name="empresa_complemento" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Bairro da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_bairro" name="empresa_bairro" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Cidade da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_cidade" name="empresa_cidade" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">Estado da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_uf" name="empresa_uf" />
+                                                    </div>
+
+                                                    <div class="mb-1">
+                                                        <label class="form-label">CEP da Empresa</label>
+                                                        <input type="text" class="form-control rounded-pill" id="empresa_cep" name="empresa_cep" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input cursor-pointer" type="radio" name="tipo_cadastro" id="tipo_cpf" value="tipo_cpf" checked>
+                                                        <label class="form-check-label cursor-pointer" for="tipo_cpf">Pessoa Física</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input cursor-pointer" type="radio" name="tipo_cadastro" id="tipo_cnpj" value="tipo_cnpj">
+                                                        <label class="form-check-label cursor-pointer" for="tipo_cnpj">Pessoa Jurídica</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-1 tipo_cpf" style="display: none;">
+                                                    <label class="form-label">CNPJ</label>
+                                                    <input type="text" class="form-control rounded-pill cnpj" placeholder="00.000.000/0000-00" id="empresa_cnpj" name="cnpj" />
+                                                </div>
+
+                                                <div class="mb-1 tipo_cnpj">
+                                                    <label class="form-label">CPF</label>
+                                                    <input type="text" class="form-control rounded-pill cpf" placeholder="000.000.000-00" id="cpf" name="cpf" />
+                                                </div>
+
+                                                <div class="mb-1">
+                                                    <label class="form-label">Setor de Atuação</label>
+                                                    <select class="form-control rounded-pill" id="setor" name="setor" required="required">
+                                                        <option value="">Selecione</option>
+                                                        <option value="Mecânico / Reparador">Mecânico / Reparador</option>
+                                                        <option value="Balconista">Balconista</option>
+                                                        <option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+                                                        <option value="Estoquista">Estoquista</option>
+                                                        <option value="Autopeças">Autopeças</option>
+                                                        <option value="Auto Center">Auto Center</option>
+                                                        <option value="Frotista">Frotista</option>
+                                                        <option value="Oficina Reparadora">Oficina Reparadora</option>
+                                                        <option value="Distribuidora">Distribuidora</option>
+                                                        <option value="Outros">Outros</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-1 outros" style="display: none">
+                                                    <input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
+                                                </div>
+
+                                                <div class="mb-1">
+                                                    <label class="form-label">Seu Nome Completo</label>
+                                                    <input type="text" class="form-control rounded-pill" name="nome" placeholder="Nome Completo" required/>
+                                                </div>
+
+                                                <div class="mb-1">
+                                                    <label class="form-label">Seu Telefone</label>
+                                                    <input type="text" class="form-control rounded-pill telefone" name="telefone" required/>
+                                                </div>
+
+                                                <div class="mb-1">
+                                                    <label class="form-label">Seu E-mail</label>
+                                                    <input type="email" class="form-control rounded-pill" name="email" placeholder="john@gmail.com" required />
+                                                </div>
+
+
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="login-password">Senha</label>
+                                                    <div class="form-password-toggle position-relative">
+                                                        <input type="password" class="form-control rounded-pill" id="register-consultor-password" name="senha" />
+                                                        <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <button type="submit" class="rounded-pill btn btn-warning" id="salvar"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR CADASTRO</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipes.js"></script>
+{% endblock %}
