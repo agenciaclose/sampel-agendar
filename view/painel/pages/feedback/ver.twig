@@ -4,46 +4,41 @@
 
 {% block body %}
 
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.css" media="all"/>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/exporting.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/moment.min.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.js"></script>
+
+
 <!-- BEGIN: Content-->
 <div class="app-content content ">
 
-    <div class="card card-company-table">
-        <div class="card-header pb-0">
-            <h5 class="card-title">Feedback Estatísticas</h5>
-        </div>
-        <div class="card-body">
+    <div class="row">
+        {% for pergunta in perguntas %}
+            <div class="col-md-6">
+                <div class="card card-company-table">
+                    <div class="card-body">
 
-            <div class="table-responsive">
-                <table class="table dataTable_list">
-                    <thead>
-                        <tr>
-                            <th>CPF</th>
-                            <th>Pergunta</th>
-                            <th>Nota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for lista in listas %}
-                        <tr>
-                            <td>
-                                <b>{{ lista.user_cpf }}</b>
-                            </td>
-                            <td>
-                                <b>{{ lista.pergunta }}</b>
-                            </td>
-                            <td>
-                                {{ lista.resposta }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        {% if pergunta.tipo == 'Estrela' %}
+                            {{ include('painel/pages/feedback/painel-estrela.twig') }}
+                        {% endif %}
+
+                        {% if pergunta.tipo == 'Texto' %}
+                            {{ include('painel/pages/feedback/painel-texto.twig') }}
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
+        {% endfor %}
 
-        </div>
     </div>
+    
 
 </div>
+
 
 <script src="{{ PATH }}/view/painel/src/js/scripts/pages/feedback.js"></script>
 

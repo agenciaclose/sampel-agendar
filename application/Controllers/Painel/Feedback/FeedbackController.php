@@ -42,9 +42,17 @@ class FeedbackController extends Controller
     {
         $this->setParams($params);
 
-        $listas = new FeedbackPainel();
-        $listas = $listas->getFeedbacksList($params['id'])->getResult();
-        $this->render('painel/pages/feedback/ver.twig', ['menu' => 'feedback', 'listas' => $listas]);
+        $perguntas = new FeedbackPainel();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new FeedbackPainel();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['id'], $pergunta['pergunta'])->getResult();
+            $i++;
+        }
+
+        $this->render('painel/pages/feedback/ver.twig', ['menu' => 'feedback', 'perguntas' => $perguntas]);
     }
 
 }
