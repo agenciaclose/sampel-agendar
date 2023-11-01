@@ -133,7 +133,7 @@ $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "f
 $router->namespace("Agencia\Close\Controllers\Painel\Equipes");
 $router->get("/painel/equipes", "EquipesController:equipes", "equipes");
 $router->get("/painel/equipe/cadastro", "EquipesController:cadastro", "cadastro");
-$router->post("/painel/equipe/cadastrosave", "EquipesController:cadastroSave", "cadastroSave");
+$router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave", "cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar", "editar");
 
 // ERROR

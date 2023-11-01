@@ -25,7 +25,7 @@ $(document).ready(function () {
         var form = $(this);
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/cadastro/create-user',
+            url: DOMAIN + '/painel/equipe/cadastro',
             success: function (data) {
                 if (data == "1") {
                     window.location.href = DOMAIN+'/painel/equipes';
@@ -49,7 +49,7 @@ $(document).ready(function () {
         var form = $(this);
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/cadastro/create-client',
+            url: DOMAIN + '/painel/equipe/cadastro',
             success: function (data) {
                 $('#info-cadastro-cliente').hide();
                 $('#info-cadastro-cliente2').hide();
