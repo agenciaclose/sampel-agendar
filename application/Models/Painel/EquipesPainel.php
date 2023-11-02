@@ -30,12 +30,6 @@
         public function cadastroSave(array $params)
         {
             $params['senha'] = sha1($params['senha']);
-
-            if($params['setor'] == 'Outros'){
-                $params['setor'] = $params['setor_outros'];
-            }
-            unset($params['setor_outros']);
-
             $create = new Create();
             $create->ExeCreate('usuarios', $params);
             return $create->getResult();
