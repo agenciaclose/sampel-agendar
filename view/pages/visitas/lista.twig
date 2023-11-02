@@ -11,10 +11,10 @@
 		<div class="row mb-4">
 
 			<div class="col-sm-12 col-md-8">
-				<div><h5>Lista de inscrições: <span class="text-warning">{{ visita.title }}</span></h5></div>
+				<div><h5>Lista de inscrições: <span class="text-warning fw-bold">{{ visita.title }}</span></h5></div>
 				<div class="d-flex justify-content-between">
-					<h5>Data da Visita: <span class="text-warning">{{ visita.data_visita | date("d-m-Y") }} as {{ visita.horario_visita }}</span></h5>
-					<h5>Responsavel: <span class="text-warning">{{ visita.nome }}</span></h5>
+					<h5>Data da Visita: <span class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</span></h5>
+					<h5>Responsavel: <span class="text-warning fw-bold">{{ visita.nome }}</span></h5>
 				</div>
 				<div class="limit-3">{{ visita.descricao }}</div>
 				{% set agora = "now"|date("Y-m-d") %}
