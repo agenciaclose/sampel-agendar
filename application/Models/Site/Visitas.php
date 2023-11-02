@@ -30,7 +30,7 @@ class Visitas extends Model
         return $read;
     }
 
-    public function listarVisitasUser($id_visita): read
+    public function listarVisitasUser($id_visita, $id_empresa): read
     {
         $read = new Read();
         if(!empty($_GET['setor'])){
@@ -48,7 +48,7 @@ class Visitas extends Model
         $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
-                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca ORDER BY vi.`data` DESC", "user_id={$_SESSION['sampel_user_id']}&id_visita={$id_visita}");
+                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca ORDER BY vi.`data` DESC", "user_id={$id_empresa}&id_visita={$id_visita}");
         return $read;
     }
 
@@ -101,8 +101,6 @@ class Visitas extends Model
 
     public function inscricaoCadastro($params)
     {
-        $read = new Read();
-
         $params['codigo'] = $this->genCode($params['id_visita']);
         $params['cpf'] = $this->clearCPF($params['cpf']);
 
@@ -114,11 +112,6 @@ class Visitas extends Model
         $create = new Create();
         $create->ExeCreate('visitas_inscricoes', $params);
         return $create;
-
-        $read->FullRead("INSERT INTO `visitas_inscricoes` (`id_visita`, `codigo`, `empresa`, `nome`, `cpf`, `email`, `telefone`, `setor`, `cep`, `cidade`, `estado`) VALUES (:id_visita, :codigo, :empresa, :nome, :cpf, :email, :telefone, :setor, :cep, :cidade, :estado)", "id_visita={$params['id_visita']}&codigo={$codigo}&empresa={$params['empresa']}&nome={$params['nome']}&cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}&setor={$params['setor']}&cep={$params['cep']}&cidade={$params['cidade']}&estado={$params['estado']}");
-        var_dump($read);
-        die();
-        return $read;
 
     }
 
@@ -196,6 +189,34 @@ class Visitas extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND sorteado = 'Sim'", "id_visita={$id_visita}");
+        return $read;
+    }
+
+    public function listaEquipes(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' ORDER BY id DESC");
+        return $read;
+    }
+
+    public function listaEquipesSave($params): read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `visitas_equipes` WHERE `id_visita` = :id_visita", "id_visita={$params['id_visita']}");
+
+        $read = new Read();
+        for ($i=0; $i <count($params['editar_equipe']); $i++) {
+            $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+        }
+        return $read;
+    }
+    
+    public function listaEquipesVisita($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT u.* FROM visitas_equipes AS ve
+        INNER JOIN usuarios AS u ON u.id = ve.id_user
+        WHERE ve.id_visita = :id_visita", "id_visita={$id_visita}");
         return $read;
     }
 

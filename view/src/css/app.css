@@ -3342,6 +3342,18 @@ label, .form-label {
 .feedback .fas{
   color: #01A6D7;
 }
+.select2-container {
+  min-width: 100%;
+}
+.select2-container {
+  z-index: 99999;
+}
+.modal-body {
+  color: #000;
+}
+.select2-results__option--selectable {
+  color: #000;
+}
 @media only screen and (max-width:767px) {
   .no-mobile {
     display: none !important;

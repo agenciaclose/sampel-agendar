@@ -48,4 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 });
-  
+
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+  $('.select2-tag').select2({
+    tags: true
+  });
+});

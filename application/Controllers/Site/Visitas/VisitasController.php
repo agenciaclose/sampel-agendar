@@ -35,7 +35,7 @@ class VisitasController extends Controller
         $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
         $lista = new Visitas();
-        $lista = $lista->listarVisitasUser($params['id'])->getResult();
+        $lista = $lista->listarVisitasUser($params['id'], $visita['id_empresa'])->getResult();
 
         $total = new Visitas();
         $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
@@ -46,7 +46,18 @@ class VisitasController extends Controller
         $sorteados = new Visitas();
         $sorteados = $sorteados->listarVisitasUserSorteados($params['id'])->getResult();
 
-        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados]);
+        $todasEquipes = new Visitas();
+        $todasEquipes = $todasEquipes->listaEquipes()->getResult();
+
+        $equipeVisita = new Visitas();
+        $equipeVisita = $equipeVisita->listaEquipesVisita($params['id'])->getResult();
+
+        $equipeSelecionada = array();
+        foreach ($equipeVisita as $equipe){
+            $equipeSelecionada[] = $equipe['id'];
+        }
+
+        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada]);
     }
 
     public function inscricao($params)
@@ -147,6 +158,18 @@ class VisitasController extends Controller
         $lista = $lista->listarVisitasUserSorteados($params['id'])->getResult();
 
         $this->render('pages/visitas/sorteados.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista]);
+    }
+
+    public function listaEquipesSave($params)
+    {
+        $this->setParams($params);
+        $save = new Visitas();
+        $save = $save->listaEquipesSave($params);
+        if($save){
+            echo '0';
+        }else{
+            echo '1';
+        }
     }
 
 }

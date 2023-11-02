@@ -15,7 +15,7 @@ $router->post("/agendar/cadastro", "AgendarController:cadastro", "cadastro");
 $router->post("/agendar/editar", "AgendarController:editar", "editar");
 $router->get("/agendar/checkCloseEventsClose", "AgendarController:checkCloseEventsClose", "checkCloseEventsClose");
 
-// PAGE AGENDAR
+// PAGE VISITA
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");
 $router->get("/visitas", "VisitasController:visitas", "visitas");
 $router->get("/agendamentos", "VisitasController:agendamentos", "agendamentos");
@@ -26,6 +26,8 @@ $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro
 $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoCadastroQRcode", "inscricaoCadastroQRcode");
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta", "printEtiqueta");
 $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo", "checkCadastroCampo");
+
+$router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave", "listaEquipesSave");
 
 //SORTEIO
 $router->post("/visita/sortear", "VisitasController:sortear", "sortear");
@@ -135,6 +137,7 @@ $router->get("/painel/equipes", "EquipesController:equipes", "equipes");
 $router->get("/painel/equipe/cadastro", "EquipesController:cadastro", "cadastro");
 $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave", "cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar", "editar");
+
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");

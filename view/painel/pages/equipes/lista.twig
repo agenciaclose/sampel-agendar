@@ -34,6 +34,7 @@
                                                     <th>Nome</th>
                                                     <th>Email</th>
                                                     <th>Telefone</th>
+                                                    <th>Setor</th>
                                                     <th class="text-end">Ações</th>
                                                 </tr>
                                             </thead>
@@ -44,6 +45,7 @@
                                                         <td class="text-uppercase">{{ equipe.nome }}</td>
                                                         <td class="text-lowercase">{{ equipe.email }}</td>
                                                         <td>{{ equipe.telefone }}</td>
+                                                        <td>{{ equipe.setor }}</td>
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end">
                                                                 <a href="{{ DOMAIN }}/painel/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a> 

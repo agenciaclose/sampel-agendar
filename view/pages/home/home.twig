@@ -65,7 +65,7 @@
 				<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 					<thead>
 						<tr>
-							<th class="d-none">#</th>
+							<th class="no-mobile">ID</th>
 							<th class="no-mobile flex-grow-1">Visita</th>
 							<th class="no-mobile">Responsável</th>
 							<th width="50" class="no-mobile">Status</th>
@@ -75,18 +75,23 @@
 					<tbody>
 						{% for visita in visitas %}
 						<tr>
-							<td class="d-none">{{ visita.visita_id }}</td>
+
+							<td class="no-mobile" width="25">{{ visita.visita_id }}</td>
+
 							<td>
+
 								<span class="text-uppercase">
 									<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>
-									<div class="d-flex justify-content-between text-black-50 d-lg-none d-md-none d-sm-block d-block">
-										<div><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}</div>
-										<div><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
-									</div>
 								</span>
+
 								<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
-									<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
-									<div class="modal fade" id="shared_{{ visita.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ visita.visita_id }}" aria-hidden="true">
+									
+									<div class="d-flex justify-content-start flex-column flex-sm-row">
+										<a href="javascript:void(0);" class="mb-2 me-0 me-sm-2 badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
+										<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ visita.total_inscricao }} / {{ visita.qtd_visitas }}</a>
+										<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#verEquip{{ visita.id }}" class="mb-2 badge bg-warning text-black">VER EQUIPE <span class="px-1 bg-black rounded-pill text-white">{{ visita.equipevisita|length }}</span></a>
+										
+										<div class="modal fade" id="shared_{{ visita.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ visita.visita_id }}" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 											<div class="modal-content text-black">
 												<div class="modal-body p-0">
@@ -128,13 +133,46 @@
 												</div>
 											</div>
 										</div>
+										</div>
 									</div>
-									<div class="ms-4 d-lg-none d-md-none d-sm-block d-block">
-										{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
-										{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
-										{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+
+									<div class="d-flex justify-content-end flex-column d-lg-none d-md-none d-sm-block d-block">
+										<div class="mb-1">
+											{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+											{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+											{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+										</div>
+										<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
+										<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}</div>
 									</div>
-									<a href="javascript:void(0)" class="badge bg-warning text-black ms-4"><i class="fa-solid fa-users"></i> {{ visita.total_inscricao }} / {{ visita.qtd_visitas }}</a>
+									
+									
+								</div>
+
+
+								<div class="modal fade" id="verEquip{{ visita.id }}" tabindex="-1" role="dialog" aria-labelledby="verEquipLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-body">
+												<div><label class="text-black"><b>Lista de membros da equipe dessa Visita</b></label></div>
+												<table class="table table-striped fa-sm">
+													<tbody>
+														{% if visita.equipevisita|length == 0 %}
+														<tr>
+															<td class="text-uppercase">Nenhuma equipe até o momento.</td>
+														</tr>
+														{% endif %}
+														{% for equipe in visita.equipevisita %}
+														<tr>
+															<td class="text-uppercase">{{ equipe.nome }}</td>
+															<td class="text-end">{{ equipe.email }}</td>
+														</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
 								</div>
 								
 								{% set porcentagem = (visita.total_inscricao / visita.qtd_visitas) * 100  %}

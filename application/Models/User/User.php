@@ -48,7 +48,7 @@ class User extends Model
         setcookie("CookieLoginHash", $cookieHash, $expire);
     }
 
-     public function saveClient(array $params)
+    public function saveClient(array $params)
     {
         $params['senha'] = sha1($params['senha']);
         unset($params['tipo_cadastro']);

@@ -10,9 +10,20 @@ class HomeController extends Controller
     public function index($params)
     {
         $this->setParams($params);
+
         if(!empty($_SESSION['sampel_user_id'])){
+
             $visitas = new Visitas();
             $visitas = $visitas->listarVisitasOutros()->getResult();
+
+            $i = 0;
+            foreach($visitas as $visita){
+                $todasEquipes = new Visitas();
+                $todasEquipes = $todasEquipes->listaEquipesVisita($visita['visita_id'])->getResult();
+                $visitas[$i]['equipevisita'] = $todasEquipes;
+                $i++;
+            }
+
         }else{
             $visitas = array();
         }
