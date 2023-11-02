@@ -44,7 +44,7 @@ $router->post("/sign", "LoginController:sign");
 $router->get("/logout", "LoginController:logout");
 $router->get("/login/recover", "RecoverController:index");
 $router->get("/login/recuperar-senha", "RecoverController:recover");
-$router->get("/cadastro", "RegisterController:index");
+// $router->get("/cadastro", "RegisterController:index");
 $router->get("/find-cnpj", "RegisterController:cnpj");
 $router->post("/cadastro/create-client", "RegisterController:createClient");
 

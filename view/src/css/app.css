@@ -3354,6 +3354,10 @@ label, .form-label {
 .select2-results__option--selectable {
   color: #000;
 }
+.table-sm {
+  font-size: 13px;
+  font-weight: 500;
+}
 @media only screen and (max-width:767px) {
   .no-mobile {
     display: none !important;

@@ -1,0 +1,22 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Sem Permissão {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="text-center my-5">
+			<div class="mb-5"><i class="fa-solid fa-circle-exclamation fa-5x"></i></div>
+			<h2>SEM PERMISSÃO!</H2>
+			<div class="mb-5">Você não tem permissão suficiente para cessar essa página.</div>
+			<a href="{{ DOMAIN }}" class="btn btn-warning"><i class="fa-solid fa-house"></i> VOLTAR A HOME</a>
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}

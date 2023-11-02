@@ -21,7 +21,6 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         $visitas = new Visitas();
-        
         $visitas = $visitas->listarVisitas()->getResult();
 
         $this->render('pages/visitas/agendamentos.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
@@ -31,33 +30,37 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         
-        $visita = new Visitas();
-        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+        if(!empty($_SESSION['sampel_user_id'])){
+            $visita = new Visitas();
+            $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
-        $lista = new Visitas();
-        $lista = $lista->listarVisitasUser($params['id'], $visita['id_empresa'])->getResult();
+            $lista = new Visitas();
+            $lista = $lista->listarVisitasUser($params['id'], $visita['id_empresa'])->getResult();
 
-        $total = new Visitas();
-        $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
+            $total = new Visitas();
+            $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
 
-        $grupos = new Visitas();
-        $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
+            $grupos = new Visitas();
+            $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
 
-        $sorteados = new Visitas();
-        $sorteados = $sorteados->listarVisitasUserSorteados($params['id'])->getResult();
+            $sorteados = new Visitas();
+            $sorteados = $sorteados->listarVisitasUserSorteados($params['id'])->getResult();
 
-        $todasEquipes = new Visitas();
-        $todasEquipes = $todasEquipes->listaEquipes()->getResult();
+            $todasEquipes = new Visitas();
+            $todasEquipes = $todasEquipes->listaEquipes()->getResult();
 
-        $equipeVisita = new Visitas();
-        $equipeVisita = $equipeVisita->listaEquipesVisita($params['id'])->getResult();
+            $equipeVisita = new Visitas();
+            $equipeVisita = $equipeVisita->listaEquipesVisita($params['id'])->getResult();
 
-        $equipeSelecionada = array();
-        foreach ($equipeVisita as $equipe){
-            $equipeSelecionada[] = $equipe['id'];
+            $equipeSelecionada = array();
+            foreach ($equipeVisita as $equipe){
+                $equipeSelecionada[] = $equipe['id'];
+            }
+
+            $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada]);
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
         }
-
-        $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada]);
     }
 
     public function inscricao($params)

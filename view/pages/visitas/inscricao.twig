@@ -73,43 +73,46 @@
 
 			<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5 position-relative">
 
-				{% if _get.action == '' %}
+				{% if _session.sampel_user_id == '' %}
 
-					{% if visita.inscricoes >= visita.qtd_visitas %}
+					{% if _get.action == '' %}
 
-						<div class="form_inscricao">
-							<div class="alert alert-warning text-center py-5" role="alert">
-								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-								<h4>Inscrições esgotadas</h4> 
-								<div>Limite de inscrições para esse evento foi alcançado.</div>
+						{% if visita.inscricoes >= visita.qtd_visitas %}
+
+							<div class="form_inscricao">
+								<div class="alert alert-warning text-center py-5" role="alert">
+									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+									<h4>Inscrições esgotadas</h4> 
+									<div>Limite de inscrições para esse evento foi alcançado.</div>
+								</div>
 							</div>
-						</div>
-					
-					{% elseif visita.status_visita == 'Recusado' %}
+						
+						{% elseif visita.status_visita == 'Recusado' %}
 
-						<div class="form_inscricao">
-							<div class="alert alert-danger text-center py-5" role="alert">
-								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-								<h4>Inscrições Fechadas</h4> 
-								<div>O evento foi recusado por <br>disponíbilidade ou não atingiu o mínimo de inscrições.</div>
+							<div class="form_inscricao">
+								<div class="alert alert-danger text-center py-5" role="alert">
+									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+									<h4>Inscrições Fechadas</h4> 
+									<div>O evento foi recusado por <br>disponíbilidade ou não atingiu o mínimo de inscrições.</div>
+								</div>
 							</div>
-						</div>
 
-					{% elseif visita.status_inscricoes == 'Fechadas' %}
+						{% elseif visita.status_inscricoes == 'Fechadas' %}
 
-						<div class="form_inscricao">
-							<div class="alert alert-danger text-center py-5" role="alert">
-								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-								<h4>Inscrições encerradas</h4> 
-								<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
+							<div class="form_inscricao">
+								<div class="alert alert-danger text-center py-5" role="alert">
+									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+									<h4>Inscrições encerradas</h4> 
+									<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
+								</div>
 							</div>
-						</div>
-					
+						
+						{% endif %}
+
 					{% endif %}
-
 				{% endif %}
 
-				{% if (visita.status_visita != 'Recusado') and (visita.status_inscricoes == 'Abertas') %}
+				{% if (visita.status_visita != 'Recusado') and (visita.status_inscricoes == 'Abertas') or (_session.sampel_user_id != '') %}
 					{% if _get.action == '' %}
 						<div class="form_inscricao">
 

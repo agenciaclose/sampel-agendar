@@ -24,10 +24,15 @@ class HomeController extends Controller
                 $i++;
             }
 
+            $minhasvisitas = new Visitas();
+            $minhasvisitas = $minhasvisitas->listarVisitas('3')->getResult();
+
         }else{
             $visitas = array();
+            $minhasvisitas = array();
         }
 
-        $this->render('pages/home/home.twig', ['menu' => 'home', 'visitas' => $visitas]);
+
+        $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas]);
     }
 }
