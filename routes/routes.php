@@ -14,6 +14,7 @@ $router->get("/agendar", "AgendarController:index", "index");
 $router->post("/agendar/cadastro", "AgendarController:cadastro", "cadastro");
 $router->post("/agendar/editar", "AgendarController:editar", "editar");
 $router->get("/agendar/checkCloseEventsClose", "AgendarController:checkCloseEventsClose", "checkCloseEventsClose");
+$router->get("/agendar/checkEventsConcluido", "AgendarController:checkEventsConcluido", "checkEventsConcluido");
 
 // PAGE VISITA
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");

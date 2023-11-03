@@ -22,6 +22,13 @@ class VisitasController extends Controller
         $this->setParams($params);
         $visitas = new Visitas();
         $visitas = $visitas->listarVisitas()->getResult();
+        $i = 0;
+        foreach($visitas as $visita){
+            $todasEquipes = new Visitas();
+            $todasEquipes = $todasEquipes->listaEquipesVisita($visita['visita_id'])->getResult();
+            $visitas[$i]['equipevisita'] = $todasEquipes;
+            $i++;
+        }
 
         $this->render('pages/visitas/agendamentos.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }

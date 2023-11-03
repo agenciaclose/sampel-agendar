@@ -60,4 +60,11 @@ class Agendar extends Model
         return $read;
     }
 
+    public function listcheckEventsConcluido(): Read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `status_visita` = 'Concluido' WHERE CURRENT_DATE > STR_TO_DATE(`data_visita`, '%Y-%m-%d')");
+        return $read;
+    }
+
 }

@@ -26,6 +26,13 @@ class HomeController extends Controller
 
             $minhasvisitas = new Visitas();
             $minhasvisitas = $minhasvisitas->listarVisitas('3')->getResult();
+            $i = 0;
+            foreach($minhasvisitas as $minhas){
+                $todasEquipes = new Visitas();
+                $todasEquipes = $todasEquipes->listaEquipesVisita($minhas['visita_id'])->getResult();
+                $minhasvisitas[$i]['equipevisita'] = $todasEquipes;
+                $i++;
+            }
 
         }else{
             $visitas = array();

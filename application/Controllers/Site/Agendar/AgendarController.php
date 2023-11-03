@@ -55,4 +55,10 @@ class AgendarController extends Controller
         $editar = $editar->listCheckEventsClose();
     }
 
+    public function checkEventsConcluido()
+    {
+        $editar = new Agendar();
+        $editar = $editar->listcheckEventsConcluido();
+    }
+
 }
