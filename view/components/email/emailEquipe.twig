@@ -1,0 +1,44 @@
+<div style="background-color: #ebedf0;font-family: 'helvetica';margin: 0 auto 0 auto;padding: 0;word-spacing: normal;">
+    <table border="0" width="100%" style="width:100%;max-width:600px;margin: 0 auto;padding: 25px;">
+        <tbody>
+        <tr><td><center><br><img src="https://www.buscanarede.com.br/site/assets/img/logo.png" style="margin: 0 0 15px"><br></center></td></tr>
+        <tr>
+            <table border="0" width="100%" style="width:100%;max-width:600px;margin: 0 auto;background: #FFF;border-radius: 25px;padding: 25px;">
+                <tr>
+                    <td style="text-align: center;">
+                        <center><img src="{{ PATH }}/view/src/img/email-recover.png" style="margin: 0 auto 0 auto;"></center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h1 align="center">{{ '_emails.title_recorver'|translate }}</h1>
+                        <div style="line-height: 2.5;text-align: center;">
+                            {{ '_emails.hellow'|translate }}, {{ user_name }}.
+                            <br>
+                            {{ '_emails.warning_1'|translate }}
+                            <br>
+                            {{ '_emails.warning_2'|translate }}
+                            <br>
+                            {{ '_emails.warning_3'|translate }}<span style="color: #777777;">({{ '_emails.warning_4'|translate }})</span>:
+                            <br>
+                            <a href="{{ DOMAIN }}/{{ (company_slug) ? company_slug : 'sampel' }}/recover/{{ link }}" target="_blank" style="padding: 10px 15px;display: inline-block;background: #5ba928;color: #FFF;text-decoration: none;border-radius: 25px;margin: 16px 0 0;">{{ '_emails.button_recover'|translate }}</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td align="center" style="border-collapse:collapse;font-family:inherit;font-size:0px;padding:32px 0 32px 0;word-break:break-word"><p style="border-top-color:lightgrey;border-top-style:solid;border-top-width:1px;font-size:1px;margin:0px auto 0px auto;width:100%">&nbsp;</p></td></tr>
+                <tr>
+                    <td>
+                        <center>
+                            {{ '_emails.good_day'|translate }}!
+                            <br>
+                            <br>
+                            <a href="https://buscanarede.com.br/" target="_blank" style="color:#a8a8a8;font-family:inherit;font-size:12px;line-height:24px;text-align:center;text-decoration:none;"><i>{{ '_emails.catalog_online'|translate }} - Busca na Rede</i></a>
+                        </center>
+                    </td>
+                </tr>
+
+            </table>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -8,6 +8,9 @@ $router = new Router(DOMAIN);
 $router->namespace("Agencia\Close\Controllers\Site\Home");
 $router->get("/", "HomeController:index", "home");
 
+// SEND EMAIL
+$router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
+
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Agendar");
 $router->get("/agendar", "AgendarController:index", "index");

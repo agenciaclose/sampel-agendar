@@ -84,4 +84,5 @@ class Controller
     {
         header('Location: '. DOMAIN . '/' . $this->dataCompany['slug'] . $url);
     }
+
 }

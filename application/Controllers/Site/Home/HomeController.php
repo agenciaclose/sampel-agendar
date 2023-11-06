@@ -5,6 +5,9 @@ namespace Agencia\Close\Controllers\Site\Home;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Visitas;
 
+use Agencia\Close\Adapters\EmailAdapter;
+use Agencia\Close\Models\User\User;
+
 class HomeController extends Controller
 {
     public function index($params)
@@ -42,4 +45,42 @@ class HomeController extends Controller
 
         $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas]);
     }
+
+
+    public function sendEmailEquipe($params)
+    {
+        $this->setParams($params);
+
+        $equipesall = new Visitas();
+        $equipesall = $equipesall->listaEquipesAll()->getResult();
+
+        $equipes = new Visitas();
+        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult();
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+
+        $emails = '';
+        foreach($equipesall as $lista){
+            $emails .= $lista['email'].',';
+        }
+        $emails = rtrim($emails, ',');
+
+        //ENVIO DE EMAIL
+
+            $data = [
+                'user_name' => '',
+            ];
+            
+            // $email = new EmailAdapter();
+            // $email->setSubject('Informações sobre a Visita: ');
+
+            // $email->setBody('components/email/emailEquipe.twig', $data);
+            // $email->addAddress($this->email);
+            // $email->send('Email enviado para a Equipe');
+            // $this->result = $email->getResult();
+
+        //
+    }
+
 }

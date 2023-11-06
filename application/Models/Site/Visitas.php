@@ -220,4 +220,11 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listaEquipesAll(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4'");
+        return $read;
+    }
+
 }
