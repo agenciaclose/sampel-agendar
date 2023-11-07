@@ -216,7 +216,7 @@ class Visitas extends Model
         $read = new Read();
         $read->FullRead("SELECT u.* FROM visitas_equipes AS ve
         INNER JOIN usuarios AS u ON u.id = ve.id_user
-        WHERE ve.id_visita = :id_visita", "id_visita={$id_visita}");
+        WHERE ve.id_visita = :id_visita ORDER BY u.nome ASC", "id_visita={$id_visita}");
         return $read;
     }
 

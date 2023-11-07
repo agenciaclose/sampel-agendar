@@ -37,13 +37,15 @@ class HomeController extends Controller
                 $i++;
             }
 
+            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas]);
+
         }else{
-            $visitas = array();
-            $minhasvisitas = array();
+
+            $this->render('pages/login/login.twig', []);
+
         }
 
 
-        $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas]);
     }
 
 
