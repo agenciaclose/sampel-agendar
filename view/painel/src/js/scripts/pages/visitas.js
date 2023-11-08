@@ -1,5 +1,27 @@
 $(document).ready(function () {
 
+    new FroalaEditor('#descricao', {
+		key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+		enter: FroalaEditor.ENTER_BR,
+		language: 'pt_br',
+		pastePlain: true,
+		attribution: false,
+        theme: 'dark',
+		toolbarButtons: {
+			'moreText': {
+			  'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
+			  'buttonsVisible': 2
+			},
+			'moreParagraph': {
+			  'buttons': ['alignLeft', 'alignCenter',  'alignRight']
+			},
+			'moreRich': {
+			  'buttons': ['emoticons', 'fontAwesome']
+			}
+		}
+	});
+
+
     $('.visita-excluir').click(function(){
 		var domain = $('body').attr('data-domain');
 		var visita = $(this).attr('data-visita');
