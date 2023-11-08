@@ -4,6 +4,7 @@ $(document).ready(function () {
 		key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
 		enter: FroalaEditor.ENTER_BR,
 		language: 'pt_br',
+        entities: '',
 		pastePlain: true,
 		attribution: false,
         theme: 'dark',

@@ -16,7 +16,7 @@
 					<span>Data da Visita: <div class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</div></span>
 					<span>Responsavel: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
 				</div>
-				<div class="limit-3 my-3">{{ visita.descricao }}</div>
+				<div class="limit-3 my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
 				{% set agora = "now"|date("Y-m-d") %}
 				{% set datavisita = visita.data_visita|date("Y-m-d") %}
 

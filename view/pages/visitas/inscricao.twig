@@ -40,7 +40,7 @@
 				<div><b>Data da visita:</b>  {{ date }} as {{ visita.horario_visita }}</div>
 				<div class="mt-4">
 					<div><b>Informações:</b></div>
-					<div class="text-white-50">{{ visita.descricao }}</div>
+					<div class="text-white-50">{{ visita.descricao|raw }}</div>
 				</div>
 
 				<div class="accordion mt-3" id="regras_visita">
