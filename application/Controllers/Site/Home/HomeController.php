@@ -48,6 +48,44 @@ class HomeController extends Controller
 
     }
 
+    public function emailEquipeTemplate($params)
+    {
+        $this->setParams($params);
+
+        $equipesall = new Visitas();
+        $equipesall = $equipesall->listaEquipesAll()->getResult();
+
+        $equipes = new Visitas();
+        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult();
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+
+        $emails = '';
+        foreach($equipesall as $lista){
+            $emails .= $lista['email'].',';
+        }
+        $emails = rtrim($emails, ',');
+
+        //ENVIO DE EMAIL
+
+            $data = [
+                'equipes' => $equipes,
+                'visita' => $visita,
+            ];
+            
+            // $email = new EmailAdapter();
+            // $email->setSubject('Informações sobre a Visita: ');
+
+            // $email->setBody('components/email/emailEquipe.twig', $data);
+            // //$email->addAddress($emails);
+            // $email->addAddress($emails);
+            // $email->send('Email enviado para a Equipe');
+            // $email->getResult();
+
+        //
+        $this->render('components/email/emailEquipe.twig', ['equipes' => $equipes, 'visita' => $visita]);
+    }
 
     public function sendEmailEquipe($params)
     {
@@ -71,16 +109,18 @@ class HomeController extends Controller
         //ENVIO DE EMAIL
 
             $data = [
-                'user_name' => '',
+                'equipes' => $equipes,
+                'visita' => $visita,
             ];
             
-            // $email = new EmailAdapter();
-            // $email->setSubject('Informações sobre a Visita: ');
+            $email = new EmailAdapter();
+            $email->setSubject('Informações sobre a Visita: ');
 
-            // $email->setBody('components/email/emailEquipe.twig', $data);
-            // $email->addAddress($this->email);
-            // $email->send('Email enviado para a Equipe');
-            // $this->result = $email->getResult();
+            $email->setBody('components/email/emailEquipe.twig', $data);
+            //$email->addAddress($emails);
+            $email->addAddress('rl.cold.dev@gmail.com');
+            $email->send('Email enviado para a Equipe');
+            $email->getResult();
 
         //
     }

@@ -9,6 +9,8 @@ $router->namespace("Agencia\Close\Controllers\Site\Home");
 $router->get("/", "HomeController:index", "home");
 
 // SEND EMAIL
+$router->get("/visita/emailEquipeTemplate/{visita_id}", "HomeController:emailEquipeTemplate", "emailEquipeTemplate");
+$router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
 $router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
 
 // PAGE AGENDAR
