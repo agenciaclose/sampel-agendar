@@ -13,7 +13,8 @@ class Visitas extends Model
     public function listarVisitas($limit = '999999999'): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
 						WHERE v.id_empresa = :user_id ORDER BY v.`data` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
@@ -23,7 +24,8 @@ class Visitas extends Model
     public function listarVisitasOutros(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
 						WHERE v.id_empresa <> :user_id ORDER BY v.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");

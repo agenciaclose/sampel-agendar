@@ -34,7 +34,7 @@
                                                     <th>Visita</th>
                                                     <th>Responsável</th>
                                                     <th>Pessoas</th>
-                                                    <th width="75">Status</th>
+                                                    <th width="175">Status</th>
                                                     <th class="text-end">Data da Visita</th>
                                                 </tr>
                                             </thead>
@@ -67,10 +67,18 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <span class="badge {{ visita.status_visita == 'Aprovado' ? 'bg-info'}} {{ visita.status_visita == 'Pendente' ? 'bg-warning'}} {{ visita.status_visita == 'Recusado' ? 'bg-danger'}} text-black">{{ visita.status_visita }}</span>
+                                                            {% if visita.status_visita == 'Concluido' %}
+                                                                <div class="input-group input-group-sm d-flex align-items-center">
+                                                                    <span class="badge bg-dark text-white text-uppercase">{{ visita.status_visita }}</span>
+                                                                    <span class="input-group-text bg-white text-black py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
+                                                                </div>	
+                                                            {% endif %}
+                                                            {% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+                                                            {% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+                                                            {% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                         </div>
 
-                                                        {% if visita.status_visita != 'Aprovado' %}
+                                                        {% if (visita.status_visita != 'Aprovado') and (visita.status_visita != 'Concluido') %}
                                                         <div class="d-flex justify-content-between" style="margin-top: 5px;">
                                                             <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="aprovar" class="visita-status badge bg-info text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aprovar"><i class="fa-solid fa-check"></i></a>
                                                             <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status badge bg-danger text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar"><i class="fa-regular fa-xmark"></i></a>

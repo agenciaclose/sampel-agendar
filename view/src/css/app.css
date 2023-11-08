@@ -1320,9 +1320,6 @@ img.alignright{
 .menu-bar-wrapper.is-sticky{
   -webkit-backface-visibility: hidden;
 }
-table.dataTable {
-  font-size: 14px;
-}
 .wbc-nomenu-shadow .menu-bar-wrapper:not(.is-sticky),
 .wbc-nomenu-sticky-shadow .menu-bar-wrapper.is-sticky{
   box-shadow:none;
@@ -4299,4 +4296,10 @@ img.fancybox__image {
 .timer-number {
   font-size: 4rem;
   line-height: 4rem;
+}
+.progress, .progress-stacked {
+  height: 5px;
+}
+.input-group-sm>.btn, .input-group-sm>.form-control, .input-group-sm>.form-select, .input-group-sm>.input-group-text {
+  font-size: .8rem;
 }
