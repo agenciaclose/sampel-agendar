@@ -56,11 +56,12 @@
 		<hr>
 
 		<div class="table-responsive">
-			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" style="width:100%">
 		        <thead>
 		            <tr>
 						<th class="d-none">#</th>
 						<th>Nome</th>
+						<th class="no-mobile">Empresa</th>
 						<th class="no-mobile">Email</th>
 						<th class="no-mobile">Setor</th>
 						<th>Endereço</th>
@@ -76,6 +77,7 @@
 									{{ lista.nome }}
 								</span>
 							</td>
+							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.email }}</td>
 							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
 							<td class="ps-0 text-nowrap">{{ lista.cidade }}, {{ lista.estado }}</td>
