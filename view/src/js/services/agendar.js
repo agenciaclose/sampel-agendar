@@ -48,7 +48,6 @@ $(document).ready(function () {
         console.log(data_min);
         if(data_max != undefined){
             $('.qty').show();
-            $('#qtd_visitas_min').val(Math.round(data_min));
             $('#qtd_visitas').val(data_max);
             $('.minimo').text(Math.round(data_min));
             $('.maximo').text(data_max);
@@ -66,14 +65,12 @@ $(document).ready(function () {
 
     $('#qtd_visitas').on('keyup', function (e) {
 
-        var data_min  = $('#qtd_visitas_min').val();
         var data_max  = $(this).val();
 
         data_min = (60 / 100) * data_max;
         
         if(data_max != undefined){
             $('.qty').show();
-            $('#qtd_visitas_min').val(data_min.toFixed(0));
             $('#qtd_visitas').val(data_max);
             $('.minimo').text(data_min.toFixed(0));
             $('.maximo').text(data_max);

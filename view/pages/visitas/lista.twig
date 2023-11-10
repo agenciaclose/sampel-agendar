@@ -13,7 +13,10 @@
 			<div class="col-sm-12 col-md-7">
 				<div><span>Lista de inscrições: <span class="text-warning fw-bold">{{ visita.title }}</span></span></div>
 				<div class="d-flex justify-content-between">
-					<span>Data da Visita: <div class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</div></span>
+					<span>
+						Data da Visita: <span class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</span>
+						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
+					</span>
 					<span>Responsavel: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
 				</div>
 				<div class="limit-3 my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
@@ -62,6 +65,7 @@
 						<th class="d-none">#</th>
 						<th>Nome</th>
 						<th class="no-mobile">Empresa</th>
+						<th class="no-mobile">Telefone</th>
 						<th class="no-mobile">Email</th>
 						<th class="no-mobile">Setor</th>
 						<th>Endereço</th>
@@ -78,6 +82,7 @@
 								</span>
 							</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
+							<td class="ps-0 no-mobile text-uppercase text-nowrap">{{ lista.telefone }}</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.email }}</td>
 							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
 							<td class="ps-0 text-nowrap">{{ lista.cidade }}, {{ lista.estado }}</td>

@@ -22,7 +22,6 @@
                 
                 <div class="mb-2">
                     <h3>{{ visita.visita_id != '' ? 'Preencha o formulário para editar essa visita.' : 'Preencha o formulário para agendar a sua visita.' }}</h3>
-                    <div>Campos marcados com asterisco (  ) são obrigatórios.</div>
                 </div>
 
                 <hr>
@@ -52,7 +51,14 @@
                                                     {% endfor %}
                                                 </select>
                                             </div>
-                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="qtd_visitas" class="form-label">Quantidade máxima</label>
+                                                <input type="number" name="qtd_visitas" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row digitar_qtd">
+                                            <div class="mb-2 col-md-3 col-sm-12 col-12">
                                                 <label for="data_visita" class="form-label">Data da Visita </label>
                                                 <input type="date" name="data_visita" class="form-control" id="data_visita" value="{{ visita.data_visita }}">
                                             </div>
@@ -60,20 +66,9 @@
                                                 <label for="horario_visita" class="form-label">Horário da Visita </label>
                                                 <input type="time" name="horario_visita" class="form-control" id="horario_visita" value="{{ visita.horario_visita }}">
                                             </div>
-                                        </div>
-
-                                        <div class="row digitar_qtd">
-                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
-                                                <label for="qtd_visitas" class="form-label">Quantidade máxima</label>
-                                                <input type="number" name="qtd_visitas" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
-                                            </div>
-                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
-                                                <label for="porcentagem" class="form-label">Porcentagem</label>
-                                                <input type="number" name="porcentagem" class="form-control" id="porcentagem" value="{{ visita.porcentagem == '' ? '60' : visita.porcentagem }}">
-                                            </div>
-                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
-                                                <label for="qtd_visitas_min" class="form-label">Quantidade mínima</label>
-                                                <input type="number" name="qtd_visitas_min" class="form-control" id="qtd_visitas_min" value="{{ visita.qtd_visitas_min }}">
+                                            <div class="mb-2 col-md-3 col-sm-12 col-12">
+                                                <label for="data_close" class="form-label">Fechamento das Inscrições</label>
+                                                <input type="date" name="data_close" class="form-control" id="data_close" value="{{ visita.data_close }}">
                                             </div>
                                         </div>
 
