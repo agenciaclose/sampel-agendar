@@ -57,7 +57,7 @@
 										<a href="javascript:void(0);" class="mb-2 me-0 me-sm-2 badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#shared_{{ minha.visita_id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
 										{% endif %}
 										<a href="{{ DOMAIN }}/visita/lista/{{ minha.visita_id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ minha.total_inscricao }} / {{ minha.qtd_visitas }}</a>
-										<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#verEquip{{ minha.id }}" class="mb-2 badge bg-warning text-black">VER EQUIPE <span class="px-1 bg-black rounded-pill text-white">{{ minha.equipevisita|length }}</span></a>
+										<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#verEquip{{ minha.visita_id }}" class="mb-2 badge bg-warning text-black">VER EQUIPE <span class="px-1 bg-black rounded-pill text-white">{{ minha.equipevisita|length }}</span></a>
 										
 										{% if (minha.status_visita != 'Concluido') and (minha.status_visita != 'Recusado') %}
 										<div class="modal fade" id="shared_{{ minha.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ minha.visita_id }}" aria-hidden="true">
@@ -123,7 +123,7 @@
 									</div>
 								</div>
 
-								<div class="modal fade" id="verEquip{{ minha.id }}" tabindex="-1" role="dialog" aria-labelledby="verEquipLabel" aria-hidden="true">
+								<div class="modal fade" id="verEquip{{ minha.visita_id }}" tabindex="-1" role="dialog" aria-labelledby="verEquipLabel" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered" role="document">
 										<div class="modal-content">
 											<div class="modal-body">
@@ -145,7 +145,11 @@
 												</table>
 												{% if minha.equipevisita|length > 0 %}
 													<hr>
-													<button type="button" class="btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+													{% if minha.email_equipe == 'N' %}
+													<button type="button" data-visita="{{ minha.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+													{% else %}
+													<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+													{% endif %}
 												{% endif %}
 											</div>
 										</div>
@@ -182,8 +186,6 @@
 								{% if minha.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ minha.status_visita }}</span>{% endif %}
 							</td>
 
-							
-
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -191,8 +193,9 @@
 			</div>
 		</div>
 
-		<div class="mb-5">
-			<a {% if _session.sampel_user_id %}href="{{ DOMAIN }}/agendamentos"{% else %} href="{{ DOMAIN }}/login"{% endif %} class="btn btn-warning fw-bold"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> VER OS MEUS AGENDAMENTOS</a>
+		<div class="mb-5 d-grid gap-2 d-sm-inline-block">
+			<a href="{{ DOMAIN }}/agendamentos" class="btn btn-warning fw-bold w-sm-auto"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> VER OS MEUS AGENDAMENTOS</a>
+			<a href="{{ DOMAIN }}/agendamentos/concluidos" class="btn btn-dark text-white fw-bold d-lg-none d-md-none d-sm-block d-block mt-2"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> AGENDAMENTOS CONCLUÍDOS</a>
 		</div>
 
 		{% if visitas %}
@@ -331,7 +334,11 @@
 												</table>
 												{% if visita.equipevisita|length > 0 %}
 													<hr>
-													<button type="button" class="btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+													{% if visita.email_equipe == 'N' %}
+													<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+													{% else %}
+													<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+													{% endif %}
 												{% endif %}
 											</div>
 										</div>
@@ -367,8 +374,6 @@
 								{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 								{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 							</td>
-
-							
 
 						</tr>
 						{% endfor %}

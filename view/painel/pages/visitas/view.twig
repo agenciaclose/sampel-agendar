@@ -47,15 +47,18 @@
 											<b>{{ visita.nome }}</b>
 											<div class="text-lowercase">{{ visita.email }}</div>
 											<div class="text-lowercase">{{ visita.empresa_telefone }}</div>
-										</div>
-
-										<div class="col-12 col-sm-12 col-md-4">
+											<hr>
 											<div><h5 class="text-primary">Empresa:</h5></div>
 											<div>{{ visita.empresa_fantasia }}</div>
 											<div>{{ visita.empresa_email }}</div>
 											<div>{{ visita.empresa_telefone }}</div>
 											<div>{{ visita.empresa_logradouro }}, {{ visita.empresa_numero }}</div>
 											<div>{{ visita.empresa_cidade }} - {{ visita.empresa_uf }}</div>
+										</div>
+
+										<div class="col-12 col-sm-12 col-md-4">
+											<div><h5 class="text-primary">Informações:</h5></div>
+											<div class="">{{ visita.descricao|raw }}</div>
 										</div>
 
 										<div class="col-12 col-sm-12 col-md-4">
@@ -66,13 +69,6 @@
 											{% endfor %}
 										</div>
 
-									</div>
-
-									<hr>
-									
-									<div class="mt-1">
-										<div><b>Informações:</b></div>
-										<div class="">{{ visita.descricao }}</div>
 									</div>
 
 								</div>

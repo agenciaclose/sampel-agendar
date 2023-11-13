@@ -15,7 +15,7 @@ import './app';
 import DataTable from 'datatables.net-dt';
  
 let table = new DataTable('#tabela_dinamica',  {
-    order: [[4, 'asc']],
+    order: [[0, 'asc']],
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },

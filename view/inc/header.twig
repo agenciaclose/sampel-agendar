@@ -4,28 +4,30 @@
             <div class="container">
 
                 <div class="header-inner d-flex justify-content-between align-items-center mt-2">
-
-                    <nav class="primary-menu flex-fill">
-                        <ul id="main-menu" class="wbc_menu">
-                            <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
-                                <a href="{{ DOMAIN }}" class="ps-0"><i class="fas fa-house-chimney"></i> Home</a>
-                            </li>
-                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
-                                <a href="https://www.sampel.com.br/empresa"><i class="fab fa-fort-awesome"></i> Empresa</a>
-                            </li>
-                            <li class="menu-item {{ menu == 'produtos' ? 'current-menu-item' }}">
-                                <a href="https://buscanarede.com.br/sampel"><i class="fas fa-globe"></i> Catálogos</a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div class="site-logo-title flex-fill">
+                  
+                    <div class="site-logo-title">
                       <a href="{{ DOMAIN }}" class="text-center">
                         <img class="wbc-main-logo" src="{{ PATH }}/view/src/media/logo.png" alt="Sampel">
                       </a>
                     </div>
 
-                    <nav class="flex-fill">
+                    <nav class="primary-menu flex-fill">
+                        <ul id="main-menu" class="wbc_menu nav justify-content-center">
+                            <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
+                                <a href="{{ DOMAIN }}" class="ps-0"><i class="fas fa-house-chimney"></i> Home</a>
+                            </li>
+                            {% if _session.sampel_user_id %}
+                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-solid fa-calendar-check"></i> Minhas Visitas</a>
+                            </li>
+                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                <a href="{{ DOMAIN }}/agendamentos/concluidas"><i class="fa-solid fa-list-timeline"></i> Visitas Concluídas</a>
+                            </li>
+                             {% endif %}
+                        </ul>
+                    </nav>
+
+                    <nav class="">
                         <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center m-0">
                             {% if _session.sampel_user_id %}
 

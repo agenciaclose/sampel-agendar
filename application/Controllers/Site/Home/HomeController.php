@@ -106,6 +106,9 @@ class HomeController extends Controller
         }
         $emails = rtrim($emails, ',');
 
+        $sendUpdate = new Visitas();
+        $sendUpdate = $sendUpdate->sendUpdate($params['visita_id']);
+
         //ENVIO DE EMAIL
 
             $data = [
@@ -114,13 +117,14 @@ class HomeController extends Controller
             ];
             
             $email = new EmailAdapter();
-            $email->setSubject('Informações sobre a Visita: ');
+            $email->setSubject('Informações sobre a Visita: '.$visita['title'].' ');
 
             $email->setBody('components/email/emailEquipe.twig', $data);
-            //$email->addAddress($emails);
-            $email->addAddress('rl.cold.dev@gmail.com');
+            $email->addAddress($emails);
+            //$email->addAddress('souza.marketing@sampel.com.br');
             $email->send('Email enviado para a Equipe');
             $email->getResult();
+
 
         //
     }

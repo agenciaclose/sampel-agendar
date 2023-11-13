@@ -11,7 +11,6 @@ $router->get("/", "HomeController:index", "home");
 // SEND EMAIL
 $router->get("/visita/emailEquipeTemplate/{visita_id}", "HomeController:emailEquipeTemplate", "emailEquipeTemplate");
 $router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
-$router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
 
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Agendar");
@@ -25,6 +24,7 @@ $router->get("/agendar/checkEventsConcluido", "AgendarController:checkEventsConc
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");
 $router->get("/visitas", "VisitasController:visitas", "visitas");
 $router->get("/agendamentos", "VisitasController:agendamentos", "agendamentos");
+$router->get("/agendamentos/concluidas", "VisitasController:concluidas", "concluidas");
 $router->get("/visita/lista/{id}", "VisitasController:lista", "lista");
 $router->get("/visita/inscricao/{id}", "VisitasController:inscricao", "inscricao");
 $router->get("/visita/inscricao/{id}/{inscricao}", "VisitasController:inscricao", "inscricao");

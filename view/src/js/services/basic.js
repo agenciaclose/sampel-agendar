@@ -68,3 +68,26 @@ $('.telefone').mask(maskBehavior, options);
 $('.cep').mask('00000-000', {reverse: true});
 $('.cpf').mask('000.000.000-00', {reverse: true});
 $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+
+
+
+$(".send_email_equipe").click(function (c) {
+
+    $(this).prop("disabled", true);
+    $(this).html('<i class="fa-solid fa-sync fa-spin"></i> EMAILS SENDO ENVIADOS');
+
+    c.preventDefault();
+    let DOMAIN = $('body').data('domain');
+    let visita_id = $(this).data('visita');
+
+    $.ajax({
+        type: "GET", 
+        async: true,
+        url: DOMAIN + '/visita/sendEmailEquipe/'+visita_id,
+        success: function () {
+            //setTimeout(function() { location.reload(); }, 1500);
+            swal({type: 'success', title: 'Emails enviados com sucesso', showConfirmButton: false, timer: 1500});
+        }
+    });
+
+});

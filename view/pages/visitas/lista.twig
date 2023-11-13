@@ -46,7 +46,7 @@
 						<a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?setor={{ grupo.setor }}">{{ grupo.setor }} <span class="px-1 bg-black rounded-pill text-white">{{ grupo.total }}</span></a>
 					</div>
 				{% endfor %}
-				<div class="mt-3"><h5 class="text-warning">Gerenciamento de Equipe:</h5></div>
+				<div class="mt-3"><span class="text-warning">Gerenciamento de Equipe:</span></div>
 				<div class="d-flex jus">
 					<button type="button" data-bs-toggle="modal" data-bs-target="#verEquip" class="btn btn-warning btn-sm rounded-pill me-2">Equipe <span class="px-1 bg-black rounded-pill text-white">{{ equipevisita|length }}</span></button>
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editarEquip"  class="btn btn-warning btn-sm rounded-pill me-2"><i class="fa-solid fa-pen-to-square"></i> Editar Equipe</button>
@@ -66,9 +66,9 @@
 						<th>Nome</th>
 						<th class="no-mobile">Empresa</th>
 						<th class="no-mobile">Telefone</th>
-						<th class="no-mobile">Email</th>
 						<th class="no-mobile">Setor</th>
 						<th>Endereço</th>
+						<th>Inscrição</th>
 					</tr>
 		        </thead>
 		        <tbody>
@@ -76,16 +76,20 @@
 						<tr>
 							<td class="d-none">{{ lista.visita_id }}</td>
 							<td class="ps-0 text-uppercase">
-								<span class="text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
-									{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}
-									{{ lista.nome }}
+								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
+									
+									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
+									<div class="ms-2">
+										{{ lista.nome }}
+										<div class="text-lowercase">{{ lista.email }}</div>
+									</div>
 								</span>
 							</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
 							<td class="ps-0 no-mobile text-uppercase text-nowrap">{{ lista.telefone }}</td>
-							<td class="ps-0 no-mobile text-uppercase">{{ lista.email }}</td>
 							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
 							<td class="ps-0 text-nowrap">{{ lista.cidade }}, {{ lista.estado }}</td>
+							<td><a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="btn btn-warning btn-sm"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a></td>
 						</tr>
 					{% endfor %}
 		        </tbody>
@@ -142,7 +146,11 @@
 
 				{% if equipevisita|length > 0 %}
 					<hr>
-					<button type="button" class="btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+					{% if visita.email_equipe == 'N' %}
+					<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+					{% else %}
+					<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+					{% endif %}
 				{% endif %}
 
 			</div>

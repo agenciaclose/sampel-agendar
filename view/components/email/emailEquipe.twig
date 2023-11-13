@@ -21,7 +21,7 @@
                             <br>
                            	<div>
                            		<div><b>Cronograma:</b></div>
-								<div>{{ visita.descricao }}</div>
+								<div>{{ visita.descricao|raw }}</div>
                            	</div>
                            	
                            	<br>
@@ -30,6 +30,7 @@
 							<ul>
 								{% for equipe in equipes %}
 								<li><b>{{ equipe.nome }} -</b> {{ equipe.setor }}</li>
+                                {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y") }}</i>{% endif%}
 								{% endfor %}
 							</ul>
 
@@ -37,7 +38,7 @@
                             <div>Informamos também que a notificação sobre o evento foi disseminada entre todos os membros da equipe.</div>
 
                             <br>
-                            <div><i>Para quaisquer esclarecimentos adicionais, permaneço à disposição.</i></div>
+                            <div>Para quaisquer esclarecimentos adicionais, permaneço à disposição.</div>
                             <a href="mailto:souza.marketing@sampel.com.br">souza.marketing@sampel.com.br</a>
                         </td>
                     </tr>

@@ -17,7 +17,18 @@ class Visitas extends Model
                         (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.id_empresa = :user_id AND v.`status_visita` <> 'Concluido' ORDER BY v.`data` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
+						WHERE v.id_empresa = :user_id ORDER BY v.`data` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
+        return $read;
+    }
+
+    public function listarVisitasConcluidas(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+						FROM visitas AS v
+						INNER JOIN usuarios AS u ON u.id = v.id_empresa
+						WHERE v.`status_visita` = 'Concluido' ORDER BY v.`data` DESC");
         return $read;
     }
 
@@ -216,7 +227,7 @@ class Visitas extends Model
     public function listaEquipesVisita($id_visita): read
     {
         $read = new Read();
-        $read->FullRead("SELECT u.* FROM visitas_equipes AS ve
+        $read->FullRead("SELECT u.*, ve.`data` AS data_equipe FROM visitas_equipes AS ve
         INNER JOIN usuarios AS u ON u.id = ve.id_user
         WHERE ve.id_visita = :id_visita ORDER BY u.nome ASC", "id_visita={$id_visita}");
         return $read;
@@ -226,6 +237,13 @@ class Visitas extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4'");
+        return $read;
+    }
+
+    public function sendUpdate($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `email_equipe` = 'S' WHERE `id` = :id_visita", "id_visita={$id_visita}");
         return $read;
     }
 

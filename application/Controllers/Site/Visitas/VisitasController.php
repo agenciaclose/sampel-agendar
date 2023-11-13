@@ -33,6 +33,22 @@ class VisitasController extends Controller
         $this->render('pages/visitas/agendamentos.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }
 
+    public function concluidas($params)
+    {
+        $this->setParams($params);
+        $visitas = new Visitas();
+        $visitas = $visitas->listarVisitasConcluidas()->getResult();
+        $i = 0;
+        foreach($visitas as $visita){
+            $todasEquipes = new Visitas();
+            $todasEquipes = $todasEquipes->listaEquipesVisita($visita['visita_id'])->getResult();
+            $visitas[$i]['equipevisita'] = $todasEquipes;
+            $i++;
+        }
+
+        $this->render('pages/visitas/concluidas.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
+    }
+
     public function lista($params)
     {
         $this->setParams($params);
