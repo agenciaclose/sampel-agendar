@@ -16,7 +16,8 @@ $(document).ready(function () {
 
                 if (data == "0") {
                     $('.form-load').removeClass('show');
-                    window.location.reload();
+                    swal({type: 'success', title: 'Equipe editada com sucesso!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function() { location.reload(); }, 1500);
                 } else {
 
                     $('button[type="submit"]').prop("disabled", false);
