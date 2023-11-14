@@ -85,7 +85,7 @@ $(".send_email_equipe").click(function (c) {
         async: true,
         url: DOMAIN + '/visita/sendEmailEquipe/'+visita_id,
         success: function () {
-            //setTimeout(function() { location.reload(); }, 1500);
+            setTimeout(function() { location.reload(); }, 1500);
             swal({type: 'success', title: 'Emails enviados com sucesso', showConfirmButton: false, timer: 1500});
         }
     });
