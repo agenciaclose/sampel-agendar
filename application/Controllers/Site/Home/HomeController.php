@@ -105,10 +105,13 @@ class HomeController extends Controller
             'visita' => $visita,
         ];
 
+        $dataVisita = new \DateTime($visita['data_visita']);
+        $dataFormatada = $dataVisita->format('d/m/Y');
+
         foreach($equipesall as $lista){
 
             $email = new EmailAdapter();
-            $email->setSubject('Visita na Fabrica: '. date_format($visita['data_visita'], 'd-m-Y'));
+            $email->setSubject('Visita na Fabrica: '. $dataFormatada);
     
             $email->setBody('components/email/emailEquipe.twig', $data);
             $email->addAddress($lista['email']);
