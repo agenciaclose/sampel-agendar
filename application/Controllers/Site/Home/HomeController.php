@@ -108,7 +108,7 @@ class HomeController extends Controller
         foreach($equipesall as $lista){
 
             $email = new EmailAdapter();
-            $email->setSubject('Informações sobre a Visita: '.$visita['title'].' ');
+            $email->setSubject('Visita na Fabrica: '. date_format($visita['data_visita'], 'd-m-Y'));
     
             $email->setBody('components/email/emailEquipe.twig', $data);
             $email->addAddress($lista['email']);

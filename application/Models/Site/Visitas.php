@@ -75,8 +75,6 @@ class Visitas extends Model
         return $read;
     }
 
-    
-
     public function listarInscricoesTotal($id_visita): read
     {
         $read = new Read();
@@ -218,8 +216,10 @@ class Visitas extends Model
         $read->FullRead("DELETE FROM `visitas_equipes` WHERE `id_visita` = :id_visita", "id_visita={$params['id_visita']}");
 
         $read = new Read();
-        for ($i=0; $i <count($params['editar_equipe']); $i++) {
-            $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+        if(!empty($params['editar_equipe'])){
+            for ($i=0; $i <count($params['editar_equipe']); $i++) {
+                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+            }
         }
         return $read;
     }

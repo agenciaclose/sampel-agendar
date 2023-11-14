@@ -30,7 +30,7 @@
 							<ul>
 								{% for equipe in equipes %}
 								<li><b>{{ equipe.nome }} -</b> {{ equipe.setor }}</li>
-                                {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y") }}</i>{% endif%}
+                                {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y H:i") }}</i>{% endif %}
 								{% endfor %}
 							</ul>
 
