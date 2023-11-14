@@ -14,7 +14,8 @@ class LoginSession
             'sampel_user_email' => $login['email'],
             'sampel_user_cpf' => $login['cpf'],
             'sampel_user_telefone' => $login['telefone'],
-            'sampel_user_setor' => $login['setor']
+            'sampel_user_setor' => $login['setor'],
+            'sampel_user_gerente_equipe' => $login['grerencia_equipe']
         ];
     }
 

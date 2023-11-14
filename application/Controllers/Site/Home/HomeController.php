@@ -99,34 +99,28 @@ class HomeController extends Controller
 
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+        
+        $data = [
+            'equipes' => $equipes,
+            'visita' => $visita,
+        ];
 
-        $emails = '';
         foreach($equipesall as $lista){
-            $emails .= $lista['email'].',';
-        }
-        $emails = rtrim($emails, ',');
 
+            $email = new EmailAdapter();
+            $email->setSubject('Informações sobre a Visita: '.$visita['title'].' ');
+    
+            $email->setBody('components/email/emailEquipe.twig', $data);
+            $email->addAddress($lista['email']);
+            $email->send('Email enviado para a Equipe');
+
+        }
+                
         $sendUpdate = new Visitas();
         $sendUpdate = $sendUpdate->sendUpdate($params['visita_id']);
 
-        //ENVIO DE EMAIL
+        $email->getResult();
 
-            $data = [
-                'equipes' => $equipes,
-                'visita' => $visita,
-            ];
-            
-            $email = new EmailAdapter();
-            $email->setSubject('Informações sobre a Visita: '.$visita['title'].' ');
-
-            $email->setBody('components/email/emailEquipe.twig', $data);
-            $email->addAddress($emails);
-            //$email->addAddress('souza.marketing@sampel.com.br');
-            $email->send('Email enviado para a Equipe');
-            $email->getResult();
-
-
-        //
     }
 
 }
