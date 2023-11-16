@@ -20,8 +20,8 @@
                             <th class="d-none">#</th>
                             <th>Visita</th>
                             <th>Responsável</th>
-                            <th>Pessoas</th>
-                            <th width="75">Status</th>
+                            <th class="text-center">Comparecimentos</th>
+                            <th width="175">Status</th>
                             <th class="text-end">Data da Visita</th>
                         </tr>
                     </thead>
@@ -36,19 +36,20 @@
                                     <a href="{{ DOMAIN }}/painel/feedback/ver/{{ visita.visita_id }}" class="opacity-75">Ver Feedbacks</a>
                                 </div>
                             </td>
-
                             <td>
                                 {{ visita.nome }} - <small class="text-lowercase">{{ visita.empresa_fantasia }}</small>
-                                <div class="text-lowercase"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+                                <div class="text-lowercase"><small>{{ visita.email }}</small></div>
                             </td>
-
-                            <td>
-                                {{ visita.total_inscricao }}
+                            <td class="text-center">
+                               <span class="badge bg-light text-black px-2">{{ visita.presencas }}</span>
                             </td>
                             <td>
-                                <div>
-                                    <span class="badge {{ visita.status_visita == 'Aprovado' ? 'bg-info'}} {{ visita.status_visita == 'Pendente' ? 'bg-warning'}} {{ visita.status_visita == 'Recusado' ? 'bg-danger'}} text-black">{{ visita.status_visita }}</span>
-                                </div>
+                                {% if visita.status_visita == 'Concluido' %}
+                                    <div class="input-group input-group-sm d-flex align-items-center">
+                                        <span class="badge bg-dark text-white text-uppercase">{{ visita.status_visita }}</span>
+                                        <span class="input-group-text bg-white text-black py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Inscrições"><b>{{ visita.total_inscricao }}</b></span>
+                                    </div>	
+                                {% endif %}
                             </td>
 
                             <td class="text-end">

@@ -36,7 +36,6 @@
 					<tr>
 						<td class="no-mobile">
 							{{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}
-							{% if visita.status_visita != 'Recusado' %}<div><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a></div>{% endif %}
 						</td>
 
 						<td  class="no-mobile">{{ visita.visita_id }}</td>
@@ -170,19 +169,16 @@
 
 						<td class="no-mobile">
 							{{ visita.nome }}
-							<div class="text-lowercase text-white-50"><small>{{ visita.empresa_fantasia }} - {{ visita.empresa_telefone }}</small></div>
+							<div class="text-lowercase text-white-50"><small>{{ visita.email }}</small></div>
 						</td>
 
 						<td class="text-end no-mobile" width="175">
 							{% if visita.status_visita == 'Concluido' %}
-								<div class="input-group input-group-sm d-flex align-items-center">
+								<div class="input-group input-group-sm d-flex align-items-center justify-content-end">
 									<span class="badge bg-dark text-white text-uppercase">{{ visita.status_visita }}</span>
 									<span class="input-group-text py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
 								</div>	
 							{% endif %}
-							{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
-							{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
-							{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 						</td>
 
 					</tr>
