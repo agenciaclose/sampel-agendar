@@ -43,4 +43,27 @@ class FeedbackController extends Controller
         $save = $save->saveFeedback($params);
         echo '1';
     }
+
+    public function feedbacksEstatisticas($params)
+    {
+        $this->setParams($params);
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id']);
+        if($visita->getResult()){
+            $visita = $visita->getResult()[0];
+        }
+
+        $perguntas = new Feedback();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new Feedback();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['id'], $pergunta['pergunta'])->getResult();
+            $i++;
+        }
+
+        $this->render('pages/feedback/ver.twig', ['menu' => 'feedback', 'perguntas' => $perguntas, 'visita' => $visita]);
+    }
 }

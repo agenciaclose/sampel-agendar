@@ -76,7 +76,7 @@
 																<button type="button" class="btn-close position-absolute top-0 end-0 pt-4 px-3" data-bs-dismiss="modal" aria-label="Close"></button>
 																<div class="d-flex flex-column">
 																	<div class="border-bottom">
-																		<button class="text-start btn btn-white py-3 w-100" onclick="copyClip('{{ DOMAIN }}/visita/inscricao/{{ minha.visita_id }}')">
+																		<button class="text-start btn btn-white py-3 w-100" onclick="copy('{{ DOMAIN }}/visita/inscricao/{{ minha.visita_id }}')">
 																			<i class="fa-solid fa-link"></i> <span class="ms-2">Copiar link</span>
 																		</button>
 																	</div>
@@ -197,7 +197,7 @@
 
 		<div class="mb-5 d-grid gap-2 d-sm-inline-block">
 			<a href="{{ DOMAIN }}/agendamentos" class="btn btn-warning fw-bold w-sm-auto"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> VER OS MEUS AGENDAMENTOS</a>
-			<a href="{{ DOMAIN }}/agendamentos/concluidos" class="btn btn-dark text-white fw-bold d-lg-none d-md-none d-sm-block d-block mt-2"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> AGENDAMENTOS CONCLUÍDOS</a>
+			<a href="{{ DOMAIN }}/agendamentos/concluidas" class="btn btn-dark text-white fw-bold d-lg-none d-md-none d-sm-block d-block mt-2"><i class="me-2 fa-solid fa-calendar-check fa-4x fa-lg"></i> AGENDAMENTOS CONCLUÍDOS</a>
 		</div>
 
 		{% if visitas %}
@@ -266,7 +266,7 @@
 																	<button type="button" class="btn-close position-absolute top-0 end-0 pt-4 px-3" data-bs-dismiss="modal" aria-label="Close"></button>
 																	<div class="d-flex flex-column">
 																		<div class="border-bottom">
-																			<button class="text-start btn btn-white py-3 w-100" onclick="copyClip('{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}')">
+																			<button class="text-start btn btn-white py-3 w-100" onclick="copy('{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}')">
 																				<i class="fa-solid fa-link"></i> <span class="ms-2">Copiar link</span>
 																			</button>
 																		</div>

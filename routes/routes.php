@@ -35,6 +35,10 @@ $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCa
 
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave", "listaEquipesSave");
 
+// FEEDBACK
+$router->namespace("Agencia\Close\Controllers\Site\Feedback");
+$router->get("/feedback/ver/{id}", "FeedbackController:feedbacksEstatisticas", "feedbacksEstatisticas");
+
 //SORTEIO
 $router->post("/visita/sortear", "VisitasController:sortear", "sortear");
 $router->get("/visita/sorteados/{id}", "VisitasController:sorteados", "sorteados");

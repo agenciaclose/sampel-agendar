@@ -4050,8 +4050,12 @@ footer .special-heading-2:before {
 .cadastrar_visita_success {
   display: none;
 }
+.card-dark {
+  background-color: #181b31;
+  color: #FFFFFF;
+}
 .dataTables_wrapper .dataTables_length select, .dataTables_wrapper .dataTables_filter input {
-  background-color: #246CB1 !important;
+  background-color: transparent !important;
   outline-offset: 0;
   color: #FFFFFF;
   outline: thin;
