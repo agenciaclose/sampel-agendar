@@ -7,6 +7,7 @@ use Agencia\Close\Models\Site\Visitas;
 
 use Agencia\Close\Adapters\EmailAdapter;
 use Agencia\Close\Models\User\User;
+use Agencia\Close\Models\Site\Feedback;
 
 class HomeController extends Controller
 {
@@ -48,6 +49,7 @@ class HomeController extends Controller
 
     }
 
+    //TESTES DOS TEMPLATES DE EMAILS
     public function emailEquipeTemplate($params)
     {
         $this->setParams($params);
@@ -55,38 +57,23 @@ class HomeController extends Controller
         $equipesall = new Visitas();
         $equipesall = $equipesall->listaEquipesAll()->getResult();
 
-        $equipes = new Visitas();
-        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult();
-
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
 
-        $emails = '';
-        foreach($equipesall as $lista){
-            $emails .= $lista['email'].',';
+        $perguntas = new Feedback();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new Feedback();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['visita_id'], $pergunta['pergunta'])->getResult();
+            $i++;
         }
-        $emails = rtrim($emails, ',');
 
-        //ENVIO DE EMAIL
-
-            $data = [
-                'equipes' => $equipes,
-                'visita' => $visita,
-            ];
-            
-            // $email = new EmailAdapter();
-            // $email->setSubject('Informações sobre a Visita: ');
-
-            // $email->setBody('components/email/emailEquipe.twig', $data);
-            // //$email->addAddress($emails);
-            // $email->addAddress($emails);
-            // $email->send('Email enviado para a Equipe');
-            // $email->getResult();
-
-        //
-        $this->render('components/email/emailEquipe.twig', ['equipes' => $equipes, 'visita' => $visita]);
+        $this->render('components/email/emailEstatisticas.twig', ['visita' => $visita, 'perguntas' => $perguntas]);
     }
 
+    //ENVIAR EMAIL PARA EQUIPE
     public function sendEmailEquipe($params)
     {
         $this->setParams($params);
@@ -122,6 +109,50 @@ class HomeController extends Controller
         $sendUpdate = new Visitas();
         $sendUpdate = $sendUpdate->sendUpdate($params['visita_id']);
 
+        $email->getResult();
+
+    }
+
+    //ENVIAR EMAIL DE ESTATISTICA PARA EQUIPE
+    public function sendEmailEstatisticas($params)
+    {
+        $this->setParams($params);
+
+        $equipesall = new Visitas();
+        $equipesall = $equipesall->listaEquipesAll()->getResult();
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+
+        $perguntas = new Feedback();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new Feedback();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['visita_id'], $pergunta['pergunta'])->getResult();
+            $i++;
+        }
+
+        $dataVisita = new \DateTime($visita['data_visita']);
+        $dataFormatada = $dataVisita->format('d/m/Y');
+
+        $data = [
+            'perguntas' => $perguntas,
+            'visita' => $visita,
+        ];
+
+        foreach($equipesall as $lista){
+
+            $email = new EmailAdapter();
+            $email->setSubject('Estatisticas da visita: '. $dataFormatada);
+    
+            $email->setBody('components/email/emailEstatisticas.twig', $data);
+            $email->addAddress($lista['email']);
+            $email->send('Email enviado com sucesso');
+
+        }
+        
         $email->getResult();
 
     }

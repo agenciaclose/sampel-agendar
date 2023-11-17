@@ -1,0 +1,76 @@
+<div style="background-color: #ebedf0;font-family: 'helvetica';margin: 0 auto 0 auto;padding: 0;word-spacing: normal;">
+    <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;padding: 25px;background-color: #2458a9;">
+        <tbody>
+            <tr>
+                <td>
+                    <center><br><img src="https://sampel.com.br/eventos/view/src/media/logo.png" width="200" style="margin: 0 0 15px"><br></center>
+                </td>
+            </tr>
+            <tr>
+                <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;background: #FFF;padding: 50px 50px;">
+                    <tr>
+                        <td>
+                            <div style="text-align: center;">
+                                <div><h2 style="margin: 0;">ESTATÍSTICA SOBRE A VISITA:</h2></div>
+                                <div><h4 style="margin: 10px 0; color: #2458a9;">{{ visita.title }}</h4></div>
+                                <div><b>Data:</b> {{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }} <span style="margin-left: 15px;"><b>Responsável:</b> {{ visita.nome }}</span></div>
+                            </div>
+                           	
+                           	<br>
+                           	
+                            <hr>
+
+                            <div>
+                                {% for pergunta in perguntas %}
+                                    <div>
+
+                                        {% if pergunta.tipo == 'Estrela' %}
+                                            <h4>{{ pergunta.pergunta }}</h4>
+                                            <div style="display: flex;justify-content: space-between;text-align: center;">
+                                                {% for j in 0..5 %}
+                                                    {% set i = 5 - j %}
+                                                    <span style="margin-right: 15px;">
+                                                        <div style="padding: 8px; background-color: #2458a9; color: #fff;"><b>Nota:</b> {{ j }}</div>
+                                                        <div style="padding: 5px;border: 1px solid #2458a9;">{{ pergunta.estatisticas[i].qtd == null ? '0' : pergunta.estatisticas[i].qtd }}</div>
+                                                    </span>
+                                                {% endfor %}
+                                            </div>
+                                            <br><hr>
+                                        {% endif %}
+
+                                        {% if pergunta.tipo == 'Texto' %}
+                                            <h4>{{ pergunta.pergunta }}</h4>
+                                            <div class="table-responsive">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="border-bottom: 2px solid #000;" align="left">Comentário</th>
+                                                            <th style="border-bottom: 2px solid #000;text-align: right;">Qtd</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for estatistica in pergunta.estatisticas %}
+                                                        <tr>
+                                                            <td style="border-bottom: 1px solid #000;" align="left">{{ estatistica.resposta }}</td>
+                                                            <td style="border-bottom: 1px solid #000;text-align: right;">{{ estatistica.qtd }}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <br>
+                            <div>Para quaisquer esclarecimentos adicionais, permaneço à disposição.</div>
+                            <a href="mailto:souza.marketing@sampel.com.br">souza.marketing@sampel.com.br</a>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </tbody>
+    </table>
+</div>
