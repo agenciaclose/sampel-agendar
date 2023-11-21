@@ -72,7 +72,7 @@
 
 										{% for opcao in opcoes %}
 										<div class="form-check resposta-check me-3">
-											<input class="resposta_{{ pergunta.id }}" type="checkbox" name="resposta[]" value="{{ opcao }}" id="resposta_{{ pergunta.id }}_{{ loop.index }}" {{ loop.index == 1 ? 'checked' }}>
+											<input class="resposta_{{ pergunta.id }}" type="checkbox" name="resposta[]" value="{{ opcao }}" id="resposta_{{ pergunta.id }}_{{ loop.index }}">
 											<label class="form-check-label" for="resposta_{{ pergunta.id }}_{{ loop.index }}">{{ opcao }}</label>
 										</div>
 										{% endfor %}
@@ -87,7 +87,7 @@
 									<input type="hidden" name="pergunta[]" value="{{ pergunta.pergunta }}">
 
 									<label class="rating-label">
-										<input name="resposta[]" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="1" style="--value:1" type="range" value="1" required="required">
+										<input name="resposta[]" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="1" style="--value:0" type="range" value="0" required="required">
 									</label>
 
 								</div>
