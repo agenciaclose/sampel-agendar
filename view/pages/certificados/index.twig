@@ -1,0 +1,41 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Certificados {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="row mb-4">
+			<div class="col-sm-12">
+				<div class="text-center">
+					<h3><b>BEM-VINDO AO PROGRAMA <br>SAMPEL TOUR</b></h3>
+				</div>
+
+				<hr class="w-25 m-auto mb-3">
+
+				<div class="text-center">Aqui você emite seu certificado. Preencha com seu CPF abaixo para seu certificado ser gerado.</div>
+
+				<div class="col-12 col-sm-4 m-auto py-5 text-center">
+					<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+					<form action="javascript:void(0)" id="gerar_certificado" method="POST">
+						<div class="mb-3">
+							<label class="form-label">Informe seu CPF</label>
+							<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" />
+						</div>
+						<div class="mb-3">
+							<button type="submit" class="btn btn-warning btn-lg fw-bold"><i class="fa-solid fa-file-pdf"></i> GERAR CERTIFICADO</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}

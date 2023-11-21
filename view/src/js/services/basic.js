@@ -68,6 +68,7 @@ $('.telefone').mask(maskBehavior, options);
 $('.cep').mask('00000-000', {reverse: true});
 $('.cpf').mask('000.000.000-00', {reverse: true});
 $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+$('.cpf_number').mask('00000000000', {reverse: true});
 
 
 
@@ -111,4 +112,21 @@ $(".send_email_estatisticas_equipe").click(function (c) {
         }
     });
 
+});
+
+$("#gerar_certificado").submit(function (c) {
+    $('.form-load').addClass('show');
+    $('button[type="submit"]').prop("disabled", true);
+
+    c.preventDefault();
+    var DOMAIN = $('body').data('domain');
+    var form = $(this);
+
+    $.ajax({
+        type: "POST", async: true, data: form.serialize(),
+        url: DOMAIN + '/certificados/emitirCheck',
+        success: function (data) {
+            window.location.href = DOMAIN + '/certificados/pdf/visita.php?codigo='+data;
+        }
+    });
 });

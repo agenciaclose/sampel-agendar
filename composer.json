@@ -26,7 +26,8 @@
     "codeinc/strip-accents": "^1.1",
     "ext-curl": "*",
     "ext-simplexml": "*",
-    "shuchkin/simplexlsx": "^1.0"
+    "shuchkin/simplexlsx": "^1.0",
+    "mpdf/mpdf": "^8.2"
   },
   "autoload": {
     "psr-4": {
