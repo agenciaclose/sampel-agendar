@@ -17,4 +17,11 @@ class Certificados extends Model
         return $read;
     }
 
+    public function certificadoUpdate($codigo): read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `certificado` = 'Sim' WHERE codigo = :codigo", "codigo={$codigo}");
+        return $read;
+    }
+
 }
