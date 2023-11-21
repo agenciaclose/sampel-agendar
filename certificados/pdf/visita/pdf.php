@@ -10,9 +10,9 @@
 			}
 			.usuario {
 				width: 500px;
-				text-align: center;
+				text-align: left;
 				position: absolute;
-				right: 9%;
+				right: 10%;
 				top: 22%;
 			}
 			.usuario h1 {
