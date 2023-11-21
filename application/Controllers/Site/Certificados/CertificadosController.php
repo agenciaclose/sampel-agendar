@@ -26,9 +26,9 @@ class CertificadosController extends Controller
         $emitirCheck = $emitirCheck->emitirCheckVisita($params['cpf']);
         
         if($emitirCheck->getResult()) {
-            
+
             $update = new Certificados();
-            $update->certificadoUpdate($params['cpf']);
+            $update->certificadoUpdate($emitirCheck->getResult()[0]['codigo']);
 
             echo $emitirCheck->getResult()[0]['codigo'];
         }else{
