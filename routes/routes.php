@@ -38,8 +38,8 @@ $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave", 
 
 // CERTIFICADOS
 $router->namespace("Agencia\Close\Controllers\Site\Certificados");
-$router->get("/certificados/emitir", "CertificadosController:index", "index");
-$router->post("/certificados/emitirCheck", "CertificadosController:emitirCheck", "emitirCheck");
+$router->get("/certificados/visita", "CertificadosController:visita", "visita");
+$router->post("/certificados/emitirCheckVisita", "CertificadosController:emitirCheckVisita", "emitirCheckVisita");
 $router->get("/certificados/404", "CertificadosController:naoencontrado", "naoencontrado");
 
 // FEEDBACK

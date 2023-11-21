@@ -8,9 +8,9 @@ use Agencia\Close\Models\Site\Certificados;
 class CertificadosController extends Controller
 {
 
-    public function index()
+    public function visita()
     {
-        $this->render('pages/certificados/index.twig', []);
+        $this->render('pages/certificados/visita.twig', []);
     }
 
     public function naoencontrado()
@@ -18,14 +18,14 @@ class CertificadosController extends Controller
         $this->render('pages/certificados/notFound.twig', []);
     }
 
-    public function emitirCheck($params)
+    public function emitirCheckVisita($params)
     {
 
         $this->setParams($params);
         $emitirCheck = new Certificados();
-        $emitirCheck = $emitirCheck->emitirCheck($params['cpf']);
+        $emitirCheck = $emitirCheck->emitirCheckVisita($params['cpf']);
         
-        if($emitirCheck->getResult()[0]) {
+        if($emitirCheck->getResult()) {
             echo $emitirCheck->getResult()[0]['codigo'];
         }else{
             echo '';

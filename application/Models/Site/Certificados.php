@@ -10,7 +10,7 @@ use Agencia\Close\Models\Model;
 class Certificados extends Model
 {
 
-    public function emitirCheck($cpf): read
+    public function emitirCheckVisita($cpf): read
     {
         $read = new Read();
         $read->FullRead("SELECT codigo, cpf FROM visitas_inscricoes WHERE cpf = :cpf", "cpf={$cpf}");

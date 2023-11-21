@@ -124,7 +124,7 @@ $("#gerar_certificado").submit(function (c) {
 
     $.ajax({
         type: "POST", async: true, data: form.serialize(),
-        url: DOMAIN + '/certificados/emitirCheck',
+        url: DOMAIN + '/certificados/emitirCheckVisita',
         success: function (data) {
             window.location.href = DOMAIN + '/certificados/pdf/visita.php?codigo='+data;
         }
