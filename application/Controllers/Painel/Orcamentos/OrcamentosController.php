@@ -15,4 +15,13 @@ class OrcamentosController extends Controller
         $this->render('painel/pages/orcamentos/lista.twig', ['menu' => 'orcamentos', 'visitas' => $visitas]);
     }
 
+    public function editar($params)
+    {
+        $this->setParams($params);
+
+        $visitas = new OrcamentosPainel();
+        $visitas = $visitas->getVisitasList()->getResult();
+        $this->render('painel/pages/orcamentos/editar.twig', ['menu' => 'orcamentos', 'visitas' => $visitas]);
+    }
+
 }

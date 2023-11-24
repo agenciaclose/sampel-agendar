@@ -16,7 +16,7 @@ class OrcamentosPainel extends Model
         $read = new Read();
         $read->FullRead("SELECT v.*, u.*, v.id AS visita_id
                         FROM visitas AS v
-                        INNER JOIN usuarios AS u ON u.id = v.id_empresa ORDER BY v.`data` DESC");
+                        INNER JOIN usuarios AS u ON u.id = v.id_empresa WHERE v.`status_visita` = 'Concluido' ORDER BY v.`data` DESC");
         return $read;
     }
 
