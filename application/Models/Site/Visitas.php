@@ -75,6 +75,13 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listarInscricoes($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita ORDER BY `nome` ASC", "id_visita={$id_visita}");
+        return $read;
+    }
+
     public function listarInscricoesTotal($id_visita): read
     {
         $read = new Read();

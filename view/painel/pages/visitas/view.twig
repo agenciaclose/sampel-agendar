@@ -23,9 +23,14 @@
 
 								<div class="card-body">
 								
-									<div class="mb-2">
-										<h3>Informações dessa Solicitação de Visita</h3>
-										<div>Informações do solicitante e empresa responsável abaixo.</div>
+									<div class="mb-2 d-flex justify-content-between flex-wrap">
+										<div>
+											<h3>Informações dessa Solicitação de Visita</h3>
+											<div>Informações do solicitante e empresa responsável abaixo.</div>
+										</div>
+										<div>
+											<a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" class="btn btn-warning send_email_certificado"><i class="fa-solid fa-paper-plane"></i> ENVIAR NOTIFICAÇÃO DE CERTIFICADO</a>
+										</div>
 									</div>
 
 									<hr>
@@ -130,5 +135,7 @@
             </div>
         </div>
     </div>
+
+	<script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js"></script>
 
 {% endblock %}

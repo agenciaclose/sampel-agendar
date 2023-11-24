@@ -1,0 +1,46 @@
+<div style="background-color: #ebedf0;font-family: 'helvetica';margin: 0 auto 0 auto;padding: 0;word-spacing: normal;">
+    <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;padding: 25px;background-color: #2458a9;">
+        <tbody>
+            <tr>
+                <td>
+                    <center><br><img src="https://sampel.com.br/eventos/view/src/media/logo.png" width="200" style="margin: 0 0 15px"><br></center>
+                </td>
+            </tr>
+            <tr>
+                <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;background: #FFF;padding: 50px 50px;">
+                    <tr>
+                        <td>
+                            <div style="text-align: center;">
+                                <div><h2 style="margin: 0;">CERTIFICADO DISPONÍVEL</h2></div>
+                                <div><h4 style="margin: 10px 0; color: #2458a9;">{{ visita.title }}</h4></div>
+                                <div><b>Data:</b> {{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }} <span style="margin-left: 15px;"><b>Responsável:</b> {{ visita.nome }}</span></div>
+                            </div>
+                           	
+                           	<br>
+                           	
+                            <hr>
+
+                            <div>
+                                <br>
+                                Prezado(a) <b>{{ usuario.nome }}</b>,
+                                <br><br>
+                                Gostaríamos de expressar nossos sinceros parabéns pela sua participação no evento "<b>{{ visita.title }}</b>" realizado pela Sampel. Sua presença e engajamento foram fundamentais para o sucesso deste encontro.
+                                <br><br><br>
+                                <a href="https://sampel.com.br/eventos/certificados/visita" style="padding:10px 15px;background: #3253ab;color: #fff;text-decoration: none;border-radius: 5px;">ACESSAR CERTIFICADO</a>
+                                <br><br><br>
+                                <i>Atenciosamente,
+                                <div>Sampel</div></i>
+                            </div>
+
+                            <br><br>
+                            <hr>
+                            <br>
+                            <div>Para quaisquer esclarecimentos adicionais, permaneço à disposição.</div>
+                            <a href="mailto:souza.marketing@sampel.com.br">souza.marketing@sampel.com.br</a>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </tbody>
+    </table>
+</div>

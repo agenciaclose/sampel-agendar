@@ -54,23 +54,13 @@ class HomeController extends Controller
     {
         $this->setParams($params);
 
-        $equipesall = new Visitas();
-        $equipesall = $equipesall->listaEquipesAll()->getResult();
-
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
 
-        $perguntas = new Feedback();
-        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+        $inscritos = new Visitas();
+        $inscritos = $inscritos->listarInscricoes($params['visita_id'])->getResult();
 
-        $i = 0;
-        foreach ($perguntas as $pergunta) {
-            $feedbacks = new Feedback();
-            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['visita_id'], $pergunta['pergunta'])->getResult();
-            $i++;
-        }
-
-        $this->render('components/email/emailEstatisticas.twig', ['visita' => $visita, 'perguntas' => $perguntas]);
+        $this->render('components/email/emailAlertCertificado.twig', ['visita' => $visita, 'usuario' => $inscritos]);
     }
 
     //ENVIAR EMAIL PARA EQUIPE
@@ -108,9 +98,7 @@ class HomeController extends Controller
                 
         $sendUpdate = new Visitas();
         $sendUpdate = $sendUpdate->sendUpdate($params['visita_id']);
-
         $email->getResult();
-
     }
 
     //ENVIAR EMAIL DE ESTATISTICA PARA EQUIPE
@@ -152,9 +140,42 @@ class HomeController extends Controller
             $email->send('Email enviado com sucesso');
 
         }
-        
         $email->getResult();
+    }
 
+    //ENVIAR EMAIL DE ESTATISTICA PARA EQUIPE
+    public function sendEmailCertificado($params)
+    {
+        $this->setParams($params);
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+
+        $inscritos = new Visitas();
+        $inscritos = $inscritos->listarInscricoes($params['visita_id'])->getResult();
+
+        $dataVisita = new \DateTime($visita['data_visita']);
+        $dataFormatada = $dataVisita->format('d/m/Y');
+
+        foreach($inscritos as $lista){
+
+            $data = [
+                'usuario' => $lista,
+                'visita' => $visita,
+            ];
+
+            $email = new EmailAdapter();
+            $email->setSubject('Seu certificado Sampel: '. $dataFormatada);
+    
+            $email->setBody('components/email/emailAlertCertificado.twig', $data);
+            //$email->addAddress($lista['email']);
+            $email->addAddress('rl.cold.dev@gmail.com');
+            $email->send('Email enviado com sucesso');
+
+        }
+
+        $email->getResult();
+        
     }
 
 }

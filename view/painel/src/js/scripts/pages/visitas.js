@@ -1,27 +1,28 @@
 $(document).ready(function () {
 
-    new FroalaEditor('#descricao', {
-		key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
-		enter: FroalaEditor.ENTER_BR,
-		language: 'pt_br',
-        entities: '',
-		pastePlain: true,
-		attribution: false,
-        theme: 'dark',
-		toolbarButtons: {
-			'moreText': {
-			  'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
-			  'buttonsVisible': 2
-			},
-			'moreParagraph': {
-			  'buttons': ['alignLeft', 'alignCenter',  'alignRight']
-			},
-			'moreRich': {
-			  'buttons': ['emoticons', 'fontAwesome']
-			}
-		}
-	});
-
+    if ($('#descricao').length){
+        new FroalaEditor('#descricao', {
+            key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+            enter: FroalaEditor.ENTER_BR,
+            language: 'pt_br',
+            entities: '',
+            pastePlain: true,
+            attribution: false,
+            theme: 'dark',
+            toolbarButtons: {
+                'moreText': {
+                'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
+                'buttonsVisible': 2
+                },
+                'moreParagraph': {
+                'buttons': ['alignLeft', 'alignCenter',  'alignRight']
+                },
+                'moreRich': {
+                'buttons': ['emoticons', 'fontAwesome']
+                }
+            }
+        });
+    }
 
     $('.visita-excluir').click(function(){
 		var domain = $('body').attr('data-domain');
@@ -139,4 +140,25 @@ $(document).ready(function () {
         }
 
     });
+
+    $(".send_email_certificado").click(function (c) {
+
+        $(this).prop("disabled", true);
+        $(this).html('<i class="fa-solid fa-sync fa-spin"></i> EMAILS SENDO ENVIADOS');
+    
+        c.preventDefault();
+        let DOMAIN = $('body').data('domain');
+        let visita_id = $(this).data('visita');
+    
+        $.ajax({
+            type: "GET", 
+            async: true,
+            url: DOMAIN + '/visita/sendEmailCertificado/'+visita_id,
+            success: function () {
+                swal({type: 'success', title: 'Emails enviados com sucesso', showConfirmButton: false, timer: 1500});
+                //setTimeout(function() { location.reload(); }, 1500);
+            }
+        });
+    });
+
 });

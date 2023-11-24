@@ -12,6 +12,7 @@ $router->get("/", "HomeController:index", "home");
 $router->get("/visita/emailEquipeTemplate/{visita_id}", "HomeController:emailEquipeTemplate", "emailEquipeTemplate");
 $router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe", "sendEmailEquipe");
 $router->get("/visita/sendEmailEstatisticas/{visita_id}", "HomeController:sendEmailEstatisticas", "sendEmailEstatisticas");
+$router->get("/visita/sendEmailCertificado/{visita_id}", "HomeController:sendEmailCertificado", "sendEmailCertificado");
 
 // PAGE AGENDAR
 $router->namespace("Agencia\Close\Controllers\Site\Agendar");
