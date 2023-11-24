@@ -36,6 +36,9 @@
                 </li>
                 
                 <li class=" navigation-header"><span>Estatísticas de Visitas</span><i data-feather="more-horizontal"></i></li>
+                <li class="{{ (menu == 'orcamento') ? 'active open' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/orcamentos/lista"><i class="fa-thin fa-money-bill-trend-up"></i><span class="menu-title text-truncate">Orçamentos</span></a>
+                </li>
                 <li class="{{ (menu == 'feedback') ? 'active open' }} nav-item">
                     <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/lista"><i class="fa-thin fa-message-dots"></i><span class="menu-title text-truncate">Estatísticas</span></a>
                 </li>

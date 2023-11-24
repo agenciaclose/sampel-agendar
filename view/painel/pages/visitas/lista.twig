@@ -79,9 +79,9 @@
                                                         </div>
 
                                                         {% if (visita.status_visita != 'Aprovado') and (visita.status_visita != 'Concluido') %}
-                                                        <div class="d-flex justify-content-between" style="margin-top: 5px;">
+                                                        <div class="d-flex justify-content-start" style="margin-top: 5px;">
                                                             <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="aprovar" class="visita-status badge bg-info text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aprovar"><i class="fa-solid fa-check"></i></a>
-                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status badge bg-danger text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar"><i class="fa-regular fa-xmark"></i></a>
+                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status badge bg-danger text-black ms-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar"><i class="fa-regular fa-xmark"></i></a>
                                                         </div>
                                                         {% endif %}
 

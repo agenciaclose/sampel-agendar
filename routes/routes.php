@@ -149,6 +149,11 @@ $router->get("/painel/feedback/perguntas/excluir/{id}", "FeedbackController:excl
 $router->get("/painel/feedback/lista", "FeedbackController:feedbacks", "feedbacks");
 $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "feedbacksList");
 
+// PAINEL ORÇAMENTOS
+$router->namespace("Agencia\Close\Controllers\Painel\Orcamentos");
+$router->get("/painel/orcamentos/lista", "OrcamentosController:lista", "lista");
+
+
 // PAINEL EQUIPE
 $router->namespace("Agencia\Close\Controllers\Painel\Equipes");
 $router->get("/painel/equipes", "EquipesController:equipes", "equipes");
