@@ -168,8 +168,7 @@ class HomeController extends Controller
             $email->setSubject('Seu certificado Sampel: '. $dataFormatada);
     
             $email->setBody('components/email/emailAlertCertificado.twig', $data);
-            //$email->addAddress($lista['email']);
-            $email->addAddress('rl.cold.dev@gmail.com');
+            $email->addAddress($lista['email']);
             $email->send('Email enviado com sucesso');
 
         }

@@ -28,9 +28,13 @@
 											<h3>Informações dessa Solicitação de Visita</h3>
 											<div>Informações do solicitante e empresa responsável abaixo.</div>
 										</div>
+
 										<div>
+											{% if visita.data_visita <= now|date("Y-m-d") %}
 											<a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" class="btn btn-warning send_email_certificado"><i class="fa-solid fa-paper-plane"></i> ENVIAR NOTIFICAÇÃO DE CERTIFICADO</a>
+											{% endif %}
 										</div>
+
 									</div>
 
 									<hr>

@@ -36,7 +36,8 @@ class FeedbackPainel extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
-                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND certificado = 'Sim') AS certificados
                         FROM visitas AS v
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
                         WHERE v.`status_visita` = 'Concluido' ORDER BY v.`data` DESC");

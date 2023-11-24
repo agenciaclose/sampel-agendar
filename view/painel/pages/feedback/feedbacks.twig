@@ -20,7 +20,8 @@
                             <th class="d-none">#</th>
                             <th>Visita</th>
                             <th>Responsável</th>
-                            <th class="text-center">Comparecimentos</th>
+                            <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><i class="fa-solid fa-lg fa-users"></i></th>
+                            <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Certificados Impressos"><i class="fa-solid fa-lg fa-file-pdf"></i></th>
                             <th width="175">Status</th>
                             <th class="text-end">Data da Visita</th>
                         </tr>
@@ -41,7 +42,10 @@
                                 <div class="text-lowercase"><small>{{ visita.email }}</small></div>
                             </td>
                             <td class="text-center">
-                               <span class="badge bg-light text-black px-2">{{ visita.presencas }}</span>
+                               <span class="badge bg-light text-black px-1">{{ visita.presencas }}</span>
+                            </td>
+                            <td class="text-center">
+                               <span class="badge bg-light text-black px-1">{{ visita.certificados }}</span>
                             </td>
                             <td>
                                 {% if visita.status_visita == 'Concluido' %}

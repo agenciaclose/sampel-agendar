@@ -34,6 +34,14 @@
                          <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/visitas/config"><i data-feather="circle"></i><span class="menu-item">Configurações</span></a></li>
                     </ul>
                 </li>
+                
+                <li class=" navigation-header"><span>Estatísticas de Visitas</span><i data-feather="more-horizontal"></i></li>
+                <li class="{{ (menu == 'feedback') ? 'active open' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/lista"><i class="fa-thin fa-message-dots"></i><span class="menu-title text-truncate">Estatísticas</span></a>
+                </li>
+                <li class="{{ (menu == 'perguntas') ? 'active open' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/perguntas"><i class="fa-thin fa-messages"></i><span class="menu-title text-truncate">Perguntas</span></a>
+                </li>
 
                 <li class=" navigation-header"><span>Listas de Palestras</span><i data-feather="more-horizontal"></i></li>
                 <li class="{{ (menu == 'palestras') ? 'active open' }} nav-item">
@@ -44,13 +52,6 @@
                     </ul>
                 </li>
 
-                <li class=" navigation-header"><span>Listas de Feedback</span><i data-feather="more-horizontal"></i></li>
-                <li class="{{ (menu == 'feedback') ? 'active open' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/lista"><i class="fa-thin fa-message-dots"></i><span class="menu-title text-truncate">Feedbacks</span></a>
-                </li>
-                <li class="{{ (menu == 'perguntas') ? 'active open' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feedback/perguntas"><i class="fa-thin fa-messages"></i><span class="menu-title text-truncate">Perguntas</span></a>
-                </li>
 
             </ul>
         </div>

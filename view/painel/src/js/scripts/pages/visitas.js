@@ -156,7 +156,7 @@ $(document).ready(function () {
             url: DOMAIN + '/visita/sendEmailCertificado/'+visita_id,
             success: function () {
                 swal({type: 'success', title: 'Emails enviados com sucesso', showConfirmButton: false, timer: 1500});
-                //setTimeout(function() { location.reload(); }, 1500);
+                setTimeout(function() { location.reload(); }, 1500);
             }
         });
     });
