@@ -3,11 +3,10 @@
 	ini_set("pcre.backtrack_limit", "99999999999999999999999999999");
 	include(__DIR__ . '/../config/config.php');
 
-	$dados = array($_GET['codigo'], 'Sim');
 	$sql_inscricao = $db->prepare("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
 								INNER JOIN visitas AS v ON v.id = vi.id_visita
-								WHERE vi.codigo = ? AND vi.presenca = ?");
-	$sql_inscricao->execute($dados);
+								WHERE (vi.codigo = '".$_GET['codigo']."' OR vi.codigo = '".$_GET['codigo']."') AND vi.presenca = 'Sim'");
+	$sql_inscricao->execute();
 	if($sql_inscricao->rowCount() == 0) {
 		header("Location: https://sampel.com.br/eventos/certificados/404");
 		die();
