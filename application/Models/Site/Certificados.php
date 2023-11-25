@@ -13,7 +13,7 @@ class Certificados extends Model
     public function emitirCheckVisita($cpf): read
     {
         $read = new Read();
-        $read->FullRead("SELECT codigo, cpf FROM visitas_inscricoes WHERE cpf = :cpf", "cpf={$cpf}");
+        $read->FullRead("SELECT codigo, cpf FROM visitas_inscricoes WHERE (cpf = :cpf OR codigo = :cpf ) AND presenca = 'Sim'", "cpf={$cpf}");
         return $read;
     }
 
