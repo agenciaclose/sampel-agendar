@@ -5,7 +5,7 @@ namespace Agencia\Close\Controllers\Painel\Orcamentos;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\OrcamentosPainel;
 
-class OrcamentosController extends Controller
+class OrcamentosPainelController extends Controller
 {
 
     public function lista()

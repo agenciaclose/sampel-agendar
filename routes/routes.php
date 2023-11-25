@@ -151,8 +151,8 @@ $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "f
 
 // PAINEL ORÇAMENTOS
 $router->namespace("Agencia\Close\Controllers\Painel\Orcamentos");
-$router->get("/painel/orcamentos/lista", "OrcamentosController:lista", "lista");
-$router->get("/painel/orcamentos/editar/{id}", "OrcamentosController:editar", "editar");
+$router->get("/painel/orcamentos/lista", "OrcamentosPainelController:lista", "lista");
+$router->get("/painel/orcamentos/editar/{id}", "OrcamentosPainelController:editar", "editar");
 
 
 // PAINEL EQUIPE
