@@ -37,6 +37,10 @@ $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCa
 
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave", "listaEquipesSave");
 
+//SORTEIO
+$router->post("/visita/sortear", "VisitasController:sortear", "sortear");
+$router->get("/visita/sorteados/{id}", "VisitasController:sorteados", "sorteados");
+
 // CERTIFICADOS
 $router->namespace("Agencia\Close\Controllers\Site\Certificados");
 $router->get("/certificados/visita", "CertificadosController:visita", "visita");
@@ -47,9 +51,6 @@ $router->get("/certificados/404", "CertificadosController:naoencontrado", "naoen
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/feedback/ver/{id}", "FeedbackController:feedbacksEstatisticas", "feedbacksEstatisticas");
 
-//SORTEIO
-$router->post("/visita/sortear", "VisitasController:sortear", "sortear");
-$router->get("/visita/sorteados/{id}", "VisitasController:sorteados", "sorteados");
 
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:feedback", "feedback");
