@@ -123,7 +123,22 @@ class VisitasController extends Controller
     public function inscricaoCadastro($params)
     {
         $this->setParams($params);
-        if( !$this->checkCadastro($params) ){
+
+        if( $params['tipo_visita'] == 'visita'){
+        
+            if(!$this->checkCadastro($params)){
+                $cadastro = new Visitas();
+                $cadastro = $cadastro->inscricaoCadastro($params);
+                if ($cadastro) {
+                    $last = new Visitas();
+                    $last = $last->lastInscricao()->getResult()[0];
+                    echo $last['id'];
+                }
+            }else{
+                echo '0';
+            }
+
+        }else{
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
             if ($cadastro) {
@@ -131,9 +146,8 @@ class VisitasController extends Controller
                 $last = $last->lastInscricao()->getResult()[0];
                 echo $last['id'];
             }
-        }else{
-            echo '0';
         }
+
     }
 
     public function inscricaoCadastroQRcode($params)
@@ -195,6 +209,16 @@ class VisitasController extends Controller
             echo '0';
         }else{
             echo '1';
+        }
+    }
+
+    public function CPFAutoComplete()
+    {
+        $result = new Visitas();
+        $result = $result->CPFAutoComplete($_GET['cpf'])->getResult();
+        if($result){
+            $json = json_encode($result[0]);
+            echo $json;
         }
     }
 

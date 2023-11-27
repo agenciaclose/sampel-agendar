@@ -143,21 +143,31 @@
 								<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 
 								<div class="row">
+
+									{% if visita.tipo == 'evento' %}
+									<div class="col-md-6 col-12">
+										<div class="mb-3">
+											<label for="cpf" class="form-label">Seu CPF *</label>
+											<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
+											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+										</div>
+									</div>
+									{% endif %}
+
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label for="empresa" class="form-label">Nome da Empresa *</label>
 											<input type="text" name="empresa" class="form-control rounded-pill" id="empresa" value="" required="required">
 										</div>
 									</div>
+
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label for="nome" class="form-label">Seu Nome Completo *</label>
 											<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
 										</div>
 									</div>
-								</div>
-
-								<div class="row">
+									
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label for="email" class="form-label">Seu Email *</label>
@@ -201,6 +211,8 @@
 											<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
 										</div>
 									</div>
+									
+									{% if visita.tipo == 'visita' %}
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label for="cpf" class="form-label">Seu CPF *</label>
@@ -208,13 +220,17 @@
 											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
 										</div>
 									</div>
+									{% endif %}
+
 									<div class="col-md-6 col-12">
 										<div class="mb-3">
 											<label class="form-label"></label>
 											<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+											<input type="hidden" name="tipo_visita" id="tipo_visita" value="{{ visita.tipo }}">
 											<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
 										</div>
 									</div>
+
 								</div>
 
 							</form>
@@ -255,5 +271,10 @@
 	</session>
 
 </div>
+
 <script src="{{ PATH }}/view/src/js/inscricao.js"></script>
+{% if visita.tipo == 'visita' %}
+<script src="{{ PATH }}/view/src/js/inscricao_check.js"></script>
+{% endif %}
+
 {% endblock %}

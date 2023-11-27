@@ -134,36 +134,22 @@ $("#cep").blur(function() {
     }
 });
 
-$('#email').change(function() {
-	let valor = $(this).val();
-    validarCampo ('email', valor);
-});
-
-$('#telefone').change(function() {
-	let valor = $(this).val();
-    validarCampo ('telefone', valor);
-});
-
-$('#cpf').change(function() {
-	let valor = $(this).val();
-    validarCampo ('cpf', valor);
-});
-
-function validarCampo (campo, valor){
+$(".cpf_autocomplete").blur(function() {
     
-    let DOMAIN = $('body').data('domain');
-    $.ajax({
-        type: "POST",
-        url: DOMAIN + '/visita/inscricao/checkCadastroCampo',
-        data: {campo:campo, valor:valor},
-        success: function(data) {
-            if(data == 1){
-                $('#'+campo).addClass('is-invalid');
-            }else{
-                $('#'+campo).removeClass('is-invalid');
-            }
-           
+    var DOMAIN = $('body').data('domain');
+    var cpf = $(this).val();
+    
+    $.getJSON(DOMAIN + '/visita/inscricao/cpfautocomplete?cpf='+cpf, function(dados) {
+        if (dados != null) {
+            $("#empresa").val(dados.empresa);
+            $("#nome").val(dados.nome);
+            $("#email").val(dados.email);
+            $("#setor").val(dados.setor);
+            $("#cidade").val(dados.cidade);
+            $("#estado").val(dados.estado);
+            $("#cep").val(dados.cep);
+            $("#telefone").val(dados.telefone);
         }
     });
 
-}
+});

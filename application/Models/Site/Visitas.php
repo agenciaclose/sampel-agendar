@@ -133,6 +133,7 @@ class Visitas extends Model
             $params['setor'] = $params['setor_outros'];
         }
         unset($params['setor_outros']);
+        unset($params['tipo_visita']);
 
         $create = new Create();
         $create->ExeCreate('visitas_inscricoes', $params);
@@ -258,6 +259,14 @@ class Visitas extends Model
     {
         $read = new Read();
         $read->FullRead("UPDATE `visitas` SET `email_equipe` = 'S' WHERE `id` = :id_visita", "id_visita={$id_visita}");
+        return $read;
+    }
+
+    public function CPFAutoComplete($cpf): read
+    {
+        $read = new Read();
+        $cpf = $this->clearCPF($cpf);
+        $read->FullRead("SELECT * FROM `visitas_inscricoes` WHERE `cpf` = :cpf", "cpf={$cpf}");
         return $read;
     }
 
