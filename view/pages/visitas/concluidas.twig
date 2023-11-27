@@ -21,9 +21,10 @@
 		<hr>
 
 		<div class="table-responsive">
-			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+			<table id="tabela_dinamica_concluida" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 		        <thead>
 		            <tr>
+		                <th class="d-none">Data da Visita</th>
 		                <th class="no-mobile">Data da Visita</th>
 		                <th class="no-mobile" width="25">ID</th>
 		                <th class="no-mobile flex-grow-1">Visita</th>
@@ -34,6 +35,9 @@
 		        <tbody>
 		        	{% for visita in visitas %}
 					<tr>
+						<td class="d-none">
+							{{ visita.data_visita }}
+						</td>
 						<td class="no-mobile">
 							{{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}
 						</td>

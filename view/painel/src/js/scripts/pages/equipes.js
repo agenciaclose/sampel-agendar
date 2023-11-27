@@ -18,29 +18,29 @@ $(document).ready(function () {
         }
     });
 
-    $("#register-cliente-form").submit(function (c) {
-        $('.login-load').show();
-        c.preventDefault();
-        var DOMAIN = $('body').data('domain');
-        var form = $(this);
-        $.ajax({
-            type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/painel/equipe/cadastro',
-            success: function (data) {
-                if (data == "1") {
-                    window.location.href = DOMAIN+'/painel/equipes';
-                } else  if (data == "2")  {
-                    $('button[type="submit"]').prop("disabled", false);
-                    swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
-                    $('.login-load').hide();
-                }else{
-                    $('button[type="submit"]').prop("disabled", false);
-                    swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
-                    $('.login-load').hide();
-                }
-            }
-        });
-    });
+    // $("#register-cliente-form").submit(function (c) {
+    //     $('.login-load').show();
+    //     c.preventDefault();
+    //     var DOMAIN = $('body').data('domain');
+    //     var form = $(this);
+    //     $.ajax({
+    //         type: "POST", async: true, data: form.serialize(),
+    //         url: DOMAIN + '/painel/equipe/cadastro',
+    //         success: function (data) {
+    //             if (data == "1") {
+    //                 window.location.href = DOMAIN+'/painel/equipes';
+    //             } else  if (data == "2")  {
+    //                 $('button[type="submit"]').prop("disabled", false);
+    //                 swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
+    //                 $('.login-load').hide();
+    //             }else{
+    //                 $('button[type="submit"]').prop("disabled", false);
+    //                 swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
+    //                 $('.login-load').hide();
+    //             }
+    //         }
+    //     });
+    // });
 
     $("#register-client-form").submit(function (c) {
         $('.login-load').show();
@@ -62,6 +62,33 @@ $(document).ready(function () {
                 }else{
                     $('button[type="submit"]').prop("disabled", false);
                     swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
+                    $('.login-load').hide();
+                }
+            }
+        });
+    });
+
+    $("#editar-client-form").submit(function (c) {
+        $('.login-load').show();
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+        var form = $(this);
+        $.ajax({
+            type: "POST", async: true, data: form.serialize(),
+            url: DOMAIN + '/painel/equipe/editarSave',
+            success: function (data) {
+                if (data == "1") {
+                    swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        window.location.href = DOMAIN+'/painel/equipes';
+                    }, 1500);
+                } else  if (data == "2")  {
+                    $('button[type="submit"]').prop("disabled", false);
+                    swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
+                    $('.login-load').hide();
+                }else{
+                    $('button[type="submit"]').prop("disabled", false);
+                    swal({type: 'error', title: 'Houve um erro ao editar.', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
                 }
             }

@@ -35,4 +35,18 @@
             return $create->getResult();
         }
 
+        public function editarSave(array $params)
+        {
+            if(!empty($params['senha'])){
+                $params['senha'] = sha1($params['senha']);
+            }else{
+                unset($params['senha']);
+            }
+            
+            unset($params['email_old']);
+            $update = new Update();
+            $update->ExeUpdate('usuarios', $params, 'WHERE id = :id', "id={$params['id']}");
+            return $update;
+        }
+
     }

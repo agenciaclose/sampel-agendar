@@ -79,4 +79,27 @@ class EquipesController extends Controller
         $this->render('painel/pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar]);
     }
 
+    public function editarSave(array $params)
+    {
+        $this->setParams($params);
+
+        if($params['email'] != $params['email_old']){
+            if(EmailUser::verifyIfEmailExist($params['email'])){
+                echo '2';
+                return;
+            }
+        }
+
+        $params['tipo'] = '4';
+        $params['status'] = '1';
+
+        $user = new EquipesPainel();
+        $idUser = $user->editarSave($params);
+        if ($idUser) {
+            echo '1';
+        } else {
+            echo '0';
+        }
+    }
+
 }

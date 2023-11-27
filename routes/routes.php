@@ -163,6 +163,7 @@ $router->get("/painel/equipes", "EquipesController:equipes", "equipes");
 $router->get("/painel/equipe/cadastro", "EquipesController:cadastro", "cadastro");
 $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave", "cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar", "editar");
+$router->post("/painel/equipe/editarSave", "EquipesController:editarSave", "editarSave");
 
 
 // ERROR

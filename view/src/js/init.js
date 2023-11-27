@@ -20,3 +20,10 @@ let table = new DataTable('#tabela_dinamica',  {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
     },
 });
+
+let table_concluida = new DataTable('#tabela_dinamica_concluida',  {
+    order: [[0, 'desc']],
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+    },
+});
