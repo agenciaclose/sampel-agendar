@@ -54,13 +54,29 @@ class HomeController extends Controller
     {
         $this->setParams($params);
 
+        $equipesall = new Visitas();
+        $equipesall = $equipesall->listaEquipesAll()->getResult();
+
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
 
         $inscritos = new Visitas();
-        $inscritos = $inscritos->listarInscricoes($params['visita_id'])->getResult();
+        $inscritos = $inscritos->listarInscricoesTotal($params['visita_id'])->getResult()[0];
 
-        $this->render('components/email/emailAlertCertificado.twig', ['visita' => $visita, 'usuario' => $inscritos]);
+        $comparecimentos = new Visitas();
+        $comparecimentos = $comparecimentos->listarComparecimentosTotal($params['visita_id'])->getResult()[0];
+
+        $perguntas = new Feedback();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new Feedback();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['visita_id'], $pergunta['pergunta'])->getResult();
+            $i++;
+        }
+
+        $this->render('components/email/emailEstatisticas.twig', ['visita' => $visita, 'inscritos' => $inscritos, 'comparecimentos' => $comparecimentos]);
     }
 
     //ENVIAR EMAIL PARA EQUIPE
@@ -112,6 +128,12 @@ class HomeController extends Controller
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
 
+        $inscritos = new Visitas();
+        $inscritos = $inscritos->listarInscricoesTotal($params['visita_id'])->getResult()[0];
+
+        $comparecimentos = new Visitas();
+        $comparecimentos = $comparecimentos->listarComparecimentosTotal($params['visita_id'])->getResult()[0];
+
         $perguntas = new Feedback();
         $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
 
@@ -126,6 +148,8 @@ class HomeController extends Controller
         $dataFormatada = $dataVisita->format('d/m/Y');
 
         $data = [
+            'inscritos' => $inscritos,
+            'comparecimentos' => $comparecimentos,
             'perguntas' => $perguntas,
             'visita' => $visita,
         ];

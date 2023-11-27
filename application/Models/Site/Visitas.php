@@ -89,6 +89,13 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listarComparecimentosTotal($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT count(id) as total FROM visitas_inscricoes WHERE id_visita = :id_visita AND presenca = 'Sim' ORDER BY `nome` ASC", "id_visita={$id_visita}");
+        return $read;
+    }
+
     public function listarInscricoesByGroup($id_visita): read
     {
         $read = new Read();

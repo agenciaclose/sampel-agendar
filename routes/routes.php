@@ -51,7 +51,6 @@ $router->get("/certificados/404", "CertificadosController:naoencontrado", "naoen
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/feedback/ver/{id}", "FeedbackController:feedbacksEstatisticas", "feedbacksEstatisticas");
 
-
 $router->namespace("Agencia\Close\Controllers\Site\Feedback");
 $router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:feedback", "feedback");
 $router->post("/visita/feedback/save", "FeedbackController:saveFeedback", "saveFeedback");
@@ -154,7 +153,6 @@ $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList", "f
 $router->namespace("Agencia\Close\Controllers\Painel\Orcamentos");
 $router->get("/painel/orcamentos/lista", "OrcamentosPainelController:lista", "lista");
 $router->get("/painel/orcamentos/editar/{id}", "OrcamentosPainelController:editar", "editar");
-
 
 // PAINEL EQUIPE
 $router->namespace("Agencia\Close\Controllers\Painel\Equipes");
