@@ -45,8 +45,6 @@ class HomeController extends Controller
             $this->render('pages/login/login.twig', []);
 
         }
-
-
     }
 
     //TESTES DOS TEMPLATES DE EMAILS

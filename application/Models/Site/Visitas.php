@@ -43,7 +43,7 @@ class Visitas extends Model
         return $read;
     }
 
-    public function listarVisitasUser($id_visita, $id_empresa): read
+    public function listarVisitasUser($id_visita = 0, $id_empresa = 0): read
     {
         $read = new Read();
         if(!empty($_GET['setor'])){
@@ -267,6 +267,21 @@ class Visitas extends Model
         $read = new Read();
         $cpf = $this->clearCPF($cpf);
         $read->FullRead("SELECT * FROM `visitas_inscricoes` WHERE `cpf` = :cpf", "cpf={$cpf}");
+        return $read;
+    }
+
+
+    public function getFeedbacksPerguntas(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM `feedback_perguntas`");
+        return $read;
+    }
+    
+    public function getFeedbacksList($pergunta): Read
+    {
+        $read = new Read();
+        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "pergunta={$pergunta}");
         return $read;
     }
 

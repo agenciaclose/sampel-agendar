@@ -17,6 +17,32 @@ class VisitasController extends Controller
         $this->render('pages/visitas/visitas.twig', ['menu' => 'visitas', 'visitas' => $visitas]);
     }
 
+    public function outras($params)
+    {
+        $this->setParams($params);
+
+        if(!empty($_SESSION['sampel_user_id'])){
+
+            $visitas = new Visitas();
+            $visitas = $visitas->listarVisitasOutros()->getResult();
+
+            $i = 0;
+            foreach($visitas as $visita){
+                $todasEquipes = new Visitas();
+                $todasEquipes = $todasEquipes->listaEquipesVisita($visita['visita_id'])->getResult();
+                $visitas[$i]['equipevisita'] = $todasEquipes;
+                $i++;
+            }
+
+            $this->render('pages/visitas/outras.twig', ['menu' => 'home',  'visitas' => $visitas]);
+
+        }else{
+
+            $this->render('pages/login/login.twig', []);
+
+        }
+    }
+
     public function agendamentos($params)
     {
         $this->setParams($params);
@@ -220,6 +246,23 @@ class VisitasController extends Controller
             $json = json_encode($result[0]);
             echo $json;
         }
+    }
+
+    public function relatorios($params)
+    {
+        $this->setParams($params);
+
+        $perguntas = new Visitas();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+            $feedbacks = new Visitas();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($pergunta['pergunta'])->getResult();
+            $i++;
+        }
+
+        $this->render('pages/visitas/relatorios.twig', ['menu' => 'visitas', 'perguntas' => $perguntas]);
     }
 
 }

@@ -1,0 +1,126 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Visitas Relatórios {% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.css" media="all"/>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/exporting.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/moment.min.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.js"></script>
+
+<div class="container py-5">
+	
+	<session class="relatorio">
+
+		<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
+			<div>
+				<h3>Relatórios Gerais sobre Visitas</h3>
+				<div>Números de visitas, quantidades inscrições, presenças, certificados e muito mais.</div>
+			</div>
+			<div></div>
+		</div>
+
+		<hr>
+
+		{# BLOCOS DE DADOS 1 #}
+		<div class="row">
+		  <div class="col-sm-6 col-lg-3 mb-4">
+		    <div class="card card-border-shadow-success">
+		      <div class="card-body">
+		        <div class="d-flex align-items-center mb-2 pb-1">
+		          <div class="avatar me-2">
+		            <span class="avatar-initial rounded bg-label-success"><i class="fa-solid fa-calendars"></i></span>
+		          </div>
+		          <h4 class="ms-1 mb-0">42</h4>
+		        </div>
+		        <p class="mb-1 fw-bold text-success">Total de Visitas</p>
+		        <p class="mb-0">
+		          <span class="fw-medium me-1">+18.2%</span>
+		          <small>com relação ao ano anterior</small>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-lg-3 mb-4">
+		    <div class="card card-border-shadow-info">
+		      <div class="card-body">
+		        <div class="d-flex align-items-center mb-2 pb-1">
+		          <div class="avatar me-2">
+		            <span class="avatar-initial rounded bg-label-info"><i class="fa-solid fa-user-plus"></i></span>
+		          </div>
+		          <h4 class="ms-1 mb-0">1108</h4>
+		        </div>
+		        <p class="mb-1 fw-bold text-info">Total de Inscritos</p>
+		        <p class="mb-0">
+		          <span class="fw-medium me-1">84.7%</span>
+		          <small>da qtd. total estimada</small>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-lg-3 mb-4">
+		    <div class="card card-border-shadow-warning">
+		      <div class="card-body">
+		        <div class="d-flex align-items-center mb-2 pb-1">
+		          <div class="avatar me-2">
+		            <span class="avatar-initial rounded bg-label-warning"><i class="fa-solid fa-user-check"></i></span>
+		          </div>
+		          <h4 class="ms-1 mb-0">895</h4>
+		        </div>
+		        <p class="mb-1 fw-bold text-warning">Total de Confirmados</p>
+		        <p class="mb-0">
+		          <span class="fw-medium me-1">89.3%</span>
+		          <small>da qtd. de inscritos</small>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-lg-3 mb-4">
+		    <div class="card card-border-shadow-danger">
+		      <div class="card-body">
+		        <div class="d-flex align-items-center mb-2 pb-1">
+		          <div class="avatar me-2">
+		            <span class="avatar-initial rounded bg-label-danger"><i class="fa-solid fa-file-certificate"></i></span>
+		          </div>
+		          <h4 class="ms-1 mb-0">712</h4>
+		        </div>
+		        <p class="mb-1 fw-bold text-danger">Total de Certificados</p>
+		        <p class="mb-0">
+		          <span class="fw-medium me-1">75.5%</span>
+		          <small>da qtd. total de confirmados</small>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		{#  #}
+
+		{# BLOCOS DE DADOS 2 #}
+		 <div class="row">
+            {% for pergunta in perguntas %}
+                <div class="col-md-6 mb-4">
+                    <div class="card card-dark card-company-table">
+                        <div class="card-body">
+
+                            {% if pergunta.tipo == 'Estrela' %}
+                                {{ include('pages/feedback/painel-estrela.twig') }}
+                            {% endif %}
+
+                            {# {% if pergunta.tipo == 'Texto' %}
+                                {{ include('pages/feedback/painel-texto.twig') }}
+                            {% endif %} #}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+		{#  #}
+
+	</session>
+
+</div>
+{% endblock %}

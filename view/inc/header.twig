@@ -14,18 +14,35 @@
                     <nav class="primary-menu flex-fill">
                         <ul id="main-menu" class="wbc_menu nav justify-content-center">
                             <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
-                                <a href="{{ DOMAIN }}" class="ps-0"><i class="fas fa-house-chimney"></i> Home</a>
+                                <a href="{{ DOMAIN }}" class="ps-0"><i class="fa-thin fa-house-chimney"></i> Home</a>
                             </li>
                             {% if _session.sampel_user_id %}
-                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
-                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-solid fa-calendar-check"></i> Minhas Visitas</a>
-                            </li>
-                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
-                                <a href="{{ DOMAIN }}/agendamentos/concluidas"><i class="fa-solid fa-list-timeline"></i> Visitas Concluídas</a>
-                            </li>
+                                <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                    <a href="javascript:void(0)"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
+                                    <ul>
+                                        <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
+                                    </ul>
+                                </li>
+                                {# <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                    <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-stars"></i> Eventos</a>
+                                    <ul>
+                                        <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                    <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
+                                    <ul>
+                                        <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
+                                    </ul>
+                                </li> #}
                             {% endif %}
                             <li class="menu-item">
-                                <a href="{{ DOMAIN }}/certificados/visita" class="ps-0"><i class="fa-solid fa-file-pdf"></i> Certificados</a>
+                                <a href="{{ DOMAIN }}/certificados/visita"><i class="fa-thin fa-file-certificate"></i> Certificados</a>
                             </li>
                         </ul>
                     </nav>
@@ -38,8 +55,7 @@
                                     <a class="nav-link dropdown-toggle dropdown-user-link d-flex align-items-center" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="d-flex justify-content-end align-items-center">
                                             <div class="text-end me-2 d-none d-sm-block">
-                                                <div class="lh-sm">{{ _session.sampel_user_nome }}</div>
-                                                <div class="lh-sm text-white-50"><small>{{ _session.sampel_user_email }}</small></div>
+                                                <div class="lh-sm">{{ _session.sampel_user_nome | AbreviarNome }}</div>
                                             </div>
                                             <i class="fa-thin fa-circle-user fa-3x"></i>
                                         </div>
