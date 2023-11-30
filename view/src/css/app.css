@@ -4096,11 +4096,12 @@ footer .special-heading-2:before {
 
 #upper-side {
   padding: 2em;
-  background-color: #8BC34A;
+  background-color: #246CB1;
   display: block;
   color: #fff;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+  border: 1px solid #ffff;
 }
 
 #checkmark {
