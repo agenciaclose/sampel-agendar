@@ -144,11 +144,18 @@ $(".cpf_autocomplete").blur(function() {
             $("#empresa").val(dados.empresa);
             $("#nome").val(dados.nome);
             $("#email").val(dados.email);
-            $("#setor").val(dados.setor);
             $("#cidade").val(dados.cidade);
             $("#estado").val(dados.estado);
             $("#cep").val(dados.cep);
             $("#telefone").val(dados.telefone);
+            if (dados.setor !== "Auto Center" && dados.setor !== "Autopeças" && dados.setor !== "Balconista" && dados.setor !== "Distribuidora" && dados.setor !== "Estoquista" && dados.setor !== "Frotista" && dados.setor !== "Mecânico / Reparador" && dados.setor !== "Vendas / Telemarketing" && dados.setor !== "Outros") {
+                $("#setor").val('Outros');               
+                $(".outros").show();
+                $(".outros input").val(dados.setor);
+            }else{              
+                $("#setor").val(dados.setor);               
+            }
+
         }
     });
 
