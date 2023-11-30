@@ -23,6 +23,11 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     }
 });
 
+$('.submenu').click(function() {
+    $(this).next('ul.sub-menu').stop(true, true).slideToggle(400);
+    return false;
+  });
+
 // jQuery Mask 
 var maskBehavior = function (val) {
     return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';

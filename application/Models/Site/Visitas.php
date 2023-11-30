@@ -171,7 +171,12 @@ class Visitas extends Model
         if($params['campo'] == 'cpf'){
             $params['valor'] = $this->clearCPF($params['valor']);
         }
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' ORDER BY id DESC LIMIT 1");
+        if($params['tipo_visita'] != 'visita'){
+            $porEvento = "AND id_visita = '".$params['id_visita']."'";
+        }else{
+            $porEvento = "";
+        }
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
         return $read;
     }
 

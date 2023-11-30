@@ -79,9 +79,6 @@
                                 </li>
 
                             {% else %}
-                                <li class="menu-item d-block-inline d-sm-none">
-                                    <a href="{{ DOMAIN }}/certificados/visita" class="ps-0"><i class="fa-solid fa-file-pdf"></i> Certificados</a>
-                                </li>
                                 <li>
                                     <a href="{{ DOMAIN }}/login"><i class="fa-solid fa-unlock-alt me-2"></i>Entrar</a>
                                 </li>
@@ -95,39 +92,42 @@
 
                     <div class="modal" id="navbarContent" tabindex="-1">
                         <div class="modal-dialog">
-                            <div class="modal-content bg-black">
-                                <div class="modal-body">
-                                    <ul id="main-menu" class="wbc_menu nav justify-content-start flex-column">
-                                        <li class="menu-item py-2 border-bottom {{ menu == 'home' ? 'current-menu-item' }}">
-                                            <a href="{{ DOMAIN }}"><i class="fa-thin fa-house-chimney"></i> Home</a>
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+                                    <ul id="main-menu" class="wbc_menu mobile nav justify-content-start flex-column py-2">
+                                        <li class="menu-item border-bottom {{ menu == 'home' ? 'current-menu-item' }}">
+                                            <a href="{{ DOMAIN }}" class="py-2"><i class="fa-light fa-house-chimney"></i> Home</a>
                                         </li>
                                         {% if _session.sampel_user_id %}
-                                            <li class="menu-item py-2 border-bottom {{ menu == 'areas' ? 'current-menu-item' }}">
-                                                <a href="javascript:void(0)"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
-                                                <ul>
+                                            <li class="menu-item border-bottom {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="javascript:void(0)" class="submenu py-2"><i class="fa-sharp fa-light fa-calendars"></i> Visitas <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
+                                                <ul class="sub-menu">
                                                     <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
                                                     <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
                                                     <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
                                                     <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
                                                 </ul>
                                             </li>
-                                            {# <li class="menu-item py-2 {{ menu == 'areas' ? 'current-menu-item' }}">
-                                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-stars"></i> Eventos</a>
+                                            {# <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="{{ DOMAIN }}/agendamentos" class="py-2"><i class="fa-light fa-stars"></i> Eventos <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
                                                 <ul>
                                                     <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
                                                     <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="menu-item py-2 {{ menu == 'areas' ? 'current-menu-item' }}">
-                                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
+                                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="{{ DOMAIN }}/agendamentos" class="py-2"><i class="fa-light fa-microphone-lines"></i> Palestras <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
                                                 <ul>
                                                     <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
                                                     <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
                                                 </ul>
                                             </li> #}
                                         {% endif %}
-                                        <li class="menu-item py-2 border-bottom">
-                                            <a href="{{ DOMAIN }}/certificados/visita"><i class="fa-thin fa-file-certificate"></i> Certificados</a>
+                                        <li class="menu-item border-bottom">
+                                            <a href="{{ DOMAIN }}/certificados/visita" class="py-2"><i class="fa-light fa-file-certificate"></i> Certificados</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a href="{{ DOMAIN }}/certificados/visita" class="py-2"><i class="fa-light fa-file-certificate"></i> Suas inscrições</a>
                                         </li>
                                     </ul>
                                 </div>

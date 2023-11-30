@@ -1268,6 +1268,10 @@ img.alignright{
   color: inherit !important;
 }
 
+.mobile li a {
+  color: #000000 !important;
+}
+
 .site-logo-title .wbc-alt-logo{
   opacity: 0;
   filter: alpha(opacity=0);
@@ -1563,7 +1567,7 @@ img.alignright{
   padding:0;
 }
 
-.wbc_menu ul{
+.wbc_menu ul:not(.show) {
   display: none;
 }
 
@@ -1604,7 +1608,11 @@ img.alignright{
   left:0;
   width: 100%;
 }
-
+.sub-menu li {
+  padding-left: 20px;
+  background-color: #ebebeb;
+  border-bottom: 1px solid #d5d5d5;
+}
 .bottom-fixed-menu .wbc_menu li ul,
 .bottom-fixed-menu .wbc_menu >li.mega-menu >ul{
   top:auto;
