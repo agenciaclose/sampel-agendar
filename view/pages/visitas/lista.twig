@@ -19,7 +19,7 @@
 					</span>
 					<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
 				</div>
-				<div class="limit-3 my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
+				<div class="my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
 				{% set agora = "now"|date("Y-m-d") %}
 				{% set datavisita = visita.data_visita|date("Y-m-d") %}
 

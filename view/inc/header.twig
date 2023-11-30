@@ -48,7 +48,13 @@
                     </nav>
 
                     <nav class="">
+                        
                         <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center m-0">
+                            <li class="d-inline-block d-sm-none">
+                                <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#navbarContent" aria-controls="navbarContent">
+                                    <i class="fa-solid fa-bars fa-lg"></i>
+                                </button>
+                            </li>
                             {% if _session.sampel_user_id %}
 
                                 <li class="menu-item">
@@ -84,7 +90,50 @@
                                 </li>
                             {% endif %}
                         </ul>
+
                     </nav>
+
+                    <div class="modal" id="navbarContent" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-black">
+                                <div class="modal-body">
+                                    <ul id="main-menu" class="wbc_menu nav justify-content-start flex-column">
+                                        <li class="menu-item py-2 border-bottom {{ menu == 'home' ? 'current-menu-item' }}">
+                                            <a href="{{ DOMAIN }}"><i class="fa-thin fa-house-chimney"></i> Home</a>
+                                        </li>
+                                        {% if _session.sampel_user_id %}
+                                            <li class="menu-item py-2 border-bottom {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="javascript:void(0)"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
+                                                <ul>
+                                                    <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
+                                                    <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
+                                                    <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
+                                                    <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
+                                                </ul>
+                                            </li>
+                                            {# <li class="menu-item py-2 {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-stars"></i> Eventos</a>
+                                                <ul>
+                                                    <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
+                                                    <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="menu-item py-2 {{ menu == 'areas' ? 'current-menu-item' }}">
+                                                <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
+                                                <ul>
+                                                    <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
+                                                    <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
+                                                </ul>
+                                            </li> #}
+                                        {% endif %}
+                                        <li class="menu-item py-2 border-bottom">
+                                            <a href="{{ DOMAIN }}/certificados/visita"><i class="fa-thin fa-file-certificate"></i> Certificados</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 

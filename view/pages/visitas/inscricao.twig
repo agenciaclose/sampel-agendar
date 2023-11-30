@@ -239,13 +239,13 @@
 				{% endif %}
 
 				{% if _get.action == 'success' %}
-					<div class="sucess">
+					<div class="success" id="inscricao_sucesso">
 						<!-- partial:index.partial.html -->
 						<div id='card' class="animated fadeIn text-center">
 							<div id='upper-side'>
-								<i class="fa-sharp fa-solid fa-shield-check fa-7x mb-3"></i>
-								<h3 id='status'><b>Inscrito com sucesso</b></h3>
-								<span class="d-block mt-2"><b>CÓDIGO: </b>{{ inscricao.codigo }}</span>
+								<img src="{{ DOMAIN }}/view/src/media/check.png"><br><br>
+								<h3 id='status' class="text-dark"><b>Inscrito com sucesso</b></h3>
+								<span class="d-block mt-2 text-dark"><b>CÓDIGO: </b>{{ inscricao.codigo }}</span>
 							</div>
 							<div id='lower-side'>
 								<p id='message'>
@@ -255,13 +255,14 @@
 									<br><br>
 									Esperamos ansiosamente sua visita!
 									<br><br>
-									<a href="https://sampel.com.br">www.sampel.com.br</a>
+									<span class="fw-bold">Salve sua credencial apresente no dia do evento</span>
 								</p>
-								<div><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-warning rounded-pill mt-3"><i class="fa-solid fa-rotate-left"></i> FAZER UMA NOVA INSCRIÇÃO</a></div>
+								<div class="text-center"><a href="javascript:void(0)" id="salvar_inscricao" class="btn btn-sm btn-dark rounded-0">SALVAR INSCRIÇÃO</a></div>
 							</div>
 						</div>
 						<!-- partial -->
 					</div>
+					<div class="w-100 text-center"><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-warning rounded-pill mt-3"><i class="fa-solid fa-rotate-left"></i> FAZER UMA NOVA INSCRIÇÃO</a></div>
 				{% endif %}
 
 			</div>
@@ -272,6 +273,7 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="{{ PATH }}/view/src/js/inscricao.js"></script>
 {% if visita.tipo == 'visita' %}
 <script src="{{ PATH }}/view/src/js/inscricao_check.js"></script>
