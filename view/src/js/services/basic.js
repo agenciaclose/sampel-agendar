@@ -147,7 +147,12 @@ $("#minhas_inscricoes").submit(function (c) {
         type: "POST", async: true, data: form.serialize(),
         url: DOMAIN + '/minhas-inscricoes/checkInscricoes',
         success: function (data) {
-            window.location.href = DOMAIN + '/minhas-inscricoes/lista';
+            if(data == '1'){
+                window.location.href = DOMAIN + '/minhas-inscricoes/lista';
+            }else{
+                window.location.href = DOMAIN + '/minhas-inscricoes';
+            }
+            
         }
     });
 });

@@ -20,8 +20,9 @@
 			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 				<thead>
 					<tr>
-						<th width="175" class="no-mobile">Data da Visita</th>
+						<th width="175" class="no-mobile">Data</th>
 						<th class="no-mobile flex-grow-1">Visita</th>
+						<th class="no-mobile flex-grow-1">Tipo</th>
 						<th width="175" class="text-end no-mobile">Inscrição</th>
 						<th width="175" class="text-end no-mobile">Certificado</th>
 					</tr>
@@ -34,14 +35,19 @@
 							{{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }}
 						</td>
 
-						<td>{{ visita.title }}</td>
+						<td class="fw-bold">{{ visita.title }}</td>
+						<td class="fw-bold text-capitalize">{{ visita.tipo }}</td>
 
 						<td class="text-end no-mobile" width="175">
 							<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold" target="_blank">VER INSCRIÇÃO</a>
 						</td>
-
+						
 						<td class="text-end no-mobile" width="175">
-							<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank">MEU CERTIFICADO</a>
+							{% if presenca == 'Sim' %}
+								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank">MEU CERTIFICADO</a>
+							{% else %}
+								Certificado Indisponível
+							{% endif %}
 						</td>
 
 					</tr>

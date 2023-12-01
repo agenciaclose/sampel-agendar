@@ -23,8 +23,12 @@ class MinhasInscricoesController extends Controller
 
             $expire = time() + 3600 * 24 * 365;
             setcookie("sampel_user_cpf", $checklist->getResult()[0]['cpf'], $expire);
-            $this->router->redirect("/minhas-inscricoes/lista");
+            echo '1';
 
+        }else{
+            unset($_COOKIE['sampel_user_cpf']);
+            setcookie('sampel_user_cpf', '', -1, '/'); 
+            echo '0';
         }
     }
 
@@ -38,6 +42,8 @@ class MinhasInscricoesController extends Controller
             $this->render('pages/minhas-inscricoes/minhasInscricoes.twig', ['active' => 'minhas-inscricoes', 'lista' => $lista]);
 
         }else{
+            unset($_COOKIE['sampel_user_cpf']);
+            setcookie('sampel_user_cpf', '', -1, '/'); 
             $this->router->redirect("/minhas-inscricoes");
         }
 
