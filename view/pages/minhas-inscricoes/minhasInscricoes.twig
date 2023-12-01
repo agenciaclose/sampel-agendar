@@ -35,18 +35,34 @@
 							{{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }}
 						</td>
 
-						<td class="fw-bold">{{ visita.title }}</td>
-						<td class="fw-bold text-capitalize">{{ visita.tipo }}</td>
+						<td class="fw-bold">
+							{{ visita.title }}
+							<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2 d-md-none d-sm-block d-block">
+								<div class="col-6">
+									<div class="mb-2">{{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }}</div>
+									<div class="text-capitalize">Tipo: {{ visita.tipo }}</div>
+								</div>
+								<div class="col-6">
+									<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-check-to-slot"></i> VER INSCRIÇÃO</a>
+									{% if presenca == 'Sim' %}
+										<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold  d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
+									{% else %}
+										<button type="button" class="btn btn-danger btn-sm fw-bold d-block w-100"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
+									{% endif %}
+								</div>
+							</div>
+						</td>
+						<td class="fw-bold text-capitalize no-mobile">{{ visita.tipo }}</td>
 
 						<td class="text-end no-mobile" width="175">
-							<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold" target="_blank">VER INSCRIÇÃO</a>
+							<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold" target="_blank"><i class="fa-solid fa-check-to-slot"></i> VER INSCRIÇÃO</a>
 						</td>
 						
 						<td class="text-end no-mobile" width="175">
 							{% if presenca == 'Sim' %}
-								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank">MEU CERTIFICADO</a>
+								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
 							{% else %}
-								<button type="button" class="btn btn-danger btn-sm fw-bold">INDISPONÍVEL</button>
+								<button type="button" class="btn btn-danger btn-sm fw-bold"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
 							{% endif %}
 						</td>
 
