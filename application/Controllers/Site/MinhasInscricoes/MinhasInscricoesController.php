@@ -1,0 +1,46 @@
+<?php
+
+namespace Agencia\Close\Controllers\Site\MinhasInscricoes;
+
+use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Site\MinhasInscricoes;
+
+class MinhasInscricoesController extends Controller
+{
+    public function check()
+    {
+        $this->render('pages/minhas-inscricoes/check.twig', ['active' => 'minhas-inscricoes']);
+    }
+
+    public function checkInscricoes($params)
+    {
+        $this->setParams($params);
+
+        $checklist = new MinhasInscricoes();
+        $checklist = $checklist->checkInscricoes($params['cpf']);
+
+        if($checklist->getResult()){
+
+            $expire = time() + 3600 * 24 * 365;
+            setcookie("sampel_user_cpf", $checklist->getResult()[0]['cpf'], $expire);
+            $this->router->redirect("/minhas-inscricoes/lista");
+
+        }
+    }
+
+    public function lista($params)
+    {
+        $this->setParams($params);
+        if($_COOKIE['sampel_user_cpf'] != ''){
+
+            $getlist = new MinhasInscricoes();
+            $lista = $getlist->getLista($_COOKIE['sampel_user_cpf'])->getResult();
+            $this->render('pages/minhas-inscricoes/minhasInscricoes.twig', ['active' => 'minhas-inscricoes', 'lista' => $lista]);
+
+        }else{
+            $this->router->redirect("/minhas-inscricoes");
+        }
+
+    }
+
+}

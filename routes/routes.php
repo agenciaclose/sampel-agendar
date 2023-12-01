@@ -46,6 +46,12 @@ $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave");
 $router->post("/visita/sortear", "VisitasController:sortear");
 $router->get("/visita/sorteados/{id}", "VisitasController:sorteados");
 
+// MINHAS INSCRICOES
+$router->namespace("Agencia\Close\Controllers\Site\MinhasInscricoes");
+$router->get("/minhas-inscricoes", "MinhasInscricoesController:check");
+$router->get("/minhas-inscricoes/lista", "MinhasInscricoesController:lista");
+$router->post("/minhas-inscricoes/checkInscricoes", "MinhasInscricoesController:checkInscricoes");
+
 // CERTIFICADOS
 $router->namespace("Agencia\Close\Controllers\Site\Certificados");
 $router->get("/certificados/visita", "CertificadosController:visita");

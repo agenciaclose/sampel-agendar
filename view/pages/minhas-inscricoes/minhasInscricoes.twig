@@ -1,0 +1,57 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Minhas Inscrições {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="text-center">
+			<h3><b>MINHAS INSCRIÇÕES</b></h3>
+		</div>
+
+		<hr class="w-25 m-auto mb-3">
+
+		<div class="text-center">Listamos abaixo as suas inscrições com links para seus Certificados.</div>
+
+		<div class="table-responsive mt-5">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+				<thead>
+					<tr>
+						<th width="175" class="no-mobile">Data da Visita</th>
+						<th class="no-mobile flex-grow-1">Visita</th>
+						<th width="175" class="text-end no-mobile">Inscrição</th>
+						<th width="175" class="text-end no-mobile">Certificado</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for visita in lista %}
+					<tr>
+
+						<td class="no-mobile">
+							{{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }}
+						</td>
+
+						<td>{{ visita.title }}</td>
+
+						<td class="text-end no-mobile" width="175">
+							<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold" target="_blank">VER INSCRIÇÃO</a>
+						</td>
+
+						<td class="text-end no-mobile" width="175">
+							<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank">MEU CERTIFICADO</a>
+						</td>
+
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}
