@@ -46,7 +46,7 @@
 							{% if presenca == 'Sim' %}
 								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank">MEU CERTIFICADO</a>
 							{% else %}
-								Certificado Indisponível
+								<button type="button" class="btn btn-danger btn-sm fw-bold">INDISPONÍVEL</button>
 							{% endif %}
 						</td>
 
