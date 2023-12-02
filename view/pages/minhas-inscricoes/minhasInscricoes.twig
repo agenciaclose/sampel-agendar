@@ -44,7 +44,7 @@
 								</div>
 								<div class="col-6">
 									<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-check-to-slot"></i> VER INSCRIÇÃO</a>
-									{% if presenca == 'Sim' %}
+									{% if visita.presenca == 'Sim' %}
 										<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold  d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
 									{% else %}
 										<button type="button" class="btn btn-danger btn-sm fw-bold d-block w-100"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
@@ -59,7 +59,7 @@
 						</td>
 						
 						<td class="text-end no-mobile" width="175">
-							{% if presenca == 'Sim' %}
+							{% if visita.presenca == 'Sim' %}
 								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
 							{% else %}
 								<button type="button" class="btn btn-danger btn-sm fw-bold"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
