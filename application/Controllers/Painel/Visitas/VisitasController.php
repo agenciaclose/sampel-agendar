@@ -3,6 +3,7 @@
 namespace Agencia\Close\Controllers\Painel\Visitas;
 
 use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Models\Painel\InscricaoPainel;
 
@@ -86,6 +87,20 @@ class VisitasController extends Controller
         $inscricao = '';
         
         $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
+    }
+
+    public function editarInscricao($params)
+    {
+        $this->setParams($params);
+
+        $inscricao = new Visitas();
+        $inscricao = $inscricao->getInscricaoByCode($params['codigo'])->getResult()[0];
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($inscricao['id_visita'])->getResult()[0];
+
+        $this->render('painel/pages/visitas/editarInscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao]);
+
     }
 
 }

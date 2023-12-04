@@ -10,6 +10,7 @@ use Agencia\Close\Adapters\Twig\FilterHash;
 use Agencia\Close\Adapters\Twig\PriceCheck;
 use Agencia\Close\Adapters\Twig\UserType;
 use Agencia\Close\Adapters\Twig\UserStatus;
+use Agencia\Close\Adapters\Twig\UserCPF;
 use Agencia\Close\Helpers\String\Strings;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -32,6 +33,7 @@ class TemplateAdapter
         $this->twig->addExtension(new PriceCheck());
         $this->twig->addExtension(new UserType());
         $this->twig->addExtension(new UserStatus());
+        $this->twig->addExtension(new UserCPF());
         $this->twig->addExtension(new AbreviarNome());
         $this->globals();
 

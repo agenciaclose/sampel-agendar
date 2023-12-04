@@ -112,6 +112,7 @@ $router->get("/painel/visita/ver/{id}", "VisitasController:view");
 $router->get("/painel/visita/status/aprovar/{id}", "VisitasController:aprovar");
 $router->get("/painel/visita/status/reprovar/{id}", "VisitasController:reprovar");
 $router->get("/painel/visita/excluir/{id}", "VisitasController:excluir");
+$router->get("/painel/inscricao/edit/{codigo}", "VisitasController:editarInscricao");
 
 // PAINEL VISITAS CRIAR
 $router->get("/painel/visitas/add", "VisitasController:criar");
