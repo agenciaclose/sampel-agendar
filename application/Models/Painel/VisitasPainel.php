@@ -79,5 +79,26 @@ class VisitasPainel extends Model
         $read->FullRead("DELETE FROM `visitas` WHERE `id` = :id_visita", "id_visita={$id_visita}");
         return $read;
     }
+
+    public function getInscricaoSave($params)
+    {
+        $update = new Update();
+        unset($params['setor_outros']);
+        $params['cpf'] = $this->clearCPF($params['cpf']);
+        $update->ExeUpdate('visitas_inscricoes', $params, ' WHERE codigo = :codigo', "codigo={$params['codigo']}");
+        return $update;
+    }
+
+    function clearCPF($palavra){
+        $palavra = trim(preg_replace("/[\s]+/", " ", $palavra));
+        trim($palavra);
+        $palavra = str_replace("(","",$palavra);
+        $palavra = str_replace(")","",$palavra);
+        $palavra = str_replace("+","",$palavra);
+        $palavra = str_replace("-","",$palavra);
+        $palavra = str_replace(".","",$palavra);
+        $palavra = str_replace(" ","",$palavra);
+        return($palavra);
+    }
    
 }

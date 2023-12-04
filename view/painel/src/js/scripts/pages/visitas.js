@@ -77,7 +77,6 @@ $(document).ready(function () {
     });
 
     $("#editar_visita").submit(function (c) {
-
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
@@ -104,7 +103,6 @@ $(document).ready(function () {
                 }
             }
         });
-
     });
 
     $('#qtd_visitas').on('keyup', function (e) {
@@ -187,3 +185,67 @@ $('.cpf').mask('000.000.000-00', {reverse: true, clearIfNotMatch: true});
 $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 
 $('.cpf_number').mask('00000000000', {reverse: true, clearIfNotMatch: true});
+
+$(document).ready(function () {
+    $("#form_inscricao_editar").submit(function (c) {
+        $('.form-load').addClass('show');
+        $('button[type="submit"]').prop("disabled", true);
+
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+        var form = $(this);
+
+        $.ajax({
+            type: "POST", async: true, data: form.serialize(),
+            url: DOMAIN + '/painel/inscricao/edit/save',
+            success: function (data) {
+
+                if (data == "1") {
+                    $('.form-load').removeClass('show');
+                    swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                } else {
+
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
+
+                }
+            }
+        });
+    });
+});
+
+function limpa_formulário_cep() {
+    $("#cidade").val('');
+    $("#estado").val('');
+    $('.endereco').html('');
+}
+
+$("#cep").blur(function() {
+    var cep = $(this).val().replace(/\D/g, '');
+    if (cep != '') {
+        var validacep = /^[0-9]{8}$/;
+        if(validacep.test(cep)) {
+            $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                if (!("erro" in dados)) {
+                    $("#cidade").val(dados.localidade);
+                    $("#estado").val(dados.uf);
+                    $('.endereco').html(dados.localidade+', '+dados.uf);
+                }
+                else {
+                    limpa_formulário_cep();
+                    alert("CEP não encontrado.");
+                }
+            });
+        }
+        else {
+            limpa_formulário_cep();
+            alert("Formato de CEP inválido.");
+        }
+    }
+    else {
+        limpa_formulário_cep();
+    }
+});

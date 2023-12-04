@@ -103,4 +103,18 @@ class VisitasController extends Controller
 
     }
 
+    public function editarInscricaoSave($params)
+    {
+        $this->setParams($params);
+
+        $save = new VisitasPainel();
+        $save = $save->getInscricaoSave($params);
+        if($save){
+            echo '1';
+        }else{
+            echo '0';
+        }
+
+    }
+
 }

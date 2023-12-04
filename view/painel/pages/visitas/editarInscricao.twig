@@ -23,7 +23,7 @@
 
 								<div class="card-body">
 									
-                                    <form action="javascript:void(0)" id="form_inscricao" method="POST">
+                                    <form action="javascript:void(0)" id="form_inscricao_editar" method="POST">
 							
                                         <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 
@@ -74,9 +74,18 @@
                                                 <div class="mb-1">
                                                     <label for="cep" class="form-label">Seu CEP *</label>
                                                     <input type="text" name="cep" class="form-control rounded-pill cep" id="cep" value="{{ inscricao.cep }}" required="required">
-                                                    <input type="hidden" name="cidade" id="cidade" value="{{ inscricao.cidade }}">
-                                                    <input type="hidden" name="estado" id="estado" value="{{ inscricao.estado }}">
-                                                    <div class="endereco ms-3"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="mb-1">
+                                                    <label for="cep" class="form-label">Cidade *</label>
+                                                    <input type="text" name="cidade" class="form-control rounded-pill" id="cidade" value="{{ inscricao.cidade }}" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-12">
+                                                <div class="mb-1">
+                                                    <label for="cep" class="form-label">Estado *</label>
+                                                    <input type="text" name="estado" class="form-control rounded-pill" id="estado" value="{{ inscricao.estado }}" required="required">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">

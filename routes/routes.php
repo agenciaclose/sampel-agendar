@@ -113,6 +113,7 @@ $router->get("/painel/visita/status/aprovar/{id}", "VisitasController:aprovar");
 $router->get("/painel/visita/status/reprovar/{id}", "VisitasController:reprovar");
 $router->get("/painel/visita/excluir/{id}", "VisitasController:excluir");
 $router->get("/painel/inscricao/edit/{codigo}", "VisitasController:editarInscricao");
+$router->post("/painel/inscricao/edit/save", "VisitasController:editarInscricaoSave");
 
 // PAINEL VISITAS CRIAR
 $router->get("/painel/visitas/add", "VisitasController:criar");
@@ -173,7 +174,6 @@ $router->get("/painel/equipe/cadastro", "EquipesController:cadastro");
 $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar");
 $router->post("/painel/equipe/editarSave", "EquipesController:editarSave");
-
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
