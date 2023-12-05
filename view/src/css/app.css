@@ -4103,7 +4103,6 @@ footer .special-heading-2:before {
 }
 
 #upper-side {
-  padding: 2em;
   background-color: #246CB1;
   display: block;
   color: #fff;
@@ -4112,6 +4111,14 @@ footer .special-heading-2:before {
   border: 1px solid #ffff;
 }
 
+#upper-side img {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+#image_qrcode_rend img {
+  width: 146px;
+  height: 190px;
+}
 #checkmark {
   font-weight: lighter;
   fill: #fff;
@@ -4136,9 +4143,23 @@ footer .special-heading-2:before {
 }
 
 #message {
-  margin-top: -.5em;
-  color: #4c4c4c;
-  letter-spacing: 1px;
+  color: #333;
+  font-size: 13px;
+}
+
+.separador {
+  border-bottom: 2px dashed #ddd;
+}
+
+.separador span {
+  position: absolute;
+  padding: 2px 20px;
+  left: 35%;
+  top: -10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  line-height: normal;
 }
 
 #contBtn {

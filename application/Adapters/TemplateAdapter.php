@@ -2,6 +2,7 @@
 
 namespace Agencia\Close\Adapters;
 
+use Agencia\Close\Adapters\Twig\DataGoogle;
 use Agencia\Close\Adapters\Twig\AbreviarNome;
 use Agencia\Close\Adapters\Twig\PayStatus;
 use Agencia\Close\Adapters\Twig\DayTranslate;
@@ -35,6 +36,7 @@ class TemplateAdapter
         $this->twig->addExtension(new UserStatus());
         $this->twig->addExtension(new UserCPF());
         $this->twig->addExtension(new AbreviarNome());
+        $this->twig->addExtension(new DataGoogle());
         $this->globals();
 
         return $this->twig;

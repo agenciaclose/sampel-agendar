@@ -180,3 +180,47 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    // Seleciona o SVG dentro da div com ID 'image_qrcode'
+    var svg = $('#image_qrcode svg').get(0);
+
+    if (svg) {
+        // Serializa o SVG
+        var serializer = new XMLSerializer();
+        var svgStr = serializer.serializeToString(svg);
+
+        // Cria um canvas temporário
+        var canvas = document.createElement('canvas');
+        canvas.width = 146;
+        canvas.height = 190;
+        var ctx = canvas.getContext('2d');
+
+        // Cria um blob com o SVG
+        var svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+
+        // Cria uma URL para o blob
+        var url = URL.createObjectURL(svgBlob);
+
+        // Carrega o SVG no canvas
+        var img = new Image();
+        img.onload = function() {
+            // Desenha o SVG no canvas
+            ctx.drawImage(img, 0, 0, 146, 190);
+
+            // Converte o canvas em PNG
+            var pngImg = new Image();
+            pngImg.src = canvas.toDataURL('image/png');
+
+            // Adiciona a imagem PNG ao body
+            $('#image_qrcode_rend').append(pngImg);
+
+            // Libera a URL do blob
+            URL.revokeObjectURL(url);
+        };
+
+        img.src = url;
+    } else {
+        console.log('SVG não encontrado dentro da div com ID image_qrcode');
+    }
+});

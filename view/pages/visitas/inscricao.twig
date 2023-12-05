@@ -9,265 +9,317 @@
 	<session>
 
 		{% if _get.action == '' %}
-		<div class="mb-4">
-			<h3>Faça sua inscrição para essa visita</h3>
-			<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
-		</div>
 
-		<hr>
-		{% endif %}
+			<div class="mb-4">
+				<h3>Faça sua inscrição para essa visita</h3>
+				<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
+			</div>
 
-		<div class="row">
+			<hr>
+			
+			<div class="row">
 
-			<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5">
+				<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5">
 
-				{% if _get.action != '' %}
-				<div class="mb-4">
-					<h3>Inscrição realizada com sucesso</h3>
-					<div>Imprima seu crachá ao lado e apresente no dia do evento.</div>
-				</div>
+					{% if _get.action != '' %}
+					<div class="mb-4">
+						<h3>Inscrição realizada com sucesso</h3>
+						<div>Imprima seu crachá ao lado e apresente no dia do evento.</div>
+					</div>
 
-				<hr>
-				{% endif %}
+					<hr>
+					{% endif %}
 
-				<h4 class="text-warning"><b>{{ visita.title }}</b></h4>
-				<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
-				<div class="my-4">
-					<b>{{ visita.nome }}</b> - <small class="text-white-50">{{ visita.empresa_fantasia }}</small>
-					<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
-				</div>
-				{% set date = visita.data_visita|date("d") ~ ' de ' ~ visita.data_visita|date("F")|monthTranslate() ~ ' de ' ~ visita.data_visita|date("Y") %}
-				<div><b>Data da visita:</b>  {{ date }} as {{ visita.horario_visita }}</div>
-				<div class="mt-4">
-					<div><b>Informações:</b></div>
-					<div class="text-white-50">{{ visita.descricao|raw }}</div>
-				</div>
+					<h4 class="text-warning"><b>{{ visita.title }}</b></h4>
+					<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
+					<div class="my-4">
+						<b>{{ visita.nome }}</b> - <small class="text-white-50">{{ visita.empresa_fantasia }}</small>
+						<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
+					</div>
+					{% set date = visita.data_visita|date("d") ~ ' de ' ~ visita.data_visita|date("F")|monthTranslate() ~ ' de ' ~ visita.data_visita|date("Y") %}
+					<div><b>Data da visita:</b>  {{ date }} as {{ visita.horario_visita }}</div>
+					<div class="mt-4">
+						<div><b>Informações:</b></div>
+						<div class="text-white-50">{{ visita.descricao|raw }}</div>
+					</div>
 
-				<div class="accordion mt-3" id="regras_visita">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#horarios_tab" aria-expanded="true" aria-controls="horarios_tab"><b>SOBRE HORÁRIOS E EVENTOS</b></button>
-						</h2>
-						<div id="horarios_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
-							<div class="accordion-body">
-								<small>
-									{{ config.sobre_horarios|raw }}
-								</small>
+					<div class="accordion mt-3" id="regras_visita">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#horarios_tab" aria-expanded="true" aria-controls="horarios_tab"><b>SOBRE HORÁRIOS E EVENTOS</b></button>
+							</h2>
+							<div id="horarios_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
+								<div class="accordion-body">
+									<small>
+										{{ config.sobre_horarios|raw }}
+									</small>
+								</div>
 							</div>
-						</div>
-					</div>						
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#regras_tab" aria-expanded="false" aria-controls="regras_tab"><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></button>
-						</h2>
-						<div id="regras_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
-							<div class="accordion-body">
-								<small>
-									{{ config.regras_visita|raw }}
-								</small>
+						</div>						
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#regras_tab" aria-expanded="false" aria-controls="regras_tab"><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></button>
+							</h2>
+							<div id="regras_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
+								<div class="accordion-body">
+									<small>
+										{{ config.regras_visita|raw }}
+									</small>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5 position-relative">
+
+					{% if (_session.sampel_user_id == '' and visita.status_visita != 'Concluido') %}
+
+						{% if _get.action == '' %}
+
+							{% if visita.inscricoes >= visita.qtd_visitas %}
+
+								<div class="form_inscricao">
+									<div class="alert alert-warning text-center py-5" role="alert">
+										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+										<h4>Inscrições esgotadas</h4> 
+										<div>Limite de inscrições para esse evento foi alcançado.</div>
+									</div>
+								</div>
+							
+							{% elseif visita.status_visita == 'Recusado' %}
+
+								<div class="form_inscricao">
+									<div class="alert alert-danger text-center py-5" role="alert">
+										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+										<h4>Inscrições Fechadas</h4> 
+										<div>O evento foi recusado por <br>disponíbilidade ou não atingiu o mínimo de inscrições.</div>
+									</div>
+								</div>
+							
+							{% elseif visita.status_inscricoes == 'Concluido' %}
+
+								<div class="form_inscricao">
+									<div class="alert alert-danger text-center py-5" role="alert">
+										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+										<h4>Inscrições encerradas</h4> 
+										<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
+									</div>
+								</div>
+
+							{% elseif (now|date('Y-m-d') >= visita.data_close) %}
+
+								<div class="form_inscricao">
+									<div class="alert alert-danger text-center py-5" role="alert">
+										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+										<h4>Inscrições encerradas</h4> 
+										<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
+									</div>
+								</div>
+							
+							
+							{% endif %}
+
+						{% endif %}
+					{% endif %}
+
+					{% if (visita.status_visita != 'Recusado') and (now|date('Y-m-d') < visita.data_close) or (_session.sampel_user_id != '' and visita.status_visita != 'Concluido') %}
+						{% if _get.action == '' %}
+							<div class="form_inscricao">
+
+								<div class="alert-3 alert-none">
+									<div class="alert alert-danger" role="alert">
+										<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
+									</div>
+								</div>
+								<div class="alert-2 alert-none">
+									<div class="alert alert-warning" role="alert">
+										<i class="fa-solid fa-circle-exclamation"></i> Este usuário já participou de uma visita.
+									</div>
+								</div>
+
+								<form action="javascript:void(0)" id="form_inscricao" method="POST">
+								
+									<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+									<div class="row">
+
+										{% if visita.tipo == 'evento' %}
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="cpf" class="form-label">Seu CPF *</label>
+												<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
+												<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+											</div>
+										</div>
+										{% endif %}
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="empresa" class="form-label">Nome da sua Empresa *</label>
+												<input type="text" name="empresa" class="form-control rounded-pill" id="empresa" value="" required="required">
+											</div>
+										</div>
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="nome" class="form-label">Seu Nome Completo *</label>
+												<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
+											</div>
+										</div>
+										
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="email" class="form-label">Seu Email *</label>
+												<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
+												<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label class="form-label">Setor de Atuação *</label>
+												<select class="form-control rounded-pill" id="setor" name="setor" required="required">
+													<option value="">Selecione</option>
+													<option value="Auto Center">Auto Center</option>
+													<option value="Autopeças">Autopeças</option>
+													<option value="Balconista">Balconista</option>
+													<option value="Distribuidora">Distribuidora</option>
+													<option value="Estoquista">Estoquista</option>
+													<option value="Frotista">Frotista</option>
+													<option value="Mecânico / Reparador">Mecânico / Reparador</option>
+													<option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+													<option value="Outros">Outros</option>
+												</select>
+											</div>
+											<div class="mb-3 outros" style="display: none">
+												<input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="cep" class="form-label">Seu CEP *</label>
+												<input type="text" name="cep" class="form-control rounded-pill cep" id="cep" value="" required="required">
+												<input type="hidden" name="cidade" id="cidade" value="">
+												<input type="hidden" name="estado" id="estado" value="">
+												<div class="endereco ms-3"></div>
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="telefone" class="form-label">Seu Whatsapp *</label>
+												<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
+												<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
+											</div>
+										</div>
+										
+										{% if visita.tipo == 'visita' %}
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="cpf" class="form-label">Seu CPF *</label>
+												<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="" required="required">
+												<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+											</div>
+										</div>
+										{% endif %}
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label class="form-label"></label>
+												<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+												<input type="hidden" name="tipo_visita" id="tipo_visita" value="{{ visita.tipo }}">
+												<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+								
+							</div>
+						{% endif %}
+					{% endif %}
+
+					
+				</div>
+
 			</div>
 
-			<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5 position-relative">
+		{% endif %}
 
-				{% if (_session.sampel_user_id == '' and visita.status_visita != 'Concluido') %}
+		{% if _get.action == 'success' %}
+			<div class="row">
+				<div class="col-md-4 offset-md-4">
 
-					{% if _get.action == '' %}
-
-						{% if visita.inscricoes >= visita.qtd_visitas %}
-
-							<div class="form_inscricao">
-								<div class="alert alert-warning text-center py-5" role="alert">
-									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-									<h4>Inscrições esgotadas</h4> 
-									<div>Limite de inscrições para esse evento foi alcançado.</div>
-								</div>
-							</div>
-						
-						{% elseif visita.status_visita == 'Recusado' %}
-
-							<div class="form_inscricao">
-								<div class="alert alert-danger text-center py-5" role="alert">
-									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-									<h4>Inscrições Fechadas</h4> 
-									<div>O evento foi recusado por <br>disponíbilidade ou não atingiu o mínimo de inscrições.</div>
-								</div>
-							</div>
-						
-						{% elseif visita.status_inscricoes == 'Concluido' %}
-
-							<div class="form_inscricao">
-								<div class="alert alert-danger text-center py-5" role="alert">
-									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-									<h4>Inscrições encerradas</h4> 
-									<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
-								</div>
-							</div>
-
-						{% elseif (now|date('Y-m-d') >= visita.data_close) %}
-
-							<div class="form_inscricao">
-								<div class="alert alert-danger text-center py-5" role="alert">
-									<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-									<h4>Inscrições encerradas</h4> 
-									<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
-								</div>
-							</div>
-						
-						
-						{% endif %}
-
-					{% endif %}
-				{% endif %}
-
-				{% if (visita.status_visita != 'Recusado') and (now|date('Y-m-d') < visita.data_close) or (_session.sampel_user_id != '' and visita.status_visita != 'Concluido') %}
-					{% if _get.action == '' %}
-						<div class="form_inscricao">
-
-							<div class="alert-3 alert-none">
-								<div class="alert alert-danger" role="alert">
-									<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
-								</div>
-							</div>
-							<div class="alert-2 alert-none">
-								<div class="alert alert-warning" role="alert">
-									<i class="fa-solid fa-circle-exclamation"></i> Este usuário já participou de uma visita.
-								</div>
-							</div>
-
-							<form action="javascript:void(0)" id="form_inscricao" method="POST">
-							
-								<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-
-								<div class="row">
-
-									{% if visita.tipo == 'evento' %}
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="cpf" class="form-label">Seu CPF *</label>
-											<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
-											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
-										</div>
-									</div>
-									{% endif %}
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="empresa" class="form-label">Nome da sua Empresa *</label>
-											<input type="text" name="empresa" class="form-control rounded-pill" id="empresa" value="" required="required">
-										</div>
-									</div>
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="nome" class="form-label">Seu Nome Completo *</label>
-											<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
-										</div>
-									</div>
-									
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="email" class="form-label">Seu Email *</label>
-											<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
-											<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label class="form-label">Setor de Atuação *</label>
-											<select class="form-control rounded-pill" id="setor" name="setor" required="required">
-												<option value="">Selecione</option>
-												<option value="Auto Center">Auto Center</option>
-												<option value="Autopeças">Autopeças</option>
-												<option value="Balconista">Balconista</option>
-												<option value="Distribuidora">Distribuidora</option>
-												<option value="Estoquista">Estoquista</option>
-												<option value="Frotista">Frotista</option>
-												<option value="Mecânico / Reparador">Mecânico / Reparador</option>
-												<option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
-												<option value="Outros">Outros</option>
-											</select>
-										</div>
-										<div class="mb-3 outros" style="display: none">
-											<input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="cep" class="form-label">Seu CEP *</label>
-											<input type="text" name="cep" class="form-control rounded-pill cep" id="cep" value="" required="required">
-											<input type="hidden" name="cidade" id="cidade" value="">
-											<input type="hidden" name="estado" id="estado" value="">
-											<div class="endereco ms-3"></div>
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="telefone" class="form-label">Seu Whatsapp *</label>
-											<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
-											<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
-										</div>
-									</div>
-									
-									{% if visita.tipo == 'visita' %}
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="cpf" class="form-label">Seu CPF *</label>
-											<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="" required="required">
-											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
-										</div>
-									</div>
-									{% endif %}
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label class="form-label"></label>
-											<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
-											<input type="hidden" name="tipo_visita" id="tipo_visita" value="{{ visita.tipo }}">
-											<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
-										</div>
-									</div>
-
-								</div>
-
-							</form>
-							
-						</div>
-					{% endif %}
-				{% endif %}
-
-				{% if _get.action == 'success' %}
+					<div class="text-center mb-4"><a href="javascript:void(0)" id="salvar_inscricao" class="btn btn-warning btn-lg rounded-pill fw-bold"><i class="fa-solid fa-download"></i> SALVAR INGRESSO</a></div>
+					
 					<div class="success" id="inscricao_sucesso">
-						<!-- partial:index.partial.html -->
-						<div id='card' class="animated fadeIn text-center">
+
+						<div id='card'>
+
 							<div id='upper-side'>
-								<img src="{{ DOMAIN }}/view/src/media/sampel-white.svg" class="w-25"><br><br>
-								<h3 id='status' class="fw-bold"><b>{{ inscricao.nome }}</b></h3>
-								<div class="mt-1">{{ inscricao.cpf|UserCPF }} - {{ inscricao.cidade }}, {{ inscricao.estado }}</div>
-								<span class="d-block mt-2"><b>CÓDIGO: </b>{{ inscricao.codigo }}</span>
+								<div class="d-flex justify-content-around align-items-center">
+									<img src="{{ DOMAIN }}/view/src/media/ingresso_banner1.jpg">
+								</div>
 							</div>
+
 							<div id='lower-side'>
 								<div id="message">
-									<img src="{{ DOMAIN }}/view/src/media/mascote.png" class="w-50"><br><br>
-									<h4>Parabéns, seu cadastro na Sampel foi aprovado!</h4>
-									<div class="mt-2">Salve esta credencial para participar do evento. Em breve, informações adicionais serão enviadas.</div>
-									<div class="mt-2">Contamos com sua presença para tornar nosso evento único.</div>
-									<div class="mt-2">Venha para uma experiência inovadora, concorra a brindes exclusivos e adquira o seu certificado PDF através do link oficial.</div>
+									<h5 class="fw-bold text-uppercase"><b>{{ visita.title }}</b></h5>
+
+									<div class="mt-2 text-body-tertiary fw-bold"><small>LOCAL</small></div>
+									<div class="d-flex justify-content-between">
+										<div>R. Flôr de Noiva, 500 - Q.ta da Boa Vista, Itaquaquecetuba - SP</div>
+										<div class="ps-3 flex-nowrap"><a class="text-primary text-nowrap" href="https://www.waze.com/pt-BR/live-map/directions/br/sp/sampel-pecas-automotivas?navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location&to=place.ChIJjcSH_PV8zpQRbVEGvsBiWIU" target="_blank"><i class="fa-regular fa-arrow-turn-right"></i> ver local</a></div>
+									</div>
+
+									<div class="mt-4 text-body-tertiary fw-bold"><small>DATA</small></div>
+									<div class="d-flex justify-content-between">
+										{% set date = visita.data_visita|date("d") ~ ' de ' ~ visita.data_visita|date("F")|monthTranslate() ~ ' de ' ~ visita.data_visita|date("Y") %}
+										<div>{{ date }} às {{ visita.horario_visita }}</div>
+										<div class="ps-3 flex-nowrap"><a class="text-primary text-nowrap" href="https://www.google.com/calendar/render?action=TEMPLATE
+										&text={{ visita.title }}
+										&dates={{ visita.data_visita|date("Ymd") }}T{{ visita.horario_visita | replace({':': ''}) }}00Z/{{ visita.data_visita|date("Ymd") }}T130000Z
+										&details={{ visita.descricao }}
+										&location={{ visita.local }}" target="_blank"><i class="fa-regular fa-circle-plus"></i> Calendário</a></div>
+									</div>
+									
+									<div class="my-5 fw-bold separador position-relative"><span>INGRESSO</span></div>
+
+									<div class="row">
+										<div class="col-5 text-center">
+											<b>{{ inscricao.codigo }}</b>
+											<div id="image_qrcode" style="display:none;">{{ inscricao.qrcode|raw }}</div>
+											<div id="image_qrcode_rend"></div>
+										</div>
+										<div class="col-7">
+											<div class="mb-2">
+												<div class="text-body-tertiary fw-bold"><small>PARTICIPANTE</small></div>
+												<div class="text-uppercase">{{ inscricao.nome }}</div>
+											</div>
+											<div class="mb-2">
+												<div class="text-body-tertiary fw-bold"><small>CPF</small></div>
+												<div class="">{{ inscricao.cpf|UserCPF }}</div>
+											</div>
+											<div class="mb-2">
+												<div class="text-body-tertiary fw-bold"><small>CIDADE/ESTADO</small></div>
+												<div class="">{{ inscricao.cidade }}, {{ inscricao.estado }}</div>
+											</div>
+											<div class="mb-2">
+												<div class="text-body-tertiary fw-bold"><small>SETOR</small></div>
+												<div class="">{{ inscricao.setor }}</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
-								<div class="text-center mt-4"><a href="javascript:void(0)" id="salvar_inscricao" class="btn btn-sm btn-dark rounded-0">SALVAR INSCRIÇÃO</a></div>
 							</div>
+
 						</div>
 						<!-- partial -->
 					</div>
-					<div class="w-100 text-center"><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-warning rounded-pill mt-3"><i class="fa-solid fa-rotate-left"></i> FAZER UMA NOVA INSCRIÇÃO</a></div>
-				{% endif %}
-
+				</div>
 			</div>
-
-		</div>
+		{% endif %}
 
 	</session>
 
