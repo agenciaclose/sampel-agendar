@@ -27,7 +27,7 @@
 			.visita {
 				position: absolute;
 				left: 48%;
-				bottom: 25%;
+				bottom: 23%;
 			}
 		</style>
 	</head>
