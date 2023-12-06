@@ -1,0 +1,101 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Perguntas{% endblock %}
+
+{% block body %}
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+
+    <div class="card card-company-table">
+        <div class="card-header pb-0">
+            <h5 class="card-title">Lista de Perguntas</h5>
+            <div class="heading-elements">
+                <a class="btn btn-primary" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_pergunta"><i class="fa-regular fa-plus"></i> Add Nova</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table dataTable_list">
+                    <thead>
+                        <tr>
+                            <th class="d-none">#</th>
+                            <th>Pergunta</th>
+                            <th>Opção</th>
+                            <th class="text-end">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pergunta in perguntas %}
+                        <tr>
+                            <td class="d-none">{{ pergunta.id }}</td>
+
+                            <td>
+                                <b>{{ pergunta.pergunta }}</b>
+                                <div class="d-flex">
+                                    {# <a href="{{ DOMAIN }}/painel/pergunta/editar/{{ pergunta.id }}" class="opacity-75">Editar</a>
+                                    <span class="mx-05">|</span> #}
+                                    <a href="javascript:void(0);" data-pergunta="{{ pergunta.id }}" class="text-danger pergunta-excluir">Excluir</a>
+                                </div>
+                            </td>
+
+                            <td>
+                                {{ pergunta.opcoes|replace({'|': ' - ', '|': " - "}) }}
+                            </td>
+
+                            <td class="text-end">
+                                {{ pergunta.data | date("d-m-Y") }}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="add_pergunta" tabindex="-1" aria-labelledby="add_perguntaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                <form action="javascript:void(0);" id="form_add_pergunta" method="post">
+                    <div class="mb-1">
+                        <label class="form-label">Pergunta</label>
+                        <input type="text" class="form-control" name="pergunta">
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-6">
+                            <label class="form-label">Tipo</label>
+                            <select class="form-control tipo" name="tipo">
+                                <option>Selecione</option>
+                                <option value="Campo">Campo</option>
+                                <option value="Texto">Texto</option>
+                                <option value="Opcoes">Opção</option>
+                                <option value="Estrela">Estrela</option>
+                            </select>
+                        </div>
+                        <div class="mb-1 col-md-6">
+                            <label class="form-label">Ordem</label>
+                            <input type="number" class="form-control" name="ordem" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="mb-1 tipo_input" style="display:none;">
+                        <label class="form-label">Opções</label>
+                        <textarea class="form-control" name="opcoes" placeholder="As opções devem ser seradas por | como nesse exemplo: Carro|Caminhão|Vans"></textarea>
+                    </div>
+                    <div class="mb-1">
+                        <button type"submit" class="btn btn-primary">SALVAR PERGUNTA</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/feedback.js"></script>
+
+{% endblock %}

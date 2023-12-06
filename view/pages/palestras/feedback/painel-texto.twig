@@ -1,0 +1,21 @@
+<h5>{{ pergunta.pergunta }}</h5>
+<div class="table-responsive">
+    <table id="tabela_dinamica" class="table table-hover align-middle text-white" id="tabela_dinamica">
+        <thead>
+            <tr>
+                <th class="d-none">#</th>
+                <th>Comentário</th>
+                <th class="text-center">Qtd</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estatistica in pergunta.estatisticas %}
+            <tr>
+                <td class="d-none">{{ loop.indice }}</td>
+                <td>{{ estatistica.resposta }}</td>
+                <td class="text-center">{{ estatistica.qtd }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

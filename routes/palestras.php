@@ -5,6 +5,7 @@ $router->namespace("Agencia\Close\Controllers\Site\Palestras");
 $router->get("/palestras", "PalestrasController:index");
 $router->get("/palestras/cadastro", "PalestrasController:cadastro");
 $router->post("/palestras/cadastro/salvar", "PalestrasController:palestraSave");
+$router->post("/palestras/cadastro/save-qrcode-feedback", "PalestrasController:palestraQRcodeFeedbackSave");
 $router->post("/palestras/cadastro/save-qrcode", "PalestrasController:palestraQRcodeSave");
 
 //INSCRICAO
@@ -19,3 +20,10 @@ $router->post("/palestras/inscricao/cadastro-qrcode", "PalestrasController:inscr
 $router->post("/palestras/inscricao/checkCadastroCampo", "PalestrasController:checkCadastroCampo");
 
 $router->get("/palestras/etiqueta/{codigo}", "PalestrasController:printEtiqueta");
+
+// FEEDBACK
+$router->namespace("Agencia\Close\Controllers\Site\FeedbackPalestras");
+$router->get("/palestras/feedback/{cpf}/{id}", "FeedbackPalestrasController:feedback");
+$router->get("/palestras/feedback/{id}", "FeedbackPalestrasController:feedback");
+$router->post("/palestras/feedback/checkInscricao", "FeedbackPalestrasController:checkInscricao");
+$router->post("/palestras/feedback/save", "FeedbackPalestrasController:saveFeedback");

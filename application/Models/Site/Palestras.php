@@ -39,6 +39,13 @@ class Palestras extends Model
         return $read;
     }
 
+    public function palestraQRcodeFeedbackSave($params)
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `palestras` SET `qrcode_feedback` = :qrcode WHERE `id` = :id_palestra", "qrcode={$params['qrcode']}&id_palestra={$params['id_palestra']}");
+        return $read;
+    }
+
     public function palestraQRcodeSave($params)
     {
         $read = new Read();

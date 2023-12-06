@@ -40,6 +40,11 @@ class PalestrasController extends Controller
 
     }
 
+    public function palestraQRcodeFeedbackSave($params){
+        $save = new Palestras();
+        $save = $save->palestraQRcodeFeedbackSave($params);
+    }
+
     public function palestraQRcodeSave($params){
         $save = new Palestras();
         $save = $save->palestraQRcodeSave($params);

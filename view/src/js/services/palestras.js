@@ -16,7 +16,7 @@ $(document).ready(function () {
                     $('button[type="submit"]').prop("disabled", false);
                     $('.form-load').removeClass('show');                    
                 } else {
-                    qrcodeGenPalestras(data)
+                    qrcodeGenFeedback(data)
                 }
             }
         });
@@ -60,6 +60,57 @@ $(document).ready(function () {
     });
 
 });
+
+
+// GERA QRCODE DO FEEDBACK
+function qrcodeGenFeedback(id_palestra) {
+    var DOMAIN = $('body').data('domain');
+    
+    $.ajax({
+        type: "POST", 
+        async: true, 
+        data: { 
+                "frame_name": "bottom-frame",
+                "qr_code_text": DOMAIN + '/palestras/feedback/'+id_palestra,
+                "image_format": "SVG",
+                "frame_color": "#246CB1",
+                "frame_text_color": "#ffffff",
+                "frame_icon_name": "mobile",
+                "frame_text": "FEEDBACK",
+                "marker_left_template": "version13",
+                "marker_right_template": "version13",
+                "marker_bottom_template": "version13"
+            },
+        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        success: function (qrcode) {
+            qrcode = (new XMLSerializer()).serializeToString(qrcode);
+            qrcodeSaveFeedback(id_palestra, qrcode);
+        }
+    });
+}
+
+function qrcodeSaveFeedback (id_palestra, qrcode){
+    var DOMAIN = $('body').data('domain');
+
+    const formData = new FormData()
+    formData.append('id_palestra', id_palestra);
+    formData.append('qrcode', qrcode);
+
+    $.ajax({
+        type: "POST",
+        url: DOMAIN + '/palestras/cadastro/save-qrcode-feedback',
+        data: formData,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            qrcodeGenPalestras(id_palestra);
+        }
+    });
+}
+// ##
+
 
 // GERA QRCODE DA PALESTRA
 function qrcodeGenPalestras(id_palestra) {
@@ -164,6 +215,7 @@ function qrcodeSave (id_palestra, cpf, qrcode, last){
     });
 }
 // ##
+
 
 $('#setor').change(function() {
 	if($(this).val() == 'Outros'){

@@ -8,9 +8,14 @@
 
 <div class="container">
 	<div class="row">
-	    <div class="col-md-6 offset-md-3">
+	    <div class="col-md-6">
             <div class="d-flex align-items-center" style="min-height:100vh;">
                 {{ palestra.qrcode_inscricao|raw }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex align-items-center" style="min-height:100vh;">
+                {{ palestra.qrcode_feedback|raw }}
             </div>
         </div>
     </div>
