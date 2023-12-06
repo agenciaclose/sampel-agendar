@@ -143,7 +143,10 @@ class PalestrasController extends Controller
             $grupos = new Palestras();
             $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
 
-            $this->render('pages/palestras/inscritos.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total]);
+            $sorteados = new Palestras();
+            $sorteados = $sorteados->listarPalestrasUserSorteados($params['id'])->getResult();
+
+            $this->render('pages/palestras/inscritos.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados]);
         }else{
             $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
         }
@@ -162,8 +165,27 @@ class PalestrasController extends Controller
         $palatra = new Palestras();
         $palatra = $palatra->getPalestra($inscricao['id_palestra'])->getResult()[0];
 
-        $this->render('pages/palestras/etiqueta.twig', ['menu' => 'visitas', 'palatra' => $palatra, 'inscricao' => $inscricao, 'config' => $configuracoes]);
+        $this->render('pages/palestras/etiqueta.twig', ['menu' => 'palestras', 'palatra' => $palatra, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
+    public function sortear($params)
+    {
+        $this->setParams($params);
+        $sortear = new Palestras();
+        $sortear = $sortear->sortear($params);
+    }
+
+    public function sorteados($params)
+    {
+        $this->setParams($params);
+        
+        $palestra = new Palestras();
+        $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
+
+        $lista = new Palestras();
+        $lista = $lista->listarPalestraUserSorteados($params['id'])->getResult();
+
+        $this->render('pages/palestras/sorteados.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista]);
+    }
 
 }

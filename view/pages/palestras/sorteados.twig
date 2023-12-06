@@ -1,0 +1,49 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Sorteados {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="row mb-4">
+			<div class="col-sm-12 col-md-8">
+				<div><h5>LISTA DE SORTEADOS: <span class="text-warning">{{ palestra.title }}</span></h5></div>
+			</div>
+	
+		</div>
+
+		<hr>
+
+		<div class="table-responsive">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+		        <thead>
+		            <tr>
+						<th class="d-none">#</th>
+						<th>Nome</th>
+						<th>Email</th>
+						<th>Telefone</th>
+						<th>Endereço</th>
+					</tr>
+		        </thead>
+		        <tbody>
+		        	{% for lista in listas %}
+						<tr>
+							<td class="d-none">{{ lista.id_palestra }}</td>
+							<td class="ps-0 text-uppercase">{{ lista.nome }}</td>
+							<td class="ps-0 text-uppercase">{{ lista.email }}</td>
+							<td class="ps-0">{{ lista.telefone }}</td>
+							<td class="ps-0">{{ lista.cidade }}, {{ lista.estado }}</td>
+						</tr>
+					{% endfor %}
+		        </tbody>
+		    </table>
+		</div>
+
+	</session>
+
+</div>
+
+{% endblock %}

@@ -20,14 +20,14 @@ function sendAjaxRequest() {
 
             var DOMAIN = $('body').data('domain');
             const quantidade = $('#quantidade').val();
-            const id_visita = $('#id_visita').val();
+            const id_palestra = $('#id_palestra').val();
 
             $.ajax({
                 type: "POST",
-                url: DOMAIN + '/visita/sortear', // URL da API ou backend que irá processar os dados
-                data: { quantidade: quantidade, id_visita: id_visita },
+                url: DOMAIN + '/palestras/sortear', // URL da API ou backend que irá processar os dados
+                data: { quantidade: quantidade, id_palestra: id_palestra },
                 success: function (response) {
-                    window.location.href = DOMAIN + '/visita/sorteados/'+id_visita;
+                    window.location.href = DOMAIN + '/palestras/sorteados/'+id_palestra;
                 },
                 error: function (error) {
                     alert('Erro ao sortear');
