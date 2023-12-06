@@ -57,13 +57,13 @@ class FeedbackPalestrasController extends Controller
 
     }
 
-    // public function saveFeedback($params)
-    // {
-    //     $this->setParams($params);
-    //     $save = new Feedback();
-    //     $save = $save->saveFeedback($params);
-    //     echo '1';
-    // }
+    public function saveFeedback($params)
+    {
+        $this->setParams($params);
+        $save = new FeedbackPalestras();
+        $save = $save->saveFeedback($params);
+        echo '1';
+    }
 
     // public function feedbacksEstatisticas($params)
     // {

@@ -27,3 +27,8 @@ $router->get("/palestras/feedback/{cpf}/{id}", "FeedbackPalestrasController:feed
 $router->get("/palestras/feedback/{id}", "FeedbackPalestrasController:feedback");
 $router->post("/palestras/feedback/checkInscricao", "FeedbackPalestrasController:checkInscricao");
 $router->post("/palestras/feedback/save", "FeedbackPalestrasController:saveFeedback");
+
+// CERTIFICADOS
+$router->namespace("Agencia\Close\Controllers\Site\CertificadosPalestras");
+$router->get("/certificados/palestras", "CertificadosPalestrasController:palestra");
+$router->post("/certificados/palestras/emitirCheckVisita", "CertificadosPalestrasController:emitirCheckPalestra");

@@ -41,20 +41,20 @@ class FeedbackPalestras extends Model
             for ($i=0; $i < count($params['pergunta']); $i++) {
                 $read = new Read();
                 $cpf = $this->clearCPF($params['user_cpf']);
-                $read->FullRead("INSERT INTO `feedback` (`id_visita`, `user_codigo`, `user_cpf`, `pergunta`, `resposta`) 
-                        VALUES ('".$params['id_visita']."', '".$params['user_codigo']."', '".$cpf."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."')");
+                $read->FullRead("INSERT INTO `feedback_palestra` (`id_palestra`, `user_codigo`, `user_cpf`, `pergunta`, `resposta`) 
+                        VALUES ('".$params['id_palestra']."', '".$params['user_codigo']."', '".$cpf."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."')");
             }
         }
 
         $read = new Read();
-        $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `codigo` = '".$params['user_codigo']."'");
+        $read->FullRead("UPDATE `palestras_participantes` SET `presenca` = 'Sim' WHERE `codigo` = '".$params['user_codigo']."'");
     }
 
-    public function checkFeedback($id_visita, $cpf): Read
+    public function checkFeedback($id_palestra, $cpf): Read
     {
         $read = new Read();
         $cpf = $this->clearCPF($cpf);
-        $read->FullRead("SELECT * FROM feedback WHERE id_visita = :id_visita AND user_cpf = :user_cpf LIMIT 1", "id_visita={$id_visita}&user_cpf={$cpf}");
+        $read->FullRead("SELECT * FROM feedback_palestra WHERE id_palestra = :id_palestra AND user_cpf = :user_cpf LIMIT 1", "id_palestra={$id_palestra}&user_cpf={$cpf}");
         return $read;
     }
 
@@ -78,10 +78,10 @@ class FeedbackPalestras extends Model
         return $read;
     }
     
-    public function getFeedbacksList($id_visita, $pergunta): Read
+    public function getFeedbacksList($id_palestra, $pergunta): Read
     {
         $read = new Read();
-        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `id_visita` = :id_visita AND `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "id_visita={$id_visita}&pergunta={$pergunta}");
+        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback_palestra WHERE `id_palestra` = :id_palestra AND `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "id_palestra={$id_palestra}&pergunta={$pergunta}");
         return $read;
     }
 

@@ -14,18 +14,17 @@ $(document).ready(function () {
             url: DOMAIN + '/palestras/feedback/checkInscricao',
             success: function (data) {
                 console.log(data);
-                // if (data == "1") {
+                if (data == "0") {
 
-                //     $('.form-load').removeClass('show');
-                //     $('#save_feedback').html('');
-                //     $('.success-feedback').show();
+                    swal({type: 'warning', title: 'Inscrição não encontrada', showConfirmButton: false, timer: 1500});
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
 
-                // } else {
+                } else {
 
-                //     $('button[type="submit"]').prop("disabled", false);
-                //     $('.form-load').removeClass('show');
+                    window.location.href = DOMAIN + '/palestras/feedback/'+data;
 
-                // }
+                }
             }
         });
 

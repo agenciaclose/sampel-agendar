@@ -20,6 +20,7 @@
 					<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
 				</div>
 				<div class="my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
+
 				{% set agora = "now"|date("Y-m-d") %}
 				{% set datavisita = visita.data_visita|date("Y-m-d") %}
 
@@ -34,6 +35,7 @@
 						<div class="btn {{ _get.presenca == 'No' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?presenca=No"><i class="fa-solid fa-shield fa-lg text-dark"></i> Não confirmados</a></div>
 					</div>
 				{% endif %}
+				
 			</div>
 
 			<div class="col-sm-12 col-md-5">
