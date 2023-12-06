@@ -1,0 +1,79 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Cadastrar Palestra {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
+			<div>
+				<h3>Sua listas de Palestras</h3>
+				<div>Aqui você ver e gerencia as Palestras.</div>
+			</div>
+			<div>
+				<a href="{{ DOMAIN }}/palestras/cadastro" class="btn btn-warning btn-lg mt-2 mt-sm-0 fw-bold"><i class="fa-solid fa-plus"></i> CRIAR NOVA</a>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="table-responsive">
+			<table id="tabela_dinamica_palestra" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+		        <thead>
+		            <tr>
+		                <th class="no-mobile">Data</th>
+		                <th class="no-mobile" width="25">ID</th>
+		                <th class="no-mobile flex-grow-1">Palestra</th>
+		                <th class="no-mobile">Palestrante</th>
+		                <th width="175" class="text-end no-mobile">QRCode</th>
+		                <th width="175" class="text-end no-mobile">Inscrição</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        	{% for palestra in palestras %}
+					<tr>
+						<td class="no-mobile">
+							{{ palestra.data_palestra | date("d-m-Y H:i") }}
+						</td>
+
+						<td  class="no-mobile">{{ palestra.id }}</td>
+
+						<td>
+							<span class="text-uppercase">
+								<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ palestra.title }}</b></a>
+							</span>
+						</td>
+
+						<td class="no-mobile">
+							{{ palestra.palestrante_nome }}
+						</td>
+
+						<td class="text-end no-mobile" width="175">
+							<a href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> Ver QRcode</a>
+						</td>
+
+						<td class="text-end">
+							{% if palestra.status_palestra != 'Recusado' %}
+								<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a>
+							{% else %}
+								<a href="javascript:void(0)" class="badge bg-danger"><i class="fa-regular fa-arrow-up-right-from-square"></i> Insdisponível</a>
+							{% endif %}
+						</td>
+
+					</tr>
+					{% endfor %}
+		        </tbody>
+		    </table>
+		</div>
+
+	</session>
+
+</div>
+
+
+<script src="{{ PATH }}/view/src/js/services/palestras.js"></script>
+
+{% endblock %}

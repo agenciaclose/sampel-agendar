@@ -1,0 +1,136 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Cadastrar Palestra {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="mb-4">
+			<h3>Cadastro de Palestra.</h3>
+			<div>Campos marcados com asterisco ( <span class="text-danger">*</span> ) são obrigatórios.</div>
+		</div>
+		<hr>
+
+		<form action="javascript:void(0)" method="POST" id="cadastro_palestra">
+			<div class="row">
+				
+				<div class="col-md-6 col-12">
+					<div class="mb-3">
+						<label class="form-label">Nome da Palestra</label>
+						<input type="text" class="form-control" name="title" value="" required="required">
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="data_palestra" class="form-label">Data de Início <span class="text-danger">*</span></label>
+								<input type="datetime-local" name="data_palestra" class="form-control" id="data_palestra" value="" required="required">
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="data_fim" class="form-label">Data de Término <span class="text-danger">*</span></label>
+								<input type="datetime-local" name="data_fim" class="form-control" id="data_fim" value="" required="required">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-3 col-sm-12">
+							<div class="mb-3">
+								<label for="cep" class="form-label">CEP do Local <span class="text-danger">*</span></label>
+								<input type="text" name="cep" class="form-control cep" id="cep" value="" required="required">
+							</div>
+						</div>
+						<div class="col-md-9 col-sm-12">
+							<div class="mb-3">
+								<label for="local_nome" class="form-label">Nome do Local <span class="text-danger">*</span></label>
+								<input type="text" name="local_nome" class="form-control" id="local_nome" value="" required="required">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-9 col-sm-12">
+							<div class="mb-3">
+								<label for="endereco" class="form-label">Av./Rua <span class="text-danger">*</span></label>
+								<input type="text" name="endereco" class="form-control" id="endereco" value="" required="required">
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-12">
+							<div class="mb-3">
+								<label for="numero" class="form-label">Numero</label>
+								<input type="text" name="numero" class="form-control" id="numero" value="">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="complemento" class="form-label">Complemento</label>
+								<input type="text" name="complemento" class="form-control" id="complemento" value="">
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="bairro" class="form-label">Bairro</label>
+								<input type="text" name="bairro" class="form-control" id="bairro" value="">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="cidade" class="form-label">Cidade <span class="text-danger">*</span></label>
+								<input type="text" name="cidade" class="form-control" id="cidade" value="" required="required">
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<div class="mb-3">
+								<label for="estado" class="form-label">Estado</label>
+								<input type="text" name="estado" class="form-control" id="estado" value="" required="required">
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-6 col-12">
+
+					<div class="mb-3">
+						<label for="palestrante_nome" class="form-label">Nome do Palestrante <span class="text-danger">*</span></label>
+						<input type="text" name="palestrante_nome" class="form-control" id="palestrante_nome" value="" required="required">
+					</div>
+
+					<div class="mb-3">
+						<label for="palestrante_descricao" class="form-label">Descrição do Palestrante (opcional)</label>
+						<input type="text" name="palestrante_descricao" class="form-control" id="palestrante_descricao" value="">
+					</div>
+
+					<hr>
+
+					<div class="mb-3">
+						<label for="descricao" class="form-label">Descrição da Palestra</label>
+						<textarea id="descricao" name="descricao" class="form-control" rows="7" cols="50" placeholder="Conte todos os detalhes de sua Palestra, como a programação e os diferenciais da sua produção!"></textarea>
+					</div>
+
+					<div class="mb-3">
+						<button type="submit" class="btn btn-warning rounded-pill btn-lg fw-bold"><i class="fa-light fa-paper-plane"></i> SALVAR PALESTRA</button>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</session>
+
+</div>
+
+
+<script src="{{ PATH }}/view/src/js/services/palestras.js"></script>
+
+{% endblock %}

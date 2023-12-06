@@ -163,7 +163,7 @@ class VisitasController extends Controller
             }else{
                 echo '0';
             }
-
+ 
         }else{
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
