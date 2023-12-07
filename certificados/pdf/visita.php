@@ -7,11 +7,16 @@
 								INNER JOIN visitas AS v ON v.id = vi.id_visita
 								WHERE (vi.codigo = '".$_GET['codigo']."' OR vi.codigo = '".$_GET['codigo']."') AND vi.presenca = 'Sim'");
 	$sql_inscricao->execute();
+
 	if($sql_inscricao->rowCount() == 0) {
 		header("Location: https://sampel.com.br/eventos/certificados/404");
 		die();
+	}else{
+		$inscricao = $sql_inscricao->fetch(PDO::FETCH_ASSOC);
+		$sql_update = $db->prepare("UPDATE `visitas_inscricoes` SET `certificado` = 'Sim' WHERE codigo = '".$inscricao['codigo']."'");
+		$sql_update->execute();
 	}
-	$inscricao = $sql_inscricao->fetch(PDO::FETCH_ASSOC);
+
 	
 	try {
 

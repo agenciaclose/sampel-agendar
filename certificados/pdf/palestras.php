@@ -13,6 +13,10 @@
 		die();
 	}else{
 		$inscricao = $sql_inscricao->fetch(PDO::FETCH_ASSOC);
+
+		$sql_update = $db->prepare("UPDATE `palestras_participantes` SET `certificado` = 'Sim' WHERE codigo = '".$inscricao['codigo']."'");
+		$sql_update->execute();
+
 		$sql_palestra = $db->prepare("SELECT * FROM palestras WHERE id = '".$inscricao['id_palestra']."'");
 		$sql_palestra->execute();
 		$palestra = $sql_palestra->fetch(PDO::FETCH_ASSOC);
