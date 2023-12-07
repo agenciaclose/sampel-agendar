@@ -4,7 +4,7 @@
 		<title>Certificados</title>
 		<style type="text/css">
 			body{
-				background: url('https://sampel.com.br/eventos/certificados/pdf/visita/certificado.png');
+				background: url('https://sampel.com.br/eventos/certificados/pdf/eventos/certificado.png');
 				background-image-resize: 6;
 				font-family: sans-serif;
 			}
