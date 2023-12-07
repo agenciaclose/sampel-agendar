@@ -130,19 +130,42 @@
 			</div>
 			<hr>
 
-			<div class="col-12 col-sm-4 m-auto py-3 text-center">
+			<div class="col-12 col-sm-8 m-auto py-3">
+
 				<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-				<h3 class="mb-4"><span class="text-warning">{{ palestra.title }}</span></h3>
-				<form action="javascript:void(0)" id="check_inscricao" method="POST">
-					<div class="mb-3">
-						<label class="form-label">Informe seu CPF</label>
-						<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" maxlength="11">
+
+				<div class="row">
+
+					<div class="col-md-6 col-sm-12 mb-4">
+						<h4 class="mb-2"><span class="text-warning">{{ palestra.title }}</span></h4>
+						<div class="mb-4">Palestrante: <span class="text-warning fw-bold">{{ palestra.palestrante_nome }}</span></div>
+						<div class="text-start">
+							<div><b>Data de Início:</b> {{ palestra.data_palestra | date("d/m/Y H:i") }}</div>
+							<div><b>Data de Término:</b> {{ palestra.data_fim | date("d/m/Y H:i") }}</div>
+							<div><b>Nome do Local:</b> {{ palestra.local_nome }}</div>
+							<div><b>Local:</b> {{ palestra.endereco }}, {{ palestra.numero }} - {{ palestra.bairro }} - {{ palestra.cidade }}, {{ palestra.estado }}</div>
+						</div>
+						<div class="mt-4">
+							<div><b>Informações:</b></div>
+							<div class="text-white-50">{{ palestra.descricao|raw }}</div>
+						</div>
 					</div>
-					<div class="mb-3">
-						<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">
-						<button type="submit" class="btn btn-warning btn-lg fw-bold rounded-pill"><i class="fa-solid fa-chevrons-right"></i> CONTINUAR</button>
+
+					<div class="col-md-6 col-sm-12 text-center">
+						<form action="javascript:void(0)" id="check_inscricao" method="POST">
+							<div class="mb-3">
+								<label class="form-label"><h3>Informe seu CPF</h3></label>
+								<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" maxlength="11">
+							</div>
+							<div class="mb-3">
+								<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">
+								<button type="submit" class="btn btn-warning btn-lg fw-bold rounded-pill"><i class="fa-solid fa-chevrons-right"></i> CONTINUAR</button>
+							</div>
+						</form>
 					</div>
-				</form>
+
+				</div>
+
 			</div>
 		{% endif %}
 	</session>

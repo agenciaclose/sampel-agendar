@@ -3,7 +3,7 @@
 	ini_set("pcre.backtrack_limit", "99999999999999999999999999999");
 	include(__DIR__ . '/../config/config.php');
 
-	$sql_inscricao = $db->prepare("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
+	$sql_inscricao = $db->prepare("SELECT vi.*, v.data_visita, v.tipo FROM visitas_inscricoes AS vi
 								INNER JOIN visitas AS v ON v.id = vi.id_visita
 								WHERE (vi.codigo = '".$_GET['codigo']."' OR vi.codigo = '".$_GET['codigo']."') AND vi.presenca = 'Sim'");
 	$sql_inscricao->execute();
@@ -31,7 +31,12 @@
 		//PEGA O ARQUIVO MODELO
 
 		ob_start();
-		require_once __DIR__ . '/visita/pdf.php';
+		if($inscricao['tipo'] == 'evento') {
+			require_once __DIR__ . '/eventos/pdf.php';
+		}else{
+			require_once __DIR__ . '/visita/pdf.php';
+		}
+
 		$pdf = ob_get_clean();
 		//echo $pdf;
 
