@@ -188,7 +188,7 @@
 						<div><label class="text-black"><b>Selecione os membros da equipe</b></label></div>
 						<select class="form-control select2-tag" name="editar_equipe[]" multiple="multiple">
 							{% for todasequipe in todasequipes %}
-								<option value="{{ todasequipe.id }}" {{ (todasequipe.id in equipeselecionada) ? 'selected' : '' }}>{{ todasequipe.nome }}</option>
+								<option value="{{ todasequipe.id }}" {{ (todasequipe.id in equipeselecionada) ? 'selected' : '' }}>{{ todasequipe.nome }} - {{ todasequipe.setor }}</option>
 							{% endfor %}
 						</select>
 					</div>
