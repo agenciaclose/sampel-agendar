@@ -30,6 +30,7 @@
         public function cadastroSave(array $params)
         {
             $params['senha'] = sha1($params['senha']);
+            unset($params['email_old']);
             $create = new Create();
             $create->ExeCreate('usuarios', $params);
             return $create->getResult();
