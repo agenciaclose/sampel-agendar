@@ -124,10 +124,15 @@
 								</div>
 
 								<div class="modal fade" id="verEquip{{ minha.visita_id }}" tabindex="-1" role="dialog" aria-labelledby="verEquipLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 										<div class="modal-content">
+											
+											<div class="modal-header">
+												<h1 class="modal-title fs-5 text-black"><b>Lista de membros da equipe dessa Visita</b></h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+
 											<div class="modal-body">
-												<div><label class="text-black"><b>Lista de membros da equipe dessa Visita</b></label></div>
 												<table class="table table-striped table-sm">
 													<tbody>
 														{% if minha.equipevisita|length == 0 %}
@@ -146,17 +151,20 @@
 														{% endfor %}
 													</tbody>
 												</table>
-												{% if _session.sampel_user_gerente_equipe == 'S' %}
-													{% if minha.equipevisita|length > 0 %}
-														<hr>
-														{% if minha.email_equipe == 'N' %}
-														<button type="button" data-visita="{{ minha.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
-														{% else %}
-														<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
-														{% endif %}
+											</div>
+
+											{% if _session.sampel_user_gerente_equipe == 'S' %}
+												<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
+												{% if minha.equipevisita|length > 0 %}
+													{% if minha.email_equipe == 'N' %}
+													<button type="button" data-visita="{{ minha.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+													{% else %}
+													<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
 													{% endif %}
 												{% endif %}
-											</div>
+												</div>
+											{% endif %}
+
 										</div>
 									</div>
 								</div>
@@ -318,10 +326,15 @@
 								</div>
 
 								<div class="modal fade" id="verEquip{{ visita.id }}" tabindex="-1" role="dialog" aria-labelledby="verEquipLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 										<div class="modal-content">
+
+											<div class="modal-header">
+												<h1 class="modal-title fs-5 text-black"><b>Lista de membros da equipe dessa Visita</b></h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+
 											<div class="modal-body">
-												<div><label class="text-black"><b>Lista de membros da equipe dessa Visita</b></label></div>
 												<table class="table table-striped table-sm">
 													<tbody>
 														{% if visita.equipevisita|length == 0 %}
@@ -340,15 +353,17 @@
 														{% endfor %}
 													</tbody>
 												</table>
-												{% if visita.equipevisita|length > 0 %}
-													<hr>
-													{% if visita.email_equipe == 'N' %}
-													<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
-													{% else %}
-													<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
-													{% endif %}
-												{% endif %}
 											</div>
+
+											{% if visita.equipevisita|length > 0 %}
+												<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
+												{% if visita.email_equipe == 'N' %}
+												<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+												{% else %}
+												<button type="button" class="btn btn-secondary btn-lg w-100"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+												{% endif %}
+												</div>
+											{% endif %}
 										</div>
 									</div>
 								</div>
