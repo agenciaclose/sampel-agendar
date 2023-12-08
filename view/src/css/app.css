@@ -4101,7 +4101,10 @@ footer .special-heading-2:before {
   top: -30px;
   right: 12px;
 }
-
+.font-size-small {
+  font-size: 90%;
+  line-height: normal;
+}
 #upper-side {
   background-color: #246CB1;
   display: block;

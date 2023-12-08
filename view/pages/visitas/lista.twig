@@ -67,12 +67,12 @@
 		        <thead>
 		            <tr>
 						<th class="d-none">#</th>
-						<th>Nome</th>
+						<th class="no-mobile">Nome</th>
 						<th class="no-mobile">Empresa</th>
 						<th class="no-mobile">Telefone</th>
 						<th class="no-mobile">Setor</th>
-						<th>Endereço</th>
-						<th>Inscrição</th>
+						<th class="no-mobile">Endereço</th>
+						<th class="no-mobile">Inscrição</th>
 					</tr>
 		        </thead>
 		        <tbody>
@@ -83,17 +83,24 @@
 								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
 									
 									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
-									<div class="ms-2">
-										{{ lista.nome }}
-										<div class="text-lowercase">{{ lista.email }}</div>
+									<div class="ms-2 row">
+										<div class="col-md-6 col-sm-12">
+											{{ lista.nome }}
+											<div class="text-lowercase">{{ lista.email }}</div>
+											{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
+											<div>{{ lista.empresa }}</div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<a href="{{ DOMAIN }}/palestras/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+										</div>
 									</div>
 								</span>
 							</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
 							<td class="ps-0 no-mobile text-uppercase text-nowrap">{{ lista.telefone }}</td>
 							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
-							<td class="ps-0 text-nowrap">{{ lista.cidade }}, {{ lista.estado }}</td>
-							<td>
+							<td class="ps-0 text-nowrap no-mobile">{{ lista.cidade }}, {{ lista.estado }}</td>
+							<td class="no-mobile">
 								<a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 								<div>{{ lista.data|date("d/m/Y H:i") }}</div>
 							</td>
