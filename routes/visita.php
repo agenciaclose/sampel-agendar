@@ -26,6 +26,7 @@ $router->get("/etiqueta/all/{id}", "VisitasController:printEtiqueatAll");
 $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo");
 $router->get("/visita/inscricao/cpfautocomplete", "VisitasController:CPFAutoComplete");
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave");
+$router->post("/visita/removeEquipe", "VisitasController:removeEquipe");
 
 //SORTEIO
 $router->post("/visita/sortear", "VisitasController:sortear");

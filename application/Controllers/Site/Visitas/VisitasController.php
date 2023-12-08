@@ -254,6 +254,18 @@ class VisitasController extends Controller
         }
     }
 
+    public function removeEquipe($params)
+    {
+        $this->setParams($params);
+        $remove = new Visitas();
+        $remove = $remove->removeEquipe($params);
+        if($remove){
+            echo '0';
+        }else{
+            echo '1';
+        }
+    }
+
     public function CPFAutoComplete()
     {
         $result = new Visitas();

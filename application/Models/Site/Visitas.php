@@ -233,14 +233,24 @@ class Visitas extends Model
     public function listaEquipesSave($params): read
     {
         $read = new Read();
-        $read->FullRead("DELETE FROM `visitas_equipes` WHERE `id_visita` = :id_visita", "id_visita={$params['id_visita']}");
-
-        $read = new Read();
+        $check = new Read();
         if(!empty($params['editar_equipe'])){
             for ($i=0; $i <count($params['editar_equipe']); $i++) {
-                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+                
+                $check->FullRead("SELECT * FROM `visitas_equipes` WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+                if(!$check->getResult()){
+                    $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
+                }
+            
             }
         }
+        return $read;
+    }
+
+    public function removeEquipe($params): read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `visitas_equipes` WHERE `id_visita` = :visita AND `id_user` = :membro", "visita={$params['visita']}&membro={$params['membro']}");
         return $read;
     }
     
