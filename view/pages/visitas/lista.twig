@@ -104,7 +104,7 @@
 							<td class="ps-0 text-nowrap no-mobile">{{ lista.cidade }}, {{ lista.estado }}</td>
 							<td class="no-mobile">
 								<a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
-								<div>{{ lista.data|date("d/m/Y H:i") }}</div>
+								<div class="text-nowarp">{{ lista.data|date("d/m/Y H:i") }}</div>
 							</td>
 						</tr>
 					{% endfor %}
