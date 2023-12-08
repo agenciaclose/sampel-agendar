@@ -1,0 +1,41 @@
+{% extends "layout/layoutMaintenance.twig" %}
+
+{% block title %} Crachá {% endblock %}
+
+{% block body %}
+
+	{% for inscricao in inscricoes %}
+	<div class="conteudo">
+		<div class="coluna coluna1">
+			<div>
+				<div class="w-100 text-center"><h3><b>{{ visita.title }}</b></h3></div>
+				<div class="p-1"></div>
+				<div class="w-50 m-auto">{{ inscricao.qrcode|raw }}</div>
+				<div class="w-100 text-center"><b>{{ inscricao.codigo }}</b></div>
+				<div class="p-1"></div>
+				<div class="w-100 text-center">Escaneie o QR Code para avaliar nossa equipe e ter a chance de ganhar prêmios.</div>
+				<div class="my-2 linha"></div>
+				<div class="text-center w-100 titulo"><h3><b>{{ inscricao.nome }}</b></h3></div>
+				<div class="text-center w-100"><b>{{ inscricao.cidade }}</b></div>
+				<div class="p-1"></div>
+				<div class="cargo"><b>{% if inscricao.id_user == visita.id_empresa %} RESPONSÁVEL {% else %} VISITANTE {% endif %}</b></div>
+				<div class="p-1"></div>
+				<div class="w-100 text-center text-secondary">Data da visita: {{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</div>
+			</div>
+		</div>
+		<div class="coluna coluna2">
+			<div class="regras">
+				<div><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></div>
+				{{ config.regras_visita|raw }}
+			</div>
+		</div>
+		<div class="coluna coluna3">
+			<div></div>
+		</div>
+		<div class="coluna coluna4">
+			<div></div>
+		</div>
+	</div>
+	{% endfor %}
+
+{% endblock %}

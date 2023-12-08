@@ -92,7 +92,10 @@
 								<div class="card-header border-bottom">
 									<div class="d-flex justify-content-between w-100">
 										<div><h3>Lista de Inscritos</h3></div>
-										<div><a href="{{ DOMAIN }}/certificados/pdf/visita_all.php?id={{ visita.id }}" target="_blank" class="btn btn-warning">IMPRIMIR TODOS OS CERTIFICADOS</a></div>
+										<div>
+											<a href="{{ DOMAIN }}/etiqueta/all/14" target="_blank" class="btn btn-warning me-3"><i class="fa-solid fa-user-tag"></i> IMPRIMIR CRACHÁS</a>
+											<a href="{{ DOMAIN }}/certificados/pdf/visita_all.php?id={{ visita.id }}" target="_blank" class="btn btn-warning"><i class="fa-solid fa-file-certificate"></i> IMPRIMIR TODOS OS CERTIFICADOS</a>
+										</div>
 									</div>
 								</div>
 								<div class="card-body">

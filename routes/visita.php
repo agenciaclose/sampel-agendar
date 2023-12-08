@@ -22,6 +22,7 @@ $router->get("/visita/inscricao/{id}/{inscricao}", "VisitasController:inscricao"
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro");
 $router->post("/visita/inscricao/cadastro-qrcode", "VisitasController:inscricaoCadastroQRcode");
 $router->get("/etiqueta/{codigo}", "VisitasController:printEtiqueta");
+$router->get("/etiqueta/all/{id}", "VisitasController:printEtiqueatAll");
 $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCadastroCampo");
 $router->get("/visita/inscricao/cpfautocomplete", "VisitasController:CPFAutoComplete");
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave");

@@ -206,6 +206,22 @@ class VisitasController extends Controller
         $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
     }
 
+    public function printEtiqueatAll($params)
+    {
+        $this->setParams($params);
+
+        $configuracoes = new Visitas();
+        $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+
+        $inscricoes = new Visitas();
+        $inscricoes = $inscricoes->listarInscricoes($params['id'])->getResult();
+
+        $this->render('pages/visitas/etiqueta_all.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricoes' => $inscricoes, 'config' => $configuracoes]);
+    }
+
     public function sortear($params)
     {
         $this->setParams($params);
