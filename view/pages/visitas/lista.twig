@@ -84,14 +84,16 @@
 									
 									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
 									<div class="ms-2 row">
-										<div class="col-md-6 col-sm-12">
-											{{ lista.nome }}
-											<div class="text-lowercase">{{ lista.email }}</div>
-											{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
-											<div>{{ lista.empresa }}</div>
-										</div>
-										<div class="col-md-6 col-sm-12">
-											<a href="{{ DOMAIN }}/palestras/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+										{{ lista.nome }}
+										<div class="d-block d-sm-none p-0">
+											<div class="col-md-6 col-sm-12">
+												<div class="text-lowercase">{{ lista.email }}</div>
+												{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
+												<div>{{ lista.empresa }}</div>
+											</div>
+											<div class="col-md-6 col-sm-12">
+												<a href="{{ DOMAIN }}/palestras/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+											</div>
 										</div>
 									</div>
 								</span>
@@ -153,7 +155,6 @@
 						<tr>
 							<td class="text-uppercase" style="line-height:normal">
 								{{ equipe.nome }}
-								<div><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
 							</td>
 							<td class="text-end">{{ equipe.setor }}</td>
 						</tr>
