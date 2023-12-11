@@ -19,21 +19,42 @@ class FeedbackController extends Controller
             $visita = $visita->getResult()[0];
         }
 
-        $user = new Feedback();
-        $user = $user->getUserVisita($params['id'], $params['cpf']);
-        if($user->getResult()){
-            $user = $user->getResult()[0];
+        if(isset($params['cpf'])){
+            $user = new Feedback();
+            $user = $user->getUserVisita($params['id'], $params['cpf']);
+            if($user->getResult()){
+                $user = $user->getResult()[0];
+            }
+
+            $check = new Feedback();
+            $check = $check->checkFeedback($params['id'], $params['cpf']);
+            if($check->getResult()){
+                $check = $check->getResult()[0];
+            }
+
+        }else{
+            $user = '';
+            $check = '';
         }
 
-        $check = new Feedback();
-        $check = $check->checkFeedback($params['id'], $params['cpf']);
-        if($check->getResult()){
-            $check = $check->getResult()[0];
-        }
         $perguntas = new Feedback();
         $perguntas = $perguntas->getPerguntas()->getResult();
 
         $this->render('pages/feedback/feedback.twig', ['menu' => 'feedback', 'visita' => $visita, 'perguntas' => $perguntas, 'user' => $user, 'check' => $check]);
+    }
+
+    public function checkInscricao($params)
+    {
+        $this->setParams($params);
+
+        $user = new Feedback();
+        $user = $user->getUserVisita($params['id_visita'], $params['cpf']);
+        if($user->getResult()){
+            echo $user->getResult()[0]['cpf'].'/'.$user->getResult()[0]['id_visita'];
+        }else{
+            echo '0';
+        }
+
     }
 
     public function saveFeedback($params)

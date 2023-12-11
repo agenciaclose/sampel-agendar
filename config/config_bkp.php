@@ -12,8 +12,3 @@
     define('USER_MAIN', 'sampel_evento');
     define('PASS_MAIN', 'oG7ElprDRWDiRWNAEL');
     define('DBSA_MAIN', 'sampel_evento');
-
-    define('MAIL_HOST', 'mail.grupoestevaocaputto.com.br');
-    define('MAIL_EMAIL', 'mkt@grupoestevaocaputto.com.br');
-    define('MAIL_USER', 'mkt@grupoestevaocaputto.com.br');
-    define('MAIL_PASSWORD', '@Sampel2310#');
