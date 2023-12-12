@@ -6,6 +6,7 @@
                 <th class="d-none">#</th>
                 <th>Comentário</th>
                 <th class="text-center">Qtd</th>
+                <th class="text-center"><i class="fa-solid fa-users"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -14,6 +15,28 @@
                 <td class="d-none">{{ loop.indice }}</td>
                 <td>{{ estatistica.resposta }}</td>
                 <td class="text-center">{{ estatistica.qtd }}</td>
+                <td class="text-center">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#pessoas_nota_{{ loop.index }}"><i class="fa-solid fa-users"></i></a>
+                    <div class="modal fade" id="pessoas_nota_{{ loop.index }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                   <table class="table table-striped font-size-small">
+                                        <tbody>
+                                            {% for pessoa in estatistica.pessoas %}
+                                            <tr>
+                                                <td class="text-uppercase" align="left">{{ pessoa.nome }}</td>
+                                                <td class="text-lowercase">{{ pessoa.email }}</td>
+                                                <td class="text-lowercase">{{ pessoa.telefone }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

@@ -80,8 +80,18 @@ class FeedbackController extends Controller
 
         $i = 0;
         foreach ($perguntas as $pergunta) {
+
             $feedbacks = new Feedback();
             $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($params['id'], $pergunta['pergunta'])->getResult();
+            
+            if($pergunta['tipo'] == 'Texto'){
+                $x = 0;
+                foreach ($perguntas[$i]['estatisticas'] as $estatisticas){
+                    $perguntas[$i]['estatisticas'][$x]['pessoas'] = $feedbacks->getFeedbacksListPessoas($params['id'], $estatisticas['resposta'])->getResult();
+                    $x++;
+                }
+            }
+
             $i++;
         }
 
