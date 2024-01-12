@@ -1,0 +1,78 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Inscritos {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		<div class="row mb-4">
+
+			<div class="col-sm-12 col-md-12">
+				<div><span>Lista de inscrições: <span class="text-warning fw-bold">{{ visita.title }}</span></span></div>
+				<div class="d-flex justify-content-between">
+					<span>
+						Data da Visita: <span class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</span>
+						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
+					</span>
+					<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
+				</div>
+				<div class="my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>				
+			</div>
+
+		</div>
+
+		<hr>
+
+		<div class="table-responsive">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" style="width:100%">
+		        <thead>
+		            <tr>
+						<th class="d-none">#</th>
+						<th class="no-mobile">Nome</th>
+						<th class="no-mobile">Empresa</th>
+						<th class="no-mobile">Setor</th>
+						<th class="no-mobile">Endereço</th>
+						<th class="no-mobile">Inscrição</th>
+					</tr>
+		        </thead>
+		        <tbody>
+		        	{% for lista in listas %}
+						<tr>
+							<td class="d-none">{{ lista.visita_id }}</td>
+							<td class="ps-0 text-uppercase">
+								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
+									
+									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
+									<div class="ms-2 row">
+										{{ lista.nome }}
+										<div class="d-block d-sm-none p-0">
+											<div class="col-md-6 col-sm-12">
+												{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
+												<div>{{ lista.empresa }}</div>
+											</div>
+										</div>
+									</div>
+								</span>
+							</td>
+							<td class="ps-0 no-mobile text-uppercase ps-3">{{ lista.empresa }}</td>
+							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
+							<td class="ps-0 text-nowrap no-mobile">{{ lista.cidade }}, {{ lista.estado }}</td>
+							<td class="no-mobile">
+								<div class="text-nowarp">{{ lista.data|date("d/m/Y H:i") }}</div>
+							</td>
+						</tr>
+					{% endfor %}
+		        </tbody>
+		    </table>
+		</div>
+
+	</session>
+
+</div>
+
+<script src="{{ PATH }}/view/src/js/services/visitas.js"></script>
+
+{% endblock %}

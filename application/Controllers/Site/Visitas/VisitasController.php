@@ -112,6 +112,40 @@ class VisitasController extends Controller
         }
     }
 
+    public function inscritos($params)
+    {
+        $this->setParams($params);
+        
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+
+        $lista = new Visitas();
+        $lista = $lista->listarVisitasUser($params['id'], $visita['id_empresa'])->getResult();
+
+        $total = new Visitas();
+        $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
+
+        $grupos = new Visitas();
+        $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
+
+        $sorteados = new Visitas();
+        $sorteados = $sorteados->listarVisitasUserSorteados($params['id'])->getResult();
+
+        $todasEquipes = new Visitas();
+        $todasEquipes = $todasEquipes->listaEquipes()->getResult();
+
+        $equipeVisita = new Visitas();
+        $equipeVisita = $equipeVisita->listaEquipesVisita($params['id'])->getResult();
+
+        $equipeSelecionada = array();
+        foreach ($equipeVisita as $equipe){
+            $equipeSelecionada[] = $equipe['id'];
+        }
+
+        $this->render('pages/visitas/inscritos.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada]);
+    
+    }
+
     public function inscricao($params)
     {
         $this->setParams($params);
