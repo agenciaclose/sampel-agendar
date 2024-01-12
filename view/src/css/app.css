@@ -140,7 +140,6 @@ body{
 a,
 a:hover,
 a:focus{
-  color: #ffffff;
   text-decoration: none;
 }
 
@@ -177,6 +176,10 @@ blockquote{
 }
 video {
   border: 1px solid #333;
+}
+.dataTables_wrapper .top {
+  display: flex;
+  justify-content: space-between;
 }
 .limit-3 {
   overflow: hidden;
