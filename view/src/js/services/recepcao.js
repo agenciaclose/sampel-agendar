@@ -1,16 +1,11 @@
-// Selecione o elemento da câmera e o botão de início
-var cameraElement = document.getElementById("camera");
-var startButton = document.getElementById("startButton");
-
-// Configuração do leitor de código de barras
 var config = {
   inputStream: {
     name: "Live",
     type: "LiveStream",
     target: cameraElement,
     constraints: {
-      width: 640,
-      height: 480,
+      width: { min: 640 },  // Largura mínima desejada
+      height: { min: 280 }, // Altura mínima desejada
       facingMode: "environment" // Use a câmera traseira (se disponível)
     },
   },
