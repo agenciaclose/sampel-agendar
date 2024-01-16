@@ -1,11 +1,15 @@
+// Selecione o elemento da câmera e o botão de início
+var cameraElement = document.getElementById("camera");
+var startButton = document.getElementById("startButton");
+
 var config = {
   inputStream: {
     name: "Live",
     type: "LiveStream",
     target: cameraElement,
     constraints: {
-      width: { min: 640 },  // Largura mínima desejada
-      height: { min: 280 }, // Altura mínima desejada
+      width: { min: 840 },  // Largura mínima desejada
+      height: { min: 158 }, // Altura mínima desejada
       facingMode: "environment" // Use a câmera traseira (se disponível)
     },
   },
