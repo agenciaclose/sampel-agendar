@@ -4715,6 +4715,6 @@ img.fancybox__image {
 }
 #camera {
   width: 100%; /* Largura desejada */
-  max-width: 100%; /* Largura máxima desejada */
-  height: 158px; /* Altura será ajustada automaticamente para manter a proporção original */
+  max-width: 375px; /* Largura máxima desejada */
+  height: 100px; /* Altura será ajustada automaticamente para manter a proporção original */
 }
