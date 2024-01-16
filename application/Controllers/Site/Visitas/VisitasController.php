@@ -7,6 +7,8 @@ use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Models\User\User;
 use Agencia\Close\Services\Login\Logon;
 
+use Picqer\Barcode\BarcodeGeneratorPNG;
+
 class VisitasController extends Controller
 {
     public function visitas($params)
@@ -237,7 +239,11 @@ class VisitasController extends Controller
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($inscricao['id_visita'])->getResult()[0];
 
-        $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes]);
+        $link_confirmar = DOMAIN.'/visita/recepicao/'.$params['codigo'];
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode($link_confirmar, $generator::TYPE_CODE_128));
+
+        $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes, 'barcode' => $barcode]);
     }
 
     public function printEtiqueatAll($params)

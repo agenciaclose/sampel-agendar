@@ -27,7 +27,8 @@
     "ext-curl": "*",
     "ext-simplexml": "*",
     "shuchkin/simplexlsx": "^1.0",
-    "mpdf/mpdf": "^8.2"
+    "mpdf/mpdf": "^8.2",
+    "picqer/php-barcode-generator": "^2.4"
   },
   "autoload": {
     "psr-4": {

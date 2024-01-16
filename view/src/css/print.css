@@ -10,10 +10,6 @@
         max-width: 210mm;
         max-height: 297mm;
     }
-    .conteudo .cargo {
-        background-color: #000 !important;
-        color: #FFFFFF !important;
-    }
 }
 body {
     font-family: sans-serif;
@@ -80,13 +76,9 @@ h1,h2,h3,h4,h5,h6 {
 .conteudo .coluna > div {
     padding: 25px;
 }
-.conteudo .cargo {
-    padding: 15px 10px;
-    text-align: center;
-    background-color: #000;
-    color: #FFFFFF;
-    font-size: 20px;
-    letter-spacing: 2px;
+.conteudo .cargo img{
+    max-width: 100%;
+    min-height: 50px;
 }
 .linha {
     height: 2px;

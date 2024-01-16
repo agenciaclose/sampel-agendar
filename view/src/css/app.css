@@ -140,9 +140,12 @@ body{
 a,
 a:hover,
 a:focus{
+  color: #fff;
   text-decoration: none;
 }
-
+.btn-light:hover, .btn-light:focus, .btn-light:active {
+  --bs-btn-color: #000 !important;
+}
 h1,
 h2,
 h3,
