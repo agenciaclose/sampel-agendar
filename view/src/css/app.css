@@ -4714,7 +4714,8 @@ img.fancybox__image {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.8), white) !important
 }
 #camera {
-  width: 100%; /* Largura desejada */
-  max-width: 375px; /* Largura máxima desejada */
-  height: 100px; /* Altura será ajustada automaticamente para manter a proporção original */
+  width: 100%;
+  max-width: 375px;
+  height: 165px;
+  overflow: hidden;
 }
