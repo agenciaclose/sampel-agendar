@@ -17,7 +17,7 @@
 			<div class="text-center w-100 titulo"><h3><b>{{ inscricao.nome }}</b></h3></div>
 			<div class="text-center w-100"><b>{{ inscricao.cidade }}</b></div>
 			<div class="p-1"></div>
-			<div class="cargo"><b>VISITANTE</b></div>
+			<div class="cargo"><img src="data:image/png;base64, {{ barcode }}" class="img-fluid"></div>
 			<div class="p-1"></div>
 			<div class="w-100 text-center text-secondary">Data da Palestra: {{ visita.data_palestras | date("d/m/Y H:i") }}</div>
 		</div>

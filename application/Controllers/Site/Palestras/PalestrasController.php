@@ -5,6 +5,8 @@ namespace Agencia\Close\Controllers\Site\Palestras;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Palestras;
 
+use Picqer\Barcode\BarcodeGeneratorPNG;
+
 class PalestrasController extends Controller
 {
 
@@ -76,7 +78,10 @@ class PalestrasController extends Controller
             $inscricao = '';
         }
 
-        $this->render('pages/palestras/inscricao.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'inscricao' => $inscricao]);
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
+
+        $this->render('pages/palestras/inscricao.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'inscricao' => $inscricao, 'barcode' => $barcode]);
     }
 
 

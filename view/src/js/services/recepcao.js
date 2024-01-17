@@ -21,7 +21,7 @@ var config = {
 // Inicializa o leitor de código de barras
 Quagga.init(config, function(err) {
   if (err) {
-    console.error(err);
+    alert("Erro: " + err);
     return;
   }
   
