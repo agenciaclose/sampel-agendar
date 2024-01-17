@@ -14,7 +14,7 @@ var config = {
     },
   },
   decoder: {
-    readers: ["ean_reader"] // Pode usar outros tipos de leitores, dependendo das necessidades
+    readers: ["code_128_reader"] // Pode usar outros tipos de leitores, dependendo das necessidades
   },
 };
 
