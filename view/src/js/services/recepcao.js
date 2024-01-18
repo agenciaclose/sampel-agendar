@@ -8,13 +8,20 @@ var config = {
     type: "LiveStream",
     target: cameraElement,
     constraints: {
-      width: { min: 375 },  // Largura mínima desejada
-      height: { min: 100 }, // Altura mínima desejada
-      facingMode: "environment" // Use a câmera traseira (se disponível)
+      width: { min: 400 },
+      height: { min: 100 },
+      facingMode: "environment"
     },
+    area: {
+      top: "0%",
+      right: "0%",
+      left: "0%",
+      bottom: "0%"
+    },
+    singleChannel: false
   },
   decoder: {
-    readers: ["code_128_reader"] // Pode usar outros tipos de leitores, dependendo das necessidades
+    readers: ["code_128_reader"]
   },
 };
 
@@ -27,12 +34,12 @@ Quagga.init(config, function(err) {
   
   // Adiciona um ouvinte de clique ao botão de início
   startButton.addEventListener("click", function() {
-    console.log("iniciou");
     Quagga.start();
   });
   
   // Configura um ouvinte para quando um código de barras for lido
   Quagga.onDetected(function(result) {
+    console.log(result);
     alert("Código de barras lido: " + result.codeResult.code);
     
     // Pare a leitura após um código de barras ser encontrado
