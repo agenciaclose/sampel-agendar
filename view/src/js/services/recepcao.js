@@ -18,6 +18,22 @@ var config = {
       left: "0%",
       bottom: "0%"
     },
+    halfSample: true,
+    patchSize: "medium", // x-small, small, medium, large, x-large
+    debug: {
+      showCanvas: false,
+      showPatches: false,
+      showFoundPatches: false,
+      showSkeleton: false,
+      showLabels: false,
+      showPatchLabels: false,
+      showRemainingPatchLabels: false,
+      boxFromPatches: {
+        showTransformed: false,
+        showTransformedBox: false,
+        showBB: false
+      }
+    },
     singleChannel: false
   },
   decoder: {
