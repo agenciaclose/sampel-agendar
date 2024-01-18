@@ -17,7 +17,6 @@ var config = {
   decoder: {
     readers: ["code_128_reader"]
   },
-  numOfWorkers: 4, // Número de trabalhadores a serem usados para a decodificação
   locate: true, // Localização da região do código de barras
 };
 
@@ -29,13 +28,7 @@ Quagga.init(config, function(err) {
     console.log("Erro: " + err);
     return;
   }
-  
-  // // Adiciona um ouvinte de clique ao botão de início
-  // startButton.addEventListener("click", function() {
-  //   $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
-  //   Quagga.start();
-  // });
-  
+
   // Configura um ouvinte para quando um código de barras for lido
   Quagga.onDetected(function(result) {
 
@@ -52,13 +45,8 @@ Quagga.init(config, function(err) {
         data: { 'id_visita': id_visita, 'codigo': result.codeResult.code},
         url: DOMAIN + '/visita/recepcao/confirmar',
         success: function (data) {
-          if(data == '0'){
-            $('#sendContent').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
-            setTimeout(function() { location.reload(); }, 1500);
-          }else{
-            $('#sendContent').html('<button type="button" class="btn btn-danger btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-triangle-exclamation fa-fade"></i> ERRO AO VERIFICAR</button>');
-            setTimeout(function() { location.reload(); }, 3000);
-          }
+          $('#sendContent').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
+          setTimeout(function() { location.reload(); }, 1500);
         }
       });
 
