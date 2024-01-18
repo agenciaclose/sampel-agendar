@@ -1,34 +1,41 @@
-const config = {
+// Selecione o elemento da câmera e o botão de início
+var cameraElement = document.getElementById("camera");
+var startButton = document.getElementById("startButton");
+
+var config = {
   inputStream: {
-      type: "LiveStream",
-      target: document.querySelector("#camera"),
-      constraints: {
-          width: 400,
-          height: 100,
-          facingMode: "environment", // Pode ser "user" para câmera frontal
-      },
+    name: "Live",
+    type: "LiveStream",
+    target: cameraElement,
+    constraints: {
+      width: { min: 400 },  // Largura mínima desejada
+      height: { min: 100 }, // Altura mínima desejada
+      facingMode: "environment" // Use a câmera traseira (se disponível)
+    },
   },
-  locator: {
-      patchSize: "medium",
-      halfSample: true,
-  },
-  numOfWorkers: 2,
   decoder: {
-      readers: ["code_128_reader"], // Tipo de código de barras que será lido (EAN no exemplo)
+    readers: ["code_128_reader"] // Pode usar outros tipos de leitores, dependendo das necessidades
   },
-  locate: true,
 };
 
-Quagga.init(config, function (err) {
+// Inicializa o leitor de código de barras
+Quagga.init(config, function(err) {
   if (err) {
-      console.error(err);
-      return;
+    console.log("Erro: " + err);
+    return;
   }
-  Quagga.start();
-});
-
-Quagga.onDetected(function (result) {
-  const code = result.codeResult.code;
-  document.querySelector("#resultado").textContent = "Código de Barras: " + code;
-  Quagga.stop();
+  
+  // Adiciona um ouvinte de clique ao botão de início
+  startButton.addEventListener("click", function() {
+    console.log("iniciou");
+    Quagga.start();
+  });
+  
+  // Configura um ouvinte para quando um código de barras for lido
+  Quagga.onDetected(function(result) {
+    alert("Código de barras lido: " + result.codeResult.code);
+    
+    // Pare a leitura após um código de barras ser encontrado
+    Quagga.stop();
+  });
 });
