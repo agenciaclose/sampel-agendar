@@ -21,17 +21,17 @@ var config = {
     halfSample: true,
     patchSize: "medium", // x-small, small, medium, large, x-large
     debug: {
-      showCanvas: false,
-      showPatches: false,
-      showFoundPatches: false,
-      showSkeleton: false,
-      showLabels: false,
-      showPatchLabels: false,
-      showRemainingPatchLabels: false,
+      showCanvas: true,
+      showPatches: true,
+      showFoundPatches: true,
+      showSkeleton: true,
+      showLabels: true,
+      showPatchLabels: true,
+      showRemainingPatchLabels: true,
       boxFromPatches: {
-        showTransformed: false,
-        showTransformedBox: false,
-        showBB: false
+        showTransformed: true,
+        showTransformedBox: true,
+        showBB: true
       }
     },
     singleChannel: false
