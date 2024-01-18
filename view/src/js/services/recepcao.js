@@ -8,7 +8,7 @@ var config = {
     type: "LiveStream",
     target: cameraElement,
     constraints: {
-      width: { min: 400 },  // Largura mínima desejada
+      width: { min: 375 },  // Largura mínima desejada
       height: { min: 100 }, // Altura mínima desejada
       facingMode: "environment" // Use a câmera traseira (se disponível)
     },
