@@ -243,7 +243,7 @@ class VisitasController extends Controller
         $visita = $visita->listarVisitaID($inscricao['id_visita'])->getResult()[0];
 
         $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode($params['codigo'], $generator::TYPE_CODE_128));
+        $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
 
         $this->render('pages/visitas/etiqueta.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes, 'barcode' => $barcode]);
     }

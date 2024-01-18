@@ -12,10 +12,13 @@ class RecepcaoController extends Controller
     {
         $this->setParams($params);
         
-        $visita = new Visitas();
-        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
-
-        $this->render('pages/recepcao/index.twig', ['menu' => 'Recepção', 'visita' => $visita]);
+        if(!empty($_SESSION['sampel_user_id'])){
+            $visita = new Visitas();
+            $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+            $this->render('pages/recepcao/index.twig', ['menu' => 'Recepção', 'visita' => $visita]);
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+        }
     }
 
     public function confirmarPresenca($params)
