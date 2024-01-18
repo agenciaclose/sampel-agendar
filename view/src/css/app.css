@@ -4713,29 +4713,3 @@ img.fancybox__image {
 .bg-gradient-gray {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.8), white) !important
 }
-#camera {
-  transform: rotate(90deg);
-  text-align: center;
-  margin: 0 auto;
-  position: relative;
-  width: 400px;
-  height: 100px;
-}
-#camera video {
-  border: 1px solid #FFF !important;
-  margin: 0 auto;
-}
-/* #camera video {
-  border: none;
-  max-width: 400px;
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  left: 0;
-} */
-#camera canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-}
