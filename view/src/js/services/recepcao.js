@@ -39,8 +39,32 @@ Quagga.init(config, function(err) {
   
   // Configura um ouvinte para quando um código de barras for lido
   Quagga.onDetected(function(result) {
-    console.log(result);
-    alert("Código de barras lido: " + result.codeResult.code);
+
+    $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
+    let id_visita = $('#id_visita').val();
+    let DOMAIN = $('body').data('domain');
+
+    if(result.codeResult.code) {
+
+      $.ajax({
+        type: "POST", 
+        async: true, 
+        data: { 'id_visita': id_visita, 'codigo': result.codeResult.code},
+        url: DOMAIN + '/visita/recepcao/confirmar',
+        success: function (data) {
+          if(data == '0'){
+            $('#sendContent').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
+            setTimeout(function() { location.reload(); }, 1500);
+          }else{
+            $('#sendContent').html('<button type="button" class="btn btn-danger btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-triangle-exclamation fa-fade"></i> ERRO AO VERIFICAR</button>');
+            setTimeout(function() { location.reload(); }, 3000);
+          }
+        }
+      });
+
+    }else{
+      alert('ERRO AO LER O CÓDIGO')
+    }
     
     // Pare a leitura após um código de barras ser encontrado
     Quagga.stop();

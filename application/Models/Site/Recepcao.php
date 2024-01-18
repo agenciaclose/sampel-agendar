@@ -12,7 +12,7 @@ class Recepcao extends Model
     public function confirmarPresenca($params)
     {
         $read = new Read();
-        $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `codigo` = '".$params['user_codigo']."'");
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `id_visita` = '".$params['id_visita']."' AND `codigo` = '".$params['codigo']."'");
     }
 
 }

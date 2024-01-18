@@ -44,5 +44,5 @@ $router->get("/minha-conta/downloads", "MinhaContaController:downloads");
 $router->get("/minha-conta/edit-account", "MinhaContaController:editaccount");
 
 $router->namespace("Agencia\Close\Controllers\Site\Recepcao");
-$router->get("/visita/recepcao", "RecepcaoController:index");
+$router->get("/visita/recepcao/{id}", "RecepcaoController:index");
 $router->post("/visita/recepcao/confirmar", "RecepcaoController:confirmarPresenca");
