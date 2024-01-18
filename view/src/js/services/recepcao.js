@@ -27,21 +27,24 @@ var config = {
 
 // Inicializa o leitor de código de barras
 Quagga.init(config, function(err) {
+  Quagga.start();
+
   if (err) {
     console.log("Erro: " + err);
     return;
   }
   
-  // Adiciona um ouvinte de clique ao botão de início
-  startButton.addEventListener("click", function() {
-    $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
-    Quagga.start();
-  });
+  // // Adiciona um ouvinte de clique ao botão de início
+  // startButton.addEventListener("click", function() {
+  //   $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
+  //   Quagga.start();
+  // });
   
   // Configura um ouvinte para quando um código de barras for lido
   Quagga.onDetected(function(result) {
 
     $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
+    
     let id_visita = $('#id_visita').val();
     let DOMAIN = $('body').data('domain');
 
