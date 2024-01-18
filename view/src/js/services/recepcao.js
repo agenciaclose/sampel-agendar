@@ -34,6 +34,7 @@ Quagga.init(config, function(err) {
   
   // Adiciona um ouvinte de clique ao botão de início
   startButton.addEventListener("click", function() {
+    $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
     Quagga.start();
   });
   

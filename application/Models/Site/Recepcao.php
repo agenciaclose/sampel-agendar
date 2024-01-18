@@ -13,6 +13,7 @@ class Recepcao extends Model
     {
         $read = new Read();
         $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `id_visita` = '".$params['id_visita']."' AND `codigo` = '".$params['codigo']."'");
+        return $read;
     }
 
 }

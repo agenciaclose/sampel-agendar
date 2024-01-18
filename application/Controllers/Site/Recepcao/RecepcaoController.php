@@ -23,7 +23,7 @@ class RecepcaoController extends Controller
         $this->setParams($params);
         $update = new Recepcao();
         $update = $update->confirmarPresenca($params);
-        if($update){
+        if($update->getResult()){
             echo '0';
         }else{
             echo '1';
