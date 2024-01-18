@@ -1,61 +1,46 @@
-// Selecione o elemento da câmera e o botão de início
-var cameraElement = document.getElementById("camera");
-var startButton = document.getElementById("startButton");
-
-var config = {
+Quagga.init({
   inputStream: {
     name: "Live",
     type: "LiveStream",
-    target: cameraElement,
+    target: document.querySelector('#camera'),
     constraints: {
       width: 400,
       height: 100,
       facingMode: "environment"
-  },
-    singleChannel: false
+    },
   },
   decoder: {
-    readers: ["code_128_reader"]
+    readers: ["code_128_reader"] // Tipo de código de barras a ser lido (EAN neste exemplo)
   },
-};
-
-// Inicializa o leitor de código de barras
-Quagga.init(config, function(err) {
-  Quagga.start();
-
-  if (err) {
-    console.log("Erro: " + err);
-    return;
-  }
-  
-  Quagga.onProcessed(function (result) {
-    var drawingCtx = Quagga.canvas.ctx.overlay,
-        drawingCanvas = Quagga.canvas.dom.overlay;
-
-    if (result) {
-        if (result.boxes) {
-            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-            result.boxes.filter(function (box) {
-                return box !== result.box;
-            }).forEach(function (box) {
-                Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "blue", lineWidth: 2 });
-            });
-        }
-
-        if (result.box) {
-            Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "blue", lineWidth: 2 });
-        }
-
-        if (result.codeResult && result.codeResult.code) {
-            Quagga.ImageDebug.drawPath(result.line, { x: 'vertical', y: 'horizontal' }, drawingCtx, { color: 'red', lineWidth: 3 });
-        }
-    }
+  numOfWorkers: 4, // Número de trabalhadores a serem usados para a decodificação
+  locate: true, // Localização da região do código de barras
 });
 
-  // Configura um ouvinte para quando um código de barras for lido
-  Quagga.onDetected(function(result) {
+Quagga.onProcessed(function(result) {
+  var drawingCtx = Quagga.canvas.ctx.overlay;
+  var drawingCanvas = Quagga.canvas.dom.overlay;
 
-    $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
+  if (result) {
+    if (result.boxes) {
+      drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+      result.boxes.forEach(function(box) {
+        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+      });
+    }
+
+    if (result.box) {
+      Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "blue", lineWidth: 2 });
+    }
+
+    if (result.codeResult && result.codeResult.code) {
+      console.log("Código de barras detectado: " + result.codeResult.code);
+    }
+  }
+});
+
+Quagga.onDetected(function(result) {
+  
+  $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
     
     let id_visita = $('#id_visita').val();
     let DOMAIN = $('body').data('domain');
@@ -81,8 +66,10 @@ Quagga.init(config, function(err) {
     }else{
       alert('ERRO AO LER O CÓDIGO')
     }
-    
-    // Pare a leitura após um código de barras ser encontrado
-    Quagga.stop();
-  });
+
 });
+
+Quagga.start();
+
+// Para parar a detecção de código de barras, você pode usar:
+// Quagga.stop();
