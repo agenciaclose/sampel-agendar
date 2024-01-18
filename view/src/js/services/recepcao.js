@@ -75,7 +75,7 @@ $("#confirmar-presenca").submit(function (c) {
       success: function (data) {
 
         $('#sendContentModal').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
-        //setTimeout(function() { location.reload(); }, 3000);
+        setTimeout(function() { location.reload(); }, 3000);
 
       }
   });
