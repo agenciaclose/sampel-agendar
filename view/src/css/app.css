@@ -4716,6 +4716,9 @@ img.fancybox__image {
 #camera {
   text-align: center;
   margin: 0 auto;
+  position: relative;
+  width: 400px;
+  height: 100px;
 }
 #camera video {
   border: 1px solid #FFF !important;
@@ -4729,8 +4732,9 @@ img.fancybox__image {
   bottom: 0;
   left: 0;
 } */
-/* #camera canvas {
+#camera canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 9999;
-  width: 400px;
-  height: 100px;
-} */
+}
