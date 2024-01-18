@@ -11,7 +11,7 @@ var config = {
       width: 400,
       height: 100,
       facingMode: "environment"
-    },
+  },
     singleChannel: false
   },
   decoder: {
