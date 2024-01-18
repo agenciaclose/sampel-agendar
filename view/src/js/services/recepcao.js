@@ -1,40 +1,67 @@
-// Selecione o elemento da câmera e o botão de início
-var cameraElement = document.getElementById("camera");
-var startButton = document.getElementById("startButton");
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
-var config = {
-  inputStream: {
-    name: "Live",
-    type: "LiveStream",
-    target: cameraElement,
-    constraints: {
-      width: { min: 375 },  // Largura mínima desejada
-      height: { min: 100 }, // Altura mínima desejada
-      facingMode: "environment" // Use a câmera traseira (se disponível)
+function getUserMedia(constraints, success, failure) {
+    navigator.getUserMedia(constraints, function(stream) {
+        var videoSrc = (window.URL && window.URL.createObjectURL(stream)) || stream;
+        success.apply(null, [videoSrc]);
+    }, failure);
+}
+
+
+function initCamera(constraints, video, callback) {
+    getUserMedia(constraints, function (src) {
+        video.src = src;
+        video.addEventListener('loadeddata', function() {
+            var attempts = 10;
+
+            function checkVideo() {
+                if (attempts > 0) {
+                    if (video.videoWidth > 0 && video.videoHeight > 0) {
+                        console.log(video.videoWidth + "px x " + video.videoHeight + "px");
+                        video.play();
+                        callback();
+                    } else {
+                        window.setTimeout(checkVideo, 100);
+                    }
+                } else {
+                    callback('Unable to play video stream.');
+                }
+                attempts--;
+            }
+
+            checkVideo();
+        }, false);
+    }, function(e) {
+        console.log(e);
+    });
+}
+
+function copyToCanvas(video, ctx) {
+    ( function frame() {
+        ctx.drawImage(video, 0, 0);
+        window.requestAnimationFrame(frame);
+    }());
+}
+
+window.addEventListener('load', function() {
+    var constraints = {
+        video: {
+            mandatory: {
+                minWidth: 1280,
+                minHeight: 720
+            }
+        }
     },
-  },
-  decoder: {
-    readers: ["code_128_reader"] // Pode usar outros tipos de leitores, dependendo das necessidades
-  },
-};
+    video = document.createElement('video'),
+    canvas = document.createElement('canvas');
 
-// Inicializa o leitor de código de barras
-Quagga.init(config, function(err) {
-  if (err) {
-    alert("Erro: " + err);
-    return;
-  }
-  
-  // Adiciona um ouvinte de clique ao botão de início
-  startButton.addEventListener("click", function() {
-    Quagga.start();
-  });
-  
-  // Configura um ouvinte para quando um código de barras for lido
-  Quagga.onDetected(function(result) {
-    alert("Código de barras lido: " + result.codeResult.code);
-    
-    // Pare a leitura após um código de barras ser encontrado
-    Quagga.stop();
-  });
-});
+    document.body.appendChild(video);
+    document.body.appendChild(canvas);
+
+    initCamera(constraints, video, function() {
+        canvas.setAttribute('width', video.videoWidth);
+        canvas.setAttribute('height', video.videoHeight);
+        copyToCanvas(video, canvas.getContext('2d'));
+    });
+}, false);

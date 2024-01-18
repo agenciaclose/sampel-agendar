@@ -45,3 +45,4 @@ $router->get("/minha-conta/edit-account", "MinhaContaController:editaccount");
 
 $router->namespace("Agencia\Close\Controllers\Site\Recepcao");
 $router->get("/visita/recepcao", "RecepcaoController:index");
+$router->post("/visita/recepcao/confirmar", "RecepcaoController:confirmarPresenca");

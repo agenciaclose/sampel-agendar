@@ -335,4 +335,5 @@ class VisitasController extends Controller
         $this->render('pages/visitas/relatorios.twig', ['menu' => 'visitas', 'perguntas' => $perguntas]);
     }
 
+
 }

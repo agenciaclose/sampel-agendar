@@ -4715,7 +4715,15 @@ img.fancybox__image {
 }
 #camera {
   width: 100%;
-  max-width: 375px;
-  height: 165px;
+  max-width: 400px;
+  height: 100px;
+  overflow: hidden;
+  text-align: center;
+}
+#camera video {
+  border: 1px solid #FFF !important;
+  width: 100%;
+  max-width: 400px;
+  height: 100px;
   overflow: hidden;
 }
