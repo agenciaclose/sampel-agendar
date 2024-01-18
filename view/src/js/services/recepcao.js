@@ -46,7 +46,7 @@ Quagga.init(config, function(err) {
         url: DOMAIN + '/visita/recepcao/confirmar',
         success: function (data) {
           $('#sendContent').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
-          setTimeout(function() { location.reload(); }, 1500);
+          setTimeout(function() { location.reload(); }, 3000);
         }
       });
 
@@ -57,4 +57,27 @@ Quagga.init(config, function(err) {
     // Pare a leitura após um código de barras ser encontrado
     Quagga.stop();
   });
+});
+
+
+$("#confirmar-presenca").submit(function (c) {
+
+  $('#sendContentModal').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
+
+  c.preventDefault();
+
+  var DOMAIN = $('body').data('domain');
+  var form = $(this);
+
+  $.ajax({
+      type: "POST", async: true, data: form.serialize(),
+      url: DOMAIN + '/visita/recepcao/confirmar',
+      success: function (data) {
+
+        $('#sendContentModal').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
+        //setTimeout(function() { location.reload(); }, 3000);
+
+      }
+  });
+
 });
