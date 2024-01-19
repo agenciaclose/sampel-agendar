@@ -76,6 +76,21 @@ $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 
 $('.cpf_number').mask('00000000000', {reverse: true, clearIfNotMatch: true});
 
+$('.codigo').on('input', function() {
+    var valor = $(this).val();
+    
+    // Remover caracteres não alfanuméricos
+    valor = valor.replace(/[^a-zA-Z0-9]/g, '');
+
+    // Limitar o valor a 11 caracteres
+    if (valor.length > 11) {
+        valor = valor.slice(0, 11);
+    }
+
+    // Atualizar o valor no campo em maiúsculas
+    $(this).val(valor.toUpperCase());
+});
+
 $(".send_email_equipe").click(function (c) {
 
     $(this).prop("disabled", true);

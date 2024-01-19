@@ -167,8 +167,12 @@ class VisitasController extends Controller
         $configuracoes = new Visitas();
         $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
 
-        $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
+        if(isset($inscricao['codigo'])) {
+            $generator = new BarcodeGeneratorPNG();
+            $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
+        }else{
+            $barcode = '';
+        }
 
         $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes, 'barcode' => $barcode]);
     }
