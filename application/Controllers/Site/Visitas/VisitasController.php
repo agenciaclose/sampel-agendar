@@ -339,5 +339,21 @@ class VisitasController extends Controller
         $this->render('pages/visitas/relatorios.twig', ['menu' => 'visitas', 'perguntas' => $perguntas]);
     }
 
+    public function visitaGetQRcode($params){
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+        $this->render('pages/visitas/qrcode.twig', ['menu' => 'visita', 'visita' => $visita]);
+    }
+
+    public function visitaQRcodeFeedbackSave($params){
+        $save = new Visitas();
+        $save = $save->visitaQRcodeFeedbackSave($params);
+    }
+
+    public function visitaQRcodeSave($params){
+        $save = new Visitas();
+        $save = $save->visitaQRcodeSave($params);
+    }
+
 
 }

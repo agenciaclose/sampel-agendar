@@ -300,4 +300,18 @@ class Visitas extends Model
         return $read;
     }
 
+    public function visitaQRcodeFeedbackSave($params)
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `qrcode_feedback` = :qrcode WHERE `id` = :id_visita", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}");
+        return $read;
+    }
+
+    public function visitaQRcodeSave($params)
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `qrcode_inscricao` = :qrcode WHERE `id` = :id_visita", "qrcode={$params['qrcode']}&id_visita={$params['id_visita']}");
+        return $read;
+    }
+
 }

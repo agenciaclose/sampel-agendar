@@ -8,14 +8,14 @@ use Agencia\Close\Controllers\Controller;
 
 class RecepcaoController extends Controller
 {
-    public function index($params)
+    public function visita($params)
     {
         $this->setParams($params);
         
         if(!empty($_SESSION['sampel_user_id'])){
             $visita = new Visitas();
             $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
-            $this->render('pages/recepcao/index.twig', ['menu' => 'Recepção', 'visita' => $visita]);
+            $this->render('pages/recepcao/visita.twig', ['menu' => 'Recepção', 'visita' => $visita]);
         }else{
             $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
         }

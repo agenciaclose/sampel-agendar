@@ -59,3 +59,102 @@ $('.remover_equipe').click(function (e) {
     });
 
 });
+
+
+// GERA QRCODE DA PALESTRA
+function qrcodeGenVisitas(id_visita) {
+    var DOMAIN = $('body').data('domain');
+    
+    $.ajax({
+        type: "POST", 
+        async: true, 
+        data: { 
+                "frame_name": "bottom-frame",
+                "qr_code_text": DOMAIN + '/visita/inscricao/'+id_visita,
+                "image_format": "SVG",
+                "frame_color": "#246CB1",
+                "frame_text_color": "#ffffff",
+                "frame_icon_name": "mobile",
+                "frame_text": "INSCRIÇÃO",
+                "marker_left_template": "version13",
+                "marker_right_template": "version13",
+                "marker_bottom_template": "version13"
+            },
+        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        success: function (qrcode) {
+            qrcode = (new XMLSerializer()).serializeToString(qrcode);
+            qrcodeSaveVisitas(id_visita, qrcode);
+        }
+    });
+}
+
+function qrcodeSaveVisitas (id_visita, qrcode){
+    var DOMAIN = $('body').data('domain');
+
+    const formData = new FormData()
+    formData.append('id_visita', id_visita);
+    formData.append('qrcode', qrcode);
+
+    $.ajax({
+        type: "POST",
+        url: DOMAIN + '/visita/cadastro/save-qrcode',
+        data: formData,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            qrcodeGenFeedback(id_visita);
+        }
+    });
+}
+// ##
+
+// GERA QRCODE DO FEEDBACK
+function qrcodeGenFeedback(id_visita) {
+    var DOMAIN = $('body').data('domain');
+    
+    $.ajax({
+        type: "POST", 
+        async: true, 
+        data: { 
+                "frame_name": "bottom-frame",
+                "qr_code_text": DOMAIN + '/visita/feedback/'+id_visita,
+                "image_format": "SVG",
+                "frame_color": "#246CB1",
+                "frame_text_color": "#ffffff",
+                "frame_icon_name": "mobile",
+                "frame_text": "FEEDBACK",
+                "marker_left_template": "version13",
+                "marker_right_template": "version13",
+                "marker_bottom_template": "version13"
+            },
+        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        success: function (qrcode) {
+            qrcode = (new XMLSerializer()).serializeToString(qrcode);
+            qrcodeSaveFeedback(id_visita, qrcode);
+        }
+    });
+}
+
+function qrcodeSaveFeedback (id_visita, qrcode){
+    var DOMAIN = $('body').data('domain');
+
+    const formData = new FormData()
+    formData.append('id_visita', id_visita);
+    formData.append('qrcode', qrcode);
+
+    $.ajax({
+        type: "POST",
+        url: DOMAIN + '/visita/cadastro/save-qrcode-feedback',
+        data: formData,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            window.location.href = DOMAIN + '/visita/qrcode/'+id_visita;
+        }
+    });
+}
+// ##

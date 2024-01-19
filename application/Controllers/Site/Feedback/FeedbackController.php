@@ -97,4 +97,5 @@ class FeedbackController extends Controller
 
         $this->render('pages/feedback/ver.twig', ['menu' => 'feedback', 'perguntas' => $perguntas, 'visita' => $visita]);
     }
+
 }

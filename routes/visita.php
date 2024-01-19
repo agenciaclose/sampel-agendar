@@ -18,6 +18,10 @@ $router->get("/visitas/relatorios", "VisitasController:relatorios");
 $router->get("/visita/lista/{id}", "VisitasController:lista");
 $router->get("/visita/lista/{id}/share", "VisitasController:inscritos");
 
+$router->post("/visita/cadastro/save-qrcode-feedback", "VisitasController:visitaQRcodeFeedbackSave");
+$router->post("/visita/cadastro/save-qrcode", "VisitasController:visitaQRcodeSave");
+$router->get("/visita/qrcode/{id}", "VisitasController:visitaGetQRcode");
+
 $router->get("/visita/inscricao/{id}", "VisitasController:inscricao");
 $router->get("/visita/inscricao/{id}/{inscricao}", "VisitasController:inscricao");
 $router->post("/visita/inscricao/cadastro", "VisitasController:inscricaoCadastro");
@@ -28,6 +32,7 @@ $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCa
 $router->get("/visita/inscricao/cpfautocomplete", "VisitasController:CPFAutoComplete");
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave");
 $router->post("/visita/removeEquipe", "VisitasController:removeEquipe");
+
 
 //SORTEIO
 $router->post("/visita/sortear", "VisitasController:sortear");
