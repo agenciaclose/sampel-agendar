@@ -13,11 +13,19 @@ class RecepcaoController extends Controller
         $this->setParams($params);
         
         if(!empty($_SESSION['sampel_user_id'])){
+
             $visita = new Visitas();
             $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
-            $this->render('pages/recepcao/visita.twig', ['menu' => 'Recepção', 'visita' => $visita]);
+
+            $total = new Recepcao();
+            $total = $total->inscricoesConfirmados($visita['id'])->getResult()[0];
+
+            $this->render('pages/recepcao/visita.twig', ['menu' => 'Recepção', 'visita' => $visita, 'confirmados' => $total]);
+
         }else{
+
             $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+
         }
     }
 
