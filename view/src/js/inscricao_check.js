@@ -32,7 +32,7 @@ function validarCampo (campo, valor){
                 if(campo == 'cpf'){
                     var data = new Date(data);
                     var dia = data.getDate();
-                    var mes = data.getMonth() + 1;
+                    var mes = (data.getMonth() + 1).toString().padStart(2, '0');
                     var ano = data.getFullYear();
                     var dataFormatada = dia + "/" + mes + "/" + ano;
                     $('#uservisita').text(dataFormatada);
