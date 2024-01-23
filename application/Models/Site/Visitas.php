@@ -167,7 +167,9 @@ class Visitas extends Model
     }
 
     public function checkCadastroCampo($params){
+       
         $read = new Read();
+        
         if($params['campo'] == 'cpf'){
             $params['valor'] = $this->clearCPF($params['valor']);
         }
@@ -176,8 +178,10 @@ class Visitas extends Model
         }else{
             $porEvento = "";
         }
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
+        
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' AND YEAR(`data`) = YEAR(CURDATE()) $porEvento ORDER BY id DESC LIMIT 1");
         return $read;
+
     }
 
     function genCode($id_visita) { 

@@ -10,6 +10,7 @@ $('#telefone').change(function() {
 
 $('#cpf').change(function() {
 	let valor = $(this).val();
+    $('#usernome').text($('#nome').val());
     validarCampo ('cpf', valor);
 });
 
@@ -22,12 +23,21 @@ function validarCampo (campo, valor){
         url: DOMAIN + '/visita/inscricao/checkCadastroCampo',
         data: {'campo':campo, 'valor':valor, 'id_visita':id_visita, 'tipo_visita':tipo_visita},
         success: function(data) {
-            if(data == 1){
-                $('#'+campo).addClass('is-invalid');
-                $('button[type="submit"]').prop("disabled", true);
-            }else{
+            if(data == 0){
                 $('#'+campo).removeClass('is-invalid');
                 $('button[type="submit"]').prop("disabled", false);
+            }else{
+                $('#'+campo).addClass('is-invalid');
+                $('button[type="submit"]').prop("disabled", true);
+                if(campo == 'cpf'){
+                    var data = new Date(data);
+                    var dia = data.getDate();
+                    var mes = data.getMonth() + 1;
+                    var ano = data.getFullYear();
+                    var dataFormatada = dia + "/" + mes + "/" + ano;
+                    $('#uservisita').text(dataFormatada);
+                    $('#cpf_notification').modal('show');
+                }
             }
            
         }

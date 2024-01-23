@@ -183,7 +183,7 @@ class VisitasController extends Controller
         $check = new Visitas();
         $check = $check->checkCadastroCampo($this->params)->getResult();
         if ($check) {
-            echo '1';
+            echo $check[0]['data'];
         }else{
             echo '0';
         }
