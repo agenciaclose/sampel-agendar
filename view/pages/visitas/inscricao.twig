@@ -144,12 +144,6 @@
 
 									<div class="row">
 									
-										<div class="col-md-6 col-12">
-											<div class="mb-3">
-												<label for="nome" class="form-label">Seu Nome Completo *</label>
-												<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
-											</div>
-										</div>
 
 										{% if visita.tipo == 'visita' %}
 										<div class="col-md-6 col-12">
@@ -171,6 +165,13 @@
 										</div>
 										{% endif %}
 
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="nome" class="form-label">Seu Nome Completo *</label>
+												<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
+											</div>
+										</div>
+										
 										<div class="col-md-6 col-12">
 											<div class="mb-3">
 												<label for="empresa" class="form-label">Nome da sua Empresa *</label>
@@ -339,7 +340,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<div>Olá, <b id="usernome"></b>. Verificamos que seu CPF já está registrado em nosso sistema desde <b id="uservisita">[Data da Última Visita]</b>.</div>
+				<div>Verificamos que seu CPF já está registrado em nosso sistema desde <b id="uservisita">[Data da Última Visita]</b>.</div>
 				<div>Para seu retorno à Sampel, é necessário aguardar um período de 12 meses. Após esse intervalo, você estará apto a se inscrever em um novo evento.</div>
 				<br>
 				<div>Caso tenha dúvidas ou precise de assistência para reativar seu cadastro, não hesite em entrar em contato com a nossa equipe.</div>

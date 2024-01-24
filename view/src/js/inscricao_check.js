@@ -10,7 +10,6 @@ $('#telefone').change(function() {
 
 $('#cpf').change(function() {
 	let valor = $(this).val();
-    $('#usernome').text($('#nome').val());
     validarCampo ('cpf', valor);
 });
 
