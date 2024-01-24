@@ -174,12 +174,12 @@ class Visitas extends Model
             $params['valor'] = $this->clearCPF($params['valor']);
         }
         if($params['tipo_visita'] != 'visita'){
-            $porEvento = "AND id_visita = '".$params['id_visita']."'";
+            $porEvento = "AND id_visita = '".$params['id_visita']."' AND DATEDIFF(CURDATE(), `data`) <= 365";
         }else{
             $porEvento = "";
         }
         
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' AND YEAR(`data`) = YEAR(CURDATE()) $porEvento ORDER BY id DESC LIMIT 1");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
         return $read;
 
     }
