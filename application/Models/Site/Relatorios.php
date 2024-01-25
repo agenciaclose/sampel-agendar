@@ -48,5 +48,15 @@ class Relatorios extends Model
                         GROUP BY vi.cidade ORDER BY total DESC LIMIT 10");
         return $read;
     }
-    
+
+    public function getTotalEquipeByVisita(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT u.nome, COUNT(id_user) AS total FROM visitas_equipes AS ve
+                        INNER JOIN usuarios AS u ON u.id = ve.id_user
+                        INNER JOIN visitas AS v ON v.id = ve.id_visita
+                        WHERE v.status_visita = 'Concluido' AND ve.id_user not in ('26')
+                        GROUP BY ve.id_user ORDER BY total DESC");
+        return $read;
+    }
 }

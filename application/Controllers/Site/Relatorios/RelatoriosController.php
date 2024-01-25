@@ -25,6 +25,9 @@ class RelatoriosController extends Controller
 
         $total_cidade = new Relatorios();
         $total_cidade = $total_cidade->getTotalCidade()->getResult();
+
+        $total_equipe = new Relatorios();
+        $total_equipe = $total_equipe->getTotalEquipeByVisita()->getResult();
     
         $this->render('pages/relatorios/visitas.twig', [
             'menu' => 'relatorios',
@@ -32,7 +35,8 @@ class RelatoriosController extends Controller
             'numeros' => $numeros,
             'total' => $total,
             'total_setor' => $total_setor,
-            'total_cidade' => $total_cidade
+            'total_cidade' => $total_cidade,
+            'total_equipe' => $total_equipe
         ]);
     }
 
