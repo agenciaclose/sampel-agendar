@@ -25,7 +25,7 @@ class Relatorios extends Model
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'Sim') AS total_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'No') AS total_no_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND certificado = 'Sim') AS total_certificados
-        FROM visitas WHERE tipo = 'visita' AND status_visita = 'Concluido'");
+        FROM visitas WHERE status_visita = 'Concluido'");
         return $read;
     }
 
@@ -34,7 +34,7 @@ class Relatorios extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE v.tipo = 'visita' AND v.status_visita = 'Concluido'
+                        WHERE v.status_visita = 'Concluido'
                         GROUP BY vi.setor ORDER BY total DESC");
         return $read;
     }
