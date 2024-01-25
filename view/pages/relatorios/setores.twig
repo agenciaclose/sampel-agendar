@@ -1,66 +1,41 @@
 {# BLOCOS DE DADOS 2 #}
-<div class="card">
-    <div class="card-body">
-    	<div id="setores"></div>
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <div id="setores"></div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
-
-var setoresData = '[{% for setor in total_setor %}["{{ setor.setor }}", {{ setor.total }}]{% if not loop.last %},{% endif %}{% endfor %}]';
+var setoresData = '[{% for setor in total_setor %}["{{ setor.setor|upper }}", {{ setor.total }}, true, true]{% if not loop.last %},{% endif %}{% endfor %}]';
 var setores = JSON.parse(setoresData);
-
 
 Highcharts.chart('setores', {
     chart: {
-        type: 'column'
+        styledMode: true
     },
     title: {
-        text: 'Total de Inscritos por Setor de Atuação'
-    },
-    subtitle: {
-        text: 'A lista equivale as visitas já concluídas'
-    },
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        }
+        text: 'TOTAL DE INSCRITOS POR SETOR DE ATUAÇÃO',
+        align: 'center'
     },
     xAxis: {
-        type: 'category'
-    },
-    yAxis: {
-        tickPixelInterval: 50,
-        title: {
-            text: 'Números'
-        }
-    },
-    legend: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y:.0f}'
-            }
-        }
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
     tooltip: {
         pointFormat: '<b>{point.y:.0f} total</b>'
     },
+    legend: {
+        padding: 5,
+        itemMarginTop: 5,
+        itemMarginBottom: 5
+    },
     series: [{
-        name: 'Population',
-        groupPadding: 0,
+        type: 'pie',
         allowPointSelect: true,
+        keys: ['name', 'y', 'selected', 'sliced'],
         data: setores,
-        dataLabels: {
-            enabled: true,
-            color: '#ffc107',
-            align: 'center'
-        }
+        showInLegend: true
     }]
 });
-
 </script>
 {#  #}

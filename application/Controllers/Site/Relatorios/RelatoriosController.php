@@ -22,8 +22,18 @@ class RelatoriosController extends Controller
 
         $total_setor = new Relatorios();
         $total_setor = $total_setor->getTotalSetor()->getResult();
+
+        $total_cidade = new Relatorios();
+        $total_cidade = $total_cidade->getTotalCidade()->getResult();
     
-        $this->render('pages/relatorios/visitas.twig', ['menu' => 'relatorios', 'visitas' => $visitas, 'numeros' => $numeros, 'total' => $total, 'total_setor' => $total_setor]);
+        $this->render('pages/relatorios/visitas.twig', [
+            'menu' => 'relatorios',
+            'visitas' => $visitas,
+            'numeros' => $numeros,
+            'total' => $total,
+            'total_setor' => $total_setor,
+            'total_cidade' => $total_cidade
+        ]);
     }
 
 

@@ -4734,3 +4734,14 @@ img.fancybox__image {
   width: 400px;
   height: 100px;
 }
+.cidade_lista .linha {
+  position: relative;
+}
+.cidade_lista .linha > span {
+  width: 48%;
+  height: 2px;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  background-color: #ffc107;
+}
