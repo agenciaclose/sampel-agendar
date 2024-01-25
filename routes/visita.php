@@ -14,7 +14,6 @@ $router->get("/visitas", "VisitasController:visitas");
 $router->get("/visitas", "VisitasController:agendamentos");
 $router->get("/visitas/outras", "VisitasController:outras");
 $router->get("/visitas/concluidas", "VisitasController:concluidas");
-$router->get("/visitas/relatorios", "VisitasController:relatorios");
 $router->get("/visita/lista/{id}", "VisitasController:lista");
 $router->get("/visita/lista/{id}/share", "VisitasController:inscritos");
 

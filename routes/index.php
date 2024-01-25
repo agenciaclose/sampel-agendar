@@ -9,6 +9,7 @@ require  __DIR__ . '/emails.php';
 require  __DIR__ . '/visita.php';
 require  __DIR__ . '/palestras.php';
 require  __DIR__ . '/painel.php';
+require  __DIR__ . '/relatorios.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
