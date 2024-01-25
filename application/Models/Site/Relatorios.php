@@ -10,17 +10,32 @@ use Agencia\Close\Models\Model;
 class Relatorios extends Model
 {
 
-    public function getFeedbacksPerguntas(): Read
+    public function getAllVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `feedback_perguntas`");
+        $read->FullRead("SELECT * FROM `visitas` WHERE tipo = 'visita'");
         return $read;
     }
-    
-    public function getFeedbacksList($pergunta): Read
+
+    public function getAllNumeros(): Read
     {
         $read = new Read();
-        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "pergunta={$pergunta}");
+        $read->FullRead("SELECT
+        (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id) AS total_inscritos,
+        (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'Sim') AS total_confirmados,
+        (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'No') AS total_no_confirmados,
+        (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND certificado = 'Sim') AS total_certificados
+        FROM visitas WHERE tipo = 'visita' AND status_visita = 'Concluido'");
+        return $read;
+    }
+
+    public function getTotalSetor(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
+                        INNER JOIN visitas AS v ON v.id = vi.id_visita
+                        WHERE v.tipo = 'visita' AND v.status_visita = 'Concluido'
+                        GROUP BY vi.setor ORDER BY total DESC");
         return $read;
     }
     

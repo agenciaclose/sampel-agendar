@@ -1,0 +1,66 @@
+{# BLOCOS DE DADOS 2 #}
+<div class="card">
+    <div class="card-body">
+    	<div id="setores"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+var setoresData = '[{% for setor in total_setor %}["{{ setor.setor }}", {{ setor.total }}]{% if not loop.last %},{% endif %}{% endfor %}]';
+var setores = JSON.parse(setoresData);
+
+
+Highcharts.chart('setores', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Total de Inscritos por Setor de Atuação'
+    },
+    subtitle: {
+        text: 'A lista equivale a visitas já concluídas'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        tickPixelInterval: 50,
+        title: {
+            text: 'Números'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.0f}'
+            }
+        }
+    },
+    tooltip: {
+        pointFormat: '<b>{point.y:.0f} total</b>'
+    },
+    series: [{
+        name: 'Population',
+        groupPadding: 0,
+        allowPointSelect: true,
+        data: setores,
+        dataLabels: {
+            enabled: true,
+            color: '#ffc107',
+            align: 'center'
+        }
+    }]
+});
+
+</script>
+{#  #}
