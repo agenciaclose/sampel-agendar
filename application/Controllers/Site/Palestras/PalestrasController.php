@@ -78,9 +78,13 @@ class PalestrasController extends Controller
             $inscricao = '';
         }
 
-        $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
-
+        if(isset($inscricao['codigo'])) {
+            $generator = new BarcodeGeneratorPNG();
+            $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
+        }else{
+            $barcode = '';
+        }
+        
         $this->render('pages/palestras/inscricao.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'inscricao' => $inscricao, 'barcode' => $barcode]);
     }
 

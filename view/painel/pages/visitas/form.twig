@@ -36,9 +36,16 @@
                                     <div class="position-relative {{ visita.visita_id != '' ? 'editar_visita' : 'cadastrar_visita' }}">
 
                                         <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-                                        <div class="mb-2">
-                                            <label for="title" class="form-label">Qual o motivo da visita? </label>
-                                            <input type="text" class="form-control" name="title" id="title" value="{{ visita.title }}">
+
+                                        <div class="row">
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="title" class="form-label">Qual o motivo da visita? </label>
+                                                <input type="text" class="form-control" name="title" id="title" value="{{ visita.title }}">
+                                            </div>
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="solicitante" class="form-label">Nome do Solicitante </label>
+                                                <input type="text" class="form-control" name="solicitante" id="solicitante" value="{{ visita.solicitante }}">
+                                            </div>
                                         </div>
 
                                         <div class="row">
