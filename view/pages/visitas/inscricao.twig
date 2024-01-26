@@ -33,7 +33,7 @@
 					<h4 class="text-warning"><b>{{ visita.title }}</b></h4>
 					<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
 					<div class="my-4">
-						<b>{{ visita.nome }}</b> - <small class="text-white-50">{{ visita.empresa_fantasia }}</small>
+						<b>{{ visita.nome }}</b></small>
 						<div class="text-lowercase text-white-50"><small>{{ visita.email }} - {{ visita.empresa_telefone }}</small></div>
 					</div>
 					{% set date = visita.data_visita|date("d") ~ ' de ' ~ visita.data_visita|date("F")|monthTranslate() ~ ' de ' ~ visita.data_visita|date("Y") %}
