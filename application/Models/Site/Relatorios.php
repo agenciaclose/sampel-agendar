@@ -13,7 +13,7 @@ class Relatorios extends Model
     public function getAllVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas` WHERE tipo = 'visita'");
+        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita = 'Concluido'");
         return $read;
     }
 
