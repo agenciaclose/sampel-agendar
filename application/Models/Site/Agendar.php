@@ -28,8 +28,6 @@ class Agendar extends Model
     {
         $params['id_empresa'] = $_SESSION['sampel_user_id'];
 
-        $params['data_close'] = date('Y-m-d', strtotime('-5 days', strtotime($params['data_visita'])));
-
         $create = new Create();
         $create->ExeCreate('visitas', $params);
         return $create->getResult();

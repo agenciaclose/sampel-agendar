@@ -115,7 +115,7 @@
 											{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 											{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 										</div>
-										<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
+										<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ visita.responsavel|AbreviarNome }}</b></div>
 										<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }}</div>
 									</div>
 								</div>
@@ -176,7 +176,7 @@
 						</td>
 
 						<td class="no-mobile">
-							{{ visita.nome }}
+							{{ visita.responsavel }}
 							<div class="text-lowercase text-white-50" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Data de criação da visita">{{ minha.data|date("d/m/Y H:i") }}</div>
 						</td>
 

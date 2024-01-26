@@ -17,7 +17,7 @@
 						Data da Visita: <span class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</span>
 						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
 					</span>
-					<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
+					<span>Responsável: <div class="text-warning fw-bold">{{ visita.responsavel }}</div></span>
 				</div>
 				<div class="my-3">{{ visita.descricao|replace({'<p>': ' '})|replace({'<br>': ' '})|striptags }}</div>
 

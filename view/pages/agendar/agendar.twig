@@ -37,6 +37,10 @@
 
 							<div class="row">
 								<div class="mb-3 col-md-6 col-sm-12 col-12">
+									<label for="responsavel" class="form-label">Nome do Responsável<span class="text-danger">*</label>
+									<input type="text" name="responsavel" class="form-control" id="responsavel">
+								</div>
+								<div class="mb-3 col-md-6 col-sm-12 col-12">
 									<label for="qtd_visitas" class="form-label">Selecione seu Estado <span class="text-danger">*</span></label>
 									<select class="form-control" name="estado" id="estado">
 										<option>SELECIONE</option>
@@ -45,9 +49,17 @@
 	                                    {% endfor %}
 									</select>
 								</div>
+							</div>
+
+
+							<div class="row">
 								<div class="mb-3 col-md-6 col-sm-12 col-12">
 									<label for="data_visita" class="form-label">Data prevista da Visita<span class="text-danger">*</span> <i class="fa-solid fa-circle-question" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A data poderá ser alterada pela Sampel dependo de disponibilidade ou outros fatores."></i></label>
 									<input type="date" name="data_visita" class="form-control" id="data_visita">
+								</div>
+								<div class="mb-3 col-md-6 col-sm-12 col-12">
+									<label for="data_close" class="form-label">Data de fechamento das Inscrições<span class="text-danger">*</span></label>
+									<input type="date" name="data_close" class="form-control" id="data_close">
 								</div>
 							</div>
 
