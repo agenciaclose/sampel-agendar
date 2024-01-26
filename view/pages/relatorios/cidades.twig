@@ -12,14 +12,14 @@
             {% endfor %}
 
             <div class="cidade_lista">
-                <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex justify-content-between flex-wrap text-warning">
                     <div class="fw-bold">CIDADE</div>
                     <div class="fw-bold text-end">TOTAL</div>
                 </div>
                 {% for cidade in total_cidade %}
                 {% set porcentagem = 0 %}
                 {% set porcentagem = ( cidade.total / total_absoluto * 100 )|number_format(0,',') %}
-                <div class="linha d-flex justify-content-between flex-wrap py-2 border-bottom">
+                <div class="linha d-flex justify-content-between flex-wrap py-2">
                     <div>{{ cidade.cidade }}, {{ cidade.estado }}</div>
                     <div class="text-end">{{ cidade.total }}</div>
                     <span style="width: {{ porcentagem }}%"><span>

@@ -4734,8 +4734,15 @@ img.fancybox__image {
   width: 400px;
   height: 100px;
 }
-.cidade_lista .linha {
+.equipe_lista {
+  font-size: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+
+}
+.cidade_lista .linha, .equipe_lista .linha {
   position: relative;
+  border-bottom: 1px dashed rgb(255 255 255 / 20%);
 }
 .cidade_lista .linha > span {
   width: 48%;
