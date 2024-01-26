@@ -4745,3 +4745,6 @@ img.fancybox__image {
   left: 0;
   background-color: #ffc107;
 }
+.btn-light:hover, .btn-light:focus, .btn-light:active {
+  color: var(--bs-btn-active-color) !important;
+}
