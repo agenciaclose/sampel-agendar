@@ -2,12 +2,13 @@
 
 namespace Agencia\Close\Controllers\Site\Home;
 
-use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\User\User;
 use Agencia\Close\Models\Site\Visitas;
 
-use Agencia\Close\Adapters\EmailAdapter;
-use Agencia\Close\Models\User\User;
 use Agencia\Close\Models\Site\Feedback;
+use Agencia\Close\Adapters\EmailAdapter;
+use Agencia\Close\Models\Site\Palestras;
+use Agencia\Close\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,10 @@ class HomeController extends Controller
                 $i++;
             }
 
-            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas]);
+            $palestras = new Palestras();
+            $palestras = $palestras->lista($params)->getResult();
+
+            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas, 'palestras' => $palestras]);
 
         }else{
 

@@ -155,7 +155,7 @@
 												<div>{{ lista.empresa }}</div>
 											</div>
 											<div class="col-md-6 col-sm-12">
-												<a href="{{ DOMAIN }}/palestras/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+												<a href="{{ DOMAIN }}/visita/inscricao/{{ lista.visita_id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 											</div>
 										</div>
 									</div>
@@ -166,7 +166,7 @@
 							<td class="ps-0 no-mobile">{{ lista.setor }}</td>
 							<td class="ps-0 text-nowrap no-mobile">{{ lista.cidade }}, {{ lista.estado }}</td>
 							<td class="no-mobile">
-								<a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
+								<a href="{{ DOMAIN }}/visita/inscricao/{{ lista.visita_id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 								<div class="text-nowarp">{{ lista.data|date("d/m/Y H:i") }}</div>
 							</td>
 						</tr>
