@@ -7,7 +7,7 @@
     </div>
 </div>
 <script type="text/javascript">
-var setoresData = '[{% for setor in total_setor_confirmados %}["{{ setor.setor|upper }}", {{ setor.total }}, true, true]{% if not loop.last %},{% endif %}{% endfor %}]';
+var setoresData = '[{% for setor in total_setor_equipe %}["{{ setor.setor|upper }}", {{ setor.total }}, true, true]{% if not loop.last %},{% endif %}{% endfor %}]';
 var setores = JSON.parse(setoresData);
 
 Highcharts.chart('setores_confirmados', {
@@ -15,7 +15,7 @@ Highcharts.chart('setores_confirmados', {
         styledMode: true
     },
     title: {
-        text: 'TOTAL DE PRESENÇAS POR SETOR DE ATUAÇÃO',
+        text: 'TOTAL POR SETOR DA EQUIPE',
         align: 'center'
     },
     xAxis: {

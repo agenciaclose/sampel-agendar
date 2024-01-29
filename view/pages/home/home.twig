@@ -67,9 +67,9 @@
 														<div class="row mx-0">
 															<div class="col-12 col-lg-5 bg-primary d-flex flex-column justify-content-center py-5 px-4">
 																<h4 class="h3 text-white text-uppercase mb-3">
-																	<strong>Compartilhar agendamento</strong>
+																	<strong>Compartilhar Visita</strong>
 																</h4>
-																<p class="text-white mb-0">Selecione as opções ao lado para compartilhar esse agendamento nas
+																<p class="text-white mb-0">Selecione as opções ao lado para compartilhar essa Visita nas
 																	redes sociais</p>
 															</div>
 															<div class="col-12 col-lg-7 pt-4 pb-5 pt-lg-5 mt-lg-3">
@@ -263,9 +263,9 @@
 																<div class="row mx-0">
 																	<div class="col-12 col-lg-5 bg-primary d-flex flex-column justify-content-center py-5 px-4">
 																		<h4 class="h3 text-white text-uppercase mb-3">
-																			<strong>Compartilhar agendamento</strong>
+																			<strong>Compartilhar Visita</strong>
 																		</h4>
-																		<p class="text-white mb-0">Selecione as opções ao lado para compartilhar esse agendamento nas
+																		<p class="text-white mb-0">Selecione as opções ao lado para compartilhar essa Visita nas
 																			redes sociais</p>
 																	</div>
 																	<div class="col-12 col-lg-7 pt-4 pb-5 pt-lg-5 mt-lg-3">
@@ -407,77 +407,143 @@
 
 		{# LISTA DE PALESTRAS #}
 
-		<hr>
-
-		<session class="d-block mt-5">
-
-			<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
-				<div>
-					<h3 class="text-warning fw-bold">Próximas Palestras</h3>
-					<div>Aqui você ver e gerencia as Palestras.</div>
-				</div>
-				<div>
-					<a href="{{ DOMAIN }}/palestras/cadastro" class="btn btn-warning mt-2 mt-sm-0 fw-bold"><i class="fa-solid fa-plus"></i> CRIAR PALESTRA</a>
-				</div>
-			</div>
-
-			<hr>
-
-			<div class="table-responsive ">
-				<table id="tabela_dinamica_palestra" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
-					<thead>
-						<tr>
-							<th class="no-mobile">Data</th>
-							<th class="no-mobile" width="25">ID</th>
-							<th class="no-mobile flex-grow-1">Palestra</th>
-							<th class="no-mobile">Palestrante</th>
-							<th width="175" class="text-end no-mobile">QRCode</th>
-							<th width="175" class="text-end no-mobile">Inscrição</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for palestra in palestras|slice(0, 3) %}
-						<tr>
-							<td class="no-mobile">
-								{{ palestra.data_palestra | date("d-m-Y H:i") }}
-							</td>
-
-							<td  class="no-mobile">{{ palestra.id }}</td>
-
-							<td>
-								<span class="text-uppercase">
-									<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ palestra.title }}</b></a>
-								</span>
-							</td>
-
-							<td class="no-mobile">
-								{{ palestra.palestrante_nome }}
-							</td>
-
-							<td class="text-end no-mobile" width="175">
-								<a href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> Ver QRcode</a>
-							</td>
-
-							<td class="text-end">
-								{% if palestra.status_palestra != 'Recusado' %}
-									<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a>
-								{% else %}
-									<a href="javascript:void(0)" class="badge bg-danger"><i class="fa-regular fa-arrow-up-right-from-square"></i> Insdisponível</a>
-								{% endif %}
-
-								<a href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}" target="_blank" class="badge bg-warning text-black d-block d-sm-none mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> Ver QRcode</a>
-							</td>
-
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-
-		</session>
 
 	</session>
 
 </div>
 
+<div class="bg-black">
+	<div class="bg-primary bg-opacity-75 py-5">
+		<div class="container">
+			<session class="d-block">
+
+				<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
+					<div>
+						<h3 class="text-warning fw-bold">Próximas Palestras</h3>
+						<div>Aqui você ver e gerencia as Palestras.</div>
+					</div>
+					<div>
+						<a href="{{ DOMAIN }}/palestras/cadastro" class="btn btn-warning mt-2 mt-sm-0 fw-bold"><i class="fa-solid fa-plus"></i> CRIAR PALESTRA</a>
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="table-responsive ">
+					<table id="tabela_dinamica_palestra" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
+						<thead>
+							<tr>
+								<th class="no-mobile">Data</th>
+								<th class="no-mobile" width="25">ID</th>
+								<th class="no-mobile flex-grow-1">Palestra</th>
+								<th class="no-mobile">Palestrante</th>
+								<th width="175" class="text-end no-mobile">Inscrição</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for palestra in palestras|slice(0, 3) %}
+							<tr>
+								<td class="no-mobile">
+									{{ palestra.data_palestra | date("d-m-Y H:i") }}
+								</td>
+
+								<td  class="no-mobile">{{ palestra.id }}</td>
+
+								<td>
+									<span class="text-uppercase">
+										<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ palestra.title }}</b></a>
+									</span>
+									<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
+											
+										<div class="d-flex justify-content-start flex-column flex-sm-row">
+											
+											<a href="javascript:void(0);" class="mb-2 me-0 me-sm-2 badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#sharedPalestra_{{ palestra.id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
+											<a href="{{ DOMAIN }}/visita/lista/{{ palestra.id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ palestra.total_inscricao }}</a>
+																						
+											<div class="modal fade" id="sharedPalestra_{{ palestra.id }}" tabindex="-1" aria-labelledby="sharedPalestra_{{ palestra.id }}" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+													<div class="modal-content text-black">
+														<div class="modal-body p-0">
+															<div class="row mx-0">
+																<div class="col-12 col-lg-5 bg-success d-flex flex-column justify-content-center py-5 px-4">
+																	<h4 class="h3 text-white text-uppercase mb-3">
+																		<strong>Compartilhar Palestra</strong>
+																	</h4>
+																	<p class="text-white mb-0">Selecione as opções ao lado para compartilhar essa palestra nas
+																		redes sociais</p>
+																</div>
+																<div class="col-12 col-lg-7 pt-4 pb-5 pt-lg-5 mt-lg-3">
+																	<button type="button" class="btn-close position-absolute top-0 end-0 pt-4 px-3" data-bs-dismiss="modal" aria-label="Close"></button>
+																	<div class="d-flex flex-column">
+																		<div class="border-bottom">
+																			<button class="text-start btn btn-white py-3 w-100" onclick="copy('{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}')">
+																				<i class="fa-solid fa-link"></i> <span class="ms-2">Copiar link</span>
+																			</button>
+																		</div>
+																		<div class="border-bottom">
+																			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="text-start btn btn-white py-3 w-100">
+																				<i class="fa-brands fa-facebook-f"></i> <span class="ms-2">Compartilhar no Facebook</span>
+																			</a>
+																		</div>
+																		<div class="border-bottom">
+																			<a target="_blank" href="https://twitter.com/intent/tweet?url={{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}&amp;text=Confira%20esse%20agendamento%20em" class="text-start btn btn-white py-3 w-100">
+																				<i class="fa-brands fa-twitter"></i> <span class="ms-2">Compartilhar no Twitter</span>
+																			</a>
+																		</div>
+																		<div>
+																			<a target="_blank" href="https://api.whatsapp.com/send/?text={{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="text-start btn btn-white py-3 w-100">
+																				<svg width="18" fill="#000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40.01"><path d="M21.171,40.01H18.983c-.568-.064-1.137-.114-1.7-.193A19.541,19.541,0,0,1,9.329,36.9a.724.724,0,0,0-.687-.089c-1.332.441-2.67.864-4.006,1.292-1.084.347-2.168.691-3.308,1.055.051-.167.082-.275.118-.382.726-2.168,1.441-4.341,2.191-6.5a1.014,1.014,0,0,0-.146-1.029,19.359,19.359,0,0,1-3.4-9.47A19.108,19.108,0,0,1,2.819,9.808,19.568,19.568,0,0,1,19.16.033,18.753,18.753,0,0,1,30.192,2.814a19.706,19.706,0,0,1,9.5,13.749c.14.75.209,1.513.312,2.271v2.344c-.032.281-.064.562-.1.843a19.771,19.771,0,0,1-5,11.294A19.617,19.617,0,0,1,23.445,39.7c-.753.133-1.515.209-2.274.311M26.52,31.3l.026-.1a6.528,6.528,0,0,0,.7-.045,5.681,5.681,0,0,0,.949-.218c2.818-.99,3.779-2.342,3.856-4.963a.811.811,0,0,0-.494-.843c-1.5-.715-2.994-1.45-4.5-2.152a1.179,1.179,0,0,0-1.688.464c-.4.531-.785,1.07-1.193,1.593a1.358,1.358,0,0,1-1.936.493,15.818,15.818,0,0,1-7.665-6.782.839.839,0,0,1,.107-1.173c.391-.47.806-.92,1.207-1.382a1.549,1.549,0,0,0,.287-1.824c-.683-1.5-1.29-3.038-1.955-4.548A.97.97,0,0,0,13.7,9.3a3.316,3.316,0,0,0-3.021.4A6.209,6.209,0,0,0,8.5,15.858a11.692,11.692,0,0,0,2.189,4.824,31.069,31.069,0,0,0,5.276,5.936,20.845,20.845,0,0,0,7.685,4.019c.94.283,1.915.448,2.874.667" transform="translate(0 0)"></path></svg>
+																				<span class="ms-2">Compartilhar no WhatsApp</span>
+																			</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="d-flex justify-content-end flex-column d-lg-none d-md-none d-sm-block d-block">
+											<div class="mb-1">
+												{% if palestra.status_palestra == 'Concluido' %}
+													<div class="input-group input-group-sm d-flex align-items-center">
+														<span class="badge bg-dark text-white text-uppercase">{{ palestra.status_palestra }}</span>
+														<span class="input-group-text py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ palestra.presencas }}/{{ palestra.total_inscricao }}</b></span>
+													</div>	
+												{% endif %}
+												{% if palestra.status_palestra == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
+												{% if palestra.status_palestra == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
+												{% if palestra.status_palestra == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
+											</div>
+											<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ palestra.palestrante_nome|AbreviarNome }}</b></div>
+											<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ palestra.data_palestra | date("d/m/Y") }} {{ palestra.horario_palestra }}</div>
+										</div>
+									</div>
+								</td>
+
+								<td class="no-mobile">
+									{{ palestra.palestrante_nome }}
+								</td>
+
+								<td class="text-end no-mobile">
+									{% if palestra.status_palestra != 'Recusado' %}
+										<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a>
+									{% else %}
+										<a href="javascript:void(0)" class="badge bg-danger"><i class="fa-regular fa-arrow-up-right-from-square"></i> Insdisponível</a>
+									{% endif %}
+								</td>
+
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+			</session>
+		</div>
+	</div>
+</div>
 {% endblock %}

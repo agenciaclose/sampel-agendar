@@ -4756,3 +4756,6 @@ img.fancybox__image {
 .btn-light:hover, .btn-light:focus, .btn-light:active {
   color: var(--bs-btn-active-color) !important;
 }
+.body-palestras {
+  background-color: #1b5184 !important;
+}

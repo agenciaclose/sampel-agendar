@@ -39,13 +39,14 @@ class Relatorios extends Model
         return $read;
     }
 
-    public function getTotalSetorConfirmados(): Read
+    public function getTotalSetorEquipe(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
-                        INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE v.status_visita = 'Concluido' AND  vi.setor <> '' AND vi.presenca = 'Sim'
-                        GROUP BY vi.setor ORDER BY total DESC LIMIT 10");
+        $read->FullRead("SELECT u.setor, COUNT(u.setor) AS total FROM visitas_equipes AS ve
+                        INNER JOIN usuarios AS u ON u.id = ve.id_user
+                        INNER JOIN visitas AS v ON v.id = ve.id_visita
+                        WHERE v.status_visita = 'Concluido' AND ve.id_user not in ('26') AND u.tipo = '4'
+                        GROUP BY u.setor ORDER BY total DESC");
         return $read;
     }
 

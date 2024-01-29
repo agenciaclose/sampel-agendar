@@ -23,8 +23,8 @@ class RelatoriosController extends Controller
         $total_setor = new Relatorios();
         $total_setor = $total_setor->getTotalSetor()->getResult();
 
-        $total_setor_confirmados = new Relatorios();
-        $total_setor_confirmados = $total_setor_confirmados->getTotalSetorConfirmados()->getResult();
+        $total_setor_equipe = new Relatorios();
+        $total_setor_equipe = $total_setor_equipe->getTotalSetorEquipe()->getResult();
 
         $total_cidade = new Relatorios();
         $total_cidade = $total_cidade->getTotalCidade()->getResult();
@@ -38,7 +38,7 @@ class RelatoriosController extends Controller
             'numeros' => $numeros,
             'total' => $total,
             'total_setor' => $total_setor,
-            'total_setor_confirmados' => $total_setor_confirmados,
+            'total_setor_equipe' => $total_setor_equipe,
             'total_cidade' => $total_cidade,
             'total_equipe' => $total_equipe
         ]);
