@@ -16,9 +16,9 @@ class Controller
 
     public function __construct($router)
     {
+        $this->middleware();
         $this->router = $router;
         $this->template = new TemplateAdapter();
-        $this->middleware();
     }
 
     private function middleware()
