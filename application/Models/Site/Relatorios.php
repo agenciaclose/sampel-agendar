@@ -55,7 +55,7 @@ class Relatorios extends Model
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         WHERE v.status_visita = 'Concluido' AND vi.cidade <> ''
-                        GROUP BY vi.cidade ORDER BY total DESC LIMIT 10");
+                        GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }
 
