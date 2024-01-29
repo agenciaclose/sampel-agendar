@@ -59,17 +59,17 @@
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editarEquip" class="btn btn-warning btn-sm rounded-pill me-2 mb-2">Ver Equipe <span class="px-1 bg-black rounded-pill text-white">{{ equipevisita|length }}</span></button>
 					<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
 										
-					<div class="btn-group d-block">
+					<div class="btn-group dropstart d-block">
 						<a href="javascript:void(0)" class="btn btn-light btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Outros
+							Outros ações
 						</a>
 						<ul class="dropdown-menu py-1">
-							<li class="px-3 py-1"><a class="text-black" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar</a></li>
-							<li class="ps-3 py-1"><a class="text-black" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Presença</a></li>
+							<li><a class="dropdown-item text-black" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
+							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presenças</a></li>
 							{% if visita.qrcode_inscricao != '' %}
-							<li class="px-3 py-1"><a class="text-black" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> QRCode</a></li>
+							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
 							{% else %}
-							<li class="px-3 py-1"><a class="text-black" href="javascript:void(0);" onclick="qrcodeGenVisitas('{{ visita.visita_id }}')"><i class="fa-solid fa-qrcode"></i> QRCode</a></li>
+							<li><a class="dropdown-item text-black" href="javascript:void(0);" onclick="qrcodeGenVisitas('{{ visita.visita_id }}')"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
 							{% endif %}
 						</ul>
 					</div>

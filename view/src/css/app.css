@@ -4757,3 +4757,6 @@ img.fancybox__image {
 .body-palestras {
   background-color: #1b5184 !important;
 }
+.dropdown-menu.show {
+  min-width: 200px;
+}

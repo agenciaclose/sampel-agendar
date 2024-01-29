@@ -39,7 +39,7 @@ class Visitas extends Model
                         (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.id_empresa <> :user_id AND v.`status_visita` <> 'Concluido' ORDER BY v.`data` DESC", "user_id={$_SESSION['sampel_user_id']}");
+						WHERE v.`status_visita` <> 'Concluido' ORDER BY v.`data` DESC");
         return $read;
     }
 
