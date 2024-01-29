@@ -4734,10 +4734,8 @@ img.fancybox__image {
   width: 400px;
   height: 100px;
 }
-.equipe_lista {
-  font-size: 12px;
-}
 .equipe_lista, .cidade_lista {
+  font-size: 12px;
   max-height: 400px;
   overflow-y: auto;
 }
