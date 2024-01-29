@@ -70,4 +70,28 @@ class Relatorios extends Model
                         GROUP BY ve.id_user ORDER BY total DESC");
         return $read;
     }
+
+    public function getFeedbacksPerguntas(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM `feedback_perguntas` WHERE `tipo` <> 'Texto'");
+        return $read;
+    }
+
+    public function getFeedbacksList($pergunta): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC", "pergunta={$pergunta}");
+        return $read;
+    }
+
+    public function getFeedbacksListPessoas($resposta): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT vi.nome, vi.email, vi.telefone FROM feedback AS f
+                        INNER JOIN visitas_inscricoes AS vi ON vi.cpf = f.user_cpf
+                        WHERE f.`resposta` = :resposta", "resposta={$resposta}");
+        return $read;
+    }
+
 }

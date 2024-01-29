@@ -44,6 +44,20 @@
 			{{ include('pages/relatorios/equipes.twig') }}
 		</div>
 
+		<div class="row">
+            {% for pergunta in perguntas %}
+				{% if pergunta.tipo == 'Estrela' %}
+                <div class="col-md-6 mb-4">
+                    <div class="card card-dark card-company-table">
+                        <div class="card-body">
+                            {{ include('pages/relatorios/painel-estrela.twig') }}
+                        </div>
+                    </div>
+                </div>
+				{% endif %}
+            {% endfor %}
+        </div>
+
 	</session>
 
 </div>

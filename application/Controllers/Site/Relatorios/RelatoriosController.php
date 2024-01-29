@@ -31,6 +31,26 @@ class RelatoriosController extends Controller
 
         $total_equipe = new Relatorios();
         $total_equipe = $total_equipe->getTotalEquipeByVisita()->getResult();
+
+        $perguntas = new Relatorios();
+        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+
+        $i = 0;
+        foreach ($perguntas as $pergunta) {
+
+            $feedbacks = new Relatorios();
+            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($pergunta['pergunta'])->getResult();
+            
+            if($pergunta['tipo'] == 'Texto'){
+                $x = 0;
+                foreach ($perguntas[$i]['estatisticas'] as $estatisticas){
+                    $perguntas[$i]['estatisticas'][$x]['pessoas'] = $feedbacks->getFeedbacksListPessoas($estatisticas['resposta'])->getResult();
+                    $x++;
+                }
+            }
+
+            $i++;
+        }
     
         $this->render('pages/relatorios/visitas.twig', [
             'menu' => 'relatorios',
@@ -40,7 +60,8 @@ class RelatoriosController extends Controller
             'total_setor' => $total_setor,
             'total_setor_equipe' => $total_setor_equipe,
             'total_cidade' => $total_cidade,
-            'total_equipe' => $total_equipe
+            'total_equipe' => $total_equipe,
+            'perguntas' => $perguntas
         ]);
     }
 
