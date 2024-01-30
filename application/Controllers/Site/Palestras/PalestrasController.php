@@ -138,8 +138,8 @@ class PalestrasController extends Controller
     {
         $this->setParams($params);
         
-        if(!empty($_SESSION['sampel_user_id'])){
-            
+        if (isset($_GET['q']) == 'share') {
+
             $palestra = new Palestras();
             $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
 
@@ -156,9 +156,33 @@ class PalestrasController extends Controller
             $sorteados = $sorteados->listarPalestrasUserSorteados($params['id'])->getResult();
 
             $this->render('pages/palestras/inscritos.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados]);
+       
         }else{
-            $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+
+            if (!empty($_SESSION['sampel_user_id'])){
+                
+                $palestra = new Palestras();
+                $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
+    
+                $lista = new Palestras();
+                $lista = $lista->listarPalestraInscritos($params['id'], $palestra['id_empresa'])->getResult();
+    
+                $total = new Palestras();
+                $total = $total->listarInscricoesTotal($params['id'])->getResult()[0];
+    
+                $grupos = new Palestras();
+                $grupos = $grupos->listarInscricoesByGroup($params['id'])->getResult();
+    
+                $sorteados = new Palestras();
+                $sorteados = $sorteados->listarPalestrasUserSorteados($params['id'])->getResult();
+    
+                $this->render('pages/palestras/inscritos.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados]);
+            }else{
+                $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+            }
+
         }
+
     }
 
     public function printEtiqueta($params)
