@@ -30,4 +30,24 @@ class Recepcao extends Model
         return $read;
     }
 
+    public function InscricoesConfirmadosPalestra($id_palestra): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT count(id) as total FROM `palestras_participantes` WHERE `id_palestra` = :id_palestra AND `presenca` = 'Sim'", "id_palestra={$id_palestra}");
+        return $read;
+    }
+
+    public function confirmarPresencaPalestra($params): Read
+    {
+        if (strlen($params['codigo']) > 8) {
+            $codigo = " AND `cpf` = '".$params['codigo']."'";
+        } else {
+            $codigo = " AND `codigo` = '".$params['codigo']."'";
+        }
+
+        $read = new Read();
+        $read->FullRead("UPDATE `palestras_participantes` SET `presenca` = 'Sim' WHERE `id_palestra` = '".$params['id_palestra']."' $codigo");
+        return $read;
+    }
+
 }

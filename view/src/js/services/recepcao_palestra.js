@@ -34,7 +34,7 @@ Quagga.init(config, function(err) {
 
     $('#sendContent').html('<button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-sync fa-spin"></i> VERIFICANDO...</button>');
     
-    let id_visita = $('#id_visita').val();
+    let id_palestra = $('#id_palestra').val();
     let DOMAIN = $('body').data('domain');
 
     if(result.codeResult.code) {
@@ -42,8 +42,8 @@ Quagga.init(config, function(err) {
       $.ajax({
         type: "POST", 
         async: true, 
-        data: { 'id_visita': id_visita, 'codigo': result.codeResult.code},
-        url: DOMAIN + '/visita/recepcao/confirmar',
+        data: { 'id_palestra': id_palestra, 'codigo': result.codeResult.code},
+        url: DOMAIN + '/palestras/recepcao/confirmar',
         success: function (data) {
           $('#sendContent').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
           setTimeout(function() { location.reload(); }, 3000);
@@ -71,7 +71,7 @@ $("#confirmar-presenca").submit(function (c) {
 
   $.ajax({
       type: "POST", async: true, data: form.serialize(),
-      url: DOMAIN + '/visita/recepcao/confirmar',
+      url: DOMAIN + '/palestras/recepcao/confirmar',
       success: function (data) {
 
         $('#sendContentModal').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
