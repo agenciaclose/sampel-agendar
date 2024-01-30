@@ -46,3 +46,6 @@ $router->get("/minha-conta/edit-account", "MinhaContaController:editaccount");
 $router->namespace("Agencia\Close\Controllers\Site\Recepcao");
 $router->get("/visita/recepcao/{id}", "RecepcaoController:visita");
 $router->post("/visita/recepcao/confirmar", "RecepcaoController:confirmarPresenca");
+
+$router->get("/palestras/recepcao/{id}", "RecepcaoController:palestra");
+$router->post("/palestras/recepcao/confirmar", "RecepcaoController:confirmarPresencaPalestras");

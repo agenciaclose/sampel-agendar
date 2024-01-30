@@ -262,8 +262,8 @@
 									<div class="d-flex justify-content-between justify-content-sm-start flex-wrap mt-2">
 
 										<div class="d-flex justify-content-start flex-column flex-sm-row d-lg-none d-md-none d-sm-block d-block">
+											<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ palestra.data_palestra | date("d/m/Y") }} {{ palestra.horario_palestra }}</div>
 											<a href="javascript:void(0);" class="mb-2 me-0 me-sm-2 badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#sharedPalestra_{{ palestra.id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
-											<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ palestra.total_inscricao }}</a>
 										</div>
 
 										<div class="modal fade" id="sharedPalestra_{{ palestra.id }}" tabindex="-1" aria-labelledby="sharedPalestra_{{ palestra.id }}" aria-hidden="true">
@@ -311,19 +311,8 @@
 										</div>
 
 										<div class="d-flex justify-content-end flex-column d-lg-none d-md-none d-sm-block d-block">
-											<div class="mb-1">
-												{% if palestra.status_palestra == 'Concluido' %}
-													<div class="input-group input-group-sm d-flex align-items-center">
-														<span class="badge bg-dark text-white text-uppercase">{{ palestra.status_palestra }}</span>
-														<span class="input-group-text py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ palestra.presencas }}/{{ palestra.total_inscricao }}</b></span>
-													</div>	
-												{% endif %}
-												{% if palestra.status_palestra == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
-												{% if palestra.status_palestra == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
-												{% if palestra.status_palestra == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
-											</div>
 											<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ palestra.palestrante_nome|AbreviarNome }}</b></div>
-											<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ palestra.data_palestra | date("d/m/Y") }} {{ palestra.horario_palestra }}</div>
+											<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ palestra.total_inscricao }}</a>
 										</div>
 									</div>
 								</td>
