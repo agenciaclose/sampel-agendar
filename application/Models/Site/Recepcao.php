@@ -26,14 +26,14 @@ class Recepcao extends Model
     public function InscricoesConfirmados($id_visita): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT count(id) as total FROM `visitas_inscricoes` WHERE `id_visita` = :id_visita AND `presenca` = 'Sim'", "id_visita={$id_visita}");
+        $read->FullRead("SELECT * FROM `visitas_inscricoes` WHERE `id_visita` = :id_visita AND `presenca` = 'Sim' ORDER BY nome ASC", "id_visita={$id_visita}");
         return $read;
     }
 
     public function InscricoesConfirmadosPalestra($id_palestra): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT count(id) as total FROM `palestras_participantes` WHERE `id_palestra` = :id_palestra AND `presenca` = 'Sim'", "id_palestra={$id_palestra}");
+        $read->FullRead("SELECT * FROM `palestras_participantes` WHERE `id_palestra` = :id_palestra AND `presenca` = 'Sim' ORDER BY nome ASC", "id_palestra={$id_palestra}");
         return $read;
     }
 

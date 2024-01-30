@@ -18,7 +18,7 @@ class RecepcaoController extends Controller
             $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
             $total = new Recepcao();
-            $total = $total->inscricoesConfirmados($visita['id'])->getResult()[0];
+            $total = $total->inscricoesConfirmados($visita['id'])->getResult();
 
             $this->render('pages/recepcao/visita.twig', ['menu' => 'Recepção', 'visita' => $visita, 'confirmados' => $total]);
         }else{
@@ -48,7 +48,7 @@ class RecepcaoController extends Controller
             $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
 
             $total = new Recepcao();
-            $total = $total->InscricoesConfirmadosPalestra($palestra['id'])->getResult()[0];
+            $total = $total->InscricoesConfirmadosPalestra($palestra['id'])->getResult();
 
             $this->render('pages/recepcao/palestra.twig', ['menu' => 'Recepção', 'palestra' => $palestra, 'confirmados' => $total]);
         }else{

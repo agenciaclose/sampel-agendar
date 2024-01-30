@@ -14,9 +14,9 @@
 
 			<div class="col-sm-12 col-md-12">
 
-				<h4 class="text-center">TOTAL DE CONFIRMADOS: <span class="badge bg-light text-black">{{ confirmados.total }}</span></h4>
+				<h4 class="text-center">TOTAL DE CONFIRMADOS: <span class="badge bg-light text-black">{{ confirmados|length }}</span></h4>
 
-				<div class="card">
+				<div class="card col-md-6 m-auto">
 					<div class="card-body">
 						<form action="javascript:void(0);" method="POST" id="confirmar-presenca">
 
@@ -38,6 +38,25 @@
 				<div class="mt-5 text-center">
 					<a href="javascript:void(0)" class="fw-bold text-warning" data-bs-toggle="modal" data-bs-target="#confirmar">VERIFICAR PELO CÓDIGO DE INSCRIÇÃO</a>
 				</div> #}
+
+				<div class="table-responsive mt-5">
+					<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" style="width:100%">
+						<thead>
+							<tr>
+								<th>NOME</th>
+								<th class="text-end">CPF</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for confirmado in confirmados %}
+								<tr>
+									<td class="text-uppercase"><b>{{ confirmado.nome }}</b></td>
+									<td class="text-end">{{ confirmado.cpf|UserCPF }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 
 			</div>
 
