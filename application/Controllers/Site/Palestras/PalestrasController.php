@@ -15,7 +15,7 @@ class PalestrasController extends Controller
         $this->setParams($params);
 
         $palestras = new Palestras();
-        $palestras = $palestras->lista($params)->getResult();
+        $palestras = $palestras->listaTotal($params)->getResult();
 
         $this->render('pages/palestras/lista.twig', ['menu' => 'palestras', 'palestras' => $palestras]);
     }

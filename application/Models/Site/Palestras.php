@@ -12,6 +12,13 @@ class Palestras extends Model
     public function lista($params): read
     {
         $read = new Read();
+        $read->FullRead("SELECT p.*, (SELECT count(id) FROM palestras_participantes AS pp WHERE pp.id_palestra = p.id ) AS total_inscricao FROM palestras AS p WHERE p.data_palestra >= CURDATE() ORDER BY p.data_palestra DESC");
+        return $read;
+    }
+
+    public function listaTotal($params): read
+    {
+        $read = new Read();
         $read->FullRead("SELECT p.*, (SELECT count(id) FROM palestras_participantes AS pp WHERE pp.id_palestra = p.id ) AS total_inscricao FROM palestras AS p ORDER BY p.data_palestra DESC");
         return $read;
     }
