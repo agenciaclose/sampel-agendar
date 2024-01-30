@@ -16,15 +16,28 @@
 
 				<h4 class="text-center">TOTAL DE CONFIRMADOS: <span class="badge bg-light text-black">{{ confirmados.total }}</span></h4>
 
-				<div id="camera"></div>
+				<div class="card">
+					<div class="card-body">
+						<form action="javascript:void(0);" method="POST" id="confirmar-presenca">
+
+							<input class="form-control form-control-lg text-center codigo" type="text" name="codigo" placeholder="CÓDIGO OU CPF">
+							<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+							<hr>
+							<div id="sendContentModal"><button type="submit" class="btn btn-warning btn-lg w-100 fw-bold rounded-0">VERIFICAR INSCRIÇÃO</button></div>
+
+						</form>
+					</div>
+				</div>
+
+				{# <div id="camera"></div> #}
 				
-				<div class="w-75 text-center m-auto mt-4">
+				{# <div class="w-75 text-center m-auto mt-4">
 					<div id="sendContent"><button type="button" class="btn btn-warning btn-lg w-100 fw-bold rounded-0" disabled>VERIFICAR INSCRIÇÃO</button></div>
 				</div>
 
 				<div class="mt-5 text-center">
 					<a href="javascript:void(0)" class="fw-bold text-warning" data-bs-toggle="modal" data-bs-target="#confirmar">VERIFICAR PELO CÓDIGO DE INSCRIÇÃO</a>
-				</div>
+				</div> #}
 
 			</div>
 
@@ -34,7 +47,7 @@
 
 </div>
 
-<div class="modal fade" id="confirmar" tabindex="-1" aria-labelledby="confirmarLabel" aria-hidden="true">
+{# <div class="modal fade" id="confirmar" tabindex="-1" aria-labelledby="confirmarLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-body">
@@ -49,7 +62,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 
 <script src="{{ PATH }}/view/src/js/services/recepcao_visita.js"></script>
 
