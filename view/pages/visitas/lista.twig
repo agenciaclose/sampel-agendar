@@ -68,7 +68,7 @@
 						</a>
 						<ul class="dropdown-menu py-1">
 							<li><a class="dropdown-item text-black" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
-							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presenças</a></li>
+							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
 							{% if visita.qrcode_inscricao != '' %}
 							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
 							{% else %}

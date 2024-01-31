@@ -1,11 +1,14 @@
 <IfModule mod_rewrite.c>
    RewriteEngine On
 
+   # Redirecionar www.sampel.com.br para sampel.com.br
+   RewriteCond %{HTTP_HOST} ^www\.sampel\.com\.br [NC]
+   RewriteRule ^(.*)$ http://sampel.com.br/$1 [L,R=301]
+
    # ROUTER URL Rewrite
    RewriteCond %{SCRIPT_FILENAME} !-f
    RewriteCond %{SCRIPT_FILENAME} !-d
    RewriteRule ^(.*)$ index.php?route=/$1 [L,QSA]
 
    DirectoryIndex index.php
-
 </IfModule>

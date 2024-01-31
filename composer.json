@@ -15,6 +15,7 @@
     }
   ],
   "require": {
+    "contao/imagine-svg": "^3.0",
     "twig/twig": "^3.0",
     "guzzlehttp/guzzle": "^7.0",
     "coffeecode/router": "^1.0",
@@ -28,7 +29,9 @@
     "ext-simplexml": "*",
     "shuchkin/simplexlsx": "^1.0",
     "mpdf/mpdf": "^8.2",
-    "picqer/php-barcode-generator": "^2.4"
+    "picqer/php-barcode-generator": "^2.4",
+    "contao/imagine-svg": "^1.0",
+    "spatie/image": "^2.0"
   },
   "autoload": {
     "psr-4": {
