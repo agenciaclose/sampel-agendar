@@ -4,6 +4,7 @@ uploads/
 node_modules/
 composer.lock
 .idea
+.htaccess
 backup
 .DS_Store
 view/src/dist
