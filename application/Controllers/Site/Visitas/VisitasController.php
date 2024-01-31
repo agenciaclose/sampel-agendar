@@ -2,12 +2,14 @@
 
 namespace Agencia\Close\Controllers\Site\Visitas;
 
-use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Models\User\User;
+use Agencia\Close\Models\Site\Agendar;
+use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Services\Login\Logon;
 
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Painel\VisitasPainel;
 
 class VisitasController extends Controller
 {
@@ -103,12 +105,18 @@ class VisitasController extends Controller
             $equipeVisita = new Visitas();
             $equipeVisita = $equipeVisita->listaEquipesVisita($params['id'])->getResult();
 
+            $estados = new VisitasPainel();
+            $estados = $estados->getEstados()->getResult();
+
+            $motivos = new Agendar();
+            $motivos = $motivos->getMotivos()->getResult();
+
             $equipeSelecionada = array();
             foreach ($equipeVisita as $equipe){
                 $equipeSelecionada[] = $equipe['id'];
             }
 
-            $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada]);
+            $this->render('pages/visitas/lista.twig', ['menu' => 'visitas', 'visita' => $visita, 'listas' => $lista, 'grupos' => $grupos, 'total' => $total, 'sorteados' => $sorteados, 'todasequipes' => $todasEquipes, 'equipevisita' => $equipeVisita, 'equipeselecionada' => $equipeSelecionada, 'estados' => $estados, 'motivos' => $motivos]);
         }else{
             $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
         }

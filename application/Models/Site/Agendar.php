@@ -36,7 +36,9 @@ class Agendar extends Model
     public function saveEditar($params)
     {
         $update = new Update();
-        $update->ExeUpdate('visitas', $params, 'WHERE id = :id', "id={$params['id']}");
+        $id = $params['id'];
+        unset($params['id']);
+        $update->ExeUpdate('visitas', $params, 'WHERE id = :id', "id={$id}");
         return $update;
     
     }

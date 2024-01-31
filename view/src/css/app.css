@@ -4760,3 +4760,12 @@ img.fancybox__image {
 .dropdown-menu.show {
   min-width: 200px;
 }
+.btn-success {
+  --bs-btn-bg: #25d366;
+  --bs-btn-border-color: #25d366;
+  --bs-btn-disabled-bg: #25d366;
+  --bs-btn-disabled-border-color: #25d366;
+}
+span.fr-counter {
+  visibility: hidden;
+}

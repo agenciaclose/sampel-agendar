@@ -54,8 +54,11 @@
 						<a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?setor={{ grupo.setor }}">{{ grupo.setor }} <span class="px-1 bg-black rounded-pill text-white">{{ grupo.total }}</span></a>
 					</div>
 				{% endfor %}
-				<div class="mt-3"><span class="text-warning">Gerenciamento de Equipe:</span></div>
+				<div class="mt-3"><span class="text-warning">Gerenciamento da Visita:</span></div>
 				<div class="d-flex justify-content-between flex-wrap">
+					{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
+					<button type="button" data-bs-toggle="modal" data-bs-target="#editar_visita" class="btn btn-success btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
+					{% endif %}
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editarEquip" class="btn btn-warning btn-sm rounded-pill me-2 mb-2">Ver Equipe <span class="px-1 bg-black rounded-pill text-white">{{ equipevisita|length }}</span></button>
 					<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
 										
@@ -264,6 +267,104 @@
 		</div>
 	</div>
 </form>
+
+{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
+<div class="modal fade" id="editar_visita" tabindex="-1" aria-labelledby="editar_visita" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+				{# <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css"> #}
+				<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+				<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
+				
+				<form action="javascript:void(0)" id="editar_visita_form" method="POST">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="position-relative editar_visita">
+
+                                        <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+                                        <div class="row">
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="title" class="form-label">Qual o motivo da visita? </label>
+                                                <select class="form-control" name="title" id="title">
+													<option>SELECIONE</option>
+													{% for motivo in motivos %}
+														<option value="{{ motivo.motivo }}" {{ motivo.motivo == visita.title ? 'selected' }}>{{ motivo.motivo }}</option>
+													{% endfor %}
+												</select>
+                                            </div>
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="solicitante" class="form-label">Nome do Solicitante </label>
+                                                <input type="text" class="form-control" name="solicitante" id="solicitante" value="{{ visita.solicitante }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="qtd_visitas" class="form-label">Selecione seu Estado </label>
+                                                <select class="form-control" name="estado" id="estado">
+                                                    <option>Selecione</option>
+                                                    {% for estado in estados %}
+                                                        <option value="{{ estado.sigla }}" {{ visita.estado == estado.sigla ? 'selected' }}>{{ estado.estado }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="mb-2 col-md-6 col-sm-12 col-12">
+                                                <label for="qtd_visitas" class="form-label">Quantidade máxima</label>
+                                                <input type="number" name="qtd_visitas" class="form-control" id="qtd_visitas" value="{{ visita.qtd_visitas }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row digitar_qtd">
+                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                                <label for="data_visita" class="form-label">Data da Visita </label>
+                                                <input type="date" name="data_visita" class="form-control" id="data_visita" value="{{ visita.data_visita }}">
+                                            </div>
+                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                                <label for="horario_visita" class="form-label">Horário da Visita </label>
+                                                <input type="time" name="horario_visita" class="form-control" id="horario_visita" value="{{ visita.horario_visita }}">
+                                            </div>
+                                            <div class="mb-2 col-md-4 col-sm-12 col-12">
+                                                <label for="data_close" class="form-label">Fechamento das Inscrições</label>
+                                                <input type="date" name="data_close" class="form-control" id="data_close" value="{{ visita.data_close }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="descricao" class="form-label">Descreva por completo os objetivos para esse agendamento de visita. </label>
+                                            <textarea id="descricao" class="form-control" name="descricao" rows="5">{{ visita.descricao }}</textarea>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            {% if visita.visita_id != '' %}
+                                            <input type="hidden" name="id" value="{{ visita.visita_id }}">
+                                            {% endif %}
+                                            <button type="submit" class="rounded-pill btn btn-lg btn-primary">
+                                                <i class="fa-light fa-paper-plane"></i> SALVAR EDIÇÃO
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+
 <script src="{{ PATH }}/view/src/js/services/visitas.js"></script>
 
 {% endblock %}

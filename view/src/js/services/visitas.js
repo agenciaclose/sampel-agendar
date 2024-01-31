@@ -158,3 +158,59 @@ function qrcodeSaveFeedback (id_visita, qrcode){
     });
 }
 // ##
+$(document).ready(function () {
+
+    if ($('#descricao').length){
+        new FroalaEditor('#descricao', {
+            key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+            enter: FroalaEditor.ENTER_BR,
+            language: 'pt_br',
+            entities: '',
+            pastePlain: true,
+            attribution: false,
+            theme: 'dark',
+            toolbarButtons: {
+                'moreText': {
+                'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
+                'buttonsVisible': 2
+                },
+                'moreParagraph': {
+                'buttons': ['alignLeft', 'alignCenter',  'alignRight']
+                },
+                'moreRich': {
+                'buttons': ['emoticons', 'fontAwesome']
+                }
+            }
+        });
+    }
+
+
+    $("#editar_visita_form").submit(function (c) {
+        $('.form-load').addClass('show');
+        $('button[type="submit"]').prop("disabled", true);
+
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+        var form = $(this);
+
+        $.ajax({
+            type: "POST", async: true, data: form.serialize(),
+            url: DOMAIN + '/agendar/editar',
+            success: function (data) {
+
+                if (data == "1") {
+                    $('.form-load').removeClass('show');
+                    swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                } else {
+
+                    $('button[type="submit"]').prop("disabled", false);
+                    $('.form-load').removeClass('show');
+
+                }
+            }
+        });
+    });
+});
