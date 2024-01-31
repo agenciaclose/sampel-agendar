@@ -318,4 +318,11 @@ class Visitas extends Model
         return $read;
     }
 
+    public function updateStatusVisita($id_visita): read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas` SET `status_visita` = 'Aprovado' WHERE `id` = :id_visita", "id_visita={$id_visita}");
+        return $read;
+    }
+
 }
