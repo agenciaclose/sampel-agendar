@@ -1,0 +1,24 @@
+<div class="col-md-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-center w-100">
+                <h6 class="fw-bold">TOTAL DE PARTICIÇÕES POR EQUIPE</h6>
+            </div>
+
+            <div class="equipe_lista">
+                <div class="d-flex justify-content-between flex-wrap text-warning">
+                    <div class="fw-bold">MEMBRO</div>
+                    <div class="fw-bold text-end pe-2">TOTAL</div>
+                </div>
+                {% for equipe in total_equipe %}
+                <div class="linha d-flex justify-content-between flex-wrap py-1">
+                    <div>{{ equipe.nome|upper }}</div>
+                    <div class="text-end pe-3">{{ equipe.total }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{#  #}

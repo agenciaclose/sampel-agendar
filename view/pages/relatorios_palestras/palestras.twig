@@ -1,0 +1,56 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Visitas Relatórios {% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.css" media="all"/>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/highcharts.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/exporting.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/moment.min.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/highcharts/daterangepicker.js"></script>
+
+<div class="container py-5">
+	
+	<session class="relatorio">
+
+		<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
+			<div>
+				<h3>Relatórios Gerais sobre Visitas</h3>
+				<div>Números de visitas, quantidades inscrições, presenças, certificados e muito mais.</div>
+			</div>
+			<div></div>
+		</div>
+
+		<hr>
+		
+		{# DADOS BLOCO 1 #}
+		{{ include('pages/relatorios/dados.twig') }}
+
+		<div class="row">
+			{# SETORES BLOCO 2 #}
+			{{ include('pages/relatorios/setores.twig') }}
+
+			{# CIDADES BLOCO 4 #}
+			{{ include('pages/relatorios/cidades.twig') }}
+		</div>
+
+		<div class="row">
+            {% for pergunta in perguntas %}
+				{% if pergunta.tipo == 'Estrela' %}
+                <div class="col-md-6 mb-4">
+                    <div class="card card-dark card-company-table">
+                        <div class="card-body">
+                            {{ include('pages/relatorios/painel-estrela.twig') }}
+                        </div>
+                    </div>
+                </div>
+				{% endif %}
+            {% endfor %}
+        </div>
+
+	</session>
+
+</div>
+{% endblock %}

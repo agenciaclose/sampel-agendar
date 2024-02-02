@@ -1,0 +1,92 @@
+{# BLOCOS DE DADOS 1 #}
+<div class="row">
+  <div class="col mb-4">
+    <div class="card card-border-shadow-success">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2 pb-1">
+          <div class="avatar me-2">
+            <span class="avatar-initial rounded bg-label-success"><i class="fa-solid fa-calendars"></i></span>
+          </div>
+          <h4 class="ms-1 mb-0">{{ visitas|length }}</h4>
+        </div>
+        <p class="mb-1 fw-bold text-success">Total de Visitas</p>
+        {# <p class="mb-0">
+          <span class="fw-medium me-1">+18.2%</span>
+          <small>com relação ao ano anterior</small>
+        </p> #}
+      </div>
+    </div>
+  </div>
+  <div class="col mb-4">
+    <div class="card card-border-shadow-info">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2 pb-1">
+          <div class="avatar me-2">
+            <span class="avatar-initial rounded bg-label-info"><i class="fa-solid fa-user-plus"></i></span>
+          </div>
+          <h4 class="ms-1 mb-0">{{ total.total_inscritos }}</h4>
+        </div>
+        <p class="mb-1 fw-bold text-info">Total de Inscritos</p>
+        {# <p class="mb-0">
+          <span class="fw-medium me-1">84.7%</span>
+          <small>da qtd. total estimada</small>
+        </p> #}
+      </div>
+    </div>
+  </div>
+
+  <div class="col mb-4">
+    <div class="card card-border-shadow-warning">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2 pb-1">
+          <div class="avatar me-2">
+            <span class="avatar-initial rounded bg-label-warning"><i class="fa-solid fa-user-check"></i></span>
+          </div>
+          <h4 class="ms-1 mb-0">{{ total.total_confirmados }}</h4>
+        </div>
+        <p class="mb-1 fw-bold text-warning">Total de Confirmados</p>
+        {# <p class="mb-0">
+          <span class="fw-medium me-1">89.3%</span>
+          <small>da qtd. de inscritos</small>
+        </p> #}
+      </div>
+    </div>
+  </div>
+
+  <div class="col mb-4">
+    <div class="card card-border-shadow-danger">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2 pb-1">
+          <div class="avatar me-2">
+            <span class="avatar-initial rounded bg-label-danger"><i class="fa-solid fa-user-minus"></i></span>
+          </div>
+          <h4 class="ms-1 mb-0">{{ total.total_no_confirmados }}</h4>
+        </div>
+        <p class="mb-1 fw-bold text-danger">Total não Confirmados</p>
+        {# <p class="mb-0">
+          <span class="fw-medium me-1">89.3%</span>
+          <small>da qtd. de inscritos</small>
+        </p> #}
+      </div>
+    </div>
+  </div>
+
+  <div class="col mb-4">
+    <div class="card card-border-shadow-secondary">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-2 pb-1">
+          <div class="avatar me-2">
+            <span class="avatar-initial rounded bg-label-secondary"><i class="fa-solid fa-file-certificate"></i></span>
+          </div>
+          <h4 class="ms-1 mb-0">{{ total.total_certificados }}</h4>
+        </div>
+        <p class="mb-1 fw-bold text-secondary">Total de Certificados</p>
+        {# <p class="mb-0">
+          <span class="fw-medium me-1">75.5%</span>
+          <small>da qtd. total de confirmados</small>
+        </p> #}
+      </div>
+    </div>
+  </div>
+</div>
+{#  #}

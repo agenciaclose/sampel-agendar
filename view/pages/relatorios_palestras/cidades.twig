@@ -1,0 +1,32 @@
+{# BLOCOS DE DADOS 2 #}
+<div class="col-md-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-center w-100">
+                <h6 class="fw-bold">TOTAL DE INSCRITOS POR CIDADE</h6>
+            </div>
+
+            {% set total_absoluto = 0 %}
+            {% for cidade in total_cidade %}
+                {% set total_absoluto = total_absoluto + cidade.total %}
+            {% endfor %}
+
+            <div class="cidade_lista">
+                <div class="d-flex justify-content-between flex-wrap text-warning">
+                    <div class="fw-bold">CIDADE</div>
+                    <div class="fw-bold text-end pe-2">TOTAL</div>
+                </div>
+                {% for cidade in total_cidade %}
+                {% set porcentagem = 0 %}
+                {% set porcentagem = ( cidade.total / total_absoluto * 100 )|number_format(0,',') %}
+                <div class="linha d-flex justify-content-between flex-wrap py-2 pe-2">
+                    <div>{{ cidade.cidade }}, {{ cidade.estado }}</div>
+                    <div class="text-end">{{ cidade.total }}</div>
+                    <span style="width: {{ porcentagem }}%"><span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{#  #}
