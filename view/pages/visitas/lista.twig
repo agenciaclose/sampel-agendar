@@ -68,6 +68,7 @@
 						</a>
 						<ul class="dropdown-menu py-1">
 							<li><a class="dropdown-item text-black" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
+							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/feedback/{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Link de Feedback</a></li>
 							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
 							{% if visita.qrcode_inscricao != '' %}
 							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
@@ -191,10 +192,17 @@
 			</div>
 			<div class="modal-body">
 				<form id="sorteioForm">
+
 					<div class="form-group mt-2 mb-4">
 						<input type="number" name="quantidade" class="form-control form-control-lg text-center" min="1" value="1" id="quantidade" required>
 						<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
 					</div>
+
+					<a class="btn btn-sm btn-primary rounded-0 w-100" data-bs-toggle="collapse" href="#repescagem" role="button" aria-expanded="false" aria-controls="repescagem">Repescagem?</a>
+					<div class="collapse" id="repescagem">
+						<input type="number" name="repescagem" id="repescagem_input" class="form-control form-control-lg text-center" min="0" value="0">
+					</div>
+
 					<div id="timer" class="text-black my-4 text-center"></div>
 					<button type="submit" class="btn btn-warning btn-lg w-100">REALIZAR SORTEIO</button>
 				</form>

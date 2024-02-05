@@ -217,6 +217,10 @@ class Visitas extends Model
     public function sortear($params){
         $read = new Read();
         $read->FullRead("UPDATE `visitas_inscricoes` SET `sorteado` = 'Sim' WHERE id_visita = '".$params['id_visita']."' AND presenca = 'Sim' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['quantidade']."");
+        
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `repescagem` = 'Sim' WHERE id_visita = '".$params['id_visita']."' AND presenca = 'Sim' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['repescagem']."");
+
         return $read;
     }
 

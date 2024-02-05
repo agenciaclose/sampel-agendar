@@ -20,12 +20,13 @@ function sendAjaxRequest() {
 
             var DOMAIN = $('body').data('domain');
             const quantidade = $('#quantidade').val();
+            const repescagem = $('#repescagem_input').val();
             const id_palestra = $('#id_palestra').val();
 
             $.ajax({
                 type: "POST",
                 url: DOMAIN + '/palestras/sortear', // URL da API ou backend que irá processar os dados
-                data: { quantidade: quantidade, id_palestra: id_palestra },
+                data: { quantidade: quantidade, repescagem: repescagem, id_palestra: id_palestra },
                 success: function (response) {
                     window.location.href = DOMAIN + '/palestras/sorteados/'+id_palestra;
                 },

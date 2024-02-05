@@ -198,21 +198,25 @@ class Palestras extends Model
 
     public function sortear($params){
         $read = new Read();
-        $read->FullRead("UPDATE `palestras_participantes` SET `sorteado` = 'Sim' WHERE id_palestra = '".$params['id_palestra']."' AND presenca = 'Sim' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['quantidade']."");
+        $read->FullRead("UPDATE `palestras_participantes` SET `sorteado` = 'Sim' WHERE id_palestra = '".$params['id_palestra']."' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['quantidade']."");
+
+        $read = new Read();
+        $read->FullRead("UPDATE `palestras_participantes` SET `repescagem` = 'Sim' WHERE id_palestra = '".$params['id_palestra']."' AND sorteado <> 'Sim' ORDER BY RAND() LIMIT ".$params['repescagem']."");
+
         return $read;
     }
 
     public function listarPalestraUserSorteados($id_palestra): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra AND sorteado = 'Sim'", "id_palestra={$id_palestra}");
+        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra AND (sorteado = 'Sim' OR repescagem = 'Sim') ORDER BY sorteado ASC", "id_palestra={$id_palestra}");
         return $read;
     }
 
     public function listarPalestrasUserSorteados($id_palestra): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra AND sorteado = 'Sim'", "id_palestra={$id_palestra}");
+        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra AND (sorteado = 'Sim' OR repescagem = 'Sim') ORDER BY sorteado ASC", "id_palestra={$id_palestra}");
         return $read;
     }
 

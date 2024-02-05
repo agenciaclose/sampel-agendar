@@ -30,7 +30,7 @@
 		        </thead>
 		        <tbody>
 		        	{% for lista in listas %}
-						<tr>
+						<tr {{ lista.repescagem == 'Sim' ? 'class="bg-warning bg-opacity-10"' }}>
 							<td class="d-none">{{ lista.visita_id }}</td>
 							<td class="ps-0 text-uppercase">{{ lista.nome }}</td>
 							<td class="ps-0 text-uppercase">{{ lista.email }}</td>

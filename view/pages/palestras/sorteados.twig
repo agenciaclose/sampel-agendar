@@ -30,9 +30,9 @@
 		        </thead>
 		        <tbody>
 		        	{% for lista in listas %}
-						<tr>
+						<tr {{ lista.repescagem == 'Sim' ? 'class="bg-warning bg-opacity-10"' }}>
 							<td class="d-none">{{ lista.id_palestra }}</td>
-							<td class="ps-0 text-uppercase">{{ lista.nome }}</td>
+							<td class="text-uppercase">{{ lista.nome }}</td>
 							<td class="ps-0 text-uppercase">{{ lista.email }}</td>
 							<td class="ps-0">{{ lista.telefone }}</td>
 							<td class="ps-0">{{ lista.cidade }}, {{ lista.estado }}</td>
