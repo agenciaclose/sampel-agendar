@@ -45,9 +45,9 @@
 								<div class="col-6">
 									<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.id_visita }}/{{ visita.id }}?action=success" class="btn btn-warning btn-sm fw-bold d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-check-to-slot"></i> VER INSCRIÇÃO</a>
 									{% if visita.presenca == 'Sim' %}
-										<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold  d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
+										<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-success btn-sm fw-bold  d-block w-100 mb-2" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
 									{% else %}
-										<button type="button" class="btn btn-danger btn-sm fw-bold d-block w-100"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
+										<a href="{{ DOMAIN }}/visita/feedback/{{ visita.cpf }}/{{ visita.id_visita }}" class="btn btn-warning btn-sm fw-bold d-block w-100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Necessário preencher o Feedback para ter acesso ao Certificado"><i class="fa-solid fa-file-certificate"></i> FEEDBACK</a>
 									{% endif %}
 								</div>
 							</div>
@@ -60,9 +60,9 @@
 						
 						<td class="text-end no-mobile" width="175">
 							{% if visita.presenca == 'Sim' %}
-								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-warning btn-sm fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
+								<a href="{{ DOMAIN }}/certificados/pdf/visita.php?codigo={{ visita.codigo }}" class="btn btn-success btn-sm fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> MEU CERTIFICADO</a>
 							{% else %}
-								<button type="button" class="btn btn-danger btn-sm fw-bold"><i class="fa-solid fa-file-certificate"></i> INDISPONÍVEL</button>
+								<a href="{{ DOMAIN }}/visita/feedback/{{ visita.cpf }}/{{ visita.id_visita }}" class="btn btn-warning btn-sm fw-bold" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Necessário preencher o Feedback para ter acesso ao Certificado"><i class="fa-solid fa-file-certificate"></i> FEEDBACK</a>
 							{% endif %}
 						</td>
 
