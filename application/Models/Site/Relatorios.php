@@ -34,7 +34,7 @@ class Relatorios extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE v.status_visita not in ('Pendente','Recusado') AND  vi.setor <> ''
+                        WHERE  vi.setor <> ''
                         GROUP BY vi.setor ORDER BY total DESC LIMIT 10");
         return $read;
     }
@@ -45,7 +45,7 @@ class Relatorios extends Model
         $read->FullRead("SELECT u.setor, COUNT(u.setor) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE v.status_visita not in ('Pendente','Recusado') AND ve.id_user not in ('26') AND u.tipo = '4'
+                        WHERE ve.id_user not in ('26') AND u.tipo = '4'
                         GROUP BY u.setor ORDER BY total DESC");
         return $read;
     }
@@ -55,7 +55,7 @@ class Relatorios extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE v.status_visita not in ('Pendente','Recusado') AND vi.cidade <> ''
+                        WHERE vi.cidade <> ''
                         GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }
@@ -66,7 +66,7 @@ class Relatorios extends Model
         $read->FullRead("SELECT u.nome, COUNT(id_user) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE v.status_visita not in ('Pendente','Recusado') AND ve.id_user not in ('26')
+                        WHERE ve.id_user not in ('26')
                         GROUP BY ve.id_user ORDER BY total DESC");
         return $read;
     }
