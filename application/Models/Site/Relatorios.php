@@ -13,7 +13,7 @@ class Relatorios extends Model
     public function getAllVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita = 'Concluido'");
+        $read->FullRead("SELECT * FROM `visitas`");
         return $read;
     }
 
@@ -25,7 +25,7 @@ class Relatorios extends Model
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'Sim') AS total_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'No') AS total_no_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND certificado = 'Sim') AS total_certificados
-        FROM visitas WHERE status_visita = 'Concluido'");
+        FROM visitas");
         return $read;
     }
 
