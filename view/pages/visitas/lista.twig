@@ -57,7 +57,7 @@
 				<div class="mt-3"><span class="text-warning">Gerenciamento da Visita:</span></div>
 				<div class="d-flex justify-content-between flex-wrap">
 					{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
-					<button type="button" data-bs-toggle="modal" data-bs-target="#editar_visita" class="btn btn-success btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
+					<button type="button" data-bs-toggle="modal" data-bs-target="#editar_visita" class="btn btn-success text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
 					{% endif %}
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editarEquip" class="btn btn-warning btn-sm rounded-pill me-2 mb-2">Ver Equipe <span class="px-1 bg-black rounded-pill text-white">{{ equipevisita|length }}</span></button>
 					<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>

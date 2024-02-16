@@ -5,6 +5,7 @@ namespace Agencia\Close\Models\Site;
 use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Update;
 use Agencia\Close\Models\Model;
 
 class Palestras extends Model
@@ -31,6 +32,16 @@ class Palestras extends Model
         $create->ExeCreate('palestras', $params);
         return $create;
     }
+
+    public function palestraEditar($params)
+    {
+        $update = new Update();
+        $id = $params['id'];
+        unset($params['id']);
+        $update->ExeUpdate('palestras', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
+    }
+
 
     public function getPalestra($id): read
     {

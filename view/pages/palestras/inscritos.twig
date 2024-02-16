@@ -19,6 +19,8 @@
 					<div>Data de Término: <span class="text-warning fw-bold">{{ palestra.data_fim | date("d/m/Y H:i") }}</span></div>
 				</div>
 
+				<div class="mt-2 opacity-75">{{ palestra.descricao|raw }}</div>
+
 				{% set agora = "now"|date("Y-m-d") %}
 				{% set datapalestra = palestra.data_palestra|date("Y-m-d") %}
 
@@ -47,8 +49,11 @@
 				
 				<div class="mt-3"><span class="text-warning">Gerenciamento de Equipe:</span></div>
 				<div class="d-flex justify-content-between flex-wrap">
+					{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
+						<button type="button" data-bs-toggle="modal" data-bs-target="#editar_palestra" class="btn btn-success text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
+					{% endif %}
 					<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
-					<a class="btn btn-success btn-sm rounded-pill me-2 mb-2" href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a>
+					<a class="btn btn-warning btn-sm rounded-pill me-2 mb-2" href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a>
 
 					<div class="btn-group dropstart d-block">
 						<a href="javascript:void(0)" class="btn btn-light btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -165,6 +170,131 @@
 
 </div>
 
+{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
+<div class="modal fade" id="editar_palestra" tabindex="-1" aria-labelledby="editar_palestra" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				
+				<form action="javascript:void(0)" method="POST" id="editar_palestra_form">
+					<div class="row">
+						
+						<div class="col-md-12 col-12">
+							<div class="mb-3">
+								<label class="form-label">Nome da Palestra</label>
+								<input type="text" class="form-control form-control-sm" name="title" value="{{palestra.title}}" required="required">
+							</div>
+							
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<div class="mb-3">
+										<label for="data_palestra" class="form-label">Data de Início <span class="text-danger">*</span></label>
+										<input type="datetime-local" name="data_palestra" class="form-control form-control-sm" id="data_palestra" value="{{palestra.data_palestra}}" required="required">
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-12">
+									<div class="mb-3">
+										<label for="data_fim" class="form-label">Data de Término <span class="text-danger">*</span></label>
+										<input type="datetime-local" name="data_fim" class="form-control form-control-sm" id="data_fim" value="{{palestra.data_fim}}" required="required">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<div class="mb-3">
+										<label for="cep" class="form-label">CEP do Local</label>
+										<input type="text" name="cep" class="form-control form-control-sm cep" id="cep" value="{{palestra.cep}}">
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-12">
+									<div class="mb-3">
+										<label for="local_nome" class="form-label">Nome do Local</label>
+										<input type="text" name="local_nome" class="form-control form-control-sm" id="local_nome" value="{{palestra.local_nome}}">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<div class="mb-3">
+										<label for="endereco" class="form-label">Av./Rua</label>
+										<input type="text" name="endereco" class="form-control form-control-sm" id="endereco" value="{{palestra.endereco}}">
+									</div>
+								</div>
+								<div class="col-md-2 col-sm-12">
+									<div class="mb-3">
+										<label for="numero" class="form-label">Numero</label>
+										<input type="text" name="numero" class="form-control form-control-sm" id="numero" value="{{palestra.numero}}">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-12">
+									<div class="mb-3">
+										<label for="complemento" class="form-label">Complemento</label>
+										<input type="text" name="complemento" class="form-control form-control-sm" id="complemento" value="{{palestra.complemento}}">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4 col-sm-12">
+									<div class="mb-3">
+										<label for="bairro" class="form-label">Bairro</label>
+										<input type="text" name="bairro" class="form-control form-control-sm" id="bairro" value="{{palestra.bairro}}">
+									</div>
+								</div>
+
+								<div class="col-md-4 col-sm-12">
+									<div class="mb-3">
+										<label for="cidade" class="form-label">Cidade</label>
+										<input type="text" name="cidade" class="form-control form-control-sm" id="cidade" value="{{palestra.cidade}}">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-12">
+									<div class="mb-3">
+										<label for="estado" class="form-label">Estado</label>
+										<input type="text" name="estado" class="form-control form-control-sm" id="estado" value="{{palestra.estado}}">
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-12 col-12">
+
+							<div class="row">
+								<div class="mb-3 col-md-6">
+									<label for="palestrante_nome" class="form-label">Nome do Palestrante <span class="text-danger">*</span></label>
+									<input type="text" name="palestrante_nome" class="form-control form-control-sm" id="palestrante_nome" value="{{palestra.palestrante_nome}}" required="required">
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="palestrante_descricao" class="form-label">Descrição do Palestrante (opcional)</label>
+									<input type="text" name="palestrante_descricao" class="form-control form-control-sm" id="palestrante_descricao" value="{{palestra.palestrante_descricao}}">
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="descricao" class="form-label">Descrição da Palestra</label>
+								<textarea id="descricao" name="descricao" class="form-control form-control-sm" rows="7" cols="50" placeholder="Conte todos os detalhes de sua Palestra, como a programação e os diferenciais da sua produção!">{{palestra.descricao}}</textarea>
+							</div>
+
+							<div class="mb-3">
+								<input type="hidden" name="id" value="{{palestra.id}}">
+								<button type="submit" class="btn btn-warning rounded-pill btn-lg fw-bold"><i class="fa-light fa-paper-plane"></i> SALVAR PALESTRA</button>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+
 {% if agora >= datapalestra %}
 <div class="modal fade" id="sorteio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -195,6 +325,9 @@
 <script src="{{ PATH }}/view/src/js/services/sorteio_palestras.js"></script>
 {% endif %}
 
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
 <script src="{{ PATH }}/view/src/js/services/palestras.js"></script>
 
 {% endblock %}

@@ -5,6 +5,7 @@ $router->namespace("Agencia\Close\Controllers\Site\Palestras");
 $router->get("/palestras", "PalestrasController:index");
 $router->get("/palestras/cadastro", "PalestrasController:cadastro");
 $router->post("/palestras/cadastro/salvar", "PalestrasController:palestraSave");
+$router->post("/palestras/editar/salvar", "PalestrasController:palestraEditar");
 $router->post("/palestras/cadastro/save-qrcode-feedback", "PalestrasController:palestraQRcodeFeedbackSave");
 $router->post("/palestras/cadastro/save-qrcode", "PalestrasController:palestraQRcodeSave");
 

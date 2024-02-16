@@ -39,7 +39,13 @@ class PalestrasController extends Controller
         }else{
             echo "0";
         }
+    }
 
+    public function palestraEditar($params)
+    {
+        $this->setParams($params);
+        $save = new Palestras();
+        $save = $save->palestraEditar($params);
     }
 
     public function palestraQRcodeFeedbackSave($params){
