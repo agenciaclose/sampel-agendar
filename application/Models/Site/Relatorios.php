@@ -13,7 +13,7 @@ class Relatorios extends Model
     public function getAllVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas`");
+        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita not in ('Pendente','Recusado')");
         return $read;
     }
 
