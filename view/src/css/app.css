@@ -4772,3 +4772,6 @@ span.fr-counter {
 .fr-quick-insert {
   display: none !important;
 }
+.table > tbody {
+  font-weight: normal !important;
+}
