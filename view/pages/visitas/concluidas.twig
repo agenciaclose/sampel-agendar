@@ -38,9 +38,6 @@
 							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 							{% set mes_numero = visita.data_visita|date('m') - 1 %}
 							{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-							<div>
-								{{ visita.data_visita|date('l')|dayTranslate }}
-							</div>
 						</td>
 
 						<td  class="no-mobile">{{ visita.visita_id }}</td>
@@ -119,12 +116,11 @@
 										</div>
 										<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ visita.nome|AbreviarNome }}</b></div>
 										<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> 
+											
 											{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 											{% set mes_numero = visita.data_visita|date('m') - 1 %}
 											{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-											<div>
-												{{ visita.data_visita|date('l')|dayTranslate }}
-											</div>
+											
 										</div>
 									</div>
 								</div>

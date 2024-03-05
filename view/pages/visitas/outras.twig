@@ -29,13 +29,17 @@
 						{% for visita in visitas %}
 						<tr>
 
-							<td class="no-mobile">
+							<td class="no-mobile fw-bold">
 								{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 								{% set mes_numero = visita.data_visita|date('m') - 1 %}
 								{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-								<div>
-									{{ visita.data_visita|date('l')|dayTranslate }}
-								</div>	
+								<div class="text-warning">
+									{% set hoje = "now"|date("Y-m-d") %}
+									{% set data_evento = visita.data_visita|date("Y-m-d") %}
+									{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
+									{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+									Em {{ dias_faltantes }} dias {{ visita.data_visita|date('l')|dayTranslate }}
+								</div>
 							</td>
 
 							<td class="no-mobile" width="25">{{ visita.visita_id }}</td>
@@ -122,8 +126,12 @@
 											{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 											{% set mes_numero = visita.data_visita|date('m') - 1 %}
 											{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-											<div>
-												{{ visita.data_visita|date('l')|dayTranslate }}
+											<div class="text-warning">
+												{% set hoje = "now"|date("Y-m-d") %}
+												{% set data_evento = visita.data_visita|date("Y-m-d") %}
+												{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
+												{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+												Em {{ dias_faltantes }} dias {{ visita.data_visita|date('l')|dayTranslate }}
 											</div>
 										</div>
 									</div>

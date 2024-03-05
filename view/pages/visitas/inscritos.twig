@@ -18,9 +18,13 @@
 							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 							{% set mes_numero = visita.data_visita|date('m') - 1 %}
 							{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-							<span class="ms-2">
-								{{ visita.data_visita|date('l')|dayTranslate }}
-							</span>
+							<span class="ms-2 text-warning">
+								{% set hoje = "now"|date("Y-m-d") %}
+								{% set data_evento = visita.data_visita|date("Y-m-d") %}
+								{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
+								{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+								Em {{ dias_faltantes }} dias {{ visita.data_visita|date('l')|dayTranslate }}
+							</span>	
 						</span>
 						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
 					</span>
