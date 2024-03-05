@@ -35,7 +35,12 @@
 		        	{% for palestra in palestras %}
 					<tr>
 						<td class="no-mobile">
-							{{ palestra.data_palestra | date("d-m-Y H:i") }}
+							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
+							{% set mes_numero = palestra.data_palestra|date('m') - 1 %}
+							{{ palestra.data_palestra|date('d') }} de {{ meses[mes_numero] }}. {{ palestra.data_palestra|date('Y H:i') }}
+							<div>
+								{{ palestra.data_palestra|date('l')|dayTranslate }}
+							</div>
 						</td>
 
 						<td  class="no-mobile">{{ palestra.id }}</td>
@@ -111,7 +116,14 @@
 										{% if palestra.status_palestra == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ palestra.status_palestra }}</span>{% endif %}
 									</div>
 									<div class="mb-1"><b><i class="fa-solid fa-user"></i> {{ palestra.palestrante_nome|AbreviarNome }}</b></div>
-									<div class="mb-1"><i class="fa-solid fa-calendar-days"></i> {{ palestra.data_palestra | date("d/m/Y") }} {{ palestra.horario_palestra }}</div>
+									<div class="mb-1"><i class="fa-solid fa-calendar-days"></i>
+										{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
+										{% set mes_numero = palestra.data_palestra|date('m') - 1 %}
+										{{ palestra.data_palestra|date('d') }} de {{ meses[mes_numero] }}. {{ palestra.data_palestra|date('Y H:i') }}
+										<div>
+											{{ palestra.data_palestra|date('l')|dayTranslate }}
+										</div>
+									</div>
 								</div>
 
 							</div>

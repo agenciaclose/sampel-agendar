@@ -126,9 +126,9 @@ $router->namespace("Agencia\Close\Controllers\Painel\Config");
 $router->get("/painel/visitas/config", "ConfigController:index");
 $router->post("/painel/visitas/config/save", "ConfigController:save");
 $router->post("/painel/visitas/config/save/regras", "ConfigController:saveRegras");
-$router->post("/painel/visitas/config/save/motivo", "ConfigController:saveMotivo");
-$router->post("/painel/visitas/config/edit/motivo", "ConfigController:editMotivo");
-$router->post("/painel/visitas/config/delete/motivo", "ConfigController:deleteMotivo");
+$router->post("/painel/visitas/config/save/opcional", "ConfigController:saveOpcional");
+$router->post("/painel/visitas/config/edit/opcional", "ConfigController:editOpcional");
+$router->post("/painel/visitas/config/delete/opcional", "ConfigController:deleteOpcional");
 
 // PAINEL PALESTRAS
 $router->namespace("Agencia\Close\Controllers\Painel\Palestras");

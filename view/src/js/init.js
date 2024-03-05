@@ -16,7 +16,7 @@ import DataTable from 'datatables.net-dt';
  
 let table = new DataTable('#tabela_dinamica',  {
     dom: '<"top"fi>rt<"bottom"lp><"clear">',
-    order: [[0, 'asc']],
+    ordering: false,
     language: {
         "emptyTable": "Nenhum registro encontrado",
         "info": "Total de _TOTAL_ registros",
@@ -266,7 +266,7 @@ let table = new DataTable('#tabela_dinamica',  {
 
 let table_concluida = new DataTable('#tabela_dinamica_concluida',  {
     dom: '<"top"fi>rt<"bottom"lp><"clear">',
-    order: [[0, 'desc']],
+    ordering: false,
     language: {
         "emptyTable": "Nenhum registro encontrado",
         "info": "Total de _TOTAL_ registros",
@@ -516,7 +516,7 @@ let table_concluida = new DataTable('#tabela_dinamica_concluida',  {
 
 let table_palestra = new DataTable('#tabela_dinamica_palestra',  {
     dom: '<"top"fi>rt<"bottom"lp><"clear">',
-    order: [[1, 'desc']],
+    ordering: false,
     language: {
         "emptyTable": "Nenhum registro encontrado",
         "info": "Total de _TOTAL_ registros",

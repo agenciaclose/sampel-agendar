@@ -47,31 +47,31 @@ class ConfigPainel extends Model
 	    return $read;
     }
 
-    public function getMotivos(): Read
+    public function getOpcionais(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM motivos ORDER BY `id` DESC");
+        $read->FullRead("SELECT * FROM opcionais ORDER BY `id` DESC");
         return $read;
     }
 
-    public function saveMotivo($params): Read
+    public function saveOpcional($params): Read
     {
         $read = new Read();
-        $read->FullRead("INSERT INTO `motivos` (`motivo`) VALUES (:motivo)", "motivo={$params['motivo']}");
+        $read->FullRead("INSERT INTO `opcionais` (`opcional`) VALUES (:opcional)", "opcional={$params['opcional']}");
 	    return $read;
     }
 
-    public function editMotivo($params): Read
+    public function editOpcional($params): Read
     {
         $read = new Read();
-        $read->FullRead("UPDATE `motivos` SET `motivo` = :motivo WHERE id = :id", "motivo={$params['motivo']}&id={$params['id']}");
+        $read->FullRead("UPDATE `opcionais` SET `opcional` = :opcional WHERE id = :id", "opcional={$params['opcional']}&id={$params['id']}");
 	    return $read;
     }
 
-    public function deleteMotivo($params): Read
+    public function deleteOpcional($params): Read
     {
         $read = new Read();
-        $read->FullRead("DELETE FROM `motivos` WHERE  `id` = :id", "id={$params['id']}");
+        $read->FullRead("DELETE FROM `opcionais` WHERE  `id` = :id", "id={$params['id']}");
 	    return $read;
     }
 

@@ -106,13 +106,13 @@ $(document).ready(function () {
         });
     });
 
-    $("#add_motivo").submit(function (c) {
+    $("#add_opcional").submit(function (c) {
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/painel/visitas/config/save/motivo',
+            url: DOMAIN + '/painel/visitas/config/save/opcional',
             success: function (data) {
 
                 if (data == "1") {
@@ -134,13 +134,13 @@ $(document).ready(function () {
         });
     });
 
-    $(".edit_motivo").submit(function (c) {
+    $(".edit_opcional").submit(function (c) {
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/painel/visitas/config/edit/motivo',
+            url: DOMAIN + '/painel/visitas/config/edit/opcional',
             success: function (data) {
 
                 if (data == "1") {
@@ -168,7 +168,7 @@ $(document).ready(function () {
             type: "POST", 
             async: true, 
             data: {id: id},
-            url: DOMAIN + '/painel/visitas/config/delete/motivo',
+            url: DOMAIN + '/painel/visitas/config/delete/opcional',
             success: function (data) {
 
                 if (data == "1") {

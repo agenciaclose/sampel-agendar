@@ -18,13 +18,13 @@ class DayTranslate extends AbstractExtension
     {
         if($invert == false){
             switch ($day) {
-                case 'Mon': $day = 'Segunda'; break;
-                case 'Tue': $day = 'Terça'; break;
-                case 'Wed': $day = 'Quarta'; break;
-                case 'Thu': $day = 'Quinta'; break;
-                case 'Fri': $day = 'Sexta'; break;
-                case 'Sat': $day = 'Sábado'; break;
-                case 'Sun': $day = 'Domingo'; break;
+                case 'Monday': $day = 'Segunda'; break;
+                case 'Tuesday': $day = 'Terça'; break;
+                case 'Wednesday': $day = 'Quarta'; break;
+                case 'Thursday': $day = 'Quinta'; break;
+                case 'Friday': $day = 'Sexta'; break;
+                case 'Saturday': $day = 'Sábado'; break;
+                case 'Sunday': $day = 'Domingo'; break;
                 default;
             }
         }else{

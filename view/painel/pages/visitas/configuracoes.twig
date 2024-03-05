@@ -76,17 +76,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <label>CADASTROS DE MOTIVOS DA VISITA</label>
+                                    <label>OPCIONAIS PARA VISITA</label>
                                     <div><a href="javascript:void(0)" class="text-warning" data-bs-toggle="modal" data-bs-target="#addopcao"><i class="fa-solid fa-plus"></i> add</a></div>
                                 </div>
                                 <div class="mt-2">
-                                    {% for motivo in motivos %}
-                                        <form action="javascript:void(0)" class="edit_motivo" method="POST">
+                                    {% for opcional in opcionais %}
+                                        <form action="javascript:void(0)" class="edit_opcional" method="POST">
                                             <div class="input-group mb-2">
-                                                <input type="text" name="motivo" class="form-control" value="{{ motivo.motivo }}">
-                                                <input type="hidden" name="id" value="{{ motivo.id }}">
+                                                <input type="text" name="opcional" class="form-control" value="{{ opcional.opcional }}">
+                                                <input type="hidden" name="id" value="{{ opcional.id }}">
                                                 <button class="btn btn-warning" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                <a class="btn btn-danger" onclick="deleteMotivo('{{ motivo.id }}')" href="javascript:void(0);"><i class="fa-solid fa-trash"></i></a>
+                                                <a class="btn btn-danger" onclick="deleteMotivo('{{ opcional.id }}')" href="javascript:void(0);"><i class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </form>
                                     {% endfor %}
@@ -130,9 +130,9 @@
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form method="post" action="javascript:void(0);" id="add_motivo">
-                        <label>Digite o Motivo</label>
-                        <input class="form-control" type="text" name="motivo" oninput="this.value = this.value.toUpperCase()">
+                    <form method="post" action="javascript:void(0);" id="add_opcional">
+                        <label>Digite a Opção</label>
+                        <input class="form-control" type="text" name="opcional" oninput="this.value = this.value.toUpperCase()">
                         <button type="submit" class="btn btn-primary mt-1">SALVAR INFORMAÇÕES</button>
                     </form>
                 </div>

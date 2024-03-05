@@ -4769,3 +4769,6 @@ img.fancybox__image {
 span.fr-counter {
   visibility: hidden;
 }
+.fr-quick-insert {
+  display: none !important;
+}

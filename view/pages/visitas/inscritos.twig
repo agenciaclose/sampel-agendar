@@ -14,7 +14,14 @@
 				<div><span>Lista de inscrições: <span class="text-warning fw-bold">{{ visita.title }}</span></span></div>
 				<div class="d-flex justify-content-between">
 					<span>
-						Data da Visita: <span class="text-warning fw-bold">{{ visita.data_visita | date("d/m/Y") }} as {{ visita.horario_visita }}</span>
+						Data da Visita: <span class="text-warning fw-bold">
+							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
+							{% set mes_numero = visita.data_visita|date('m') - 1 %}
+							{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
+							<span class="ms-2">
+								{{ visita.data_visita|date('l')|dayTranslate }}
+							</span>
+						</span>
 						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
 					</span>
 					<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>

@@ -8,9 +8,14 @@
 	
 	<session>
 
-		<div class="mb-4">
-			<h3>Preencha o formulário para agendar a sua visita.</h3>
-			<div>Campos marcados com asterisco ( <span class="text-danger">*</span> ) são obrigatórios.</div>
+		<div class="mb-4 d-flex justify-content-between">
+			<div>
+				<h3>Preencha o formulário para agendar a sua visita.</h3>
+				<div>Campos marcados com asterisco ( <span class="text-danger">*</span> ) são obrigatórios.</div>
+			</div>
+			<div>
+				<a href="javascript:void(0)" class="rounded-pill btn btn-lg btn-light" data-bs-toggle="modal" data-bs-target="#visita_regras">REGRAS PARA VISITA</a>
+			</div>
 		</div>
 
 		<hr>
@@ -25,12 +30,7 @@
 						<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 						<div class="mb-3">
 							<label for="title" class="form-label">Qual o motivo da visita? <span class="text-danger">*</span></label>
-							<select class="form-control" name="title" id="title">
-								<option>SELECIONE</option>
-								{% for motivo in motivos %}
-									<option value="{{ motivo.motivo }}">{{ motivo.motivo }}</option>
-								{% endfor %}
-							</select>
+							<input type="text" name="title" class="form-control" id="title" required>
 						</div>
 
 						<div class="">
@@ -41,7 +41,15 @@
 									<input type="text" name="solicitante" class="form-control" id="solicitante">
 								</div>
 								<div class="mb-3 col-md-6 col-sm-12 col-12">
-									<label for="qtd_visitas" class="form-label">Selecione seu Estado <span class="text-danger">*</span></label>
+									<label for="solicitante" class="form-label">Email do Solicitante<span class="text-danger">*</label>
+									<input type="text" name="solicitante_email" class="form-control" id="solicitante_email">
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="mb-3 col-md-4 col-sm-12 col-12">
+									<label for="qtd_visitas" class="form-label">Selecione seu Estado</label>
 									<select class="form-control" name="estado" id="estado">
 										<option>SELECIONE</option>
 										{% for estado in estados %}
@@ -49,16 +57,12 @@
 	                                    {% endfor %}
 									</select>
 								</div>
-							</div>
-
-
-							<div class="row">
-								<div class="mb-3 col-md-6 col-sm-12 col-12">
-									<label for="data_visita" class="form-label">Data prevista da Visita<span class="text-danger">*</span> <i class="fa-solid fa-circle-question" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A data poderá ser alterada pela Sampel dependo de disponibilidade ou outros fatores."></i></label>
+								<div class="mb-3 col-md-4 col-sm-12 col-12">
+									<label for="data_visita" class="form-label">Data da Visita <i class="fa-solid fa-circle-question" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A data poderá ser alterada pela Sampel dependo de disponibilidade ou outros fatores."></i></label>
 									<input type="date" name="data_visita" class="form-control" id="data_visita">
 								</div>
-								<div class="mb-3 col-md-6 col-sm-12 col-12">
-									<label for="data_close" class="form-label">Data de fechamento das Inscrições<span class="text-danger">*</span></label>
+								<div class="mb-3 col-md-4 col-sm-12 col-12">
+									<label for="data_close" class="form-label">Término das Inscrições</label>
 									<input type="date" name="data_close" class="form-control" id="data_close">
 								</div>
 							</div>
@@ -80,7 +84,7 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="descricao" class="form-label">Descreva por completo os objetivos para esse agendamento de visita. <span class="text-danger">*</span></label>
+							<label for="descricao" class="form-label">Descreva por completo os objetivos para esse agendamento de visita.</label>
 							<textarea id="descricao" class="form-control" name="descricao" rows="5"></textarea>
 						</div>
 						<div class="mb-3">
@@ -145,33 +149,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-6 col-sm-12 col-12 mt-4">
-					<div class="accordion" id="regras_visita">
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#horarios_tab" aria-expanded="true" aria-controls="horarios_tab"><b>SOBRE HORÁRIOS E EVENTOS</b></button>
-							</h2>
-							<div id="horarios_tab" class="accordion-collapse collapse show" data-bs-parent="#regras_visita">
-								<div class="accordion-body">
-									<small>
-										{{ config.sobre_horarios|raw }}
-									</small>
-								</div>
-							</div>
-						</div>						
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#regras_tab" aria-expanded="false" aria-controls="regras_tab"><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></button>
-							</h2>
-							<div id="regras_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
-								<div class="accordion-body">
-									<small>
-										{{ config.regras_visita|raw }}
-									</small>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="col-md-6 col-sm-12 col-12">
+					Opcionais para a visita
 				</div>
 			</div>
 
@@ -180,7 +159,68 @@
 	</session>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="visita_regras" tabindex="-1" aria-labelledby="visita_regrasLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="accordion" id="regras_visita">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#horarios_tab" aria-expanded="true" aria-controls="horarios_tab"><b>SOBRE HORÁRIOS E EVENTOS</b></button>
+					</h2>
+					<div id="horarios_tab" class="accordion-collapse collapse show" data-bs-parent="#regras_visita">
+						<div class="accordion-body">
+							<small>
+								{{ config.sobre_horarios|raw }}
+							</small>
+						</div>
+					</div>
+				</div>						
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#regras_tab" aria-expanded="false" aria-controls="regras_tab"><b>REGRAS PARA VISITA NA FÁBRICA SAMPEL</b></button>
+					</h2>
+					<div id="regras_tab" class="accordion-collapse collapse" data-bs-parent="#regras_visita">
+						<div class="accordion-body">
+							<small>
+								{{ config.regras_visita|raw }}
+							</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  	</div>
+</div>
+
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
 <script>
+if ($('#descricao').length){
+	new FroalaEditor('#descricao', {
+		key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+		enter: FroalaEditor.ENTER_BR,
+		language: 'pt_br',
+		entities: '',
+		pastePlain: true,
+		attribution: false,
+		theme: 'dark',
+		toolbarButtons: {
+			'moreText': {
+			'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
+			'buttonsVisible': 2
+			},
+			'moreParagraph': {
+			'buttons': ['alignLeft', 'alignCenter',  'alignRight']
+			},
+			'moreRich': {
+			'buttons': ['emoticons', 'fontAwesome']
+			}
+		}
+	});
+}
 function copyClip() {
 	var copy = $('.share_link_click').attr('data-link')
 	navigator.clipboard.writeText(copy);

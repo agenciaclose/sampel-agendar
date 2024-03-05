@@ -19,10 +19,10 @@ class ConfigController extends Controller
         $configuracoes = new ConfigPainel();
         $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
 
-        $motivos = new ConfigPainel();
-        $motivos = $motivos->getMotivos()->getResult();
+        $opcionais = new ConfigPainel();
+        $opcionais = $opcionais->getOpcionais()->getResult();
 
-        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados, 'configuracoes' => $configuracoes, 'motivos' => $motivos]);
+        $this->render('painel/pages/visitas/configuracoes.twig', ['menu' => 'visitas', 'estados' => $estados, 'configuracoes' => $configuracoes, 'opcionais' => $opcionais]);
     }
 
     public function save($params)
@@ -47,39 +47,39 @@ class ConfigController extends Controller
         }
     }
 
-    public function saveMotivo($params)
+    public function saveOpcional($params)
     {
         $this->setParams($params);
 
-        $motivo = new ConfigPainel();
-        $motivo = $motivo->saveMotivo($this->params)->getResult();
-        if(!$motivo){
+        $save = new ConfigPainel();
+        $save = $save->saveOpcional($this->params)->getResult();
+        if(!$save){
             echo '1';
         }else{
             echo '0';
         }
     }
 
-    public function editMotivo($params)
+    public function editOpcional($params)
     {
         $this->setParams($params);
 
-        $motivo = new ConfigPainel();
-        $motivo = $motivo->editMotivo($this->params)->getResult();
-        if(!$motivo){
+        $save = new ConfigPainel();
+        $save = $save->editOpcional($this->params)->getResult();
+        if(!$save){
             echo '1';
         }else{
             echo '0';
         }
     }
 
-    public function deleteMotivo($params)
+    public function deleteOpcional($params)
     {
         $this->setParams($params);
 
-        $motivo = new ConfigPainel();
-        $motivo = $motivo->deleteMotivo($this->params)->getResult();
-        if(!$motivo){
+        $save = new ConfigPainel();
+        $save = $save->deleteOpcional($this->params)->getResult();
+        if(!$save){
             echo '1';
         }else{
             echo '0';
