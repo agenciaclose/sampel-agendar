@@ -12,14 +12,11 @@ class Recepcao extends Model
 
     public function confirmarPresenca($params): Read
     {
-        if (strlen($params['codigo']) > 8) {
-            $codigo = " AND `cpf` = '".$params['codigo']."'";
-        } else {
-            $codigo = " AND `codigo` = '".$params['codigo']."'";
-        }
-
         $read = new Read();
-        $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `id_visita` = '".$params['id_visita']."' $codigo");
+        $read->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE 
+        id_visita = '".$params['id_visita']."' AND cpf = '".$params['codigo']."' OR
+        id_visita = '".$params['id_visita']."' AND codigo = '".$params['codigo']."' OR
+        id_visita = '".$params['id_visita']."' AND email = '".$params['codigo']."'");
         return $read;
     }
 
