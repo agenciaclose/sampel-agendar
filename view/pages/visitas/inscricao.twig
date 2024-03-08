@@ -75,7 +75,7 @@
 
 					{% if (_session.sampel_user_id == '' and visita.status_visita != 'Concluido') %}
 
-						{% if _get.action == '' %}
+						{% if (_get.action == '') %}
 
 							{% if visita.inscricoes >= visita.qtd_visitas %}
 
@@ -107,7 +107,7 @@
 									</div>
 								</div>
 
-							{% elseif (now|date('Y-m-d') >= visita.data_close) %}
+							{% elseif ( (now|date('Y-m-d') >= visita.data_close) and (_get.a != 'qr') ) %}
 
 								<div class="form_inscricao">
 									<div class="alert alert-danger text-center py-5" role="alert">
@@ -123,7 +123,8 @@
 						{% endif %}
 					{% endif %}
 
-					{% if (visita.status_visita != 'Recusado') and (now|date('Y-m-d') < visita.data_close) or (_session.sampel_user_id != '' and visita.status_visita != 'Concluido') %}
+					{% if (visita.status_visita != 'Concluido') and (visita.status_visita != 'Recusado') and (_get.a == 'qr') or (visita.status_visita != 'Recusado') and (now|date('Y-m-d') < visita.data_close) or (_session.sampel_user_id != '' and visita.status_visita != 'Concluido') %}
+						
 						{% if _get.action == '' %}
 							<div class="form_inscricao">
 
@@ -239,6 +240,7 @@
 								
 							</div>
 						{% endif %}
+
 					{% endif %}
 
 					

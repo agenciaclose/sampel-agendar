@@ -166,7 +166,7 @@ function qrcodeGenPalestras(id_palestra) {
         async: true, 
         data: { 
                 "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/palestras/inscricao/'+id_palestra,
+                "qr_code_text": DOMAIN + '/palestras/inscricao/'+id_palestra+'?a=qr',
                 "image_format": "SVG",
                 "frame_color": "#246CB1",
                 "frame_text_color": "#ffffff",

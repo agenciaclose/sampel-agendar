@@ -70,7 +70,7 @@ function qrcodeGenVisitas(id_visita) {
         async: true, 
         data: { 
                 "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/visita/inscricao/'+id_visita,
+                "qr_code_text": DOMAIN + '/visita/inscricao/'+id_visita+'?a=qr',
                 "image_format": "SVG",
                 "frame_color": "#246CB1",
                 "frame_text_color": "#ffffff",
