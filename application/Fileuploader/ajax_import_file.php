@@ -3,20 +3,20 @@
 	include('class.fileuploader.php');
 	require 'vendor/autoload.php';
 
-	$sql_usuario = $db->prepare("SELECT * FROM usuarios WHERE id = '".$_GET['empresa_id']."' LIMIT 1");
-	$sql_usuario->execute();
-	$usuario = $sql_usuario->fetch(PDO::FETCH_ASSOC);
+	$sql_visita = $db->prepare("SELECT * FROM visitas WHERE id = '".$_GET['id_visita']."' LIMIT 1");
+	$sql_visita->execute();
+	$visita = $sql_visita->fetch(PDO::FETCH_ASSOC);
 
 	$isAfterEditing = false;
 
 	$mes = date('m');
 	$ano = date('Y');
 
-	if (!file_exists('../../../../cms/produtos/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/')) {
-		mkdir('../../../../cms/produtos/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/', 0777, true);
+	if (!file_exists('../../uploads/visitas/'.$visita['id'].'/'.$ano.'/'.$mes.'/')) {
+		mkdir('../../uploads/visitas/'.$visita['id'].'/'.$ano.'/'.$mes.'/', 0777, true);
 	}
 
-	$caminho = '../../../../cms/produtos/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/';
+	$caminho = '../../uploads/visitas/'.$visita['id'].'/'.$ano.'/'.$mes.'/';
 
 	if (isset($_POST['fileuploader']) && isset($_POST['_editingg'])) {
 		$isAfterEditing = true;
@@ -26,25 +26,12 @@
 		$nome     		= md5(microtime($_POST['_namee'])).'.jpg';
 	}
 
-
 	$codigo = substr($_POST['_namee'],0,-4);
 
 	$cod = explode('_', $codigo);
 	$codigo_produto = $cod[0];
 
-	$dados_produto = array($_GET['empresa_id'], $codigo_produto);
-	$sql_produto = $db->prepare("SELECT * FROM produtos WHERE empresa = ? AND codigo = ? LIMIT 1");
-	$sql_produto->execute($dados_produto);
-
-	if($sql_produto->rowCount() == 0){
-		$dados_produto = array($_GET['empresa_id'], $codigo_produto);
-		$sql_produto = $db->prepare("SELECT * FROM produtos WHERE empresa = ? AND reforiginal = ? LIMIT 1");
-		$sql_produto->execute($dados_produto);
-	}
-
-	$produto = $sql_produto->fetch(PDO::FETCH_ASSOC);
-
-	if(!empty($produto['id'])){
+	if(!empty($visita['id'])){
 
 		$FileUploader = new FileUploader('files', array(
 			'limit' => null,
@@ -66,52 +53,15 @@
 		));
 
 		if (isset($_POST['fileuploader']) && isset($_POST['_editingg'])) {}else{
-
-			$foto_completa	= 'https://'.$_SERVER['SERVER_NAME'].'/cms/produtos/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/'.strtolower($nome);
-			$dados = array($produto['id'], $foto_completa, $nome, $_POST['_namee']);
-			$sql = $db->prepare("INSERT INTO produtos_imagens (id_produto, imagem, nome, original) VALUES (?,?,?,?)");
+			
+			$foto_completa	= DOMAIN.'/uploads/visitas/'.$visita['id'].'/'.$ano.'/'.$mes.'/'.strtolower($nome);
+			$dados = array($visita['id'], $foto_completa, $nome, $_POST['_namee']);
+			$sql = $db->prepare("INSERT INTO visitas_imagens (id_visita, imagem, nome, original) VALUES (?,?,?,?)");
 			$sql->execute($dados);
 
 		}
 
 		$upload = $FileUploader->upload();
-
-		if($upload){
-		
-				//THUMBNAIL
-				$sql_imagens = $db->prepare("SELECT * FROM produtos_imagens ORDER BY id DESC LIMIT 1");
-				$sql_imagens->execute();
-				$dados_imagens = $sql_imagens->fetch(PDO::FETCH_ASSOC);
-
-				$dados_imagens['imagem'] = str_replace("https://".$_SERVER['SERVER_NAME']."/","../../../../",$dados_imagens['imagem']);
-				$nome = explode('.', $dados_imagens['nome']);
-
-				if (!file_exists('../../../../cms/produtos_thumbnail/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/')) {
-					mkdir('../../../../cms/produtos_thumbnail/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/', 0777, true);
-				}
-
-				// create a new instance of the class
-				$image = new Zebra_Image();
-				$image->auto_handle_exif_orientation = false;
-
-				$image->source_path = '../../../../cms/produtos/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/'.strtolower($dados_imagens['nome']);
-
-				$image->target_path = '../../../../cms/produtos_thumbnail/'.$usuario['slug'].'/'.$ano.'/'.$mes.'/'.$nome[0].'.jpg';
-
-				$imagem_thumbnail = 'https://'.$_SERVER['SERVER_NAME'].'/'.substr($image->target_path, 12);
-				$sql_update = $db->prepare("UPDATE `produtos_imagens` SET `thumbnail` = '".$imagem_thumbnail."' WHERE `id` = '".$dados_imagens['id']."'");
-				$sql_update->execute();
-
-				$image->jpeg_quality = 20;
-				$image->preserve_aspect_ratio = true;
-				$image->enlarge_smaller_images = true;
-				$image->preserve_time = true;
-				$image->handle_exif_orientation_tag = true;
-
-				// resize the image to exactly 100x100 pixels by using the "crop from center" method
-				if (!$image->resize(400, 400, ZEBRA_IMAGE_CROP_CENTER)) {};
-			
-		}
 
 		echo json_encode($upload);
 

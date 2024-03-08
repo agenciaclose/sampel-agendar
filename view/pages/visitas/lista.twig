@@ -18,13 +18,15 @@
 							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
 							{% set mes_numero = visita.data_visita|date('m') - 1 %}
 							{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
-							<span class="ms-2 text-warning">
-								{% set hoje = "now"|date("Y-m-d") %}
-								{% set data_evento = visita.data_visita|date("Y-m-d") %}
-								{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
-								{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+							{% set hoje = "now"|date("Y-m-d") %}
+							{% set data_evento = visita.data_visita|date("Y-m-d") %}
+							{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
+							{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+							{% if dias_faltantes >= 0 %}
+							<div class="text-warning">
 								Em {{ dias_faltantes }} dias {{ visita.data_visita|date('l')|dayTranslate }}
-							</span>						
+							</div>
+							{% endif %}
 						</span>
 						<div>Fechamento das inscrições: <span class="text-warning fw-bold">{{ visita.data_close | date("d/m/Y") }}</span></div>
 					</span>
@@ -71,8 +73,11 @@
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editar_visita" class="btn btn-success text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
 					{% endif %}
 					<button type="button" data-bs-toggle="modal" data-bs-target="#editarEquip" class="btn btn-warning btn-sm rounded-pill me-2 mb-2">Ver Equipe <span class="px-1 bg-black rounded-pill text-white">{{ equipevisita|length }}</span></button>
+					
 					<a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
-										
+					
+					<a href="{{ DOMAIN }}/visita/galeria/{{ visita.visita_id }}" class="btn btn-info btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-images"></i> Galeria</a>			
+					
 					<div class="btn-group dropstart d-block">
 						<a href="javascript:void(0)" class="btn btn-light btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							Outros ações

@@ -46,3 +46,7 @@ $router->get("/visita/feedback/{cpf}/{id}", "FeedbackController:feedback");
 $router->get("/visita/feedback/{id}", "FeedbackController:feedback");
 $router->post("/visita/feedback/checkInscricao", "FeedbackController:checkInscricao");
 $router->post("/visita/feedback/save", "FeedbackController:saveFeedback");
+
+// PAGE GALERIA
+$router->namespace("Agencia\Close\Controllers\Site\Visitas");
+$router->get("/visita/galeria/{id}", "VisitasController:importeGaleria");

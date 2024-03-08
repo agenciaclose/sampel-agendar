@@ -372,5 +372,27 @@ class VisitasController extends Controller
         $save = $save->visitaQRcodeSave($params);
     }
 
+    public function importeGaleria($params)
+    {
+        $this->setParams($params);
+
+        if(!empty($_SESSION['sampel_user_id'])){
+
+            $visita = new Visitas();
+            $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+
+            $imagens = new Visitas();
+            $imagem = $imagens->getVisitasImages($this->params['id'], $_SESSION['sampel_user_id'])->getResult();
+
+            if($visita['id'] != ''){
+                $this->render('pages/visitas/importe_galeria.twig', ['menu' => 'visitas', 'visita' => $visita, 'imagens' => $imagem]);
+            }else{
+                $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+            }
+
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+        }
+    }
 
 }

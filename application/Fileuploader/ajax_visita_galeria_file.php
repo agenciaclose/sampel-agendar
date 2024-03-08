@@ -5,7 +5,7 @@
 
 	$isAfterEditing = false;
 
-	$sql_imagem = $db->prepare("SELECT * FROM produtos_imagens WHERE nome = '".$_POST['_namee']."'");
+	$sql_imagem = $db->prepare("SELECT * FROM visitas_imagens WHERE nome = '".$_POST['_namee']."'");
 	$sql_imagem->execute();
 	$imagem = $sql_imagem->fetch(PDO::FETCH_ASSOC);
 
@@ -18,11 +18,11 @@
 		$ano = date('Y');
 	}
 
-	if (!file_exists('../../uploads/produtos/'.$ano.'/'.$mes.'/')) {
-		mkdir('../../uploads/produtos/'.$ano.'/'.$mes.'/', 0777, true);
+	if (!file_exists('../../uploads/visitas/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/')) {
+		mkdir('../../uploads/visitas/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/', 0777, true);
 	}
 
-	$caminho = '../../uploads/produtos/'.$ano.'/'.$mes.'/';
+	$caminho = '../../uploads/visitas/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/';
 
 	if (isset($_POST['fileuploader']) && isset($_POST['_editingg'])) {
 		$isAfterEditing = true;
@@ -41,21 +41,15 @@
 		'uploadDir' => $caminho,
 		'title' => ''.$nome.'',
 		'replace' => $isAfterEditing,
-		'editor' => array(
-            'maxWidth' => 1000,
-            'maxHeight' => 1000,
-            'crop' => true,
-            'quality' => null
-		),
 		'listInput' => true,
 		'files' => null
 	));
 
 	if (isset($_POST['fileuploader']) && isset($_POST['_editingg'])) {}else{
 
-		$foto_completa	= DOMAIN.'/uploads/produtos/'.$ano.'/'.$mes.'/'.strtolower($nome);
-		$dados = array($_GET['id_produto'], $foto_completa, $nome, $_POST['_namee']);
-		$sql = $db->prepare("INSERT INTO produtos_imagens (id_produto, imagem, nome, original) VALUES (?,?,?,?)");
+		$foto_completa	= DOMAIN.'/uploads/visitas/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/'.strtolower($nome);
+		$dados = array($_GET['id_visita'], $_SESSION['sampel_user_id'], $foto_completa, $nome, $_POST['_namee']);
+		$sql = $db->prepare("INSERT INTO visitas_imagens (id_visita, id_user, imagem, nome, original) VALUES (?,?,?,?,?)");
 		$sql->execute($dados);
 
 	}
@@ -65,27 +59,27 @@
 	if($upload){
 	
 			//THUMBNAIL
-			$sql_imagens = $db->prepare("SELECT * FROM produtos_imagens ORDER BY id DESC LIMIT 1");
+			$sql_imagens = $db->prepare("SELECT * FROM visitas_imagens ORDER BY id DESC LIMIT 1");
 			$sql_imagens->execute();
 			$dados_imagens = $sql_imagens->fetch(PDO::FETCH_ASSOC);
 
 			$dados_imagens['imagem'] = str_replace(DOMAIN."/","../../",$dados_imagens['imagem']);
 			$nome = explode('.', $dados_imagens['nome']);
 
-			if (!file_exists('../../uploads/produtos_thumbnail/'.$ano.'/'.$mes.'/')) {
-				mkdir('../../uploads/produtos_thumbnail/'.$ano.'/'.$mes.'/', 0777, true);
+			if (!file_exists('../../uploads/visitas_thumbnail/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/')) {
+				mkdir('../../uploads/visitas_thumbnail/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/', 0777, true);
 			}
 
 			// create a new instance of the class
 			$image = new Zebra_Image();
 			$image->auto_handle_exif_orientation = false;
 
-			$image->source_path = '../../uploads/produtos/'.$ano.'/'.$mes.'/'.strtolower($dados_imagens['nome']);
+			$image->source_path = '../../uploads/visitas/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/'.strtolower($dados_imagens['nome']);
 
-			$image->target_path = '../../uploads/produtos_thumbnail/'.$ano.'/'.$mes.'/'.$nome[0].'.jpg';
+			$image->target_path = '../../uploads/visitas_thumbnail/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/'.$nome[0].'.jpg';
 
 			$imagem_thumbnail = DOMAIN.'/'.substr($image->target_path, 12);
-			$sql_update = $db->prepare("UPDATE `produtos_imagens` SET `thumbnail` = '".$imagem_thumbnail."' WHERE `id` = '".$dados_imagens['id']."'");
+			$sql_update = $db->prepare("UPDATE `visitas_imagens` SET `thumbnail` = '".$imagem_thumbnail."' WHERE `id` = '".$dados_imagens['id']."'");
 			$sql_update->execute();
 
 			$image->jpeg_quality = 20;
