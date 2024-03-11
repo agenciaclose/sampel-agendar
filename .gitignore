@@ -1,6 +1,5 @@
 vendor/
-config/config.php
-config/db.php
+config/
 uploads/
 node_modules/
 composer.lock
