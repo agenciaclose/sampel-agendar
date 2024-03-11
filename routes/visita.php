@@ -50,3 +50,7 @@ $router->post("/visita/feedback/save", "FeedbackController:saveFeedback");
 // PAGE GALERIA
 $router->namespace("Agencia\Close\Controllers\Site\Visitas");
 $router->get("/visita/galeria/{id}", "VisitasController:importeGaleria");
+
+// PAGE GALERIA
+$router->namespace("Agencia\Close\Controllers\Site\Visitas");
+$router->get("/visita/fotos/{id}", "VisitasController:galeriaVisita");

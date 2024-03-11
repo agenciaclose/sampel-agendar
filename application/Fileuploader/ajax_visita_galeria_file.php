@@ -78,7 +78,7 @@
 
 			$image->target_path = '../../uploads/visitas_thumbnail/'.$_GET['id_visita'].'/'.$ano.'/'.$mes.'/'.$nome[0].'.jpg';
 
-			$imagem_thumbnail = DOMAIN.'/'.substr($image->target_path, 12);
+			$imagem_thumbnail = DOMAIN.'/'.substr($image->target_path, 14);
 			$sql_update = $db->prepare("UPDATE `visitas_imagens` SET `thumbnail` = '".$imagem_thumbnail."' WHERE `id` = '".$dados_imagens['id']."'");
 			$sql_update->execute();
 

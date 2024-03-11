@@ -395,4 +395,22 @@ class VisitasController extends Controller
         }
     }
 
+    public function galeriaVisita($params)
+    {
+        $this->setParams($params);
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
+
+        $imagens = new Visitas();
+        $imagem = $imagens->getVisitasImages($this->params['id'])->getResult();
+
+        if($visita['id'] != ''){
+            $this->render('pages/visitas/galeria.twig', ['menu' => 'visitas', 'visita' => $visita, 'imagens' => $imagem]);
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+        }
+
+    }
+
 }

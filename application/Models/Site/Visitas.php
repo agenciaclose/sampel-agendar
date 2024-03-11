@@ -329,10 +329,15 @@ class Visitas extends Model
         return $read;
     }
 
-    public function getVisitasImages($id_visita, $id_user): Read
+    public function getVisitasImages($id_visita, $id_user = null): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visitas_imagens WHERE id_visita = :id_visita AND id_user = :id_user ORDER BY `order`,`id` DESC", "id_visita={$id_visita}&id_user={$id_user}");
+        if($id_user != null) {
+            $porUser = "AND id_user = '".$id_user."'";
+        }else{
+            $porUser = "";
+        }
+        $read->FullRead("SELECT * FROM visitas_imagens WHERE id_visita = :id_visita ".$porUser." ORDER BY `order`,`id` DESC", "id_visita={$id_visita}");
         return $read;
     }
 

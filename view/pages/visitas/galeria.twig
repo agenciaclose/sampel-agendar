@@ -1,0 +1,57 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Galeria de Fotos {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+
+	<link href="{{ DOMAIN }}/view/src/js/plugins/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+	<script src="{{ DOMAIN }}/view/src/js/plugins/lightgallery/js/lightgallery-all.min.js"></script>
+
+	<session>
+
+		<div class="mb-4">
+			<h3>{{ visita.title }}</h3>
+			<div class="d-flex justify-content-between">
+				<span class="mt-3">
+					Data da Visita: <span class="text-warning fw-bold">
+					{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
+					{% set mes_numero = visita.data_visita|date('m') - 1 %}
+					{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
+				</span>
+				</span>
+				<span>Responsável: <div class="text-warning fw-bold">{{ visita.nome }}</div></span>
+				<span>Solicitante: <div class="text-warning fw-bold">{{ visita.solicitante }}</div></span>
+			</div>
+		</div>
+
+		<hr>
+
+		<div>
+			<div class="gallery-suite">
+				<div id="lightgallery">
+					{% for imagem in imagens %}
+					<a href="{{ imagem.imagem }}" data-exthumbimage="{{ imagem.imagem }}" data-src="{{ imagem.imagem }}">
+						<img src="{{ imagem.thumbnail }}" class="img-fluid">
+					</a>
+					{% endfor %}
+				</div>
+			</div>
+
+		</div>
+
+	</session>
+</div>
+<script type="text/javascript">
+$('#lightgallery').lightGallery({
+	loop:true,
+	thumbnail:true,
+	exThumbImage: 'data-exthumbimage',
+	download: false,
+	share: false,
+	autoplay: false,
+	autoplayControls: false
+});
+</script>
+{% endblock %}
