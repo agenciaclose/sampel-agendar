@@ -9,7 +9,7 @@
 	<link href="{{ DOMAIN }}/view/src/js/plugins/lightgallery/css/lightgallery.min.css" rel="stylesheet">
 	<script src="{{ DOMAIN }}/view/src/js/plugins/lightgallery/js/lightgallery-all.min.js"></script>
 
-	<session>
+	<session class="py-5">
 
 		<div class="mb-4">
 			<h3>{{ visita.title }}</h3>
@@ -30,12 +30,14 @@
 
 		<div>
 			<div class="gallery-suite">
-				<div id="lightgallery">
-					{% for imagem in imagens %}
-					<a href="{{ imagem.imagem }}" data-exthumbimage="{{ imagem.imagem }}" data-src="{{ imagem.imagem }}">
-						<img src="{{ imagem.thumbnail }}" class="img-fluid">
-					</a>
-					{% endfor %}
+				<div id="lightgallery" class="row">
+					{% if imagens %}
+						{% for imagem in imagens %}
+							<a class="col-sm-12 col-md-6 col-lg-4 col-xl-3 " href="{{ imagem.imagem }}" data-exthumbimage="{{ imagem.imagem }}" data-src="{{ imagem.imagem }}" style="background-image:url('{{ imagem.imagem }}');"></a>
+						{% endfor %}
+					{% else %}
+					<div class="text-center my-5"><h4 class="text-warning">NENHUMA IMAGEM DISPONÍVEL</h4></div>
+					{% endif %}
 				</div>
 			</div>
 

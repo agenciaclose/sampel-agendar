@@ -4775,3 +4775,16 @@ span.fr-counter {
 .table > tbody {
   font-weight: normal !important;
 }
+#lightgallery > a {
+  height: 300px;
+  border-radius: 5px;
+  display: inline-block;
+  background-size: cover;
+  background-position: center center;
+  border: 5px solid #246cb1;
+  background-repeat: no-repeat;
+  transition-duration: 1s;
+}
+#lightgallery > a:hover {
+  border-color: #ffc107;
+}
