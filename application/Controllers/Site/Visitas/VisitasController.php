@@ -69,6 +69,7 @@ class VisitasController extends Controller
         $visitas = new Visitas();
         $visitas = $visitas->listarVisitasConcluidas()->getResult();
         $i = 0;
+        
         foreach($visitas as $visita){
             $todasEquipes = new Visitas();
             $todasEquipes = $todasEquipes->listaEquipesVisita($visita['visita_id'])->getResult();
