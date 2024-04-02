@@ -246,7 +246,7 @@ class Visitas extends Model
     public function listaEquipes(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' ORDER BY id DESC");
+        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo' ORDER BY id DESC");
         return $read;
     }
 
@@ -286,7 +286,7 @@ class Visitas extends Model
     public function listaEquipesAll(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4'");
+        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo'");
         return $read;
     }
 

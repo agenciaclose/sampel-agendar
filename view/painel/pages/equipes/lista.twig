@@ -49,7 +49,7 @@
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end">
                                                                 <a href="{{ DOMAIN }}/painel/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a> 
-                                                                {# <a href="#" class="ms-1 btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>  #}
+                                                                <a href="javascript:void(0)" onclick="desativarEquipe('{{ equipe.id }}')" class="ms-1 btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a> 
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -68,5 +68,5 @@
             </div>
         </div>
     </div>
-    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipe.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipes.js"></script>
 {% endblock %}

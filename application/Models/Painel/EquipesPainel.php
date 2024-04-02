@@ -16,7 +16,7 @@
         public function getEquipesList()
         {
             $read = new Read();
-            $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' ORDER BY `nome` ASC");
+            $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo' ORDER BY `nome` ASC");
             return $read;
         }
 
@@ -48,6 +48,13 @@
             $update = new Update();
             $update->ExeUpdate('usuarios', $params, 'WHERE id = :id', "id={$params['id']}");
             return $update;
+        }
+
+        public function getEquipeExcluir($id)
+        {
+            $read = new Read();
+            $read->FullRead("UPDATE `usuarios` SET `situacao` = 'Inativo' WHERE id = :id", "id={$id}");
+            return $read;
         }
 
     }

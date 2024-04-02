@@ -179,3 +179,18 @@ $(document).on('blur', '.cnpj', function (e) {
     });
 
 });
+
+function desativarEquipe(id_user){
+    var DOMAIN = $('body').data('domain');
+    $.ajax({
+        type: "GET", async: true,
+        url: DOMAIN + '/painel/equipe/excluir/'+id_user,
+        success: function (data) {
+            if (data == "1") {
+                window.location.href = DOMAIN+'/painel/equipes';
+            }else{
+                alert('ERRO AO ATUALIZADO');
+            }
+        }
+    });
+}

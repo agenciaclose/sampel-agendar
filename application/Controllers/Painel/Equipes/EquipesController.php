@@ -102,4 +102,13 @@ class EquipesController extends Controller
         }
     }
 
+    public function excluir(array $params)
+    {
+        $this->setParams($params);
+
+        $editar = new EquipesPainel();
+        $editar = $editar->getEquipeExcluir($params['id'])->getResult();
+        echo '1';
+    }
+
 }
