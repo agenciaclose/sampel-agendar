@@ -11,21 +11,21 @@ class Login extends Model
     {
         $password = sha1($password);
         $this->read = new Read();
-        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email AND (senha = :password OR senha_padrao = :senha_padrao)", "email={$email}&password={$password}&senha_padrao={$password}");
+        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email AND (senha = :password OR senha_padrao = :senha_padrao) AND `situacao` <> 'Inativo'", "email={$email}&password={$password}&senha_padrao={$password}");
         return $this->read;
     }
 
     public function getUserByEmail($email): Read
     {
         $this->read = new Read();
-        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email", "email={$email}");
+        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email AND `situacao` <> 'Inativo'", "email={$email}");
         return $this->read;
     }
 
     public function getUserByEmailAndCookie($email, $cookie): Read
     {
         $this->read = new Read();
-        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email AND cookie_key = :cookie", "email={$email}&cookie={$cookie}");
+        $this->read->FullRead("SELECT * FROM usuarios WHERE email = :email AND cookie_key = :cookie AND `situacao` <> 'Inativo'", "email={$email}&cookie={$cookie}");
         return $this->read;
     }
 }
