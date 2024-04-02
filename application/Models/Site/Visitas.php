@@ -58,12 +58,22 @@ class Visitas extends Model
             $presenca = "";
         }
 
+        if(!empty($_GET['feedback'])){
+            if($_GET['feedback'] == "Sim"){
+                $feedback = "AND f.user_codigo is not null";
+            }else{
+                $feedback = "AND f.user_codigo  is null";
+            }
+        }else{
+            $feedback = "";
+        }
+
         $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita, f.user_codigo as feedback
                         FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
                         LEFT JOIN feedback AS f ON f.user_codigo = vi.codigo
-                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca GROUP BY vi.codigo  ORDER BY vi.`data` DESC", "user_id={$id_empresa}&id_visita={$id_visita}");
+                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca $feedback GROUP BY vi.codigo  ORDER BY vi.`data` DESC", "user_id={$id_empresa}&id_visita={$id_visita}");
         return $read;
     }
 

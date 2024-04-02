@@ -52,6 +52,9 @@
 						{% endif %}
 						<div class="btn {{ _get.presenca == 'Sim' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?presenca=Sim" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Confirmados"><i class="fa-solid fa-shield-check fa-lg {{ _get.presenca == 'Sim' ? 'text-dark' : 'text-warning' }}"></i></a></div>
 						<div class="btn {{ _get.presenca == 'No' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?presenca=No" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Não confirmados"><i class="fa-solid fa-shield fa-lg text-dark"></i></a></div>
+						
+						<div class="btn {{ _get.feedback == 'Sim' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?feedback=Sim" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Com Feedback"><i class="fa-solid fa-message-smile fa-lg {{ _get.feedback == 'Sim' ? 'text-dark' : 'text-warning' }}"></i></a></div>
+						<div class="btn {{ _get.feedback == 'No' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?feedback=No" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sem Feedback"><i class="fa-solid fa-message-smile fa-lg text-dark"></i></a></div>
 					</div>
 				{% endif %}
 				
