@@ -58,10 +58,12 @@ class Visitas extends Model
             $presenca = "";
         }
 
-        $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita FROM visitas_inscricoes AS vi
+        $read->FullRead("SELECT vi.*, v.id AS visita_id, v.data_visita, v.horario_visita, f.user_codigo as feedback
+                        FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
                         INNER JOIN usuarios AS u ON u.id = v.id_empresa
-                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca ORDER BY vi.`data` DESC", "user_id={$id_empresa}&id_visita={$id_visita}");
+                        LEFT JOIN feedback AS f ON f.user_codigo = vi.codigo
+                        WHERE v.id_empresa = :user_id AND v.id = :id_visita $setor $presenca GROUP BY vi.codigo  ORDER BY vi.`data` DESC", "user_id={$id_empresa}&id_visita={$id_visita}");
         return $read;
     }
 

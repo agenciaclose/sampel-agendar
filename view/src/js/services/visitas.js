@@ -153,7 +153,7 @@ function qrcodeSaveFeedback (id_visita, qrcode){
         contentType: false,
         processData: false,
         success: function(data) {
-            window.location.href = DOMAIN + '/visita/qrcode/'+id_visita;
+            window.open(DOMAIN + '/visita/qrcode/'+id_visita, "_blank");
         }
     });
 }

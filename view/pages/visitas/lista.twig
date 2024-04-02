@@ -95,7 +95,7 @@
 							<li><a class="dropdown-item text-black border-bottom" href="{{ DOMAIN }}/visita/feedback/{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Link de Feedback</a></li>
 							<li><a class="dropdown-item text-black border-bottom" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
 							{% if visita.qrcode_inscricao != '' %}
-							<li><a class="dropdown-item text-black" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
+							<li><a class="dropdown-item text-black" target="_blank" href="{{ DOMAIN }}/visita/qrcode/{{ visita.visita_id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
 							{% else %}
 							<li><a class="dropdown-item text-black" href="javascript:void(0);" onclick="qrcodeGenVisitas('{{ visita.visita_id }}')"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a></li>
 							{% endif %}
@@ -174,6 +174,7 @@
 								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
 									
 									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
+									<div class="ms-1">{{ lista.feedback != '' ? '<i class="fa-solid fa-message-smile fa-lg text-warning"></i>' : '<i class="fa-solid fa-message-smile fa-lg text-dark"></i>' }}</div>
 									<div class="ms-2 row">
 										{{ lista.nome }}
 										<div class="d-block d-sm-none p-0">
