@@ -246,7 +246,7 @@ class Visitas extends Model
     public function listaEquipes(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo' ORDER BY id DESC");
+        $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo' ORDER BY nome ASC");
         return $read;
     }
 
@@ -255,14 +255,18 @@ class Visitas extends Model
         $read = new Read();
         $check = new Read();
         if(!empty($params['editar_equipe'])){
-            for ($i=0; $i <count($params['editar_equipe']); $i++) {
-                
-                $check->FullRead("SELECT * FROM `visitas_equipes` WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
-                if(!$check->getResult()){
-                    $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`) VALUES (:id_visita, :id_user)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe'][$i]}");
-                }
             
+            $check->FullRead("SELECT * FROM `visitas_equipes` WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}");
+            
+            if(!$check->getResult()){
+                //SALVA SE NAO EXISTIR
+                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}&funcao={$params['funcao']}");
+            }else{
+                //DELETA E SALVA SE NAO EXISTIR
+                $read->FullRead("DELETE FROM `visitas_equipes` WHERE  `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}");
+                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}&funcao={$params['funcao']}");
             }
+
         }
         return $read;
     }
@@ -277,7 +281,7 @@ class Visitas extends Model
     public function listaEquipesVisita($id_visita): read
     {
         $read = new Read();
-        $read->FullRead("SELECT u.*, ve.`data` AS data_equipe FROM visitas_equipes AS ve
+        $read->FullRead("SELECT u.*, ve.`funcao`, ve.`data` AS data_equipe FROM visitas_equipes AS ve
         INNER JOIN usuarios AS u ON u.id = ve.id_user
         WHERE ve.id_visita = :id_visita ORDER BY u.nome ASC", "id_visita={$id_visita}");
         return $read;

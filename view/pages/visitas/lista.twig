@@ -241,68 +241,92 @@
 <script src="{{ PATH }}/view/src/js/services/sorteio.js"></script>
 {% endif %}
 
-<form action="javascript:void(0);" method="POST" id="form_editar_equipe">
-	<div class="modal fade" id="editarEquip" tabindex="-1" role="dialog" aria-labelledby="editarEquipLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-			
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5 text-black"><b>Selecione os membros da equipe</b></h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-					{% if _session.sampel_user_gerente_equipe == 'S' %}
-					<div class="mb-2">
-						<select class="form-control select2-tag" name="editar_equipe[]" multiple="multiple">
-							{% for todasequipe in todasequipes %}
-								{% if (todasequipe.id not in equipeselecionada) %}<option value="{{ todasequipe.id }}" >{{ todasequipe.nome }} - {{ todasequipe.setor }}</option>{% endif %}
-							{% endfor %}
-						</select>
-					</div>
-					{% endif %}
-
-					<table class="table table-striped table-sm">
-						<tbody class="lista_equipe">
-							{% if equipevisita|length == 0 %}
-								<tr>
-									<td class="text-uppercase">Nenhuma equipe até o momento.</td>
-								</tr>
-							{% endif %}
-							{% for equipe in equipevisita %}
-							<tr class="{{ visita.id }}-{{ equipe.id }}">
-								<td class="text-uppercase" style="line-height:normal">
-									{{ equipe.nome }}
-									<div><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
-								</td>
-								<td class="text-end">{{ equipe.setor }}</td>
-								<td class="text-end" width="25">
-									<a href="javascript:void(0);" data-visita="{{ visita.id }}" data-membro="{{ equipe.id }}" class="text-danger remover_equipe" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remover">
-										<i class="fa-solid fa-octagon-xmark fa-lg"></i>
-									</a>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-				{% if _session.sampel_user_gerente_equipe == 'S' %}
-				<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
+<div class="modal fade" id="editarEquip" tabindex="-1" role="dialog" aria-labelledby="editarEquipLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5 text-black"><b>Selecione os membros da equipe</b></h1>
+				
+				{% if _session.sampel_user_gerente_equipe == 'S'%}
 					{% if visita.email_equipe == 'N' %}
-					<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+					<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
 					{% else %}
-					<button type="button" class="btn btn-secondary btn-lg"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
 					{% endif %}
+				{% endif %}
 
-					<input type="hidden" name="id_visita" value="{{ visita.visita_id }}">
-					<button type="submit" class="btn btn-success btn-lg"><i class="fa-solid fa-plus"></i> ADICIONAR MEMBROS</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+			
+				{% if _session.sampel_user_gerente_equipe == 'S'%}
+				<div class="collapse mb-2" id="addMember">
+					<form action="javascript:void(0);" method="POST" id="form_editar_equipe">
+						<div class="row">
+							<div class="col-lg-5 col-md-5">
+								<div class="mb-2">
+									<select class="form-control" name="editar_equipe" required>
+										<option value="">Selecione um Membro</option>
+										{% for todasequipe in todasequipes %}
+											{% if (todasequipe.id not in equipeselecionada) %}<option class="text-capitalize" value="{{ todasequipe.id }}" >{{ todasequipe.nome }}</option>{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-5 col-md-5">
+								<div class="mb-2">
+									<input class="form-control" name="funcao" placeholder="Função para o Evento" required>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-2">
+								<div class="mb-2">
+									<input type="hidden" name="id_visita" value="{{ visita.visita_id }}">
+									<button type="submit" class="btn btn-primary w-100">Salvar</button>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 				{% endif %}
-			</div>
 
+				<table class="table table-striped table-sm">
+					<tbody class="lista_equipe">
+						{% if equipevisita|length == 0 %}
+							<tr>
+								<td class="text-uppercase">Nenhuma equipe até o momento.</td>
+							</tr>
+						{% endif %}
+						{% for equipe in equipevisita %}
+						<tr class="{{ visita.id }}-{{ equipe.id }}">
+							<td class="text-uppercase" style="line-height:normal">
+								{{ equipe.nome }}
+								<div class="text-primary"><small>{{ equipe.funcao }}</small></div>
+							</td>
+							<td class="text-end" style="line-height:normal">
+								{{ equipe.setor }}
+								<div class="text-secondary"><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
+							</td>
+							<td class="text-end" width="25">
+								<a href="javascript:void(0);" data-visita="{{ visita.id }}" data-membro="{{ equipe.id }}" class="text-danger remover_equipe" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remover">
+									<i class="fa-solid fa-octagon-xmark fa-lg"></i>
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+			{% if _session.sampel_user_gerente_equipe == 'S'%}
+			<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
+				<button type="button" class="btn btn-primary"  data-bs-toggle="collapse" href="#addMember"><i class="fa-solid fa-plus"></i> ADICIONAR MEMBROS</button>
+			</div>
+			{% endif %}
 		</div>
+
 	</div>
-</form>
+</div>
 
 {% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
 <div class="modal fade" id="editar_visita" tabindex="-1" aria-labelledby="editar_visita" aria-hidden="true">

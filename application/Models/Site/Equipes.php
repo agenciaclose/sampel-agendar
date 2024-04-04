@@ -1,0 +1,60 @@
+<?php
+
+    namespace Agencia\Close\Models\Site;
+
+    use Agencia\Close\Conn\Conn;
+    use Agencia\Close\Conn\Create;
+    use Agencia\Close\Conn\Read;
+    use Agencia\Close\Conn\Update;
+    use Agencia\Close\Helpers\User\Identification;
+    use Agencia\Close\Helpers\User\UserIdentification;
+    use Agencia\Close\Models\Model;
+
+    class Equipes extends Model
+    {
+    	
+        public function getEquipesList()
+        {
+            $read = new Read();
+            $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' AND `situacao` <> 'Inativo' ORDER BY `nome` ASC");
+            return $read;
+        }
+
+        public function getEquipesEditar($id)
+        {
+            $read = new Read();
+            $read->FullRead("SELECT * FROM usuarios WHERE id = :id ORDER BY `nome` ASC", "id={$id}");
+            return $read;
+        }
+
+        public function cadastroSave(array $params)
+        {
+            $params['senha'] = sha1($params['senha']);
+            unset($params['email_old']);
+            $create = new Create();
+            $create->ExeCreate('usuarios', $params);
+            return $create->getResult();
+        }
+
+        public function editarSave(array $params)
+        {
+            if(!empty($params['senha'])){
+                $params['senha'] = sha1($params['senha']);
+            }else{
+                unset($params['senha']);
+            }
+            
+            unset($params['email_old']);
+            $update = new Update();
+            $update->ExeUpdate('usuarios', $params, 'WHERE id = :id', "id={$params['id']}");
+            return $update;
+        }
+
+        public function getEquipeExcluir($id)
+        {
+            $read = new Read();
+            $read->FullRead("UPDATE `usuarios` SET `situacao` = 'Inativo' WHERE id = :id", "id={$id}");
+            return $read;
+        }
+
+    }

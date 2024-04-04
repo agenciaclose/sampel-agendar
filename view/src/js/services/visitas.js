@@ -47,7 +47,7 @@ $('.remover_equipe').click(function (e) {
                 $('.form-load').removeClass('show');
                 swal({type: 'success', title: 'Removido com sucesso!', showConfirmButton: false, timer: 1500});
                 $('.lista_equipe .'+visita+'-'+membro).hide();
-                //setTimeout(function() { location.reload(); }, 1500);
+                setTimeout(function() { location.reload(); }, 1500);
 
             } else {
                 swal({type: 'warning', title: 'Erro ao remover!', showConfirmButton: false, timer: 1500});

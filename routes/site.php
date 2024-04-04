@@ -49,3 +49,9 @@ $router->post("/visita/recepcao/confirmar", "RecepcaoController:confirmarPresenc
 
 $router->get("/palestras/recepcao/{id}", "RecepcaoController:palestra");
 $router->post("/palestras/recepcao/confirmar", "RecepcaoController:confirmarPresencaPalestra");
+
+// PAINEL EQUIPE
+$router->namespace("Agencia\Close\Controllers\Site\Equipes");
+$router->get("/equipes", "EquipesController:equipes");
+$router->get("/equipe/cadastro", "EquipesController:cadastro");
+$router->post("/equipe/cadastro", "EquipesController:cadastroSave");
