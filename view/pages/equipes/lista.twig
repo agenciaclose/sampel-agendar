@@ -20,22 +20,49 @@
                         <table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" >
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th class="no-mobile">ID</th>
                                     <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Setor</th>
-                                    {% if _session.sampel_user_gerente_equipe == 'S' %}<th class="text-end">Status</th>{% endif %}
+                                    <th class="no-mobile">Email</th>
+                                    <th class="no-mobile">Setor</th>
+                                    {% if _session.sampel_user_gerente_equipe == 'S' %}<th class="text-end no-mobile">Status</th>{% endif %}
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for equipe in equipes %}
                                     <tr>
-                                        <td>{{ equipe.id }}</td>
-                                        <td class="text-uppercase">{{ equipe.nome }}</td>
-                                        <td class="text-lowercase">{{ equipe.email }}</td>
-                                        <td>{{ equipe.setor }}</td>
+                                        <td class="no-mobile">{{ equipe.id }}</td>
+                                        <td class="text-uppercase">
+                                            <span class="no-mobile">{{ equipe.nome }}</span>
+                                            <div class="d-flex justify-content-between justify-content-sm-start flex-wrap w-100">
+
+                                                <div class="d-flex justify-content-start flex-column flex-sm-row d-lg-none d-md-none d-sm-block d-block w-100">
+                                                    <div class="d-flex justify-content-between text-sm">
+                                                        <div>{{ equipe.nome }}</div>
+                                                        {% if _session.sampel_user_gerente_equipe == 'S' %}
+                                                        <div>
+                                                            {% if equipe.situacao == 'Ativo' %}
+                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="badge bg-danger"><i class="fa-solid fa-power-off"></i></a>
+                                                            {% else %}
+                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="badge bg-success text-black"><i class="fa-solid fa-power-off"></i></a>
+                                                            {% endif %}
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="d-flex justify-content-between text-sm">
+                                                        <small class="text-lowercase">{{ equipe.email }}</small>
+                                                        <small class="text-capitalize">{{ equipe.setor }}</small>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                        <td class="text-lowercase no-mobile">{{ equipe.email }}</td>
+                                        <td class="no-mobile">{{ equipe.setor }}</td>
                                         {% if _session.sampel_user_gerente_equipe == 'S' %}
-                                        <td class="text-end">
+                                        <td class="text-end no-mobile">
                                             <div class="d-flex justify-content-end">
                                                 {% if equipe.situacao == 'Ativo' %}
                                                     <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm"><i class="fa-solid fa-power-off"></i></a>
