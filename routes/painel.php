@@ -87,4 +87,4 @@ $router->get("/painel/equipe/cadastro", "EquipesController:cadastro");
 $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar");
 $router->post("/painel/equipe/editarSave", "EquipesController:editarSave");
-$router->get("/painel/equipe/excluir/{id}", "EquipesController:excluir");
+$router->post("/painel/equipe/status", "EquipesController:statusEquipe");

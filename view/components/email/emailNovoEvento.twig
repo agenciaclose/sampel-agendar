@@ -15,7 +15,7 @@
                                 <div><h4 style="margin: 10px 0; color: #2458a9;">{{ visita.title }}</h4></div>
                                 <div><b>Data:</b> {{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }} </div>
                                 <div style="margin-top: 10px">
-                                    <span><b>Responsável:</b> {{ visita.nome }}</span>
+                                    <span><b>Criado por:</b> {{ visita.nome }}</span>
                                     <span style="margin-left: 15px;"><b>Solicitante:</b> {{ visita.solicitante }}</span>
                                 </div>
                             </div>
@@ -23,13 +23,14 @@
                            	<br><hr>
 
                            	<div style="text-align: center; ">
-								<p>Caros membros da equipe. Estamos animados em convidá-los para participar do nosso mais recente evento. É uma oportunidade imperdível para mostrar suas habilidades, colaborar com colegas e impulsionar a inovação em nossa empresa.</p>
-
-								<p>Contamos com vocês para tornar este evento um sucesso!</p>
+								<h4>Atenção a todos!</h4>
+                                <p>Um novo evento foi criado no portal <a href="https://sampel.com.br/eventos" target="_blank">sampel.com.br/eventos</a>.</p>
+                                <p>Por favor, estejam atentos às informações fornecidas.</p>
                             </div>
                             <br>
+                            
                             <div style="text-align: center; ">
-                                <a href="https://sampel.com.br/eventos/visita/lista/{{ visita.id_visita }}" style="padding:10px 15px;background: #3253ab;color: #fff;text-decoration: none;border-radius: 5px;">ACESSE O EVENTO PARA SABER MAIS</a>
+                                <a href="https://sampel.com.br/eventos/visita/lista/{{ visita.id }}" target="_blank" style="padding:10px 15px;background: #3253ab;color: #fff;text-decoration: none;border-radius: 5px;">SABER MAIS</a>
                             </div>
 
                             <br><hr>

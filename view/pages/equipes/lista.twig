@@ -24,6 +24,7 @@
                                     <th>Nome</th>
                                     <th>Email</th>
                                     <th>Setor</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,6 +34,15 @@
                                         <td class="text-uppercase">{{ equipe.nome }}</td>
                                         <td class="text-lowercase">{{ equipe.email }}</td>
                                         <td>{{ equipe.setor }}</td>
+                                        <td class="text-end">
+                                            <div class="d-flex justify-content-end">
+                                                {% if equipe.situacao == 'Ativo' %}
+                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm"><i class="fa-solid fa-power-off"></i></a>
+                                                {% else %}
+                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-success btn-sm text-black"><i class="fa-solid fa-power-off"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

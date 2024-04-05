@@ -102,12 +102,11 @@ class EquipesController extends Controller
         }
     }
 
-    public function excluir(array $params)
+    public function statusEquipe(array $params)
     {
         $this->setParams($params);
-
         $editar = new EquipesPainel();
-        $editar = $editar->getEquipeExcluir($params['id'])->getResult();
+        $editar = $editar->statusEquipe($params)->getResult();
         echo '1';
     }
 

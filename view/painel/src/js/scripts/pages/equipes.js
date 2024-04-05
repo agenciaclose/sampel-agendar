@@ -180,14 +180,16 @@ $(document).on('blur', '.cnpj', function (e) {
 
 });
 
-function desativarEquipe(id_user){
+function statusEquipe(id_user, situacao){
     var DOMAIN = $('body').data('domain');
     $.ajax({
-        type: "GET", async: true,
-        url: DOMAIN + '/painel/equipe/excluir/'+id_user,
+        type: "POST", 
+        async: true,
+        data: {'id_user': id_user, situacao: situacao},
+        url: DOMAIN + '/painel/equipe/status',
         success: function (data) {
             if (data == "1") {
-                window.location.href = DOMAIN+'/painel/equipes';
+                window.location.reload();
             }else{
                 alert('ERRO AO ATUALIZADO');
             }

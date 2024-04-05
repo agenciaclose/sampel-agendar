@@ -41,15 +41,19 @@
                                             <tbody>
                                                 {% for equipe in equipes %}
                                                     <tr>
-                                                        <td>{{ equipe.id }}</td>
-                                                        <td class="text-uppercase">{{ equipe.nome }}</td>
-                                                        <td class="text-lowercase">{{ equipe.email }}</td>
-                                                        <td>{{ equipe.telefone }}</td>
-                                                        <td>{{ equipe.setor }}</td>
+                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.id }}</td>
+                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}text-uppercase">{{ equipe.nome }}</td>
+                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}text-lowercase">{{ equipe.email }}</td>
+                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.telefone }}</td>
+                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.setor }}</td>
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end">
-                                                                <a href="{{ DOMAIN }}/painel/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a> 
-                                                                <a href="javascript:void(0)" onclick="desativarEquipe('{{ equipe.id }}')" class="ms-1 btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a> 
+                                                                {% if equipe.situacao == 'Ativo' %}
+                                                                    <a href="{{ DOMAIN }}/painel/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                    <a href="javascript:void(0)" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="ms-1 btn btn-danger btn-sm"><i class="fa-solid fa-power-off"></i></a>
+                                                                 {% else %}
+                                                                    <a href="javascript:void(0)" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="ms-1 btn btn-success btn-sm"><i class="fa-solid fa-power-off"></i></a>
+                                                                 {% endif %}
                                                             </div>
                                                         </td>
                                                     </tr>
