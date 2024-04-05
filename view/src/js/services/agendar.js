@@ -15,6 +15,9 @@ $(document).ready(function () {
             success: function (data) {
 
                 if (data != "0") {
+
+                    sendEmailNovoEvento(data);
+
                     $('.form-load').removeClass('show');
                     $('.cadastrar_visita').html('');
                     $('.cadastrar_visita_success').show();
@@ -22,6 +25,7 @@ $(document).ready(function () {
                     $('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+ DOMAIN +'/visita/inscricao/'+data);
                     $('.share_link_twitter').attr('href', 'https://twitter.com/intent/tweet?url='+ DOMAIN +'/visita/inscricao/'+data+'&amp;text=Confira%20esse%20agendamento%20em');
                     $('.share_link_whatsapp').attr('href', 'https://api.whatsapp.com/send/?text='+ DOMAIN +'/visita/inscricao/'+data);
+
                 } else {
 
                     $('button[type="submit"]').prop("disabled", false);
@@ -32,7 +36,6 @@ $(document).ready(function () {
         });
 
     });
-
 
     $('#estado').on('change', function (e) {
 
@@ -81,3 +84,16 @@ $(document).ready(function () {
     });
 
 });
+
+function sendEmailNovoEvento(id_visita) {
+    
+    var DOMAIN = $('body').data('domain');
+
+    $.ajax({
+        type: "GET", 
+        async: true,
+        url: DOMAIN + '/visita/emailNovoEvento/'+id_visita,
+        success: function () {}
+    });
+
+}

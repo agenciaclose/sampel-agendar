@@ -203,4 +203,39 @@ class HomeController extends Controller
         
     }
 
+
+    //ENVIAR EMAIL DE NOVO EVENTO PARA EQUIPE
+    public function sendEmailNovoEvento($params)
+    {
+        $this->setParams($params);
+
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
+
+        $equipe = new Visitas();
+        $equipe = $equipe->listaEquipes()->getResult();
+
+        $dataVisita = new \DateTime($visita['data_visita']);
+        $dataFormatada = $dataVisita->format('d/m/Y');
+
+        foreach($equipe as $lista){
+
+            $data = [
+                'visita' => $visita,
+            ];
+
+            $email = new EmailAdapter();
+            $email->setSubject('Novo evento criado: '. $dataFormatada);
+    
+            $email->setBody('components/email/emailNovoEvento.twig', $data);
+            $email->addAddress($lista['email']);
+            //$email->addAddress('rl.cold.dev@gmail.com');
+            $email->send('Email enviado com sucesso');
+
+        }
+
+        $email->getResult();
+        
+    }
+
 }

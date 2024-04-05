@@ -21,20 +21,20 @@
                             <br>
                            	<div>
                            		<div><b>Cronograma:</b></div>
-								<div>{{ visita.descricao|raw }}</div>
+								              <div>{{ visita.descricao|raw }}</div>
                            	</div>
                            	
                            	<br>
 
                             <div><b>Equipe Organizadora ({{ equipes|length }} integrantes):</b></div>
-							<ul>
-								{% for equipe in equipes %}
-								<li><b>{{ equipe.nome }} -</b> {{ equipe.setor }}</li>
-                                {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y H:i") }}</i>{% endif %}
-								{% endfor %}
-							</ul>
+              							<ul>
+              								{% for equipe in equipes %}
+              								<li><b>{{ equipe.nome }} -</b> {{ equipe.setor }}</li>
+                              {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y H:i") }}</i>{% endif %}
+              								{% endfor %}
+              							</ul>
 
-							<br>
+              							<br>
                             <div>Informamos também que a notificação sobre o evento foi disseminada entre todos os membros da equipe.</div>
 
                             <br>

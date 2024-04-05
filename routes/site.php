@@ -9,6 +9,7 @@ $router->get("/visita/emailEquipeTemplate/{visita_id}", "HomeController:emailEqu
 $router->get("/visita/sendEmailEquipe/{visita_id}", "HomeController:sendEmailEquipe");
 $router->get("/visita/sendEmailEstatisticas/{visita_id}", "HomeController:sendEmailEstatisticas");
 $router->get("/visita/sendEmailCertificado/{visita_id}", "HomeController:sendEmailCertificado");
+$router->get("/visita/emailNovoEvento/{visita_id}", "HomeController:sendEmailNovoEvento");
 
 // MINHAS INSCRICOES
 $router->namespace("Agencia\Close\Controllers\Site\MinhasInscricoes");
