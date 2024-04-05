@@ -24,7 +24,7 @@
                                     <th>Nome</th>
                                     <th>Email</th>
                                     <th>Setor</th>
-                                    <th class="text-end">Status</th>
+                                    {% if _session.sampel_user_gerente_equipe == 'S' %}<th class="text-end">Status</th>{% endif %}
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,6 +34,7 @@
                                         <td class="text-uppercase">{{ equipe.nome }}</td>
                                         <td class="text-lowercase">{{ equipe.email }}</td>
                                         <td>{{ equipe.setor }}</td>
+                                        {% if _session.sampel_user_gerente_equipe == 'S' %}
                                         <td class="text-end">
                                             <div class="d-flex justify-content-end">
                                                 {% if equipe.situacao == 'Ativo' %}
@@ -43,6 +44,7 @@
                                                 {% endif %}
                                             </div>
                                         </td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>
