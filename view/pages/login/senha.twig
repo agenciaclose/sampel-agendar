@@ -26,7 +26,7 @@
                                             <p class="card-text mb-3">Digite sua senha de acesso abaixo.</p>
                                         </div>
 
-                                        <form class="auth-forgot-password-form mt-2" action="auth-reset-password-basic.html" method="POST">
+                                        <form class="auth-forgot-password-form mt-2" action="javascript:void(0)" id="user_definir_senha" method="POST">
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-12 mb-3">
                                                     <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" />
@@ -35,10 +35,12 @@
                                                     <input type="password" class="form-control" id="resenha" name="resenha" placeholder="Confirmar senha" />
                                                 </div>
                                             </div>
-
-                                            <div class="d-flex justify-content-center">                                                
-                                                <button type="submit" class="rounded-pill btn btn-warning px-5"><i class="fa-solid fa-unlock-alt me-2"></i> Salvar Senha</button>
+                                            <div id="senha_alert" class="alert alert-danger text-center mb-2" style="display:none;">As senhas não são iguais.</div>
+                                            <div class="d-flex justify-content-center">
+                                                <input type="hidden" name="codigo_privado" value="{{ usuario.codigo_privado }}">                                        
+                                                <button type="submit" class="rounded-pill btn btn-warning px-5" disabled><i class="fa-solid fa-unlock-alt me-2"></i> Salvar Senha</button>
                                             </div>
+                                            
 
                                         </form>
 

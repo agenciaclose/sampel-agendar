@@ -2,9 +2,11 @@
 
 namespace Agencia\Close\Controllers\Painel\Equipes;
 
+use Agencia\Close\Models\User\User;
+use Agencia\Close\Adapters\EmailAdapter;
 use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Models\Painel\EquipesPainel;
 use Agencia\Close\Helpers\User\EmailUser;
+use Agencia\Close\Models\Painel\EquipesPainel;
 
 class EquipesController extends Controller
 {
@@ -38,7 +40,9 @@ class EquipesController extends Controller
 
         $user = new EquipesPainel();
         $idUser = $user->cadastroSave($this->params);
+
         if ($idUser) {
+            $this->sendEmailNovoUsuario($this->params['email']);
             echo '1';
         } else {
             echo '0';
@@ -108,6 +112,23 @@ class EquipesController extends Controller
         $editar = new EquipesPainel();
         $editar = $editar->statusEquipe($params)->getResult();
         echo '1';
+    }
+
+    //ENVIAR EMAIL DE NOVO EVENTO PARA EQUIPE
+    public function sendEmailNovoUsuario($email)
+    {
+        $usuario = new User();
+        $usuario = $usuario->emailExist($email)->getResult()[0];
+
+        $data = ['usuario' => $usuario];
+        $email = new EmailAdapter();
+        $email->setSubject('Sampel Eventos - Novo Usuário');
+        $email->setBody('components/email/emailNovoUsuario.twig', $data);
+        $email->addAddress($usuario['email']);
+        //$email->addAddress('rl.cold.dev@gmail.com');
+        $email->send('Email enviado com sucesso');
+
+        $email->getResult();
     }
 
 }

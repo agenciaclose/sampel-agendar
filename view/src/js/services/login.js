@@ -87,31 +87,31 @@ $(document).ready(function () {
         });
     });
 
-    $("#register-client-form").submit(function (c) {
-        $('.login-load').show();
-        c.preventDefault();
-        var DOMAIN = $('body').data('domain');
-        var form = $(this);
-        $.ajax({
-            type: "POST", async: true, data: form.serialize(),
-            url: DOMAIN + '/cadastro/create-client',
-            success: function (data) {
-                $('#info-cadastro-cliente').hide();
-                $('#info-cadastro-cliente2').hide();
-                if (data == "1") {
-                    window.location.href = DOMAIN;
-                } else  if (data == "2")  {
-                    $('button[type="submit"]').prop("disabled", false);
-                    swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
-                    $('.login-load').hide();
-                }else{
-                    $('button[type="submit"]').prop("disabled", false);
-                    swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
-                    $('.login-load').hide();
-                }
-            }
-        });
-    });
+    // $("#register-client-form").submit(function (c) {
+    //     $('.login-load').show();
+    //     c.preventDefault();
+    //     var DOMAIN = $('body').data('domain');
+    //     var form = $(this);
+    //     $.ajax({
+    //         type: "POST", async: true, data: form.serialize(),
+    //         url: DOMAIN + '/cadastro/create-client',
+    //         success: function (data) {
+    //             $('#info-cadastro-cliente').hide();
+    //             $('#info-cadastro-cliente2').hide();
+    //             if (data == "1") {
+    //                 window.location.href = DOMAIN;
+    //             } else  if (data == "2")  {
+    //                 $('button[type="submit"]').prop("disabled", false);
+    //                 swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
+    //                 $('.login-load').hide();
+    //             }else{
+    //                 $('button[type="submit"]').prop("disabled", false);
+    //                 swal({type: 'error', title: 'Houve um erro ao cadastrar.', showConfirmButton: false, timer: 1500});
+    //                 $('.login-load').hide();
+    //             }
+    //         }
+    //     });
+    // });
 
 });
 

@@ -219,23 +219,37 @@ class HomeController extends Controller
         $dataFormatada = $dataVisita->format('d/m/Y');
 
         foreach($equipe as $lista){
-
             $data = [
                 'visita' => $visita,
             ];
-
             $email = new EmailAdapter();
             $email->setSubject('Novo evento criado: '. $dataFormatada);
-    
             $email->setBody('components/email/emailNovoEvento.twig', $data);
             $email->addAddress($lista['email']);
             //$email->addAddress('rl.cold.dev@gmail.com');
             $email->send('Email enviado com sucesso');
 
         }
+        $email->getResult();
+    }
+
+    //ENVIAR EMAIL DE NOVO EVENTO PARA EQUIPE
+    public function sendEmailNovoUsuario($params)
+    {
+        $this->setParams($params);
+
+        $usuario = new User();
+        $usuario = $usuario->getUserByID($params['visita_id'])->getResult()[0];
+
+        $data = ['usuario' => $usuario];
+        $email = new EmailAdapter();
+        $email->setSubject('Novo evento criado');
+        $email->setBody('components/email/emailNovoEvento.twig', $data);
+        //$email->addAddress($usuario['email']);
+        $email->addAddress('rl.cold.dev@gmail.com');
+        $email->send('Email enviado com sucesso');
 
         $email->getResult();
-        
     }
 
 }

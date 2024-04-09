@@ -55,3 +55,47 @@ $(document).ready(function() {
     tags: true
   });
 });
+
+
+$(document).ready(function() {
+
+  $("[name='resenha']").on('keyup', function() {
+    // Verifica se ambos os campos estão preenchidos
+    var senha = $("[name='senha']").val().trim();
+    var resenha = $("[name='resenha']").val().trim();
+    
+    if (senha !== '' && resenha !== '') {
+      // Se ambos os campos estiverem preenchidos, verifica se os valores são iguais
+      if (senha === resenha) {
+        $("button[type='submit']").prop('disabled', false);
+        $('#senha_alert').hide();
+      } else {
+        $("button[type='submit']").prop('disabled', true);
+        $('#senha_alert').show();
+      }
+    } else {
+      $("button[type='submit']").prop('disabled', true);
+      $('#senha_alert').hide();
+    }
+  });
+
+  $("#user_definir_senha").submit(function (c) {
+  
+    $('.form-load').addClass('show');
+    $('button[type="submit"]').prop("disabled", true);
+  
+    c.preventDefault();
+    var DOMAIN = $('body').data('domain');
+    var form = $(this);
+  
+    $.ajax({
+        type: "POST", async: true, data: form.serialize(),
+        url: DOMAIN + '/login/senha/senhaSave',
+        success: function (data) {
+          window.location.href = DOMAIN + '/login';
+        }
+    });
+
+  });
+
+});

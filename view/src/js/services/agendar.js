@@ -16,13 +16,6 @@ $(document).ready(function () {
 
                 if (data != "0") {
 
-                    $.ajax({
-                        type: "GET", 
-                        async: true,
-                        url: DOMAIN + '/visita/emailNovoEvento/'+data,
-                        success: function () {}
-                    });
-
                     $('.form-load').removeClass('show');
                     $('.cadastrar_visita').html('');
                     $('.cadastrar_visita_success').show();

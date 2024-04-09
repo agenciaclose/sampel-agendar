@@ -38,6 +38,8 @@ class Agendar extends Model
         $update = new Update();
         $id = $params['id'];
         unset($params['id']);
+        unset($params['notification_sand']);
+        
         $update->ExeUpdate('visitas', $params, 'WHERE id = :id', "id={$id}");
         return $update;
     

@@ -11,11 +11,14 @@
 
                 <div class="col-lg-12 col-12">
 
-                    <h5 class="card-title mb-4">Lista de Equipes</h5>
-                    {# <div class="heading-elements">
-                        <a class="btn btn-primary" href="{{ DOMAIN }}/equipe/cadastro"><i class="fa-regular fa-plus"></i> Add Novo</a>
-                    </div> #}
-
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title mb-4">Lista de Equipes</h5>
+                        {% if _session.sampel_user_gerente_equipe == 'S' %}
+                        <div class="heading-elements">
+                            <a class="btn btn-warning btn-sm" href="{{ DOMAIN }}/equipe/cadastro"><i class="fa-regular fa-plus"></i> Add Novo</a>
+                        </div>
+                        {% endif %}
+                    </div>
                     <div class="table-responsive">
                         <table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" >
                             <thead>
@@ -41,9 +44,10 @@
                                                         {% if _session.sampel_user_gerente_equipe == 'S' %}
                                                         <div>
                                                             {% if equipe.situacao == 'Ativo' %}
-                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="badge bg-danger"><i class="fa-solid fa-power-off"></i></a>
+                                                                <a href="{{ DOMAIN }}/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm"><i class="fa-solid fa-power-off"></i></a>
                                                             {% else %}
-                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="badge bg-success text-black"><i class="fa-solid fa-power-off"></i></a>
+                                                                <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-success btn-sm text-black"><i class="fa-solid fa-power-off"></i></a>
                                                             {% endif %}
                                                         </div>
                                                         {% endif %}
@@ -65,7 +69,8 @@
                                         <td class="text-end no-mobile">
                                             <div class="d-flex justify-content-end">
                                                 {% if equipe.situacao == 'Ativo' %}
-                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm"><i class="fa-solid fa-power-off"></i></a>
+                                                    <a href="{{ DOMAIN }}/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm ms-1"><i class="fa-solid fa-power-off"></i></a>
                                                 {% else %}
                                                     <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-success btn-sm text-black"><i class="fa-solid fa-power-off"></i></a>
                                                 {% endif %}

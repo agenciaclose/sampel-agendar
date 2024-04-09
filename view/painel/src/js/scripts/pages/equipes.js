@@ -54,7 +54,10 @@ $(document).ready(function () {
                 $('#info-cadastro-cliente').hide();
                 $('#info-cadastro-cliente2').hide();
                 if (data == "1") {
-                    window.location.href = DOMAIN+'/painel/equipes';
+                    swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 1500);
                 } else  if (data == "2")  {e
                     $('button[type="submit"]').prop("disabled", false);
                     swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
@@ -80,7 +83,7 @@ $(document).ready(function () {
                 if (data == "1") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 1500});
                     setTimeout(function(){
-                        window.location.href = DOMAIN+'/painel/equipes';
+                        window.location.reload();
                     }, 1500);
                 } else  if (data == "2")  {
                     $('button[type="submit"]').prop("disabled", false);

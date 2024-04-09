@@ -1,84 +1,74 @@
-{% extends "layout/layoutPanel.twig" %}
+{% extends "layout/layoutMaster.twig" %}
 
-{% block title %}Cadastro de Equipe{% endblock %}
+{% block title %}Equipe{% endblock %}
 
 {% block body %}
 
     <!-- BEGIN: Content-->
-    <div class="app-content content ">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-                <!-- Dashboard Ecommerce Starts -->
-                <section id="dashboard-ecommerce">
+    <div class="container py-5">
+        <div class="row match-height">
 
-                    <div class="row match-height">
+            <div class="col-xl-4 col-lg-6 col col-12 m-auto">
+                <div class="card bg-transparent text-white border-0 card-company-table">
+                    <div class="border-0">
+                        {% if editar %}
+                            <h5 class="card-title text-warning text-center">EDITAR DE EQUIPE</h5>
+                        {% else %}
+                            <h5 class="card-title text-warning text-center">CADASTRO DE EQUIPE</h5>
+                        {% endif %}
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <form class="" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
 
-                        <div class="col-xl-4 col-lg-6 col col-12">
-                            <div class="card card-company-table">
-                                <div class="card-header pb-0">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="mb-1">
+                                        <label class="form-label">Setor</label>
+                                        <input type="text" name="setor" class="form-control rounded-pill" placeholder="Setor" value="{{ editar.setor }}">
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <label class="form-label">Seu Nome Completo</label>
+                                        <input type="text" class="form-control rounded-pill" name="nome" placeholder="Nome Completo"  value="{{ editar.nome }}" required/>
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <label class="form-label">Seu Telefone</label>
+                                        <input type="text" class="form-control rounded-pill telefone" name="telefone"  value="{{ editar.telefone }}" required/>
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <label class="form-label">Seu E-mail</label>
+                                        <input type="email" class="form-control rounded-pill" name="email" placeholder="john@gmail.com"  value="{{ editar.email }}" required />
+                                        <input type="hidden" name="email_old" value="{{ editar.email }}" />
+                                    </div>
+
                                     {% if editar %}
-                                        <h5 class="card-title">Editar de Equipe</h5>
-                                    {% else %}
-                                        <h5 class="card-title">Cadastro de Equipe</h5>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="login-password">Senha</label>
+                                        <div class="form-password-toggle position-relative">
+                                            <input type="password" class="form-control rounded-pill" id="register-consultor-password" autocomplete="new-password" placeholder="{{ editar ? 'Prrencha se quiser editar' }}" name="senha" />
+                                            <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
+                                        </div>
+                                    </div>
                                     {% endif %}
                                 </div>
-                                <div class="card-body">
-                                    <form class="mt-2" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
 
-                                        <div class="row">
-
-                                            <div class="col-md-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label">Setor</label>
-                                                    <input type="text" name="setor" class="form-control rounded-pill" placeholder="Setor" value="{{ editar.setor }}">
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu Nome Completo</label>
-                                                    <input type="text" class="form-control rounded-pill" name="nome" placeholder="Nome Completo"  value="{{ editar.nome }}" required/>
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu Telefone</label>
-                                                    <input type="text" class="form-control rounded-pill telefone" name="telefone"  value="{{ editar.telefone }}" required/>
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu E-mail</label>
-                                                    <input type="email" class="form-control rounded-pill" name="email" placeholder="john@gmail.com"  value="{{ editar.email }}" required />
-                                                    <input type="hidden" name="email_old" value="{{ editar.email }}" />
-                                                </div>
-
-
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="login-password">Senha</label>
-                                                    <div class="form-password-toggle position-relative">
-                                                        <input type="password" class="form-control rounded-pill" id="register-consultor-password" placeholder="{{ editar ? 'Prrencha se quiser editar' }}" name="senha" />
-                                                        <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        
-                                        {% if editar %}<input type="hidden" name="id" value="{{ editar.id }}" />{% endif %}
-                                        <button type="submit" class="rounded-pill btn btn-warning" id="salvar"><i class="fa-solid fa-unlock-alt me-1"></i> SALVAR INFORMAÇÕES</button>
-                                   
-                                    </form>
-                                </div>
                             </div>
-                        </div>
-
+                            
+                            {% if editar %}<input type="hidden" name="id" value="{{ editar.id }}" />{% endif %}
+                            <button type="submit" class="rounded-pill btn btn-warning mt-2" id="salvar"><i class="fa-solid fa-unlock-alt me-1"></i> SALVAR INFORMAÇÕES</button>
+                        
+                        </form>
                     </div>
-
-                </section>
-
+                </div>
             </div>
+
         </div>
     </div>
+
     <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipes.js"></script>
+
 {% endblock %}

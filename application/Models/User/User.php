@@ -21,6 +21,13 @@ class User extends Model
         return $read;
     }
 
+    public function getUserPrivateCode($params): Read
+    {
+        $read = new Read();
+        $read->ExeRead($this->table, 'WHERE codigo_privado = :codigo_privado', "codigo_privado={$params['codigo_privado']}");
+        return $read;
+    }
+
     public function emailExist(string $email): Read
     {
         $read = new Read();
@@ -70,5 +77,19 @@ class User extends Model
         $this->update = new Update();
         $this->update->ExeUpdate($this->table, $data, "WHERE email = :email", "email={$email}");
         return $this->update->getResult();
+    }
+
+    public function salvarSenha(array $params)
+    {
+        $params['senha'] = sha1($params['senha']);
+        unset($params['resenha']);
+        $codigo_privado = $params['codigo_privado'];
+        unset($params['codigo_privado']);
+        $update = new Update();
+        $update->ExeUpdate('usuarios', $params, 'WHERE codigo_privado = :codigo_privado', "codigo_privado={$codigo_privado}");
+
+        $this->read = new Read();
+        $this->read->FullRead("UPDATE `usuarios` SET `codigo_privado` = NULL WHERE codigo_privado = :codigo_privado", "codigo_privado={$codigo_privado}");
+        return $update;
     }
 }

@@ -25,7 +25,20 @@ class RecoverController extends Controller
     public function senha(array $params)
     {
         $this->setParams($params);
-        $this->render('pages/login/senha.twig', []);
+        $usuario = new User();
+        $usuario = $usuario->getUserPrivateCode($params)->getResult();
+        if($usuario){
+            $this->render('pages/login/senha.twig', ['usuario' => $usuario[0]]);
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+        }
+    }
+
+    public function senhaSave(array $params)
+    {
+        $this->setParams($params);
+        $salvar = new User();
+        $salvar = $salvar->salvarSenha($params)->getResult();
     }
 
     public function index(array $params)

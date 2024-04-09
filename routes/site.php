@@ -29,7 +29,8 @@ $router->get("/login", "LoginController:index", "login");
 $router->post("/sign", "LoginController:sign");
 $router->get("/logout", "LoginController:logout");
 //$router->get("/login/recover", "RecoverController:index");
-$router->get("/login/senha", "RecoverController:senha");
+$router->get("/login/senha/{codigo_privado}", "RecoverController:senha");
+$router->post("/login/senha/senhaSave", "RecoverController:senhaSave");
 $router->get("/login/recuperar-senha", "RecoverController:recover");
 // $router->get("/cadastro", "RegisterController:index");
 $router->get("/find-cnpj", "RegisterController:cnpj");
@@ -56,4 +57,4 @@ $router->post("/palestras/recepcao/confirmar", "RecepcaoController:confirmarPres
 $router->namespace("Agencia\Close\Controllers\Site\Equipes");
 $router->get("/equipes", "EquipesController:equipes");
 $router->get("/equipe/cadastro", "EquipesController:cadastro");
-$router->post("/equipe/cadastro", "EquipesController:cadastroSave");
+$router->get("/equipe/editar/{id}", "EquipesController:editar");

@@ -29,8 +29,9 @@
 
         public function cadastroSave(array $params)
         {
-            $params['senha'] = sha1($params['senha']);
+            $params['senha'] = sha1('sampel4321');
             unset($params['email_old']);
+            $params['codigo_privado'] = $this->getCodigoPrivado();
             $create = new Create();
             $create->ExeCreate('usuarios', $params);
             return $create->getResult();
@@ -50,11 +51,32 @@
             return $update;
         }
 
+        public function salvarSenha(array $params)
+        {
+            $params['senha'] = sha1($params['senha']);
+            unset($params['resenha']);
+            $codigo_privado = $params['codigo_privado'];
+            $params['codigo_privado'] = '';
+            $update = new Update();
+            $update->ExeUpdate('usuarios', $params, 'WHERE codigo_privado = :codigo_privado', "codigo_privado={$codigo_privado}");
+            return $update;
+        }
+
         public function statusEquipe($params)
         {
             $read = new Read();
             $read->FullRead("UPDATE `usuarios` SET `situacao` = :situacao WHERE id = :id", "situacao={$params['situacao']}&id={$params['id_user']}");
             return $read;
+        }
+
+        public function getCodigoPrivado() {
+            $caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            $codigo = '';
+            $tamanhoCodigo = 8;
+            for ($i = 0; $i < $tamanhoCodigo; $i++) {
+                $codigo .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+            }
+            return $codigo;
         }
 
     }

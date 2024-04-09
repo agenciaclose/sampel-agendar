@@ -2,8 +2,10 @@
 
 namespace Agencia\Close\Controllers\Site\Agendar;
 
-use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Agendar;
+use Agencia\Close\Models\Site\Visitas;
+use Agencia\Close\Adapters\EmailAdapter;
+use Agencia\Close\Controllers\Controller;
 
 class AgendarController extends Controller
 {
@@ -40,9 +42,13 @@ class AgendarController extends Controller
     public function editar($params)
     {
         $this->setParams($params);
+
         $editar = new Agendar();
         $editar = $editar->saveEditar($this->params);
         if ($editar) {
+            if(isset($this->params['notification_sand'])){
+                $this->sendEmailNovoEvento($this->params['id']);
+            }
             echo '1';
         } else {
             echo '0';
@@ -60,5 +66,28 @@ class AgendarController extends Controller
         $editar = new Agendar();
         $editar = $editar->listcheckEventsConcluido();
     }
+    
+    public function sendEmailNovoEvento($id)
+    {
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($id)->getResult()[0];
 
+        $equipe = new Visitas();
+        $equipe = $equipe->listaEquipes()->getResult();
+
+        $dataVisita = new \DateTime($visita['data_visita']);
+        $dataFormatada = $dataVisita->format('d/m/Y');
+
+        foreach($equipe as $lista){
+            $data = ['visita' => $visita];
+            $email = new EmailAdapter();
+            $email->setSubject('Sampel - Eventos - Informações do evento: '. $dataFormatada);
+            $email->setBody('components/email/emailNovoEvento.twig', $data);
+            $email->addAddress($lista['email']);
+            //$email->addAddress('rl.cold.dev@gmail.com');
+            $email->send('Email enviado com sucesso');
+
+        }
+        $email->getResult();
+    }
 }

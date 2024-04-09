@@ -194,35 +194,18 @@ $(document).ready(function () {
         var DOMAIN = $('body').data('domain');
         var form = $(this);
 
-        var notificationSandChecked = form.find('input[name="notification_sand"]:checked').length > 0;
-
         $.ajax({
             type: "POST", async: true, data: form.serialize(),
             url: DOMAIN + '/agendar/editar',
             success: function (data) {
 
                 if (data == "1") {
-
+                    
                     $('.form-load').removeClass('show');
-
-                    if(notificationSandChecked == true){
-                        $.ajax({
-                            type: "GET", 
-                            async: true,
-                            url: DOMAIN + '/visita/emailNovoEvento/'+data,
-                            success: function () {
-                                swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
-                                setTimeout(function(){
-                                    location.reload();
-                                }, 1500);
-                            }
-                        });
-                    }else{
-                        swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
-                        setTimeout(function(){
-                            location.reload();
-                        }, 1500);
-                    }
+                    swal({type: 'success', title: 'EDITADO COM SUCESSO!', showConfirmButton: false, timer: 1500});
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
 
                 } else {
 
