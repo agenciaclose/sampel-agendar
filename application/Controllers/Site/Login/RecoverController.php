@@ -22,6 +22,12 @@ class RecoverController extends Controller
         $this->result = new Result();
     }
 
+    public function senha(array $params)
+    {
+        $this->setParams($params);
+        $this->render('pages/login/senha.twig', []);
+    }
+
     public function index(array $params)
     {
         $this->setParams($params);

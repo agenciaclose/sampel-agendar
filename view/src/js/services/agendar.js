@@ -16,7 +16,12 @@ $(document).ready(function () {
 
                 if (data != "0") {
 
-                    sendEmailNovoEvento(data);
+                    $.ajax({
+                        type: "GET", 
+                        async: true,
+                        url: DOMAIN + '/visita/emailNovoEvento/'+data,
+                        success: function () {}
+                    });
 
                     $('.form-load').removeClass('show');
                     $('.cadastrar_visita').html('');
@@ -84,16 +89,3 @@ $(document).ready(function () {
     });
 
 });
-
-function sendEmailNovoEvento(id_visita) {
-    
-    var DOMAIN = $('body').data('domain');
-
-    $.ajax({
-        type: "GET", 
-        async: true,
-        url: DOMAIN + '/visita/emailNovoEvento/'+id_visita,
-        success: function () {}
-    });
-
-}

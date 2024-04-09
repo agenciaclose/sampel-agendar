@@ -353,12 +353,7 @@
                                         <div class="row">
                                             <div class="mb-2 col-md-6 col-sm-12 col-12">
                                                 <label for="title" class="form-label">Qual o motivo da visita? </label>
-                                                <select class="form-control" name="title" id="title">
-													<option>SELECIONE</option>
-													{% for motivo in motivos %}
-														<option value="{{ motivo.motivo }}" {{ motivo.motivo == visita.title ? 'selected' }}>{{ motivo.motivo }}</option>
-													{% endfor %}
-												</select>
+												<input type="text" placeholder="MOTIVO DA VISITA" class="form-control" name="title" value="{{ visita.title }}">
                                             </div>
                                             <div class="mb-2 col-md-6 col-sm-12 col-12">
                                                 <label for="solicitante" class="form-label">Nome do Solicitante </label>
@@ -402,13 +397,15 @@
                                             <textarea id="descricao" class="form-control" name="descricao" rows="5">{{ visita.descricao }}</textarea>
                                         </div>
 
-                                        <div class="mb-2">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             {% if visita.visita_id != '' %}
                                             <input type="hidden" name="id" value="{{ visita.visita_id }}">
                                             {% endif %}
-                                            <button type="submit" class="rounded-pill btn btn-lg btn-primary">
-                                                <i class="fa-light fa-paper-plane"></i> SALVAR EDIÇÃO
-                                            </button>
+                                            <button type="submit" class="rounded-pill btn btn-lg btn-primary"><i class="fa-solid fa-floppy-disk"></i> SALVAR EDIÇÃO</button>
+                                            <div class="form-check">
+												<input class="form-check-input" name="notification_sand" type="checkbox" value="yes" id="notification_sand">
+												<label class="form-check-label" for="notification_sand">Enviar Email de notificação</label>
+											</div>
                                         </div>
 
                                     </div>
