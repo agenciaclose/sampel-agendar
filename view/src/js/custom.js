@@ -80,7 +80,6 @@ $(document).ready(function() {
   });
 
   $("#user_definir_senha").submit(function (c) {
-  
     $('.form-load').addClass('show');
     $('button[type="submit"]').prop("disabled", true);
   
@@ -95,7 +94,24 @@ $(document).ready(function() {
           window.location.href = DOMAIN + '/login';
         }
     });
+  });
 
+  $("#recuperar_senha").submit(function (c) {
+    $('.form-load').addClass('show');
+    $('button[type="submit"]').prop("disabled", true);
+  
+    c.preventDefault();
+    var DOMAIN = $('body').data('domain');
+    var form = $(this);
+  
+    $.ajax({
+        type: "POST", async: true, data: form.serialize(),
+        url: DOMAIN + '/login/recover/save',
+        success: function (data) {
+          $('.recover-content').hide();
+          $('.recover-success').show();
+        }
+    });
   });
 
 });

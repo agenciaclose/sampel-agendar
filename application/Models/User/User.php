@@ -21,11 +21,38 @@ class User extends Model
         return $read;
     }
 
+    public function getUserByEmail(string $email): Read
+    {
+        $read = new Read();
+        $read->ExeRead($this->table, 'WHERE email = :email', "email={$email}");
+        return $read;
+    }
+
     public function getUserPrivateCode($params): Read
     {
         $read = new Read();
         $read->ExeRead($this->table, 'WHERE codigo_privado = :codigo_privado', "codigo_privado={$params['codigo_privado']}");
         return $read;
+    }
+
+    public function saveUserPrivateCode($params): Update
+    {
+        $update = new Update();
+        $params['codigo_privado'] = $this->getCodigoPrivado();
+        $email = $params['email'];
+        unset($params['email']);
+        $update->ExeUpdate('usuarios', $params, 'WHERE email = :email', "email={$email}");
+        return $update;
+    }
+
+    public function getCodigoPrivado() {
+        $caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $codigo = '';
+        $tamanhoCodigo = 8;
+        for ($i = 0; $i < $tamanhoCodigo; $i++) {
+            $codigo .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+        return $codigo;
     }
 
     public function emailExist(string $email): Read
