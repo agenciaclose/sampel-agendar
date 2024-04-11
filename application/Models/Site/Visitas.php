@@ -185,13 +185,18 @@ class Visitas extends Model
         if($params['campo'] == 'cpf'){
             $params['valor'] = $this->clearCPF($params['valor']);
         }
+
         if($params['tipo_visita'] != 'visita'){
-            $porEvento = "AND id_visita = '".$params['id_visita']."' AND DATEDIFF(CURDATE(), `data`) <= 365";
+            $porEvento = "AND id_visita = '".$params['id_visita']."'";
         }else{
             $porEvento = "";
         }
-        
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
+
+        $read->FullRead("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
+                        INNER JOIN visitas AS v ON v.id = vi.id_visita 
+                        WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porEvento
+                        AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo <> 'evento'
+                        ORDER BY vi.id DESC LIMIT 1");
         return $read;
 
     }
