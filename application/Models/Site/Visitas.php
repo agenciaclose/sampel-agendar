@@ -191,7 +191,7 @@ class Visitas extends Model
             $porEvento = "";
         }
         
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porEvento ORDER BY id DESC LIMIT 1");
         return $read;
 
     }
