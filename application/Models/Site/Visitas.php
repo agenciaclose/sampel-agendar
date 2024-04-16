@@ -259,17 +259,23 @@ class Visitas extends Model
     {
         $read = new Read();
         $check = new Read();
-        if(!empty($params['editar_equipe'])){
-            
-            $check->FullRead("SELECT * FROM `visitas_equipes` WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}");
-            
-            if(!$check->getResult()){
-                //SALVA SE NAO EXISTIR
-                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}&funcao={$params['funcao']}");
-            }else{
-                //DELETA E SALVA SE NAO EXISTIR
-                $read->FullRead("DELETE FROM `visitas_equipes` WHERE  `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}");
-                $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['editar_equipe']}&funcao={$params['funcao']}");
+        if(!empty($params['equipe'])){
+
+            if(is_countable($params['equipe'])){
+
+                for ($i=0; $i < count($params['equipe']); $i++) {
+                    
+                    $check->FullRead("SELECT * FROM `visitas_equipes` WHERE `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['equipe'][$i]['editar_equipe']}");
+                    
+                    if(!$check->getResult()){
+                        //SALVA SE NAO EXISTIR
+                        $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['equipe'][$i]['editar_equipe']}&funcao={$params['equipe'][$i]['funcao']}");
+                    }else{
+                        //DELETA E SALVA SE NAO EXISTIR
+                        $read->FullRead("DELETE FROM `visitas_equipes` WHERE  `id_visita` = :id_visita AND `id_user` = :id_user", "id_visita={$params['id_visita']}&id_user={$params['equipe'][$i]['editar_equipe']}");
+                        $read->FullRead("INSERT INTO `visitas_equipes` (`id_visita`, `id_user`, `funcao`) VALUES (:id_visita, :id_user, :funcao)", "id_visita={$params['id_visita']}&id_user={$params['equipe'][$i]['editar_equipe']}&funcao={$params['equipe'][$i]['funcao']}");
+                    }
+                }
             }
 
         }

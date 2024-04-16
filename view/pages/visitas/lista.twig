@@ -263,31 +263,47 @@
 				{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
 				<div class="collapse mb-2" id="addMember">
 					<form action="javascript:void(0);" method="POST" id="form_editar_equipe">
-						<div class="row">
-							<div class="col-lg-5 col-md-5">
-								<div class="mb-2">
-									<select class="form-control" name="editar_equipe" required>
-										<option value="">Selecione um Membro</option>
-										{% for todasequipe in todasequipes %}
-											{% if (todasequipe.id not in equipeselecionada) %}<option class="text-capitalize" value="{{ todasequipe.id }}" >{{ todasequipe.nome }}</option>{% endif %}
-										{% endfor %}
-									</select>
+						
+						<div class="repeater">
+
+							<div data-repeater-list="equipe">
+      							<div data-repeater-item>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="flex-fill">
+											<div class="mb-2">
+												<select class="form-control" name="editar_equipe" required>
+													<option value="">Selecione um Membro</option>
+													{% for todasequipe in todasequipes %}
+														{% if (todasequipe.id not in equipeselecionada) %}<option class="text-capitalize" value="{{ todasequipe.id }}" >{{ todasequipe.nome }}</option>{% endif %}
+													{% endfor %}
+												</select>
+											</div>
+										</div>
+										<div class="mx-2 flex-fill">
+											<div class="mb-2">
+												<input class="form-control" name="funcao" placeholder="Função para o Evento" required>
+											</div>
+										</div>
+										<div>
+											<div class="mb-2">
+												<button class="btn btn-danger btn-sm" data-repeater-delete type="button">X</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-lg-5 col-md-5">
-								<div class="mb-2">
-									<input class="form-control" name="funcao" placeholder="Função para o Evento" required>
-								</div>
-							</div>
-							<div class="col-lg-2 col-md-2">
-								<div class="mb-2">
-									<input type="hidden" name="id_visita" value="{{ visita.visita_id }}">
-									<button type="submit" class="btn btn-primary w-100">Salvar</button>
-								</div>
+							<div class="d-flex justify-content-between align-items-center my-3">
+								<button data-repeater-create type="button" class="btn btn-warning text-black"><i class="fa-solid fa-plus"></i> Adicionar</button>
+								<input type="hidden" name="id_visita" value="{{ visita.visita_id }}">
+								<button type="submit" class="btn btn-success text-black"><i class="fa-solid fa-floppy-disk"></i> Salvar lista de Equipe</button>
 							</div>
 						</div>
+
+
 					</form>
 				</div>
+				<script src="{{ PATH }}/view/painel/src/vendors/js/repeater/jquery.repeater.min.js"></script>
+				<script>$('.repeater').repeater();</script>
 				{% endif %}
 
 				<table class="table table-striped table-sm">
@@ -431,6 +447,6 @@
 
 
 
-<script src="{{ PATH }}/view/src/js/services/visitas.js"></script>
+<script src="{{ PATH }}/view/src/js/services/visitas.js?213123"></script>
 
 {% endblock %}
