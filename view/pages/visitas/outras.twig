@@ -155,12 +155,15 @@
 														</tr>
 														{% endif %}
 														{% for equipe in visita.equipevisita %}
-														<tr>
+														<tr class="{{ visita.id }}-{{ equipe.id }}">
 															<td class="text-uppercase" style="line-height:normal">
 																{{ equipe.nome }}
-																<div><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
+																<div class="text-primary"><small>{{ equipe.funcao }}</small></div>
 															</td>
-															<td class="text-end">{{ equipe.setor }}</td>
+															<td class="text-end" style="line-height:normal">
+																{{ equipe.setor }}
+																<div class="text-secondary"><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
+															</td>
 														</tr>
 														{% endfor %}
 													</tbody>
