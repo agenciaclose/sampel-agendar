@@ -10,9 +10,14 @@
 
 		{% if _get.action == '' %}
 
-			<div class="mb-4">
-				<h3>Faça sua inscrição para essa visita</h3>
-				<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="mb-4">
+					<h3>Faça sua inscrição para essa visita</h3>
+					<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
+				</div>
+				<div>
+					<h3 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total de inscrições"><span class="badge text-bg-warning"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</span></h3>
+				</div>
 			</div>
 
 			<hr>
