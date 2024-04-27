@@ -212,8 +212,9 @@ class VisitasController extends Controller
         $this->setParams($params);
 
         if( $params['tipo_visita'] == 'visita'){
-        
-            if(!$this->checkCadastro($params)){
+            
+            if(!empty($_SESSION['sampel_user_id'])){
+
                 $cadastro = new Visitas();
                 $cadastro = $cadastro->inscricaoCadastro($params);
                 if ($cadastro) {
@@ -221,10 +222,23 @@ class VisitasController extends Controller
                     $last = $last->lastInscricao()->getResult()[0];
                     echo $last['id'];
                 }
+
             }else{
-                echo '0';
+
+                if(!$this->checkCadastro($params)){
+                    $cadastro = new Visitas();
+                    $cadastro = $cadastro->inscricaoCadastro($params);
+                    if ($cadastro) {
+                        $last = new Visitas();
+                        $last = $last->lastInscricao()->getResult()[0];
+                        echo $last['id'];
+                    }
+                }else{
+                    echo '0';
+                }
+
             }
- 
+            
         }else{
             $cadastro = new Visitas();
             $cadastro = $cadastro->inscricaoCadastro($params);
