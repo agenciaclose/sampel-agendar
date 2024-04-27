@@ -147,6 +147,10 @@ class Visitas extends Model
         unset($params['setor_outros']);
         unset($params['tipo_visita']);
 
+        if(!empty($_SESSION['sampel_user_id'])){
+            $params['id_cadastrou'] = $_SESSION['sampel_user_id'];
+        }
+
         $create = new Create();
         $create->ExeCreate('visitas_inscricoes', $params);
         return $create;
