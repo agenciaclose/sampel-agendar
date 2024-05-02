@@ -251,6 +251,28 @@ class VisitasController extends Controller
 
     }
 
+    public function inscricaoEditar($params)
+    {
+        $this->setParams($params);
+
+        $inscricao = new Visitas();
+        $inscricao = $inscricao->getInscricao($params['visita_id'], $params['id'])->getResult()[0];
+
+        $this->render('pages/visitas/inscricao_editar.twig', ['inscricao' => $inscricao]);
+    }
+
+    public function inscricaoEditarSave($params)
+    {
+        $this->setParams($params);
+        $editar = new Visitas();
+        $editar = $editar->inscricaEeditar($params);
+        if($editar){
+            echo 'success';
+        }else{
+            echo 'error';
+        }
+    }
+
     public function inscricaoCadastroQRcode($params)
     {
         $this->setParams($params);

@@ -31,6 +31,8 @@ $router->post("/visita/inscricao/checkCadastroCampo", "VisitasController:checkCa
 $router->get("/visita/inscricao/cpfautocomplete", "VisitasController:CPFAutoComplete");
 $router->post("/visita/listaEquipesSave", "VisitasController:listaEquipesSave");
 $router->post("/visita/removeEquipe", "VisitasController:removeEquipe");
+$router->get("/visita/inscricao/editar/{visita_id}/{id}", "VisitasController:inscricaoEditar");
+$router->post("/visita/inscricao/editar", "VisitasController:inscricaoEditarSave");
 
 
 //SORTEIO

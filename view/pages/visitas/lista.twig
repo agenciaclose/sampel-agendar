@@ -167,6 +167,7 @@
 						<th class="no-mobile">Setor</th>
 						<th class="no-mobile">Endereço</th>
 						<th class="no-mobile">Inscrição</th>
+						<th class="no-mobile">Editar</th>
 					</tr>
 		        </thead>
 		        <tbody>
@@ -200,6 +201,12 @@
 							<td class="no-mobile">
 								<a href="{{ DOMAIN }}/visita/inscricao/{{ lista.visita_id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 								<div class="text-nowarp">{{ lista.data|date("d/m/Y H:i") }}</div>
+							</td>
+							<td class="no-mobile">
+								<a href="javascript:void(0)" data-remote="{{ DOMAIN }}/visita/inscricao/editar/{{ lista.visita_id }}/{{ lista.id }}" data-bs-remote="modal" data-bs-toggle="modal" data-bs-target="#editarInscricao" class="badge bg-warning text-black">
+									<i class="fa-regular fa-pen-to-square fs-6"></i>
+									<div class="mt-1">EDITAR</div>
+								</a>
 							</td>
 						</tr>
 					{% endfor %}
@@ -445,8 +452,15 @@
 </div>
 {% endif %}
 
+<div class="modal fade" id="editarInscricao" tabindex="-1" role="dialog" aria-labelledby="editarInscricaoLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
 
 
-<script src="{{ PATH }}/view/src/js/services/visitas.js?213123"></script>
+<script src="{{ PATH }}/view/src/js/services/visitas.js"></script>
 
 {% endblock %}

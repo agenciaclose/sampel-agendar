@@ -59,6 +59,19 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
+  // MODAL REMOTO
+  $(document).on('click', '[data-bs-remote="modal"]', function(e) {
+    e.preventDefault();
+    let modalTarget = $(this).data('bs-target');
+    if (modalTarget) {
+      let remoteContentUrl = $(this).data('remote');
+      $(modalTarget).find('.modal-body').load(remoteContentUrl, function() {
+        let modalInstance = new bootstrap.Modal($(modalTarget)[0]);
+        modalInstance.show();
+      });
+    }
+  });
+
   $("[name='resenha']").on('keyup', function() {
     // Verifica se ambos os campos estão preenchidos
     var senha = $("[name='senha']").val().trim();

@@ -5,6 +5,7 @@ namespace Agencia\Close\Models\Site;
 use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Update;
 use Agencia\Close\Models\Model;
 
 class Visitas extends Model
@@ -154,6 +155,25 @@ class Visitas extends Model
         $create = new Create();
         $create->ExeCreate('visitas_inscricoes', $params);
         return $create;
+
+    }
+
+    public function inscricaEeditar($params): update
+    {
+        $params['cpf'] = $this->clearCPF($params['cpf']);
+
+        if($params['setor'] == 'Outros'){
+            $params['setor'] = $params['setor_outros'];
+        }
+        unset($params['setor_outros']);
+
+        if(!empty($_SESSION['sampel_user_id'])){
+            $params['id_atualizou'] = $_SESSION['sampel_user_id'];
+        }
+
+        $update = new Update();
+        $update->ExeUpdate('visitas_inscricoes', $params, 'WHERE id = :id', "id={$params['id']}");
+        return $update;
 
     }
 
