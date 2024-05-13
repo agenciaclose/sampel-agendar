@@ -66,7 +66,7 @@
 				};
 
 				$('input[name="files"]').fileuploader({
-				limit: 20,
+				{% if (_session.sampel_user_tipo == 1) %}limit: 20,{% endif %}
 				fileMaxSize: 20,
 				enableApi: true,
 				extensions: ['jpg', 'jpeg', 'png', 'gif'],
