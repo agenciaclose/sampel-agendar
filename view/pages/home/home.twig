@@ -18,6 +18,23 @@
 
 		<session class="d-block mt-5">
 
+			{# ULTIMAS VISITAS #}
+			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center mb-2">
+				<h3 class="text-warning"><b>Últimas Visitas</h3>
+			</div>
+
+			<div>
+				<div class="gallery-suite">
+					<div id="lightgallery" class="row m-0">
+						{% for ultima in ultimas %}
+							<a class="col-sm-6 col-md-4 col-lg-3 col-xl-2" href="{{ DOMAIN }}/visita/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');height: 200px;"></a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+			<hr class="mb-5">
+
 			{# PROXIMAS VISITAS #}
 			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center my-4">
 				<h3 class="text-warning"><b>Próximas Visitas</h3>

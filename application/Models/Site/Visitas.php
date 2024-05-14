@@ -44,6 +44,13 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listarVisitasUltimas(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.id, v.title, vi.imagem FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id WHERE v.status_visita = 'Concluido' GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
+        return $read;
+    }
+
     public function listarVisitasUser($id_visita = 0, $id_empresa = 0): read
     {
         $read = new Read();
