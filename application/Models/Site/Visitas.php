@@ -47,7 +47,7 @@ class Visitas extends Model
     public function listarVisitasUltimas(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.id, v.title, vi.imagem FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id WHERE v.status_visita = 'Concluido' GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id WHERE v.status_visita = 'Concluido' GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
         return $read;
     }
 

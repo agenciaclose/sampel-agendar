@@ -4784,7 +4784,33 @@ span.fr-counter {
   border: 5px solid #246cb1;
   background-repeat: no-repeat;
   transition-duration: 1s;
+  position: relative;
 }
 #lightgallery > a:hover {
   border-color: #ffc107;
+}
+#lightgallery > a {
+  height: 300px;
+  border-radius: 5px;
+  display: inline-block;
+  background-size: cover;
+  background-position: center center;
+  border: 5px solid #246cb1;
+  background-repeat: no-repeat;
+  transition-duration: 1s;
+  position: relative;
+}
+.gallery-visita .data-visita {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  color: #246cb1;
+  text-align: center;
+  transition-duration: 1s;
+}
+.gallery-visita a:hover .data-visita {
+  background: #ffc107;
+  color: #333;
 }
