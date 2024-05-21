@@ -24,6 +24,9 @@ class HomeController extends Controller
             $ultimas = new Visitas();
             $ultimas = $ultimas->listarVisitasUltimas()->getResult();
 
+            $ultimasFotosPalestras = new Visitas();
+            $ultimasFotosPalestras = $ultimasFotosPalestras->listarUltimasFotosPalestras()->getResult();
+
             $i = 0;
             foreach($visitas as $visita){
                 $todasEquipes = new Visitas();
@@ -45,7 +48,7 @@ class HomeController extends Controller
             $palestras = new Palestras();
             $palestras = $palestras->lista($params)->getResult();
 
-            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas, 'palestras' => $palestras, 'ultimas' => $ultimas]);
+            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas, 'palestras' => $palestras, 'ultimas' => $ultimas, 'ultimasFotosPalestras' => $ultimasFotosPalestras]);
 
         }else{
 

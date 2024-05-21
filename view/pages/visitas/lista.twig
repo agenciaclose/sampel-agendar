@@ -44,10 +44,10 @@
 						<button type="button" class="btn btn-warning px-5 mt-4 me-1 mt-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
 						{% endif %}
 						{% if sorteados %}
-							<a href="{{ DOMAIN }}/visita/sorteados/{{ visita.visita_id }}" class="btn btn-light px-5 me-1 mt-1"><i class="fa-light fa-trophy-star"></i> Lista de Sorteados</a>
+							<a href="{{ DOMAIN }}/visita/sorteados/{{ visita.visita_id }}" class="btn btn-light px-2 me-1 mt-1"><i class="fa-light fa-trophy-star"></i> Lista de Sorteados</a>
 						{% else %}
 							{% if _session.sampel_user_id != 1 %}
-							<button type="button" class="btn btn-warning px-5 mt-4 me-1 mt-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
+							<button type="button" class="btn btn-warning px-2 mt-4 me-1 mt-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
 							{% endif %}
 						{% endif %}
 						<div class="btn {{ _get.presenca == 'Sim' ? 'btn-warning' : 'btn-light' }} me-1 mt-1"><a class="text-black" href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}?presenca=Sim" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Confirmados"><i class="fa-solid fa-shield-check fa-lg {{ _get.presenca == 'Sim' ? 'text-dark' : 'text-warning' }}"></i></a></div>

@@ -63,7 +63,9 @@
 									
 									<a href="javascript:void(0);" class="mb-2 me-0 me-sm-2 badge bg-warning text-black" data-bs-toggle="modal" data-bs-target="#sharedPalestra_{{ palestra.id }}"><i class="fa-solid fa-share-nodes"></i> COMPARTILHAR</a>
 									<a href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ palestra.total_inscricao }}</a>
-																				
+									{% if dias_faltantes < 0 %}
+									<a href="{{ DOMAIN }}/palestras/fotos/{{ palestra.id }}" class="mb-2 badge bg-info text-black"><i class="fa-solid fa-images"></i> VER FOTOS</a></a>
+									{% endif %}									
 									<div class="modal fade" id="sharedPalestra_{{ palestra.id }}" tabindex="-1" aria-labelledby="sharedPalestra_{{ palestra.id }}" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 											<div class="modal-content text-black">

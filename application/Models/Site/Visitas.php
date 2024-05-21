@@ -51,6 +51,13 @@ class Visitas extends Model
         return $read;
     }
 
+    public function listarUltimasFotosPalestras(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN palestras_imagens AS pim ON pim.id_palestra = p.id WHERE p.data_palestra < CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC LIMIT 6");
+        return $read;
+    }
+
     public function listarVisitasUser($id_visita = 0, $id_empresa = 0): read
     {
         $read = new Read();

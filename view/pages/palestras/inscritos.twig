@@ -14,7 +14,6 @@
 				<div><span>Lista de inscrições: <span class="text-warning fw-bold">{{ palestra.title }}</span></span></div>
 				<div class="">
 					<div class="mb-4">Palestrante: <span class="text-warning fw-bold">{{ palestra.palestrante_nome }}</span></div>
-
 					<div>Data de Início: <span class="text-warning fw-bold">{{ palestra.data_palestra | date("d/m/Y H:i") }}</span></div>
 					<div>Data de Término: <span class="text-warning fw-bold">{{ palestra.data_fim | date("d/m/Y H:i") }}</span></div>
 				</div>
@@ -27,9 +26,9 @@
 				{% if agora >= datapalestra %}
 					<div class="d-flex align-items-end flex-wrap mt-2 mb-4 mb-sm-0">
 						{% if sorteados %}
-							<a href="{{ DOMAIN }}/palestras/sorteados/{{ palestra.id}}" class="btn btn-light px-5 mt-4 me-1"><i class="fa-light fa-trophy-star"></i> Lista de Sorteados</a>
+							<a href="{{ DOMAIN }}/palestras/sorteados/{{ palestra.id}}" class="btn btn-light px-2 mt-4 me-1"><i class="fa-light fa-trophy-star"></i> Lista de Sorteados</a>
 						{% else %}
-							<button type="button" class="btn btn-warning px-5 mt-4 me-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
+							<button type="button" class="btn btn-warning px-2 mt-4 me-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
 						{% endif %}
 					</div>
 				{% endif %}
@@ -49,11 +48,21 @@
 				
 				<div class="mt-3"><span class="text-warning">Gerenciamento de Equipe:</span></div>
 				<div class="d-flex justify-content-between flex-wrap">
-					{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
+					{% if _session.sampel_user_id == palestra.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
 						<button type="button" data-bs-toggle="modal" data-bs-target="#editar_palestra" class="btn btn-success text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
 					{% endif %}
 					<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
 					<a class="btn btn-warning btn-sm rounded-pill me-2 mb-2" href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a>
+
+					<div class="btn-group dropstart d-block">
+						<a href="javascript:void(0)" class="btn btn-info btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fa-solid fa-images"></i> Fotos
+						</a>
+						<ul class="dropdown-menu py-1">
+							<li><a href="{{ DOMAIN }}/palestras/fotos/{{ palestra.id }}" class="dropdown-item text-black border-bottom"><i class="fa-solid fa-images"></i> Ver Fotos</a></li>
+							<li><a href="{{ DOMAIN }}/palestras/galeria/{{ palestra.id }}" class="dropdown-item text-black"><i class="fa-solid fa-upload"></i> Upload de Fotos</a></li>
+						</ul>
+					</div>
 
 					<div class="btn-group dropstart d-block">
 						<a href="javascript:void(0)" class="btn btn-light btn-sm rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -110,6 +119,7 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 			{% endif %}
 
