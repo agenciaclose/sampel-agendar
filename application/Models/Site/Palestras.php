@@ -238,4 +238,17 @@ class Palestras extends Model
         return $read;
     }
 
+    public function getPalestrasImages($id_palestra, $id_user = null): Read
+    {
+        $read = new Read();
+        if($id_user != null) {
+            $porUser = "AND id_user = '".$id_user."'";
+        }else{
+            $porUser = "";
+        }
+
+        $read->FullRead("SELECT * FROM palestras_imagens WHERE id_palestra = :id_palestra ".$porUser." ORDER BY `order`,`id` DESC", "id_palestra={$id_palestra}");
+        return $read;
+    }
+
 }

@@ -1346,7 +1346,7 @@ img.alignright{
   position: absolute;
 }
 .header-bar{
-  z-index: 0;
+  z-index: 9;
   position: relative;
   width: 100%;
 }

@@ -45,7 +45,7 @@
             'maxWidth' => 1000,
             'maxHeight' => 1000,
             'crop' => true,
-            'quality' => null
+            'quality' => 75
 		),
 		'listInput' => true,
 		'files' => null

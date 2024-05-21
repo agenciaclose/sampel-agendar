@@ -37,3 +37,12 @@ $router->post("/palestras/feedback/save", "FeedbackPalestrasController:saveFeedb
 $router->namespace("Agencia\Close\Controllers\Site\CertificadosPalestras");
 $router->get("/certificados/palestras", "CertificadosPalestrasController:palestra");
 $router->post("/certificados/palestras/emitirCheckVisita", "CertificadosPalestrasController:emitirCheckPalestra");
+
+
+// PAGE GALERIA
+$router->namespace("Agencia\Close\Controllers\Site\Palestras");
+$router->get("/palestras/galeria/{id}", "PalestrasController:importeGaleria");
+
+// PAGE GALERIA
+$router->namespace("Agencia\Close\Controllers\Site\Palestras");
+$router->get("/palestras/fotos/{id}", "PalestrasController:galeriaPalastra");

@@ -227,4 +227,45 @@ class PalestrasController extends Controller
         $this->render('pages/palestras/sorteados.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'listas' => $lista]);
     }
 
+    public function importeGaleria($params)
+    {
+        $this->setParams($params);
+
+        if(!empty($_SESSION['sampel_user_id'])){
+
+            $palestra = new Palestras();
+            $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
+
+            $imagens = new Palestras();
+            $imagem = $imagens->getPalestrasImages($this->params['id'], $_SESSION['sampel_user_id'])->getResult();
+
+            if($palestra['id'] != ''){
+                $this->render('pages/palestras/importe_galeria.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'imagens' => $imagem]);
+            }else{
+                $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+            }
+
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+        }
+    }
+
+    public function galeriaPalastra($params)
+    {
+        $this->setParams($params);
+
+        $palestra = new Palestras();
+        $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
+
+        $imagens = new Palestras();
+        $imagem = $imagens->getPalestrasImages($this->params['id'])->getResult();
+
+        if($palestra['id'] != ''){
+            $this->render('pages/palestras/galeria.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'imagens' => $imagem]);
+        }else{
+            $this->render('pages/error/no-permition.twig', ['menu' => 'palestras']);
+        }
+
+    }
+
 }
