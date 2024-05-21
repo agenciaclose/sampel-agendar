@@ -4795,7 +4795,7 @@ span.fr-counter {
   display: inline-block;
   background-size: cover;
   background-position: center center;
-  border: 5px solid #246cb1;
+  border: 5px solid transparent;
   background-repeat: no-repeat;
   transition-duration: 1s;
   position: relative;
