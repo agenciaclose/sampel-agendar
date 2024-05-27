@@ -103,4 +103,11 @@ class PalestrasPainel extends Model
         return $read;
     }
 
+    public function listarUserExportPalestra(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT UPPER(CONVERT(BINARY CONVERT(nome USING latin1) USING UTF8MB4)) AS nome, LOWER(email) AS email, telefone FROM palestras_participantes WHERE nome <> '' AND LOWER(email) <> '' GROUP BY LOWER(email) ORDER BY nome ASC");
+        return $read;
+    }
+
 }

@@ -6,6 +6,9 @@ use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PalestrasPainel;
 use Shuchkin\SimpleXLSX;
 
+use League\Csv\Writer;
+use League\Csv\CannotInsertRecord;
+
 class PalestrasController extends Controller
 {
 
@@ -154,7 +157,39 @@ class PalestrasController extends Controller
 
 		} else {
 			echo "ALGUM ERRO AO IMPORTAR";
-		}        
+		}
+    }
+
+    public function exportPalestrasParticipantes($filename = 'emails_palestras.csv')
+    {
+        // Cria uma instância de Visitas e obtém os dados
+        $visitas = new PalestrasPainel();
+        $lista = $visitas->listarUserExportPalestra()->getResult();
+
+        try {
+            // Verifica se o nome do arquivo é uma string e termina com .csv
+            if (!is_string($filename) || !preg_match('/\.csv$/', $filename)) {
+                $filename = 'emails_palestras.csv';
+            }
+            // Define o cabeçalho HTTP para baixar o arquivo antes de qualquer saída
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+
+            // Cria um escritor de CSV a partir do caminho php://output
+            $csv = Writer::createFromPath('php://output', 'w');
+            $csv->setDelimiter(';');
+            // Insere o cabeçalho
+            $csv->insertOne(['Nome', 'Email', 'Telefone']);
+
+            // Insere as linhas no arquivo CSV
+            foreach ($lista as $row) {
+                $csv->insertOne([$row['nome'], $row['email'], $row['telefone']]);
+            }
+
+        } catch (CannotInsertRecord $e) {
+            // Captura erros de inserção
+            echo 'Erro ao inserir registro: ' . $e->getMessage();
+        }
     }
 
 }

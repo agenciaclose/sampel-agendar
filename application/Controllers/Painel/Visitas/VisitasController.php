@@ -7,6 +7,9 @@ use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Models\Painel\InscricaoPainel;
 
+use League\Csv\Writer;
+use League\Csv\CannotInsertRecord;
+
 class VisitasController extends Controller
 {
 
@@ -115,6 +118,38 @@ class VisitasController extends Controller
             echo '0';
         }
 
+    }
+
+    public function exportVisitantes($filename = 'emails_eventos.csv')
+    {
+        // Cria uma instância de Visitas e obtém os dados
+        $visitas = new Visitas();
+        $lista = $visitas->listarUserExportVisita()->getResult();
+
+        try {
+            // Verifica se o nome do arquivo é uma string e termina com .csv
+            if (!is_string($filename) || !preg_match('/\.csv$/', $filename)) {
+                $filename = 'emails_eventos.csv';
+            }
+            // Define o cabeçalho HTTP para baixar o arquivo antes de qualquer saída
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+
+            // Cria um escritor de CSV a partir do caminho php://output
+            $csv = Writer::createFromPath('php://output', 'w');
+            $csv->setDelimiter(';');
+            // Insere o cabeçalho
+            $csv->insertOne(['Nome', 'Email', 'Telefone']);
+
+            // Insere as linhas no arquivo CSV
+            foreach ($lista as $row) {
+                $csv->insertOne([$row['nome'], $row['email'], $row['telefone']]);
+            }
+
+        } catch (CannotInsertRecord $e) {
+            // Captura erros de inserção
+            echo 'Erro ao inserir registro: ' . $e->getMessage();
+        }
     }
 
 }

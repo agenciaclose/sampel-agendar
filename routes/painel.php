@@ -28,6 +28,8 @@ $router->get("/painel/visita/excluir/{id}", "VisitasController:excluir");
 $router->get("/painel/inscricao/edit/{codigo}", "VisitasController:editarInscricao");
 $router->post("/painel/inscricao/edit/save", "VisitasController:editarInscricaoSave");
 
+$router->get("/painel/inscricao/visitas/exportemails", "VisitasController:exportVisitantes");
+
 // PAINEL VISITAS CRIAR
 $router->get("/painel/visitas/add", "VisitasController:criar");
 $router->get("/painel/visitas/editar/{id}", "VisitasController:editar");
@@ -52,6 +54,8 @@ $router->namespace("Agencia\Close\Controllers\Painel\Palestras");
 $router->get("/painel/palestras", "PalestrasController:index", "index");
 $router->get("/painel/palestra/ver/{id}", "PalestrasController:view", "view");
 $router->get("/painel/palestra/ver/{id}/{id_inscricao}", "PalestrasController:viewEdit");
+
+$router->get("/painel/inscricao/palestras/exportemails", "PalestrasController:exportPalestrasParticipantes");
 
 // PAINEL PALESTRAS CRIAR
 $router->get("/painel/palestras/add", "PalestrasController:criar");
