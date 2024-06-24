@@ -47,14 +47,14 @@ class Visitas extends Model
     public function listarVisitasUltimas(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id WHERE v.status_visita = 'Concluido' GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
         return $read;
     }
 
     public function listarUltimasFotosPalestras(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN palestras_imagens AS pim ON pim.id_palestra = p.id WHERE p.data_palestra < CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC LIMIT 6");
+        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN palestras_imagens AS pim ON pim.id_palestra = p.id WHERE p.data_palestra <= CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC LIMIT 6");
         return $read;
     }
 
@@ -410,6 +410,13 @@ class Visitas extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT UPPER(CONVERT(BINARY CONVERT(nome USING latin1) USING UTF8MB4)) AS nome, LOWER(email) AS email, telefone FROM visitas_inscricoes GROUP BY LOWER(email) ORDER BY nome ASC");
+        return $read;
+    }
+
+    public function listarGalerias(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id GROUP BY v.id ORDER BY v.data_visita DESC");
         return $read;
     }
 

@@ -4784,7 +4784,7 @@ span.fr-counter {
 }
 
 .gallery-item {
-  width: calc(16.666% - 20px); /* Seis itens por linha com espaçamento */
+  width: calc(16.666% - 8.5px); /* Seis itens por linha com espaçamento */
   height: 200px;
   background-size: cover;
   background-position: center;
@@ -4818,7 +4818,8 @@ span.fr-counter {
   border-color: #ffc107;
 }
 #lightgallery > a {
-  height: 260px;
+  height: 235px;
+  margin-bottom: 10px;
   border-radius: 5px;
   display: inline-block;
   background-size: cover;

@@ -1,0 +1,32 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Fotos de Palestras {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+
+	<session class="py-5">
+
+		<div class="mb-4">
+			<h3>Fotos de Palestras</h3>
+		</div>
+
+		<hr>
+
+		<div>
+			<div class="gallery-visita">
+				<div class="row m-0 gallery">
+					{% for ultima in ultimasFotosPalestras %}
+						<a class="gallery-item position-relative" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
+							<div class="data-visita fw-bold">{{ ultima.data_palestra|date('d/m/Y') }}</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</session>
+</div>
+
+{% endblock %}

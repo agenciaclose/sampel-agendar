@@ -450,4 +450,15 @@ class VisitasController extends Controller
 
     }
 
+    public function galerias($params)
+    {
+        $this->setParams($params);
+
+        $galerias = new Visitas();
+        $galerias = $galerias->listarGalerias()->getResult();
+
+        $this->render('pages/visitas/galerias.twig', ['menu' => 'visitas', 'galerias' => $galerias]);
+ 
+    }
+
 }

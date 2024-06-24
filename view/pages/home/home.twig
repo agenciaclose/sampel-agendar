@@ -11,16 +11,17 @@
 		<session class="d-block">
 
 			{# ULTIMAS VISITAS #}
-			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center mb-2">
-				<h3 class="text-warning"><b>Últimas Visitas</h3>
+			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-end mb-2">
+				<h3 class="text-warning mb-0"><b>Últimas Visitas</b></h3>
+				<a href="{{ DOMAIN }}/visita/galerias" class="me-2">Ver Todas</a>
 			</div>
 
 			<div>
 				<div class="gallery-visita">
-					<div id="lightgallery" class="row m-0 gallery">
+					<div class="row m-0 gallery">
 						{% for ultima in ultimas %}
-							<a class="gallery-item" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
-								<div class="data-visita">{{ ultima.data_visita|date('d/m/Y') }}</div>
+							<a class="gallery-item position-relative" href="{{ DOMAIN }}/visita/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
+								<div class="data-visita fw-bold">{{ ultima.data_visita|date('d/m/Y') }}</div>
 							</a>
 						{% endfor %}
 					</div>
@@ -251,16 +252,17 @@
 		<div class="container">
 
 			{# ULTIMAS PALESTRAS #}
-			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center mb-2">
-				<h3 class="text-warning"><b>Últimas Palestras</h3>
+			<div class="d-flex d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-end mb-2">
+				<h3 class="text-warning mb-0"><b>Últimas Palestras</b></h3>
+				<a href="{{ DOMAIN }}/palestras/galerias" class="me-2">Ver Todas</a>
 			</div>
 
 			<div>
 				<div class="gallery-visita">
-					<div id="lightgallery" class="row m-0 gallery">
+					<div class="row m-0 gallery">
 						{% for ultima in ultimasFotosPalestras %}
-							<a class="gallery-item" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
-								<div class="data-visita">{{ ultima.data_palestra|date('d/m/Y') }}</div>
+							<a class="gallery-item position-relative" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
+								<div class="data-visita fw-bold">{{ ultima.data_palestra|date('d/m/Y') }}</div>
 							</a>
 						{% endfor %}
 					</div>

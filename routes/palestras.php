@@ -41,6 +41,7 @@ $router->post("/certificados/palestras/emitirCheckVisita", "CertificadosPalestra
 
 // PAGE GALERIA
 $router->namespace("Agencia\Close\Controllers\Site\Palestras");
+$router->get("/palestras/galerias", "PalestrasController:galerias");
 $router->get("/palestras/galeria/{id}", "PalestrasController:importeGaleria");
 
 // PAGE GALERIA

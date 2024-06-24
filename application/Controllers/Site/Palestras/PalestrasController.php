@@ -268,4 +268,15 @@ class PalestrasController extends Controller
 
     }
 
+    public function galerias($params)
+    {
+        $this->setParams($params);
+
+        $ultimasFotosPalestras = new Palestras();
+        $ultimasFotosPalestras = $ultimasFotosPalestras->listarUltimasFotosPalestras()->getResult();
+
+        $this->render('pages/palestras/galerias.twig', ['menu' => 'palestras', 'ultimasFotosPalestras' => $ultimasFotosPalestras]);
+ 
+    }
+
 }
