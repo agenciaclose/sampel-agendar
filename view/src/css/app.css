@@ -4775,22 +4775,50 @@ span.fr-counter {
 .table > tbody {
   font-weight: normal !important;
 }
-#lightgallery > a {
-  height: 300px;
-  border-radius: 5px;
-  display: inline-block;
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  justify-content: flex-start;
+}
+
+.gallery-item {
+  width: calc(16.666% - 20px); /* Seis itens por linha com espaçamento */
+  height: 200px;
   background-size: cover;
-  background-position: center center;
-  border: 5px solid transparent;
-  background-repeat: no-repeat;
-  transition-duration: 1s;
-  position: relative;
+  background-position: center;
+  border-radius: 8px;
+}
+
+@media (max-width: 1200px) {
+  .gallery-item {
+      width: calc(25% - 20px); /* Quatro itens por linha em telas menores */
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-item {
+      width: calc(33.333% - 20px); /* Três itens por linha em telas ainda menores */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+      width: calc(50% - 20px); /* Dois itens por linha em telas pequenas */
+  }
+}
+
+@media (max-width: 320px) {
+  .gallery-item {
+      width: calc(100% - 20px); /* Um item por linha em telas muito pequenas */
+  }
 }
 #lightgallery > a:hover {
   border-color: #ffc107;
 }
 #lightgallery > a {
-  height: 300px;
+  height: 260px;
   border-radius: 5px;
   display: inline-block;
   background-size: cover;

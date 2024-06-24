@@ -44,10 +44,10 @@
 		'listInput' => true,
 		'files' => null,
 		'editor' => array(
-			'maxWidth' => 1500,
-			'maxHeight' => 1500,
+			'maxWidth' => 1000,
+			'maxHeight' => 1000,
 			'crop' => true,
-			'quality' => 75
+			'quality' => 90
 		)
 	));
 

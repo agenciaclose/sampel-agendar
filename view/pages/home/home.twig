@@ -17,9 +17,9 @@
 
 			<div>
 				<div class="gallery-visita">
-					<div id="lightgallery" class="row m-0">
+					<div id="lightgallery" class="row m-0 gallery">
 						{% for ultima in ultimas %}
-							<a class="col-sm-6 col-md-4 col-lg-3 col-xl-2" href="{{ DOMAIN }}/visita/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');height: 225px;">
+							<a class="gallery-item" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
 								<div class="data-visita">{{ ultima.data_visita|date('d/m/Y') }}</div>
 							</a>
 						{% endfor %}
@@ -257,9 +257,9 @@
 
 			<div>
 				<div class="gallery-visita">
-					<div id="lightgallery" class="row m-0">
+					<div id="lightgallery" class="row m-0 gallery">
 						{% for ultima in ultimasFotosPalestras %}
-							<a class="col-sm-6 col-md-4 col-lg-3 col-xl-2" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');height: 225px;">
+							<a class="gallery-item" href="{{ DOMAIN }}/palestras/fotos/{{ ultima.id }}" style="background-image:url('{{ ultima.imagem }}');">
 								<div class="data-visita">{{ ultima.data_palestra|date('d/m/Y') }}</div>
 							</a>
 						{% endfor %}
