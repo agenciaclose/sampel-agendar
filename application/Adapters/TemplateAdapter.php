@@ -21,6 +21,8 @@ use Twig\Loader\FilesystemLoader;
 
 class TemplateAdapter
 {
+    private $twig;
+    
     public function __construct()
     {
         $loader = new FilesystemLoader('view');
