@@ -19,17 +19,17 @@ class MinhasInscricoesController extends Controller
         $checklist = new MinhasInscricoes();
         $checklist = $checklist->checkInscricoes($params['cpf']);
 
-        if($checklist->getResult()){
+        //if($checklist->getResult()){
 
             $expire = time() + 3600 * 24 * 365;
-            setcookie("sampel_user_cpf", $checklist->getResult()[0]['cpf'], $expire);
+            setcookie("sampel_user_cpf", $params['cpf'], $expire);
             echo '1';
 
-        }else{
-            unset($_COOKIE['sampel_user_cpf']);
-            setcookie('sampel_user_cpf', '', -1, '/'); 
-            echo '0';
-        }
+        // }else{
+        //     unset($_COOKIE['sampel_user_cpf']);
+        //     setcookie('sampel_user_cpf', '', -1, '/'); 
+        //     echo '0';
+        // }
     }
 
     public function lista($params)
@@ -39,6 +39,7 @@ class MinhasInscricoesController extends Controller
 
             $getlist = new MinhasInscricoes();
             $lista = $getlist->getLista($_COOKIE['sampel_user_cpf'])->getResult();
+
             $this->render('pages/minhas-inscricoes/minhasInscricoes.twig', ['active' => 'minhas-inscricoes', 'lista' => $lista]);
 
         }else{
