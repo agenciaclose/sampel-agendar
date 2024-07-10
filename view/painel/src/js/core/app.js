@@ -29,6 +29,7 @@ window.colors = {
     dark: '#4b4b4b1a'
   }
 };
+
 (function (window, document, $) {
   'use strict';
   var $html = $('html');

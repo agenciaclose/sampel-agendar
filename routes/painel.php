@@ -92,3 +92,12 @@ $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar");
 $router->post("/painel/equipe/editarSave", "EquipesController:editarSave");
 $router->post("/painel/equipe/status", "EquipesController:statusEquipe");
+
+// PAINEL CARGOS
+$router->namespace("Agencia\Close\Controllers\Painel\Cargos");
+$router->get("/painel/equipes/cargos", "CargosController:lista");
+$router->get("/painel/equipes/cargos/add", "CargosController:addCargo");
+$router->get("/painel/equipes/cargos/edit/{id}", "CargosController:editCargo");
+$router->post("/painel/equipes/cargos/add/save", "CargosController:addCargoSave");
+$router->post("/painel/equipes/cargos/edit/save", "CargosController:editCargoSave");
+$router->post("/painel/equipes/cargos/remove", "CargosController:deleteCargo");

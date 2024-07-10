@@ -25,7 +25,6 @@
 		        <thead>
 		            <tr>
 		                <th class="no-mobile">Data da Visita</th>
-		                <th class="no-mobile" width="25">ID</th>
 		                <th class="no-mobile flex-grow-1">Visita</th>
 		                <th class="no-mobile">Responsável</th>
 		                <th width="175" class="text-end no-mobile">Status</th>
@@ -39,9 +38,7 @@
 							{% set mes_numero = visita.data_visita|date('m') - 1 %}
 							{{ visita.data_visita|date('d') }} de {{ meses[mes_numero] }}. {{ visita.data_visita|date('Y') }} {{ visita.horario_visita }}
 						</td>
-
-						<td  class="no-mobile">{{ visita.visita_id }}</td>
-
+						
 						<td>
 							<span class="text-uppercase">
 								<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}"><i class="fa-solid fa-thumbtack"></i> <b>{{ visita.title }}</b></a>

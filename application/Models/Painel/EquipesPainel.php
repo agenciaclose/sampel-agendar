@@ -12,7 +12,13 @@
 
     class EquipesPainel extends Model
     {
-    	
+    	public function getCargosList()
+        {
+            $read = new Read();
+            $read->FullRead("SELECT * FROM roles ORDER BY `id` DESC");
+            return $read;
+        }
+
         public function getEquipesList()
         {
             $read = new Read();
@@ -44,11 +50,26 @@
             }else{
                 unset($params['senha']);
             }
+
+            unset($params['cargos']);
             
             unset($params['email_old']);
             $update = new Update();
             $update->ExeUpdate('usuarios', $params, 'WHERE id = :id', "id={$params['id']}");
             return $update;
+        }
+
+        public function saveCargos(array $cargos, $id_user)
+        {
+            $read = new Read();
+            $read->FullRead("DELETE FROM`usuario_roles` WHERE `id_user` = :id_user", "id_user={$id_user}");
+
+            foreach($cargos as $cargo) {
+                $params['id_role'] = $cargo;
+                $params['id_user'] = $id_user;
+                $create = new Create();
+                $create->ExeCreate('usuario_roles', $params);
+            }
         }
 
         public function salvarSenha(array $params)

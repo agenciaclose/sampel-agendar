@@ -15,6 +15,7 @@
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
 
+                <form class="mt-2" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
                     <div class="row match-height">
 
                         <div class="col-xl-4 col-lg-6 col col-12">
@@ -27,55 +28,82 @@
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
-                                    <form class="mt-2" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
 
-                                        <div class="row">
+                                    <div class="row">
 
-                                            <div class="col-md-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label">Setor</label>
-                                                    <input type="text" name="setor" class="form-control rounded-pill" placeholder="Setor" value="{{ editar.setor }}">
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu Nome Completo</label>
-                                                    <input type="text" class="form-control rounded-pill" name="nome" placeholder="Nome Completo"  value="{{ editar.nome }}" required/>
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu Telefone</label>
-                                                    <input type="text" class="form-control rounded-pill telefone" name="telefone"  value="{{ editar.telefone }}" required/>
-                                                </div>
-
-                                                <div class="mb-1">
-                                                    <label class="form-label">Seu E-mail</label>
-                                                    <input type="email" class="form-control rounded-pill" name="email" placeholder="john@gmail.com"  value="{{ editar.email }}" required />
-                                                    <input type="hidden" name="email_old" value="{{ editar.email }}" />
-                                                </div>
-
-                                                {% if editar %}
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="login-password">Senha</label>
-                                                    <div class="form-password-toggle position-relative">
-                                                        <input type="password" class="form-control rounded-pill" id="register-consultor-password" placeholder="{{ editar ? 'Prrencha se quiser editar' }}" name="senha" />
-                                                        <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
-                                                    </div>
-                                                </div>
-                                                {% endif %}
+                                        <div class="col-md-12">
+                                            <div class="mb-1">
+                                                <label class="form-label">Setor</label>
+                                                <input type="text" name="setor" class="form-control rounded-pill" placeholder="Setor" value="{{ editar.setor }}">
                                             </div>
 
+                                            <div class="mb-1">
+                                                <label class="form-label">Seu Nome Completo</label>
+                                                <input type="text" class="form-control rounded-pill" name="nome" placeholder="Nome Completo"  value="{{ editar.nome }}" required/>
+                                            </div>
+
+                                            <div class="mb-1">
+                                                <label class="form-label">Seu Telefone</label>
+                                                <input type="text" class="form-control rounded-pill telefone" name="telefone"  value="{{ editar.telefone }}" required/>
+                                            </div>
+
+                                            <div class="mb-1">
+                                                <label class="form-label">Seu E-mail</label>
+                                                <input type="email" class="form-control rounded-pill" name="email" placeholder="john@gmail.com"  value="{{ editar.email }}" required />
+                                                <input type="hidden" name="email_old" value="{{ editar.email }}" />
+                                            </div>
+
+                                            {% if editar %}
+                                            <div class="mb-1">
+                                                <label class="form-label" for="login-password">Senha</label>
+                                                <div class="form-password-toggle position-relative">
+                                                    <input type="password" class="form-control rounded-pill" id="register-consultor-password" placeholder="{{ editar ? 'Prrencha se quiser editar' }}" name="senha" />
+                                                    <span class="show-pass cursor-pointer" onclick="show_pass('register-consultor-password')"><i class="fa-solid fa-eye"></i></span>
+                                                </div>
+                                            </div>
+                                            {% endif %}
                                         </div>
-                                        
-                                        {% if editar %}<input type="hidden" name="id" value="{{ editar.id }}" />{% endif %}
-                                        <button type="submit" class="rounded-pill btn btn-warning" id="salvar"><i class="fa-solid fa-unlock-alt me-1"></i> SALVAR INFORMAÇÕES</button>
-                                   
-                                    </form>
+
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
 
+                        <div class="col-xl-4 col-lg-6 col col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header"><h5 class="card-title">Cargos e Permissões</h5></div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        {% for cargo in cargos %}
+                                        <li class="list-group-item px-0 text-uppercase fw-bold d-flex justify-content-between">
+                                            {{ cargo.role }}
+
+                                            {% set encontrado = false %}
+                                            {% for item in cargos_user %}
+                                                {% if item.id_role == cargo.id %}
+                                                    {% set encontrado = true %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" value="{{cargo.id}}" name="cargos[]" type="checkbox" role="switch" id="cargo{{cargo.id}}" {{ encontrado ? 'checked' }}>
+                                                <label class="form-check-label" for="cargo{{cargo.id}}"></label>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+
                     </div>
 
+                    {% if editar %}<input type="hidden" name="id" value="{{ editar.id }}" />{% endif %}
+                    <button type="submit" class="rounded-pill btn btn-warning" id="salvar"><i class="fa-solid fa-unlock-alt me-1"></i> SALVAR INFORMAÇÕES</button>
+
+                </form>
                 </section>
 
             </div>

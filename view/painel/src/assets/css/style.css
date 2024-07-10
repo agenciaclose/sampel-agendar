@@ -220,3 +220,18 @@ span.ck-file-dialog-button {
     top: 10px;
     color: #000;
 }
+.separator:before, .separator:after {
+    content: '';
+    height: 1px;
+    width: 20%;
+    background-color: #3b4253;
+}
+.separator {
+    display: flex;
+    justify-content: space-evenly;
+    white-space: nowrap;
+    align-items: center;
+}
+.offcanvas-end {
+    width: 400px;
+}

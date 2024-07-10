@@ -57,7 +57,7 @@
   display: inline-block;
   position: absolute;
   right: 25px;
-  top: 12px;
+  top: 4px;
   transform: rotate(0deg);
   transition: all 0.2s ease-out;
 }

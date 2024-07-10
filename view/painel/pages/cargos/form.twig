@@ -1,0 +1,103 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ cargo.id == '' ? 'Criar Novo Cargo' : 'Editar Cargo' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" method="POST" id="{{ cargo.id == '' ? 'add_cargo' : 'edit_cargo' }}">
+        <div class="mb-2">
+            <label class="form-label">Nome do Cargo</label>
+            <input type="text" name="role" value="{{ cargo.role }}" class="form-control" placeholder="Ex. Financeiro">
+        </div>
+
+        <div class="separator"><b>Gerenciar Permissões</b></div>
+        {% if cargo.permissions %}
+            {% set permissions = cargo.permissions|json_decode %}
+        {% endif %}
+        <div class="mb-2 border-bottom">
+            <div><b>Cargos</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[cargos][]" type="checkbox" id="cargos1" value="view" {{ 'view' in permissions.cargos ? 'checked' }}>
+                <label class="form-check-label" for="cargos1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[cargos][]" type="checkbox" id="cargos2" value="add" {{ 'add' in permissions.cargos ? 'checked' }}>
+                <label class="form-check-label" for="cargos2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[cargos][]" type="checkbox" id="cargos3" value="delete" {{ 'delete' in permissions.cargos ? 'checked' }}>
+                <label class="form-check-label" for="cargos3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2 border-bottom">
+            <div><b>Equipes</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[equipes][]" type="checkbox" id="equipes1" value="view" {{ 'view' in permissions.equipes ? 'checked' }}>
+                <label class="form-check-label" for="equipes1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[equipes][]" type="checkbox" id="equipes2" value="add" {{ 'add' in permissions.equipes ? 'checked' }}>
+                <label class="form-check-label" for="equipes2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[equipes][]" type="checkbox" id="equipes3" value="delete" {{ 'delete' in permissions.equipes ? 'checked' }}>
+                <label class="form-check-label" for="equipes3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2 border-bottom">
+            <div><b>Visitas</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[visitas][]" type="checkbox" id="visitas1" value="view" {{ 'view' in permissions.visitas ? 'checked' }}>
+                <label class="form-check-label" for="visitas1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[visitas][]" type="checkbox" id="visitas2" value="add" {{ 'add' in permissions.visitas ? 'checked' }}>
+                <label class="form-check-label" for="visitas2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[visitas][]" type="checkbox" id="visitas3" value="delete" {{ 'delete' in permissions.visitas ? 'checked' }}>
+                <label class="form-check-label" for="visitas3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2 border-bottom">
+            <div><b>Estatísticas de Visitas</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[estatisticas][]" type="checkbox" id="estatisticas1" value="view" {{ 'view' in permissions.estatisticas ? 'checked' }}>
+                <label class="form-check-label" for="estatisticas1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[estatisticas][]" type="checkbox" id="estatisticas2" value="add" {{ 'add' in permissions.estatisticas ? 'checked' }}>
+                <label class="form-check-label" for="estatisticas2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[estatisticas][]" type="checkbox" id="estatisticas3" value="delete" {{ 'delete' in permissions.estatisticas ? 'checked' }}>
+                <label class="form-check-label" for="estatisticas3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2 border-bottom">
+            <div><b>Palestras</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[palestras][]" type="checkbox" id="palestras1" value="view" {{ 'view' in permissions.palestras ? 'checked' }}>
+                <label class="form-check-label" for="palestras1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[palestras][]" type="checkbox" id="palestras2" value="add" {{ 'add' in permissions.palestras ? 'checked' }}>
+                <label class="form-check-label" for="palestras2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[palestras][]" type="checkbox" id="palestras3" value="delete" {{ 'delete' in permissions.palestras ? 'checked' }}>
+                <label class="form-check-label" for="palestras3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2">
+            {% if cargo.id != '' %} <input type="hidden" name="id" value="{{ cargo.id }}"> {% endif %}            
+            <button class="btn btn-primary w-100 text-center" type="submit">{{ cargo.id == '' ? 'SALVAR CARGO' : 'SALVAR ALTERAÇÕES' }}</button>
+        </div>
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/cargos.js"></script>

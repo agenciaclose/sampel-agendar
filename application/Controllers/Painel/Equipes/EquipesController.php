@@ -6,10 +6,22 @@ use Agencia\Close\Models\User\User;
 use Agencia\Close\Adapters\EmailAdapter;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Helpers\User\EmailUser;
+use Agencia\Close\Models\Painel\CargosPainel;
 use Agencia\Close\Models\Painel\EquipesPainel;
 
 class EquipesController extends Controller
 {
+
+    public function cargos($params)
+    {
+        $this->setParams($params);
+
+        $cargos = new EquipesPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+
+        $this->render('painel/pages/cargos/lista.twig', ['menu' => 'cargos', 'cargos' => $cargos]);
+    }
+
 
     public function equipes($params)
     {
@@ -52,7 +64,7 @@ class EquipesController extends Controller
     public function cnpj(array $params)
     {
         $this->setParams($params);
-        header('Access-Control-Allow-Origin: 56minutos.com.br');
+        header('Access-Control-Allow-Origin: sampel.com.br');
         //Garantir que seja lido sem problemas
         header("Content-Type: text/plain");
 
@@ -80,7 +92,13 @@ class EquipesController extends Controller
         $editar = new EquipesPainel();
         $editar = $editar->getEquipesEditar($params['id'])->getResult()[0];
 
-        $this->render('painel/pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar]);
+        $cargos_user = new CargosPainel();
+        $cargos_user = $cargos_user->getCargosUser($params['id'])->getResult();
+
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+
+        $this->render('painel/pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar, 'cargos' => $cargos, 'cargos_user' => $cargos_user]);
     }
 
     public function editarSave(array $params)
@@ -97,8 +115,16 @@ class EquipesController extends Controller
         $params['tipo'] = '4';
         $params['status'] = '1';
 
+        if(empty($params['cargos'])){
+            $params['cargos'] = [];
+        }
+        
+        $saveCargos = new EquipesPainel();
+        $saveCargos->saveCargos($params['cargos'], $params['id']);
+
         $user = new EquipesPainel();
         $idUser = $user->editarSave($params);
+
         if ($idUser) {
             echo '1';
         } else {

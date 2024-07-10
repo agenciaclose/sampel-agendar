@@ -42,7 +42,6 @@
 						<thead>
 							<tr>
 								<th class="no-mobile">Data da Visita</th>
-								<th class="no-mobile">ID</th>
 								<th class="no-mobile flex-grow-1">Visita</th>
 								<th class="no-mobile">Responsável</th>
 								<th width="175" class="text-end no-mobile">Status</th>
@@ -64,8 +63,6 @@
 										Em {{ dias_faltantes }} dias {{ visita.data_visita|date('l')|dayTranslate }}
 									</div>
 								</td>
-
-								<td class="no-mobile" width="25">{{ visita.visita_id }}</td>
 
 								<td>
 
@@ -290,7 +287,6 @@
 						<thead>
 							<tr>
 								<th class="no-mobile">Data</th>
-								<th class="no-mobile" width="25">ID</th>
 								<th class="no-mobile flex-grow-1">Palestra</th>
 								<th class="no-mobile">Palestrante</th>
 								<th width="175" class="text-end no-mobile">Inscrição</th>
@@ -311,8 +307,6 @@
 										Em {{ dias_faltantes }} dias {{ palestra.data_palestra|date('l')|dayTranslate }}
 									</div>
 								</td>
-
-								<td  class="no-mobile">{{ palestra.id }}</td>
 
 								<td>
 									<span class="text-uppercase">

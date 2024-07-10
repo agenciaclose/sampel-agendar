@@ -28,6 +28,28 @@ $("#form_editar_equipe").submit(function (e) {
 
 });
 
+$('.visita-status').click(function(){
+    swal({
+        title: "Deseja cancelar esse Evento?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Sim",
+        denyButtonText: `Não`
+    }).then((result) => {
+        if (result.value) {
+            var DOMAIN = $('body').attr('data-domain');
+            var visita = $(this).attr('data-visita');
+            var action = $(this).attr('data-action');
+            $.ajax({url: domain+'/painel/visita/status/'+action+'/'+visita, 
+                success: function(result){
+                    swal("Evento Cancelado!", "", "success");
+                    setTimeout(function() { window.location.href = DOMAIN; }, 2000);
+                }
+            });
+        }
+    });
+});
+
 $('.remover_equipe').click(function (e) {
 
     e.preventDefault();

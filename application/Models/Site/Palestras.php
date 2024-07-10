@@ -22,12 +22,20 @@ class Palestras extends Model
         $read = new Read();
         $read->FullRead("SELECT p.*, 
                         (SELECT COUNT(id) FROM palestras_participantes AS pp WHERE pp.id_palestra = p.id) AS total_inscricao 
-                        FROM palestras AS p 
-                        ORDER BY 
+                    FROM palestras AS p 
+                    ORDER BY 
                         CASE 
-                            WHEN CAST(p.data_palestra AS DATETIME) >= CURDATE() THEN DATEDIFF(CAST(p.data_palestra AS DATETIME), CURDATE())
-                            ELSE DATEDIFF(CURDATE(), CAST(p.data_palestra AS DATETIME))
-                        END");
+                            WHEN CAST(p.data_palestra AS DATETIME) >= CURDATE() THEN 0
+                            ELSE 1
+                        END,
+                        CASE 
+                            WHEN CAST(p.data_palestra AS DATETIME) >= CURDATE() THEN CAST(p.data_palestra AS DATETIME)
+                            ELSE NULL
+                        END ASC,
+                        CASE 
+                            WHEN CAST(p.data_palestra AS DATETIME) < CURDATE() THEN CAST(p.data_palestra AS DATETIME)
+                            ELSE NULL
+                        END DESC");
         return $read;
     }
 

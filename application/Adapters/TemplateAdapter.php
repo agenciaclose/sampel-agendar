@@ -13,6 +13,7 @@ use Agencia\Close\Adapters\Twig\UserType;
 use Agencia\Close\Adapters\Twig\UserStatus;
 use Agencia\Close\Adapters\Twig\UserCPF;
 use Agencia\Close\Helpers\String\Strings;
+use Agencia\Close\Adapters\Twig\JsonDecode;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -39,6 +40,7 @@ class TemplateAdapter
         $this->twig->addExtension(new UserCPF());
         $this->twig->addExtension(new AbreviarNome());
         $this->twig->addExtension(new DataGoogle());
+        $this->twig->addExtension(new JsonDecode());
         $this->globals();
 
         return $this->twig;

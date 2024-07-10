@@ -25,7 +25,6 @@
 		        <thead>
 		            <tr>
 		                <th class="no-mobile">Data da Visita</th>
-		                <th class="no-mobile" width="25">ID</th>
 		                <th class="no-mobile flex-grow-1">Visita</th>
 		                <th class="no-mobile">Responsável</th>
 		                <th width="175" class="text-end no-mobile">Status</th>
@@ -38,8 +37,6 @@
 							{{ visita.data_visita | date("d-m-Y") }} {{ visita.horario_visita }}
 							{% if visita.status_visita != 'Recusado' %}<div><a href="{{ DOMAIN }}/visita/inscricao/{{ visita.visita_id }}" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Link de inscrição</a></div>{% endif %}
 						</td>
-
-						<td  class="no-mobile">{{ visita.visita_id }}</td>
 
 						<td>
 							<span class="text-uppercase">
