@@ -25,6 +25,8 @@
 							<label class="form-label">Informe seu CPF</label>
 							<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" />
 						</div>
+						{% if _get.cpf == 'error' %}<div class="mb-2 text-warning fw-bold">CPF não encontrado</div>{% endif %}
+						
 						<div class="mb-3">
 							<button type="submit" class="btn btn-warning btn-lg fw-bold rounded-pill"><i class="fa-solid fa-list"></i> VER MINHAS INSCRIÇÕES</button>
 						</div>

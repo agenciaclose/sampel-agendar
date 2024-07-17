@@ -45,7 +45,7 @@ class MinhasInscricoesController extends Controller
         }else{
             unset($_COOKIE['sampel_user_cpf']);
             setcookie('sampel_user_cpf', '', -1, '/'); 
-            $this->router->redirect("/minhas-inscricoes");
+            $this->router->redirect("/minhas-inscricoes?cpf=error");
         }
 
     }
