@@ -103,6 +103,8 @@ class Controller
             if ($permissions->getResult()) {
                 $this->dataDefault['permissions'] = $this->listPermissions($permissions->getResult());
             }
+        }else{
+            $this->dataDefault['permissions'] = 'all';
         }
     }
 

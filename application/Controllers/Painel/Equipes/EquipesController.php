@@ -33,9 +33,12 @@ class EquipesController extends Controller
         $this->render('painel/pages/equipes/lista.twig', ['menu' => 'equipes', 'equipes' => $equipes]);
     }
 
-    public function cadastro()
+    public function cadastro($params)
     {
-        $this->render('painel/pages/equipes/cadastro.twig', ['menu' => 'equipes']);
+        $this->setParams($params);
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+        $this->render('painel/pages/equipes/cadastro.twig', ['menu' => 'equipes', 'cargos' => $cargos]);
     }
 
     public function cadastroSave(array $params)
@@ -54,8 +57,12 @@ class EquipesController extends Controller
         $idUser = $user->cadastroSave($this->params);
 
         if ($idUser) {
+            $saveCargos = new EquipesPainel();
+            $saveCargos->saveCargos($params['cargos'], $idUser);
+            
             $this->sendEmailNovoUsuario($this->params['email']);
             echo '1';
+
         } else {
             echo '0';
         }

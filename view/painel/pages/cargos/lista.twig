@@ -19,7 +19,7 @@
                             <div class="card-body py-1">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>Lista de Cargos</div>
-                                    {% if 'add' in permissions.cargos %}<div><a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/equipes/cargos/add" data-bs-toggle="offcanvas" data-bs-target="#rolemanager" aria-controls="rolemanager"><i class="fa-regular fa-plus"></i> Add Novo</a></div>{% endif %}
+                                    {% if 'add' in permissions.cargos or permissions == 'all' %}<div><a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/equipes/cargos/add" data-bs-toggle="offcanvas" data-bs-target="#rolemanager" aria-controls="rolemanager"><i class="fa-regular fa-plus"></i> Add Novo</a></div>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -38,8 +38,8 @@
                                 <div class="d-flex justify-content-between py-1 mb-1 border-bottom">
                                     <div><h4>{{ cargo.role }}</h4></div>
                                     <div>
-                                        {% if 'add' in permissions.cargos %}<a href="javascript:void(0)" class="me-2" data-bs-remote="{{ DOMAIN }}/painel/equipes/cargos/edit/{{ cargo.id }}" data-bs-toggle="offcanvas" data-bs-target="#rolemanager"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %}
-                                        {% if 'delete' in permissions.cargos %}<a href="javascript:void(0)" class="text-danger removerole" data-item="{{ cargo.id }}"><i class="fa-solid fa-trash"></i></a>{% endif %}
+                                        {% if 'add' in permissions.cargos or permissions == 'all' %}<a href="javascript:void(0)" class="me-2" data-bs-remote="{{ DOMAIN }}/painel/equipes/cargos/edit/{{ cargo.id }}" data-bs-toggle="offcanvas" data-bs-target="#rolemanager"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %}
+                                        {% if 'delete' in permissions.cargos or permissions == 'all' %}<a href="javascript:void(0)" class="text-danger removerole" data-item="{{ cargo.id }}"><i class="fa-solid fa-trash"></i></a>{% endif %}
                                     </div>
                                 </div>
                                 <div>

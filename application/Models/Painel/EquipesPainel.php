@@ -38,6 +38,15 @@
             $params['senha'] = sha1('sampel4321');
             unset($params['email_old']);
             $params['codigo_privado'] = $this->getCodigoPrivado();
+
+            if(!empty($params['senha'])){
+                $params['senha'] = sha1($params['senha']);
+            }else{
+                $params['senha'] = '123mudar';
+            }
+
+            unset($params['cargos']);
+
             $create = new Create();
             $create->ExeCreate('usuarios', $params);
             return $create->getResult();
