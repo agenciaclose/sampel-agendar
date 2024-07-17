@@ -32,6 +32,11 @@
                     <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/produtos"><i class="fa-light fa-box-open-full"></i><span class="menu-title text-truncate">Produtos</span></a>
                 </li>
 
+                <li class=" navigation-header"><span>Feiras e Eventos</span><i data-feather="more-horizontal"></i></li>
+                <li class="{{ (menu == 'feiras') ? 'active' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/feiras"><i class="fa-light fa-box-open-full"></i><span class="menu-title text-truncate">Lista de Feiras</span></a>
+                </li>
+
                 <li class=" navigation-header"><span>Listas de Visitas</span><i data-feather="more-horizontal"></i></li>
                 <li class="{{ (menu == 'visitas') ? 'active open' }} nav-item">
                     <a class="d-flex align-items-center" href="javascript:void(0);"><i class="fa-thin fa-calendar-check"></i><span class="menu-title text-truncate">Visitas</span></a>

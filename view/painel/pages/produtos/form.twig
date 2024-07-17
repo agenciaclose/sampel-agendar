@@ -1,0 +1,89 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ product.id == '' ? 'Criar Novo Produto' : 'Editar Produto' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" method="POST" id="{{ product.id == '' ? 'add_produto' : 'edit_produto' }}"  enctype="multipart/form-data">
+        <div class="mb-1">
+            <label class="form-label">Nome do Produto</label>
+            <input type="text" name="nome" value="{{ product.nome }}" class="form-control" placeholder="Ex. Boné Rosa">
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Código</label>
+                    <input type="text" name="codigo" value="{{ product.codigo }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Preço</label>
+                    <input type="text" name="preco" value="{{ product.preco }}" class="form-control price">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Embalagem</label>
+                    <input type="text" name="embalagem" value="{{ product.embalagem }}" class="form-control" placeholder="Ex. Caixa">
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Qtd. de Embalagens</label>
+                    <input type="number" name="quantidade" min="0" value="{{ product.quantidade != '' ? product.quantidade : '0' }}" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Unidades</label>
+                    <input type="number" name="unidades" min="0" value="{{ product.unidades != '' ? product.unidades : '0' }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Estoque (Qtd x Unidade)</label>
+                    <input type="number" name="estoque" value="{{ product.estoque != '' ? product.estoque : '0' }}" class="form-control estoque">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Marca</label>
+                    <input type="text" name="marca" min="0" value="{{ product.marca }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Fornecedor</label>
+                    <input type="text" name="fornecedor" value="{{ product.fornecedor }}" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-1">
+            <label for="formFile" class="form-label">Foto do Produto</label>
+            <input class="form-control" type="file" id="formFile" name="imagem" accept="image/png, image/jpeg">
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label">Descrição</label>
+            <textarea name="descricao" name="descricao" class="form-control">{{ product.descricao }}</textarea>
+        </div>
+
+        <div class="mb-1">
+            {% if product.id != '' %} <input type="hidden" name="id" value="{{ product.id }}"> {% endif %}            
+            <button class="btn btn-primary w-100 text-center" type="submit">{{ product.id == '' ? 'SALVAR PRODUTO' : 'SALVAR ALTERAÇÕES' }}</button>
+        </div>
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/produto.js"></script>

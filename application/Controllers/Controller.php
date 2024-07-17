@@ -85,7 +85,7 @@ class Controller
 
     public function permissions($permission, $action)
     {
-        if(isset($_SESSION['sampel_user_id'])){
+        if(isset($_SESSION['sampel_user_id']) && $_SESSION['sampel_user_id'] != 1){
             $permissions = new Permissions();
             $permissions = $permissions->getPermissions($permission, $action, $_SESSION['sampel_user_id'])->getResult();
             if(!$permissions){
@@ -97,7 +97,7 @@ class Controller
 
     public function getPermissionsUser()
     {
-        if(isset($_SESSION['sampel_user_id'])){
+        if(isset($_SESSION['sampel_user_id']) && $_SESSION['sampel_user_id'] != 1){
             $permissions = new Permissions();
             $permissions = $permissions->getPermissionsUser($_SESSION['sampel_user_id']);
             if ($permissions->getResult()) {

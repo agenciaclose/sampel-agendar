@@ -1,0 +1,64 @@
+<?php
+namespace Agencia\Close\Models\Painel;
+
+use Agencia\Close\Conn\Conn;
+use Agencia\Close\Conn\Read;
+use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Update;
+use Agencia\Close\Models\Model;
+
+class ProdutosPainel extends Model
+{
+    public function getProdutos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos ORDER BY `id` DESC");
+        return $read;
+    }
+
+    public function getProdutoID($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos WHERE id = :id", "id={$id}");
+        return $read;
+    }
+
+    public function addProductSave($params)
+    {   
+        if(isset($params['product_imagem'])) {
+            $params['imagem'] = $params['product_imagem'];
+            unset($params['product_imagem']);
+        }else{
+            unset($params['product_imagem']);
+        }
+
+        $create = new Create();
+        $create->ExeCreate('produtos', $params);
+        return $create;
+    }
+
+    public function editProductSave($params)
+    {
+        if(isset($params['product_imagem'])) {
+            $params['imagem'] = $params['product_imagem'];
+            unset($params['product_imagem']);
+        }else{
+            unset($params['product_imagem']);
+        }
+
+        $id = $params['id'];
+        unset($params['id']);
+    
+        $update = new Update();
+        $update->ExeUpdate('produtos', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
+    }
+
+    public function productStatus($params)
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `produtos` SET `status` = :status WHERE id = :id", "status={$params['status']}&id={$params['id']}");
+        return $read;
+    }
+
+}

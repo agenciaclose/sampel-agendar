@@ -23,7 +23,6 @@ class CargosController extends Controller
 
     public function addCargo($params)
     {
-        $this->permissions('cargos', '"add"');
         $this->render('painel/pages/cargos/form.twig', []);
     }
 

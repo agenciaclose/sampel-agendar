@@ -1,0 +1,63 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Feiras{% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
+                <section id="dashboard-ecommerce">
+
+                    <div class="row match-height">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-company-table">
+                                <div class="card-header pb-0">
+                                    <h5 class="card-title">Lista de Feiras</h5>
+                                    <div class="heading-elements">
+                                        <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/feiras/add" data-bs-toggle="offcanvas" data-bs-target="#formProduct" aria-controls="formProduct"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table dataTable_list">
+                                            <thead>
+                                                <tr>
+                                                    <th>NOME</th>
+                                                    <th>DATA</th>
+                                                    <th>LOCAL</th>
+                                                    <th width="100" class="fw-bold text-center">STATUS</th>
+                                                    <th width="100" class="text-end">OPÇÕES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="formProduct" aria-labelledby="formProductLabel">
+        <div class="offcanvas-body">
+            Carregando...
+        </div>
+    </div>
+    
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/feira.js"></script>
+{% endblock %}

@@ -94,6 +94,22 @@
             </div>
         </div>
 
+        <div class="mb-2 border-bottom">
+            <div><b>Produtos</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[produtos][]" type="checkbox" id="produtos1" value="view" {{ 'view' in permissions.produtos ? 'checked' }}>
+                <label class="form-check-label" for="produtos1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[produtos][]" type="checkbox" id="produtos2" value="add" {{ 'add' in permissions.produtos ? 'checked' }}>
+                <label class="form-check-label" for="produtos2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[produtos][]" type="checkbox" id="produtos3" value="delete" {{ 'delete' in permissions.produtos ? 'checked' }}>
+                <label class="form-check-label" for="produtos3">Excluir</label>
+            </div>
+        </div>
+
         <div class="mb-2">
             {% if cargo.id != '' %} <input type="hidden" name="id" value="{{ cargo.id }}"> {% endif %}            
             <button class="btn btn-primary w-100 text-center" type="submit">{{ cargo.id == '' ? 'SALVAR CARGO' : 'SALVAR ALTERAÇÕES' }}</button>

@@ -1,0 +1,77 @@
+<?php
+
+namespace Agencia\Close\Controllers\Painel\ProdutosPainel;
+
+use Agencia\Close\Helpers\Upload;
+use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Painel\ProdutosPainel;
+
+class ProdutosPainelController extends Controller
+{
+    public function index($params)
+    {
+        $this->setParams($params);
+        $this->permissions('produtos', '"view"');
+        $produtos = new ProdutosPainel();
+        $produtos = $produtos->getProdutos()->getResult();
+        $this->render('painel/pages/produtos/index.twig', ['menu' => 'produtos', 'produtos' => $produtos]);
+    }
+
+    public function productAdd($params)
+    {
+        $this->setParams($params);
+        $this->render('painel/pages/produtos/form.twig', []);
+    }
+
+    public function productEdit($params)
+    {
+        $this->setParams($params);
+
+        $produto = new ProdutosPainel();
+        $produto = $produto->getProdutoID($params['id'])->getResult();
+        $this->render('painel/pages/produtos/form.twig', ['product' => $produto[0]]);
+    }
+
+    public function productAddSave($params)
+    {
+        $this->setParams($params);
+        $save = new ProdutosPainel();
+
+        if(isset($_FILES['imagem'])) {
+            $upload = new Upload;
+            $upload->Image($_FILES['imagem'], microtime(), null, 'produtos');
+        }
+        if(isset($upload) && $upload->getResult()) {
+            $params['product_imagem'] = DOMAIN.'/uploads/'.$upload->getResult();
+        }
+
+        $save = $save->addProductSave($params);
+        if($save){ echo '1'; }
+    }
+
+    public function productEditSave($params)
+    {
+        $this->setParams($params);
+        $save = new ProdutosPainel();
+
+        if(isset($_FILES['imagem'])) {
+            $upload = new Upload;
+            $upload->Image($_FILES['imagem'], microtime(), null, 'produtos');
+        }
+        if(isset($upload) && $upload->getResult()) {
+            $params['product_imagem'] = DOMAIN.'/uploads/'.$upload->getResult();
+        }
+
+        $save = $save->editProductSave($params);
+        if($save){ echo '1'; }
+    }
+
+    public function productStatus(array $params)
+    {
+        $this->setParams($params);
+        $editar = new ProdutosPainel();
+        $editar = $editar->productStatus($params)->getResult();
+        echo '1';
+    }
+
+}

@@ -8,8 +8,10 @@ require  __DIR__ . '/site.php';
 require  __DIR__ . '/emails.php';
 require  __DIR__ . '/visita.php';
 require  __DIR__ . '/palestras.php';
-require  __DIR__ . '/painel.php';
 require  __DIR__ . '/relatorios.php';
+require  __DIR__ . '/painel.php';
+require  __DIR__ . '/painel_produtos.php';
+require  __DIR__ . '/feiras_produtos.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
