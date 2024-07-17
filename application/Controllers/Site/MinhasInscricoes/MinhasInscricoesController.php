@@ -35,7 +35,7 @@ class MinhasInscricoesController extends Controller
     public function lista($params)
     {
         $this->setParams($params);
-        if($_COOKIE['sampel_user_cpf'] != ''){
+        if(isset($_COOKIE['sampel_user_cpf'])){
 
             $getlist = new MinhasInscricoes();
             $lista = $getlist->getLista($_COOKIE['sampel_user_cpf'])->getResult();
