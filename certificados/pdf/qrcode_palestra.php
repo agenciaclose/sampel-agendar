@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__ . '/../../vendor/autoload.php';
-	ini_set("pcre.backtrack_limit", "99999999999999999999999999999");
+	ini_set("pcre.backtrack_limit", "1000000");
 	include(__DIR__ . '/../config/config.php');
 
 	$sql_palestra = $db->prepare("SELECT * FROM palestras WHERE id = '".$_GET['id']."'");
