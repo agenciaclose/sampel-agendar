@@ -5,7 +5,7 @@
 
 	$sql_inscricao = $db->prepare("SELECT pp.*, p.data_palestra FROM palestras_participantes AS pp
 								INNER JOIN palestras AS p ON p.id = pp.id_palestra
-								WHERE (pp.codigo = '".$_GET['codigo']."' OR pp.codigo = '".$_GET['codigo']."') AND pp.presenca = 'Sim'");
+								WHERE (pp.codigo = '".$_GET['codigo']."' OR pp.codigo = '".$_GET['codigo']."')");
 	$sql_inscricao->execute();
 
 	if($sql_inscricao->rowCount() == 0) {

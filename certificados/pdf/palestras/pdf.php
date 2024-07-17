@@ -37,8 +37,18 @@
 		<?php 
 			setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 			$dataOriginal = $palestra['data_palestra'];
-			$data = new DateTime($dataOriginal);
-			$dataFormatada = strftime('%d de %B de %Y', $data->getTimestamp());
+			$data = new DateTime();
+			$meses = [
+				1 => 'janeiro', 2 => 'fevereiro', 3 => 'março', 4 => 'abril',
+				5 => 'maio', 6 => 'junho', 7 => 'julho', 8 => 'agosto',
+				9 => 'setembro', 10 => 'outubro', 11 => 'novembro', 12 => 'dezembro'
+			];
+
+			$dia = $data->format('d');
+			$mes = $meses[(int)$data->format('m')];
+			$ano = $data->format('Y');
+
+			$dataFormatada = "$dia de $mes de $ano";
 
 			$data1 = new DateTime($palestra['data_palestra']);
 			$data2 = new DateTime($palestra['data_fim']);
