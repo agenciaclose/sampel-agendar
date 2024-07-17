@@ -94,3 +94,5 @@ function statusProduct(id, status){
         }
     });
 }
+
+$('.money').mask("#.##0,00", {reverse: true});

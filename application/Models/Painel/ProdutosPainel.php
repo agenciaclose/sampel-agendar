@@ -32,6 +32,8 @@ class ProdutosPainel extends Model
             unset($params['product_imagem']);
         }
 
+        $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
+
         $create = new Create();
         $create->ExeCreate('produtos', $params);
         return $create;
@@ -48,6 +50,8 @@ class ProdutosPainel extends Model
 
         $id = $params['id'];
         unset($params['id']);
+
+        $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
     
         $update = new Update();
         $update->ExeUpdate('produtos', $params, 'WHERE id = :id', "id={$id}");

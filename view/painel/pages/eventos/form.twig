@@ -1,0 +1,54 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ evento.id == '' ? 'Criar Novo Evento' : 'Editar Evento' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" method="POST" id="{{ evento.id == '' ? 'add_evento' : 'edit_evento' }}"  enctype="multipart/form-data">
+        <div class="mb-1">
+            <label class="form-label">Nome do Evento</label>
+            <input type="text" name="nome_evento" value="{{ evento.nome_evento }}" class="form-control" placeholder="Ex. Boné Rosa">
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Cidade</label>
+                    <input type="text" name="cidade_evento" value="{{ evento.cidade_evento }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Estado</label>
+                    <input type="text" name="estado_evento" maxlength="2" value="{{ evento.estado_evento }}" class="form-control price">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Data de Início</label>
+                    <input type="date" name="data_evento_inicio" value="{{ evento.data_evento_inicio }}" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Data de Término</label>
+                    <input type="date" name="data_evento_fim" value="{{ evento.data_evento_fim }}" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label">Descrição</label>
+            <textarea name="descricao" name="descricao" class="form-control">{{ evento.descricao }}</textarea>
+        </div>
+
+        <div class="mb-1">
+            {% if evento.id != '' %} <input type="hidden" name="id" value="{{ evento.id }}"> {% endif %}            
+            <button class="btn btn-primary w-100 text-center" type="submit">{{ evento.id == '' ? 'SALVAR EVENTO' : 'SALVAR ALTERAÇÕES' }}</button>
+        </div>
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/evento.js"></script>

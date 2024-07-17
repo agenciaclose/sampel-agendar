@@ -9,9 +9,11 @@ require  __DIR__ . '/emails.php';
 require  __DIR__ . '/visita.php';
 require  __DIR__ . '/palestras.php';
 require  __DIR__ . '/relatorios.php';
+
+//PAINEL
 require  __DIR__ . '/painel.php';
-require  __DIR__ . '/painel_produtos.php';
-require  __DIR__ . '/feiras_produtos.php';
+require  __DIR__ . '/painel/produtos.php';
+require  __DIR__ . '/painel/eventos.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
