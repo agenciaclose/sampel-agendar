@@ -12,7 +12,7 @@ class ProdutosPainel extends Model
     public function getProdutos(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM produtos ORDER BY `id` DESC");
+        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' ORDER BY `nome` ASC");
         return $read;
     }
 

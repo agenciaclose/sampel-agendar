@@ -31,12 +31,11 @@
                                             <thead>
                                                 <tr>
                                                     <th width="50">IMAGEM</th>
-                                                    <th>COD.PRODUTO</th>
                                                     <th>NOME PRODUTO</th>
+                                                    <th>COD.PRODUTO</th>
                                                     <th class="text-center">EMBALAGENS</th>
                                                     <th class="text-center">UNID. PACOTE</th>
                                                     <th class="text-center">TOTAL EM ESTOQUE</th>
-                                                    <th width="100" class="fw-bold text-center">STATUS</th>
                                                     <th width="100" class="text-end">OPÇÕES</th>
                                                 </tr>
                                             </thead>
@@ -44,12 +43,11 @@
                                                 {% for produto in produtos %}                                                    
                                                 <tr>
                                                     <td class="py-0 px-1 text-center" width="50"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></td>
-                                                    <td>{{ produto.codigo }}</td>
                                                     <td>{{ produto.nome }}</td>
+                                                    <td>{{ produto.codigo }}</td>
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
                                                     <td class="text-center">{{ produto.estoque }}</td>
-                                                    <td widtd="100" class="text-black fw-bold text-center {{ produto.status == 'Ativo' ? 'bg-success' : 'bg-danger' }}">{{ produto.status }}</td>
                                                     <td width="100" class="text-end p-0">
                                                         <div class="d-flex justify-content-end">
                                                             {% if produto.status == 'Ativo' %}
