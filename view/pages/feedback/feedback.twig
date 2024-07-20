@@ -64,6 +64,8 @@
 
 								{% for pergunta in perguntas %}
 
+									<input type="hidden" name="pergunta_id[]" value="{{ pergunta.id }}">
+
 									{% if pergunta.tipo == 'Campo' %}
 										<div class="pergunta mb-4 border-bottom">
 											<h6>{{ pergunta.pergunta }}</h6>
@@ -99,7 +101,18 @@
 												</div>
 												{% endfor %}
 											</div>
-
+											{% if pergunta.extra == 'S' %}
+												{% if pergunta.extra_opcao == 'Todos' %}
+													<div class="mb-3 show_extra_text">
+														<textarea class="form-control" name="extra[{{ pergunta.id }}]" id="extra_{{ pergunta.id }}" placeholder="{{ pergunta.extra_texto }}"></textarea>
+													</div>
+												{% else %}
+													<div class="mb-3 show_extra_text resposta_extra_{{ pergunta.id }}" data-extra-opcao="{{ pergunta.extra_opcao }}">
+														<textarea class="form-control" name="extra[{{ pergunta.id }}]" id="extra_{{ pergunta.id }}" placeholder="{{ pergunta.extra_texto }}"></textarea>
+													</div>
+													<script>$('.resposta_{{ pergunta.id }}').change(function() {var opcao = $(this).val();var extra_opcao = $('.resposta_extra_{{ pergunta.id }}').data('extra-opcao');if(opcao == extra_opcao){$('.resposta_extra_{{ pergunta.id }}').show()}else{$('.resposta_extra_{{ pergunta.id }}').hide()}});</script>
+												{% endif %}
+											{% endif %}
 										</div>
 									{% endif %}
 
@@ -187,6 +200,6 @@
 
 </div>
 
-<script src="{{ PATH }}/view/src/js/services/feedback.js"></script>
+<script src="{{ PATH }}/view/src/js/services/feedback.js"></scrip>
 
 {% endblock %}

@@ -75,6 +75,7 @@ $router->namespace("Agencia\Close\Controllers\Painel\Feedback");
 $router->get("/painel/feedback/perguntas", "FeedbackController:perguntas");
 $router->post("/painel/feedback/perguntas/save", "FeedbackController:savePerguntas");
 $router->get("/painel/feedback/perguntas/excluir/{id}", "FeedbackController:excluirPergunta");
+$router->post("/painel/feedback/perguntas/order", "FeedbackController:ordernarPergunta");
 
 $router->get("/painel/feedback/lista", "FeedbackController:feedbacks");
 $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList");

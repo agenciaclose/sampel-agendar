@@ -40,12 +40,12 @@
                                             </thead>
                                             <tbody>
                                                 {% for equipe in equipes %}
-                                                    <tr>
-                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.id }}</td>
-                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}text-uppercase">{{ equipe.nome }}</td>
-                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}text-lowercase">{{ equipe.email }}</td>
-                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.telefone }}</td>
-                                                        <td class="{{ equipe.situacao == 'Inativo' ? 'opacity-50' }}">{{ equipe.setor }}</td>
+                                                    <tr class="{{ equipe.situacao == 'Inativo' ? 'bg-danger' }}">
+                                                        <td class="text-white">{{ equipe.id }}</td>
+                                                        <td class="text-white text-uppercase">{{ equipe.nome }}</td>
+                                                        <td class="text-white text-lowercase">{{ equipe.email }}</td>
+                                                        <td class="text-white">{{ equipe.telefone }}</td>
+                                                        <td class="text-white">{{ equipe.setor }}</td>
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end">
                                                                 {% if equipe.situacao == 'Ativo' %}

@@ -660,7 +660,7 @@ select:-webkit-autofill {
   z-index: 997; }
 
 .header-navbar.fixed-top, .header-navbar.floating-nav {
-  left: 260px; }
+  left: 225px; }
 
 .header-navbar[class*='bg-'] .navbar-nav .nav-item > a {
   color: #fff !important; }
@@ -682,7 +682,7 @@ select:-webkit-autofill {
   position: fixed;
   right: 0;
   margin: 1.3rem auto 0;
-  width: calc(100vw - (100vw - 100%) - calc(2rem * 2) - 260px);
+  width: calc(100vw - (100vw - 100%) - calc(2rem * 2) - 225px);
   border-radius: 0.428rem;
   z-index: 12; }
 

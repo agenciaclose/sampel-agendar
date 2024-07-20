@@ -14,7 +14,7 @@ class FeedbackPainel extends Model
     public function getPerguntas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM feedback_perguntas ORDER BY ordem ASC");
+        $read->FullRead("SELECT * FROM feedback_perguntas ORDER BY ordem,id ASC");
         return $read;
     }
 
@@ -56,5 +56,13 @@ class FeedbackPainel extends Model
         $read = new Read();
         $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `id_visita` = :id_visita AND `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "id_visita={$id_visita}&pergunta={$pergunta}");
         return $read;
+    }
+
+    public function getFeedbacksPerguntasOrdenar($params)
+    {   
+        foreach ($params['order'] as $index => $id) {
+            $read = new Read();
+            $read->FullRead("UPDATE `feedback_perguntas` SET `ordem` = :order WHERE id = :id", "order={$index}&id={$id}");
+        }
     }
 }

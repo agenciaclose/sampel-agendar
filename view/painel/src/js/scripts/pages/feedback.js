@@ -9,6 +9,29 @@ $(document).ready(function () {
         }
 	});
 
+    $('#campoextra').change(function() {
+        if ($(this).is(':checked')) {
+            $('.extra_input').show();
+        } else {
+            $('.extra_input').hide();
+        }
+    });
+
+    $('textarea[name="opcoes"]').on('input', function() {
+        var valor = $(this).val();
+        var opcoes = valor.split('|');
+        var select = $('#extra_opcao');
+
+        select.empty();
+        select.append($('<option></option>').text('Todos').val('Todos'));
+        opcoes.forEach(function(opcao) {
+            if (opcao.trim() !== '') {
+                select.append($('<option></option>').text(opcao).val(opcao));
+            }
+        });
+    });
+
+
 	$("#form_add_pergunta").submit(function (c) {
 
         $('.form-load').addClass('show');
@@ -62,6 +85,47 @@ $(document).ready(function () {
             }
         })
 	});
+
+
+    $(document).ready(function(){
+        $("#sortable tbody").sortable({
+            helper: fixHelper,
+            stop: function(event, ui) {
+                updateIndex();
+                sendOrderToServer();
+            }
+        }).disableSelection();
+
+        function fixHelper(e, ui) {
+            ui.children().each(function() {
+                $(this).width($(this).width());
+            });
+            return ui;
+        }
+
+        function updateIndex() {
+            $('#sortable tbody tr').each(function(i){
+                $(this).find('td').eq(0).html(i + 1);
+            });
+        }
+
+        function sendOrderToServer() {
+
+            var DOMAIN = $('body').attr('data-domain');
+
+            var order = [];
+            $('#sortable tbody tr').each(function(i){
+                order.push($(this).data('id'));
+            });
+
+            $.ajax({
+                url: DOMAIN + '/painel/feedback/perguntas/order', // URL do seu script PHP para atualizar o banco de dados
+                method: 'POST',
+                data: { order: order },
+                success: function(response) {}
+            });
+        }
+    });
 
     
 });

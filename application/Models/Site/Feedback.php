@@ -37,10 +37,18 @@ class Feedback extends Model
     {
         if (is_countable($params['pergunta']) && count($params['pergunta']) > 0){
             for ($i=0; $i < count($params['pergunta']); $i++) {
+
+                $extra = '';
+                $pergunta_id = $params['pergunta_id'][$i];
+                if(isset($params['extra'][$pergunta_id])){
+                    $extra = $params['extra'][$pergunta_id];
+                }
+
                 $read = new Read();
                 $cpf = $this->clearCPF($params['user_cpf']);
-                $read->FullRead("INSERT INTO `feedback` (`id_visita`, `user_codigo`, `user_cpf`, `pergunta`, `resposta`) 
-                        VALUES ('".$params['id_visita']."', '".$params['user_codigo']."', '".$cpf."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."')");
+                $read->FullRead("INSERT INTO `feedback` (`id_visita`, `user_codigo`, `user_cpf`, `pergunta`, `resposta`, `extra`) 
+                        VALUES ('".$params['id_visita']."', '".$params['user_codigo']."', '".$cpf."', '".$params['pergunta'][$i]."', '".$params['resposta'][$i]."', '".$extra."')");
+
             }
         }
 

@@ -22,7 +22,7 @@ html .content {
   transition: 300ms ease all;
   backface-visibility: hidden;
   min-height: calc(100% - 3.35rem);
-  margin-left: 260px;
+  margin-left: 225px;
 }
 
 html .content.app-content {
@@ -1052,10 +1052,10 @@ footer.footer-border {
 
 .main-menu .navbar-header {
   height: 100%;
-  width: 260px;
-  height: 6.9rem;
+  width: 225px;
+  height: 4.9rem;
   position: relative;
-  padding: 0.35rem 1rem 0.3rem 1.64rem;
+  padding: 1.35rem 1rem 0.3rem 1.64rem;
   transition: 300ms ease all, background 0s;
   display: flex;
   align-content: center;
@@ -1070,7 +1070,7 @@ footer.footer-border {
 }
 
 .main-menu .navbar-header .navbar-brand .brand-logo img {
-  max-width: 220px;
+  max-width: 180px;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-text {

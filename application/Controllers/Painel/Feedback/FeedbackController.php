@@ -55,4 +55,11 @@ class FeedbackController extends Controller
         $this->render('painel/pages/feedback/ver.twig', ['menu' => 'feedback', 'perguntas' => $perguntas]);
     }
 
+    public function ordernarPergunta($params)
+    {
+        $this->setParams($params);
+        $ordenar = new FeedbackPainel();
+        $ordenar = $ordenar->getFeedbacksPerguntasOrdenar($params);
+    }
+
 }
