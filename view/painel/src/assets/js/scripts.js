@@ -46,11 +46,18 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 	$(function() {
 
 		if($('.dataTable_list').length){
+
+			var pageLength = localStorage.getItem('dataTables_length') ? parseInt(localStorage.getItem('dataTables_length')) : 25;
+			$('.dataTable_list').on('length.dt', function(e, settings, len) {
+				localStorage.setItem('dataTables_length', len);
+			});	
+			
 		    //DATA TABLES
-		    $('.dataTable_list').DataTable({
+		    var table = $('.dataTable_list').DataTable({
 				"ordering": false,
 				"bPaginate": true,
 				"lengthMenu": [ [25, 50, 100, 200], [25, 50, 100, 200] ],
+				"pageLength": pageLength,
 				"language": {
 					"sEmptyTable": "Nenhum registro encontrado",
 					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -79,13 +86,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 		}
 
 		if($('.dataTable_list_export').length){
+
+			var pageLength = localStorage.getItem('dataTables_length') ? parseInt(localStorage.getItem('dataTables_length')) : 25;
+			$('.dataTable_list').on('length.dt', function(e, settings, len) {
+				localStorage.setItem('dataTables_length', len);
+			});	
+
 		    //DATA TABLES
-		    $('.dataTable_list_export').DataTable({
+		    var table = $('.dataTable_list_export').DataTable({
 		    	"dom": 'Blfrtip',
 		        "buttons": ['excel'],
 				"ordering": false,
 				"bPaginate": true,
 				"lengthMenu": [ [25, 50, 100, 200], [25, 50, 100, 200] ],
+				"pageLength": pageLength,
 				"language": {
 					"sEmptyTable": "Nenhum registro encontrado",
 					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -112,8 +126,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 			    }
 		  	});
 		}
-
-
+		
 	});
 
 	ClassicEditor.create(document.querySelector( '#editor' )).then( editor => {}).catch( error => {} );
