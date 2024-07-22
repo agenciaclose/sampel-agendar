@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    var gallery = $('.produtos a.img').simpleLightbox();
+
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
@@ -8,7 +10,6 @@ $(document).ready(function () {
         var unidades = $('input[name="unidades"]').val();
         $('.estoque').val(quantidade * unidades);        
     });
-
 
     $("#add_produto").submit(function (c) {
 

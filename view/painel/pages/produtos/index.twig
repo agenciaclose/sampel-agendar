@@ -30,7 +30,7 @@
                                         <table class="table dataTable_list">
                                             <thead>
                                                 <tr>
-                                                    <th width="50">IMAGEM</th>
+                                                    <th class="p-0 text-center" width="50">IMG</th>
                                                     <th>NOME PRODUTO</th>
                                                     <th>COD.PRODUTO</th>
                                                     <th class="text-center">EMBALAGENS</th>
@@ -42,7 +42,13 @@
                                             <tbody>
                                                 {% for produto in produtos %}                                                    
                                                 <tr>
-                                                    <td class="py-0 px-1 text-center" width="50"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></td>
+                                                    <td class="p-0 text-center produtos" width="50">
+                                                        {% if produto.imagem != '' %}
+                                                            <a href="{{ produto.imagem }}" class="img"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></a>
+                                                        {% else %}                                                            
+                                                            <img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
+                                                        {% endif %}
+                                                    </td>
                                                     <td>{{ produto.nome }}</td>
                                                     <td>{{ produto.codigo }}</td>
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
@@ -81,5 +87,5 @@
         </div>
     </div>
     
-    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/produto.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/produto.js?2131231"></script>
 {% endblock %}
