@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table dataTable_list">
+                                        <table class="table table-striped table-hover dataTable_list">
                                             <thead>
                                                 <tr>
                                                     <th class="p-0 text-center" width="50">IMG</th>
@@ -36,6 +36,7 @@
                                                     <th class="text-center">EMBALAGENS</th>
                                                     <th class="text-center">UNID. PACOTE</th>
                                                     <th class="text-center">TOTAL EM ESTOQUE</th>
+                                                    <th class="text-center">UNI. PREÇO</th>
                                                     <th width="100" class="text-end">OPÇÕES</th>
                                                 </tr>
                                             </thead>
@@ -54,6 +55,7 @@
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
                                                     <td class="text-center">{{ produto.estoque }}</td>
+                                                    <td class="text-center">{{ produto.preco }}</td>
                                                     <td width="100" class="text-end p-0">
                                                         <div class="d-flex justify-content-end">
                                                             {% if produto.status == 'Ativo' %}
