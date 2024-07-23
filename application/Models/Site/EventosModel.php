@@ -14,7 +14,7 @@ class EventosModel extends Model
     public function listarEventos(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM eventos ORDER BY id DESC", "");
+        $read->FullRead("SELECT * FROM eventos ORDER BY data_evento_inicio ASC", "");
         return $read;
     }
 

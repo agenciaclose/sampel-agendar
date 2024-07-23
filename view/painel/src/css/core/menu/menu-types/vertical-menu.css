@@ -18,15 +18,15 @@
 
 .vertical-layout.vertical-menu-modern .main-menu .navigation > li > a svg,
 .vertical-layout.vertical-menu-modern .main-menu .navigation > li > a i {
-  height: 20px;
-  width: 20px;
-  font-size: 1.45rem;
-  margin-right: 1.1rem;
+  height: 16px;
+  width: 16px;
+  font-size: 1rem;
+  margin-right: 0.5rem;
   flex-shrink: 0; }
 
 .vertical-layout.vertical-menu-modern .main-menu .navigation .menu-content > li > a svg,
 .vertical-layout.vertical-menu-modern .main-menu .navigation .menu-content > li > a i {
-  margin-right: 1.45rem;
+  margin-right: 0.5rem;
   font-size: 11px;
   height: 11px;
   width: 11px; }
@@ -39,9 +39,8 @@
 
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation > li > a > i:before,
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation > li > a > svg:before {
-  height: 20px;
-  width: 20px;
-  font-size: 1.45rem; }
+  height: 16px;
+  width: 16px; }
 
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation li.has-sub > a:after {
   content: '\f054';

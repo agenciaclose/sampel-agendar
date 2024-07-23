@@ -12,7 +12,7 @@ class EventosPainel extends Model
     public function getEventos(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM eventos ORDER BY `id` DESC");
+        $read->FullRead("SELECT * FROM eventos ORDER BY `data_evento_inicio` ASC");
         return $read;
     }
 

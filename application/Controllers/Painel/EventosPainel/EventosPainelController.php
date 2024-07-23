@@ -2,7 +2,6 @@
 
 namespace Agencia\Close\Controllers\Painel\EventosPainel;
 
-use Agencia\Close\Helpers\Upload;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\EventosPainel;
 
