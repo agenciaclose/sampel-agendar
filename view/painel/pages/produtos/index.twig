@@ -55,7 +55,7 @@
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
                                                     <td class="text-center">{{ produto.estoque }}</td>
-                                                    <td class="text-center">{{ produto.preco }}</td>
+                                                    <td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
                                                     <td width="100" class="text-end p-0">
                                                         <div class="d-flex justify-content-end">
                                                             {% if produto.status == 'Ativo' %}
