@@ -12,9 +12,13 @@ class ProdutosPainelController extends Controller
     {
         $this->setParams($params);
         $this->permissions('produtos', '"view"');
-        $produtos = new ProdutosPainel();
-        $produtos = $produtos->getProdutos()->getResult();
-        $this->render('painel/pages/produtos/index.twig', ['menu' => 'produtos', 'produtos' => $produtos]);
+
+        $model = new ProdutosPainel();
+        $produtos = $model->getProdutos()->getResult();
+
+        $valorTotalEstoque = $model->valorTotalEstoque()->getResult()[0];
+
+        $this->render('painel/pages/produtos/index.twig', ['menu' => 'produtos', 'produtos' => $produtos, 'valorTotalEstoque' => $valorTotalEstoque]);
     }
 
     public function productAdd($params)

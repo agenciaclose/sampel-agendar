@@ -16,6 +16,13 @@ class ProdutosPainel extends Model
         return $read;
     }
 
+    public function valorTotalEstoque(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT ROUND((SELECT SUM(estoque * preco) FROM produtos), 2) AS valor_total_estoque FROM produtos WHERE estoque > 0 AND preco <> ''");
+        return $read;
+    }
+
     public function getProdutoID($id): Read
     {
         $read = new Read();
