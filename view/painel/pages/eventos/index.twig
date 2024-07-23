@@ -22,7 +22,9 @@
                                 <div class="card-header pb-0">
                                     <h5 class="card-title">Lista de Eventos</h5>
                                     <div class="heading-elements">
-                                        <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/add" data-bs-toggle="offcanvas" data-bs-target="#formProduct" aria-controls="formProduct"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                        {% if 'add' in permissions.eventos or permissions == 'all' %}
+                                            <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/add" data-bs-toggle="offcanvas" data-bs-target="#formProduct" aria-controls="formProduct"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -30,14 +32,32 @@
                                         <table class="table dataTable_list">
                                             <thead>
                                                 <tr>
-                                                    <th>NOME</th>
-                                                    <th>DATA</th>
-                                                    <th>LOCAL</th>
-                                                    <th width="100" class="fw-bold text-center">STATUS</th>
-                                                    <th width="100" class="text-end">OPÇÕES</th>
+                                                    <th>Evento</th>
+                                                    <th>Local</th>
+                                                    <th class="text-end">Data da Evento</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for evento in eventos %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ DOMAIN }}/painel/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
+                                                        <div>
+                                                            {% if 'add' in permissions.eventos or permissions == 'all' %}
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" data-bs-toggle="offcanvas" data-bs-target="#formProduct"><small class="text-warning">Editar Evento</small></a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td class="no-mobile">
+                                                        {{ evento.local_evento }}
+                                                        <div class="text-white-50"><small>{{ evento.cidade_evento }}, {{ evento.estado_evento }}</small></div>
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ evento.data_evento_inicio | date("d-m-Y") }}</span>
+                                                        <div><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ evento.data_evento_fim | date("d-m-Y") }}</span></div>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

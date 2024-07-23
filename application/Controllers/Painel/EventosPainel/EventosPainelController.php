@@ -12,7 +12,11 @@ class EventosPainelController extends Controller
     {
         $this->setParams($params);
         $this->permissions('eventos', '"view"');
-        $this->render('painel/pages/eventos/index.twig', ['menu' => 'eventos']);
+
+        $model = new EventosPainel();
+        $eventos = $model->getEventos()->getResult();
+
+        $this->render('painel/pages/eventos/index.twig', ['menu' => 'eventos', 'eventos' => $eventos]);
     }
 
     public function productAdd($params)
@@ -27,6 +31,7 @@ class EventosPainelController extends Controller
 
         $evento = new EventosPainel();
         $evento = $evento->getEventoID($params['id'])->getResult();
+        
         $this->render('painel/pages/eventos/form.twig', ['evento' => $evento[0]]);
     }
 

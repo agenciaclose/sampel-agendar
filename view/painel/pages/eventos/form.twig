@@ -4,51 +4,45 @@
 </div>
 <div class="mt-2">
 
-    <form action="javascript:void(0)" method="POST" id="{{ evento.id == '' ? 'add_evento' : 'edit_evento' }}"  enctype="multipart/form-data">
+    <form action="javascript:void(0)" id="{{ evento.id == '' ? 'add_evento' : 'edit_evento' }}" method="post">
         <div class="mb-1">
-            <label class="form-label">Nome do Evento</label>
-            <input type="text" name="nome_evento" value="{{ evento.nome_evento }}" class="form-control" placeholder="Ex. Boné Rosa">
+            <label for="nome_evento" class="form-label">Nome do Evento:</label>
+            <input type="text" class="form-control" id="nome_evento" name="nome_evento" value="{{ evento.nome_evento }}">
         </div>
-
+        <div class="mb-1">
+            <label for="cep_evento" class="form-label">CEP:</label>
+            <input type="text" class="form-control cep" id="cep_evento" name="cep_evento" value="{{ evento.cep_evento }}">
+        </div>
+        <div class="mb-1">
+            <label for="local_evento" class="form-label">Local:</label>
+            <input type="text" class="form-control" id="local_evento" name="local_evento" value="{{ evento.local_evento }}">
+        </div>
         <div class="row">
-            <div class="col-md-6 col-12">
-                <div class="mb-1">
-                    <label class="form-label">Data de Início</label>
-                    <input type="date" name="data_evento_inicio" value="{{ evento.data_evento_inicio }}" class="form-control">
-                </div>
+            <div class="mb-1 col-md-6">
+                <label for="cidade_evento" class="form-label">Cidade:</label>
+                <input type="text" class="form-control" id="cidade_evento" name="cidade_evento" value="{{ evento.cidade_evento }}">
             </div>
-            <div class="col-md-6 col-12">
-                <div class="mb-1">
-                    <label class="form-label">Data de Término</label>
-                    <input type="date" name="data_evento_fim" value="{{ evento.data_evento_fim }}" class="form-control">
-                </div>
+            <div class="mb-1 col-md-6">
+                <label for="estado_evento" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado_evento" name="estado_evento" maxlength="2" value="{{ evento.estado_evento }}">
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-8 col-12">
-                <div class="mb-1">
-                    <label class="form-label">Cidade</label>
-                    <input type="text" name="cidade_evento" value="{{ evento.cidade_evento }}" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4 col-12">
-                <div class="mb-1">
-                    <label class="form-label">Estado</label>
-                    <input type="text" name="estado_evento" maxlength="2" value="{{ evento.estado_evento }}" class="form-control price">
-                </div>
-            </div>
-        </div>
-
         <div class="mb-1">
-            <label class="form-label">Descrição</label>
-            <textarea name="descricao" name="descricao" class="form-control">{{ evento.descricao }}</textarea>
+            <label for="data_evento_inicio" class="form-label">Data de Início:</label>
+            <input type="date" class="form-control" id="data_evento_inicio" name="data_evento_inicio" value="{{ evento.data_evento_inicio }}">
         </div>
-
         <div class="mb-1">
-            {% if evento.id != '' %} <input type="hidden" name="id" value="{{ evento.id }}"> {% endif %}            
-            <button class="btn btn-primary w-100 text-center" type="submit">{{ evento.id == '' ? 'SALVAR EVENTO' : 'SALVAR ALTERAÇÕES' }}</button>
+            <label for="data_evento_fim" class="form-label">Data de Encerramento:</label>
+            <input type="date" class="form-control" id="data_evento_fim" name="data_evento_fim" value="{{ evento.data_evento_fim }}">
         </div>
+        <div class="mb-1">
+            <textarea id="descricao" class="form-control" name="descricao">{{ evento.descricao }}</textarea>
+        </div>
+        {% if evento.id != '' %} <input type="hidden" name="id" value="{{ evento.id }}"> {% endif %}
+        <button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ evento.id == '' ? 'SALVAR EVENTO' : 'SALVAR ALTERAÇÕES' }}</button>
     </form>
 </div>
-<script src="{{ PATH }}/view/painel/src/js/scripts/pages/evento.js"></script>
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/eventos.js"></script>

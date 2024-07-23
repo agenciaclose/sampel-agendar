@@ -4789,7 +4789,15 @@ span.fr-counter {
   background-position: center;
   border-radius: 8px;
 }
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  color: #ffffff;
+}
 
+@media (min-width: 1400px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1400px;
+  }
+}
 @media (max-width: 1200px) {
   .gallery-item {
       width: calc(25% - 20px); /* Quatro itens por linha em telas menores */
@@ -4813,6 +4821,7 @@ span.fr-counter {
       width: calc(100% - 20px); /* Um item por linha em telas muito pequenas */
   }
 }
+
 #lightgallery > a:hover {
   border-color: #ffc107;
 }

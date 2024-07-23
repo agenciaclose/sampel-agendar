@@ -110,6 +110,22 @@
             </div>
         </div>
 
+        <div class="mb-2 border-bottom">
+            <div><b>Eventos</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[eventos][]" type="checkbox" id="eventos1" value="view" {{ 'view' in permissions.eventos ? 'checked' }}>
+                <label class="form-check-label" for="eventos1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[eventos][]" type="checkbox" id="eventos2" value="add" {{ 'add' in permissions.eventos ? 'checked' }}>
+                <label class="form-check-label" for="eventos2">Crir / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[eventos][]" type="checkbox" id="eventos3" value="delete" {{ 'delete' in permissions.eventos ? 'checked' }}>
+                <label class="form-check-label" for="eventos3">Excluir</label>
+            </div>
+        </div>
+
         <div class="mb-2">
             {% if cargo.id != '' %} <input type="hidden" name="id" value="{{ cargo.id }}"> {% endif %}            
             <button class="btn btn-primary w-100 text-center" type="submit">{{ cargo.id == '' ? 'SALVAR CARGO' : 'SALVAR ALTERAÇÕES' }}</button>

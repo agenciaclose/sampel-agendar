@@ -17,6 +17,13 @@
                                 <a href="{{ DOMAIN }}" class="ps-0"><i class="fa-thin fa-house-chimney"></i> Home</a>
                             </li>
                             {% if _session.sampel_user_id %}
+
+                                {% if 'view' in permissions.eventos or permissions == 'all' %}
+                                <li class="menu-item {{ menu == 'eventos' ? 'current-menu-item' }}">
+                                    <a href="{{ DOMAIN }}/eventos"><i class="fa-thin fa-lg fa-stars"></i> Eventos</a>
+                                </li>
+                                {% endif %}
+
                                 <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
                                     <ul>
@@ -26,13 +33,6 @@
                                         <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
                                     </ul>
                                 </li>
-                                {# <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
-                                    <a href="{{ DOMAIN }}/agendamentos"><i class="fa-thin fa-stars"></i> Eventos</a>
-                                    <ul>
-                                        <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
-                                        <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
-                                    </ul>
-                                </li> #}
                                 <li class="menu-item {{ menu == 'paletras' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
                                     <ul>

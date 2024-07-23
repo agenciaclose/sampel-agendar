@@ -9,6 +9,7 @@ require  __DIR__ . '/emails.php';
 require  __DIR__ . '/visita.php';
 require  __DIR__ . '/palestras.php';
 require  __DIR__ . '/relatorios.php';
+require  __DIR__ . '/eventos.php';
 
 //PAINEL
 require  __DIR__ . '/painel.php';
