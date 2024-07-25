@@ -9,6 +9,13 @@ use Agencia\Close\Models\Model;
 
 class ProdutosPainel extends Model
 {
+    public function getPedidos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM pedidos ORDER BY `id` DESC");
+        return $read;
+    }
+
     public function getProdutos(): Read
     {
         $read = new Read();

@@ -21,7 +21,7 @@
 								<div class="mb-1 flex-fill w-md-100">
 									<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
 									<select class="form-control text-uppercase" name="tipo_evento" id="tipo_evento" required="required">
-										<option>Selecione</option>
+										<option value="">Selecione</option>
 										<option value="visitas">Visitas</option>
 										<option value="palestras">Palestras</option>
 										<option value="eventos">Eventos e Feitas</option>
@@ -30,8 +30,8 @@
 								</div>
 								<div class="mb-1 flex-fill mx-md-3 w-md-100">
 									<label for="id_evento" class="form-label id_evento">Selecione o Evento</label>
-									<select class="form-control select2 id_evento_select text-uppercase" name="id_evento">
-										<option>Selecione</option>
+									<select class="form-control select2 id_evento_select text-uppercase" name="id_evento" required="required">
+										<option value="">Selecione</option>
 									</select>
 								</div>
 								<div class="mb-1 flex-fill me-md-3 w-md-100">
@@ -64,7 +64,7 @@
 											{% for produto in produtos %}
 												<tr>
 													<td class="p-0">
-														<input type="hidden" name="idProduto[]" value="{{ produto.id }}">
+														<input type="hidden" name="id_produto[]" value="{{ produto.id }}">
 														{% if produto.imagem != '' %}
 															<a href="{{ produto.imagem }}" class="img"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></a>
 														{% else %}                                                            
@@ -75,7 +75,10 @@
 													<td>{{ produto.codigo }}</td>
 													<td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
 													<td class="text-center">{{ produto.unidades }}</td>
-													<td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
+													<td class="text-center">
+														R$ {{ produto.preco|number_format(2, ',', '.') }}
+														<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">
+													</td>
 													<td class="text-center" width="50">
 														{% if produto.quantidade > 0 %}
 															<div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="Qtd. disponível atualmente: <b>{{ produto.quantidade > 0 ? produto.quantidade : 0 }}</b>">
@@ -96,11 +99,11 @@
 													</td>
 													<td class="text-center" width="50">
 														<span class="text-success" id="qtd-total-{{ produto.id }}">0</span>
-														<input type="hidden" name="qt-total[]" id="qtd-total-value-{{ produto.id }}">
+														<input type="hidden" name="qt_total[]" id="qtd-total-value-{{ produto.id }}">
 													</td>
 													<td class="text-center text-success">
 														R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">0,00</span>
-														<input type="hidden" name="valor-total[]" id="valor-itemTotal-{{ produto.id }}">
+														<input type="hidden" name="valor_total[]" id="valor-itemTotal-{{ produto.id }}">
 													</td>
 													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}"><span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span> </td>
 												</tr>

@@ -100,6 +100,7 @@ $(function(){
 			$('.id_evento').hide();
 			$('.id_evento_select').hide();
 			$('#descricao_pedido').attr('required', 'required');
+			$('.id_evento_select').removeAttr('required');
 		}else{
 
 			$.ajax({
@@ -115,7 +116,7 @@ $(function(){
 						if (Array.isArray(response)) {
 							var select = $('.id_evento_select');
 							select.empty();
-							select.append('<option>Selecione</option>');
+							select.append('<option value="">Selecione</option>');
 							response.forEach(function(item) {
 								var formattedDate = item.data.split('-').reverse().join('/');
 								var option = $('<option>', {
@@ -139,7 +140,7 @@ $(function(){
 			$('.id_evento').show();
 			$('.id_evento_select').show();
 			$('#descricao_pedido').removeAttr('required');
-
+			$('.id_evento_select').attr('required', 'required');
 		}
 	});
 
@@ -153,9 +154,6 @@ $(function(){
 			data: formData,
 			type: 'POST',
 			success: function(data){
-				if (data == "2") {
-					window.location.href= domain + '/painel/pedidos';
-				}
 				if (data == "1") {
 					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 2000});
 					setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 2000);
