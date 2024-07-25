@@ -15,6 +15,7 @@ require  __DIR__ . '/eventos.php';
 require  __DIR__ . '/painel.php';
 require  __DIR__ . '/painel/produtos.php';
 require  __DIR__ . '/painel/eventos.php';
+require  __DIR__ . '/painel/pedidos.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
