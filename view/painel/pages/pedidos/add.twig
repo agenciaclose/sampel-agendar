@@ -18,6 +18,64 @@
 						<form action="javascript:void(0)" id="novo_pedido" method="POST">
 
 							<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+								<div class="mb-1 flex-fill w-md-100">
+									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<select class="form-control text-uppercase select2" name="id_equipe" id="id_equipe" required="required">
+										<option value="">Selecione</option>
+										{% for equipe in equipes %}
+										<option value="{{ equipe.id }}">{{ equipe.nome }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 ms-md-3">
+									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<input type="text" name="solicitante" class="form-control" required="required">
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 mx-md-3">
+									<label for="id_equipe" class="form-label">Estado de despacho:</label>
+									<select name="estado_pedido" class="form-control" required="required">
+										<option value="">Selecione</option>
+										<option value="Acre">Acre</option>
+										<option value="Alagoas">Alagoas</option>
+										<option value="Amapá">Amapá</option>
+										<option value="Amazonas">Amazonas</option>
+										<option value="Bahia">Bahia</option>
+										<option value="Ceará">Ceará</option>
+										<option value="Distrito Federal">Distrito Federal</option>
+										<option value="Espírito Santo">Espírito Santo</option>
+										<option value="Goiás">Goiás</option>
+										<option value="Maranhão">Maranhão</option>
+										<option value="Mato Grosso">Mato Grosso</option>
+										<option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+										<option value="Minas Gerais">Minas Gerais</option>
+										<option value="Pará">Pará</option>
+										<option value="Paraíba">Paraíba</option>
+										<option value="Paraná">Paraná</option>
+										<option value="Pernambuco">Pernambuco</option>
+										<option value="Piauí">Piauí</option>
+										<option value="Rio de Janeiro">Rio de Janeiro</option>
+										<option value="Rio Grande do Norte">Rio Grande do Norte</option>
+										<option value="Rio Grande do Sul">Rio Grande do Sul</option>
+										<option value="Rondônia">Rondônia</option>
+										<option value="Roraima">Roraima</option>
+										<option value="Santa Catarina">Santa Catarina</option>
+										<option value="São Paulo">São Paulo</option>
+										<option value="Sergipe">Sergipe</option>
+										<option value="Tocantins">Tocantins</option>
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100">
+									<label for="id_equipe" class="form-label">Finalidade do pedido:</label>
+									<input type="text" name="finalidade" class="form-control" required="required">
+								</div>
+
+							</div>
+
+							<div class="d-flex justify-content-between flex-wrap align-items-end">
 								<div class="mb-1 flex-fill w-md-100">
 									<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
 									<select class="form-control text-uppercase" name="tipo_evento" id="tipo_evento" required="required">
@@ -29,10 +87,12 @@
 									</select>
 								</div>
 								<div class="mb-1 flex-fill mx-md-3 w-md-100">
-									<label for="id_evento" class="form-label id_evento">Selecione o Evento</label>
-									<select class="form-control select2 id_evento_select text-uppercase" name="id_evento" required="required">
-										<option value="">Selecione</option>
-									</select>
+									<div class="id_evento">
+										<label for="id_evento" class="form-label">Selecione o Evento</label>
+										<select class="form-control select2 id_evento_select text-uppercase" name="id_evento" required="required">
+											<option value="">Selecione</option>
+										</select>
+									</div>
 								</div>
 								<div class="mb-1 flex-fill me-md-3 w-md-100">
 									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>

@@ -9,6 +9,13 @@ use Agencia\Close\Models\Model;
 
 class PedidosPainel extends Model
 {
+    public function getPedidos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe ORDER BY `id` DESC");
+        return $read;
+    }
+
     public function getTipoVisitas(): Read
     {
         $read = new Read();
@@ -43,14 +50,20 @@ class PedidosPainel extends Model
         $pedido->ExeCreate('pedidos', [
             'id_user' => $params['id_user'],
             'id_user_update' => $params['id_user_update'],
-            'tipo_evento' => $params['tipo_evento'],
+            'id_equipe' => $params['id_equipe'],
             'id_evento' => $params['id_evento'],
+            'tipo_evento' => $params['tipo_evento'],
+            'solicitante' => $params['solicitante'],
+            'estado_pedido' => $params['estado_pedido'],
+            'finalidade' => $params['finalidade'],
             'descricao_pedido' => $params['descricao_pedido']
         ]);
 
         //RETORNA O ID DO PEDIDO
         $id_pedido = $pedido->getResult();
-
+        
+        $valor_total_pedido = 0;
+        
         //SALVA OS ITENS DO PRODUTO
         foreach ($itens as $product) {
 
@@ -65,11 +78,17 @@ class PedidosPainel extends Model
                 'valor_total' => $product['valor_total']
             ]);
 
+            $valor_total_pedido .= ($valor_total_pedido + $product['valor_total']);
+
             //ATUALIZA DIMUNINDO O ESTOQUE DOS PRODUTOS
             $estoque_update = new Read();
             $estoque_update->FullRead("UPDATE `produtos` SET `quantidade` = (`quantidade` - :quantidade), `estoque` = (`estoque` - :estoque) 
                                     WHERE `id` = :id", "id={$product['id_produto']}&quantidade={$product['quantidade']}&estoque={$product['qt_total']}");
         }
+
+        //ATUALIZA VALOR TOTAL DO PEDIDO
+        $update_valor = new Read();
+        $update_valor->FullRead("UPDATE `pedidos` SET `valor_total_pedido` = :valor_total_pedido WHERE `id` = :id", "id={$id_pedido}&valor_total_pedido={$valor_total_pedido}");
 
         return 'success';
     }
@@ -101,6 +120,32 @@ class PedidosPainel extends Model
         }
 
         return $filteredProducts;
+    }
+
+
+    public function statusRecusadoSave($params): Read
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT * FROM pedidos_itens WHERE id_pedido = :id_pedido AND `status_itens` = 'S'", "id_pedido={$params['id']}");
+
+        if ($itens->getResult()) {
+            foreach ($itens->getResult() as $item) {
+                $estoque_update = new Read();
+                $estoque_update->FullRead("UPDATE `produtos` SET `quantidade` = (`quantidade` + :quantidade), `estoque` = (`estoque` + :estoque) 
+                                    WHERE `id` = :id", "id={$item['id_produto']}&quantidade={$item['quantidade']}&estoque={$item['qt_total']}");
+            }
+        }
+
+        $itens = new Read();
+        $itens->FullRead("UPDATE `pedidos` SET `status_pedido` = :status_pedido WHERE id = :id", "id={$params['id']}&status_pedido={$params['status_pedido']}");
+        return $itens;
+    }
+
+    public function statusPedidoSave($params): Read
+    {
+        $itens = new Read();
+        $itens->FullRead("UPDATE `pedidos` SET `status_pedido` = :status_pedido WHERE id = :id", "id={$params['id']}&status_pedido={$params['status_pedido']}");
+        return $itens;
     }
 
 

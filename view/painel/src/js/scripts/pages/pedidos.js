@@ -1,4 +1,32 @@
 $(document).ready(function() {
+
+	$('#pedidos').DataTable({
+		"ordering": false,
+        "lengthMenu": [25, 50, 100],
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "searchPlaceholder": "Pesquisar..",
+            "sLengthMenu": "_MENU_",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior",
+                "sFirst": "Primeiro",
+                "sLast": "Último"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+            }
+        }
+    });
+
     var table = $('#produtos').DataTable({
         "ordering": false,
         "bPaginate": false,
@@ -86,7 +114,9 @@ $(document).ready(function(){
     $('input[type="number"]').on('keypress', function(e) {
         e.preventDefault();
     });
-	$('.select2').select2();
+	if ($('.select2').length){
+		$('.select2').select2();
+	}
 });
 
 $(function(){
@@ -98,7 +128,6 @@ $(function(){
 
 		if(tipo == 'extra'){
 			$('.id_evento').hide();
-			$('.id_evento_select').hide();
 			$('#descricao_pedido').attr('required', 'required');
 			$('.id_evento_select').removeAttr('required');
 		}else{
@@ -121,7 +150,7 @@ $(function(){
 								var formattedDate = item.data.split('-').reverse().join('/');
 								var option = $('<option>', {
 									value: item.id,
-									text: item.title + ' - ' + formattedDate
+									text: formattedDate + ' - ' + item.title
 								});
 								select.append(option);
 							});
@@ -138,7 +167,6 @@ $(function(){
 			});
 
 			$('.id_evento').show();
-			$('.id_evento_select').show();
 			$('#descricao_pedido').removeAttr('required');
 			$('.id_evento_select').attr('required', 'required');
 		}
@@ -190,41 +218,44 @@ $(function(){
 			contentType: false
 		});
 	});
-
-	function deletar(id,statusPedido){
-		if(statusPedido == 8){
-			swal({title: "DELETAR ESTE PEDIDO?", text: "Esta Ã© uma aÃ§Ã£o permamente.", type: "error", customClass: "red-bg", showCancelButton: true, confirmButtonColor: "#222f3c", confirmButtonText: "SIM", cancelButtonText: "NÃƒO", closeOnConfirm: false,},
-			function(){
-				$.ajax({
-					type: 'post',
-					url: domain + 'assets/data/deletar.php',
-					data: {id:id,statusPedido:statusPedido,action:'moderar'},
-					success: function (response) {
-						swal("", "DELETADO!", "success");
-						setTimeout(function() {location.reload();}, 2000);
-					}
-				});
-				
-			});
-		}
-		if(statusPedido == 9){
-			swal({title: "CANCELAR ESTE ITEM?", text: "Esta Ã© uma aÃ§Ã£o permamente.", type: "error", customClass: "red-bg", showCancelButton: true, confirmButtonColor: "#222f3c", confirmButtonText: "SIM", cancelButtonText: "NÃƒO", closeOnConfirm: false,},
-			function(){
-				$.ajax({
-					type: 'post',
-					url: domain + 'assets/data/deletar.php',
-					data: {id:id,statusPedido:statusPedido,action:'moderar'},
-					success: function (response) {
-						swal("", "CANCELADO!", "success");
-						setTimeout(function() {location.reload();}, 2000);
-					}
-				});
-				
-			});
-		}
-	}
-
+	
 });
+
+function deletar(id, status_pedido){
+	var DOMAIN = $('body').data('domain');
+	if(status_pedido == 'Recusado'){
+		Swal.fire({
+			title: 'RECUSAR ESTE PEDIDO?',
+			text: "Esta ação será permamente.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonText: 'SIM',
+			cancelButtonText: `NÃO`,
+		}).then((result) => {
+			if (result.value) {
+				$.ajax({
+					type: 'POST',
+					url: DOMAIN + '/painel/pedidos/add/status',
+					data: {id:id, status_pedido:status_pedido},
+					success: function () {
+						Swal.fire({title: 'RECUSADO!',type: "success",showCancelButton: false});
+						setTimeout(function() {location.reload();}, 2000);
+					}
+				});
+			}
+		});
+	}else{
+		$.ajax({
+			type: 'POST',
+			url: DOMAIN + '/painel/pedidos/add/status',
+			data: {id:id, status_pedido:status_pedido},
+			success: function () {
+				swal("", "ALTERADO!", "success");
+				setTimeout(function() {location.reload();}, 2000);
+			}
+		});
+	}
+}
 
 function itemTotal(quantidade, valor, item, validation, unidades){
 

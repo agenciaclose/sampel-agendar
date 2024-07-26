@@ -2,10 +2,11 @@
 
 namespace Agencia\Close\Controllers\Painel\PedidosPainel;
 
-use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Helpers\Result;
+use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\ProdutosPainel;
+use Agencia\Close\Models\Painel\EquipesPainel;
 
 class PedidosPainelController extends Controller
 {
@@ -14,7 +15,7 @@ class PedidosPainelController extends Controller
         $this->setParams($params);
         $this->permissions('pedidos', '"view"');
 
-        $model = new ProdutosPainel();
+        $model = new PedidosPainel();
         $pedidos = $model->getPedidos()->getResult();
 
         $this->render('painel/pages/pedidos/lista.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos]);
@@ -28,7 +29,10 @@ class PedidosPainelController extends Controller
         $model = new ProdutosPainel();
         $produtos = $model->getProdutos()->getResult();
 
-        $this->render('painel/pages/pedidos/add.twig', ['menu' => 'pedidos',  'produtos' => $produtos]);
+        $model = new EquipesPainel();
+        $equipes = $model->getEquipesList()->getResult();
+
+        $this->render('painel/pages/pedidos/add.twig', ['menu' => 'pedidos',  'produtos' => $produtos,  'equipes' => $equipes]);
     }
 
     public function getTipoEvento($params)
@@ -59,6 +63,17 @@ class PedidosPainelController extends Controller
         $save = $model->addProductSave($params);
         if($save === 'success'){
            echo '1'; 
+        }
+    }
+
+    public function statusPedidoSave($params)
+    {
+        $this->setParams($params);
+        $model = new PedidosPainel();
+        if($params['status_pedido'] == 'Recusado'){
+            $model->statusRecusadoSave($params);
+        }else{
+            $model->statusPedidoSave($params);
         }
     }
     
