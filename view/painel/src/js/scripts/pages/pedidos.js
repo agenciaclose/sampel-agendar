@@ -128,7 +128,6 @@ $(function(){
 
 		if(tipo == 'extra'){
 			$('.id_evento').hide();
-			$('#descricao_pedido').attr('required', 'required');
 			$('.id_evento_select').removeAttr('required');
 		}else{
 
@@ -167,7 +166,6 @@ $(function(){
 			});
 
 			$('.id_evento').show();
-			$('#descricao_pedido').removeAttr('required');
 			$('.id_evento_select').attr('required', 'required');
 		}
 	});
