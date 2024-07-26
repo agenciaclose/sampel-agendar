@@ -54,6 +54,9 @@
 								<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
 								<input type="text" class="form-control" value="{{ pedido.descricao_pedido }}"  readonly>
 							</div>
+							<div class="mb-1">
+								<button type="button" class="btn btn-primary rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</button>
+							</div>
 						</div>
 
 						<div class="table-responsive lista_produtos"> 

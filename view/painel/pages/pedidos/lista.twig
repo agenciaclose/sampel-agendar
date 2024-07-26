@@ -38,9 +38,7 @@
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.solicitante }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.estado_pedido }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.valor_total_pedido }}</a></td>
-                                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center">
-                                            <i class="fa-lg {{ pedido.status_pedido }}"></i> {{ pedido.status_pedido }}	
-                                        </td>
+                                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">{{ pedido.status_pedido }}</td>
                                         <td width="255" class="text-end">
                                             <div class="btn-group dropstart">
                                                 <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
