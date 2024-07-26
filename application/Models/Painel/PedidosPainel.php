@@ -16,6 +16,41 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidoID($id_pedido): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.id = :id ORDER BY p.`id` DESC", "id={$id_pedido}");
+        return $read;
+    }
+
+    public function getPedidoIDItens($id_pedido): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT *, ppi.quantidade as qtd_escolhida FROM pedidos_itens AS ppi
+                        INNER JOIN produtos AS p ON p.id = ppi.id_produto
+                        WHERE ppi.id_pedido = :id_pedido AND ppi.status_itens = 'S' ORDER BY ppi.`date_create` ASC", "id_pedido={$id_pedido}");
+        return $read;
+    }
+
+    public function getPedidoEvento($tipo_evento, $id_evento): Read
+    {
+        $read = new Read();
+
+        if($tipo_evento == 'visitas'){
+            $read->FullRead("SELECT *, title as nome_evento, data_visita as data_evento FROM visitas WHERE id = :id_evento", "id_evento={$id_evento}");
+        }
+
+        if($tipo_evento == 'palestras'){
+            $read->FullRead("SELECT *, title as nome_evento, data_palestra as data_evento FROM palestras WHERE id = :id_evento", "id_evento={$id_evento}");
+        }
+
+        if($tipo_evento == 'eventos'){
+            $read->FullRead("SELECT *, data_evento_inicio as data_evento FROM eventos WHERE id = :id_evento", "id_evento={$id_evento}");
+        }
+        
+        return $read;
+    }
+
     public function getTipoVisitas(): Read
     {
         $read = new Read();

@@ -10,7 +10,7 @@ use Agencia\Close\Models\Painel\EquipesPainel;
 
 class PedidosPainelController extends Controller
 {
-    public function listaPedidos($params)
+    public function listPedidos($params)
     {
         $this->setParams($params);
         $this->permissions('pedidos', '"view"');
@@ -19,6 +19,28 @@ class PedidosPainelController extends Controller
         $pedidos = $model->getPedidos()->getResult();
 
         $this->render('painel/pages/pedidos/lista.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos]);
+    }
+
+    public function viewPedido($params)
+    {
+        $this->setParams($params);
+        $this->permissions('pedidos', '"view"');
+
+        $model = new PedidosPainel();
+        $pedido = $model->getPedidoID($params['id']);
+
+        if($pedido->getResult()){
+            $pedido = $pedido->getResult()[0];
+            
+            $evento = [];
+            if($pedido['tipo_evento'] != 'extra'){
+                $evento = $model->getPedidoEvento($pedido['tipo_evento'], $pedido['id_evento'])->getResult()[0];
+            }
+
+            $itens = $model->getPedidoIDItens($pedido['id'])->getResult();
+        }
+
+        $this->render('painel/pages/pedidos/view.twig', ['menu' => 'pedidos',  'pedido' => $pedido, 'itens' => $itens, 'evento' => $evento]);
     }
 
     public function addPedido($params)
