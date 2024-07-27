@@ -80,6 +80,14 @@ class PedidosPainel extends Model
         $params['id_user'] = $_SESSION['sampel_user_id'];
         $params['id_user_update'] = $_SESSION['sampel_user_id'];
 
+        if($params['id_equipe'] == ''){
+            $params['id_equipe'] = 0;
+        }
+
+        if($params['id_evento'] == ''){
+            $params['id_evento'] = 0;
+        }
+
         //SALVA O PEDIDO
         $pedido = new Create();
         $pedido->ExeCreate('pedidos', [

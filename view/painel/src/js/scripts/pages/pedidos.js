@@ -181,11 +181,11 @@ $(function(){
 			type: 'POST',
 			success: function(data){
 				if (data == "1") {
-					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 2000});
-					setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 2000);
+					//swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 2000});
+					//setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 2000);
 				}else{
-					$('#salvar').prop('type', 'submit');
-					swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 2000});
+					//$('#salvar').prop('type', 'submit');
+					//swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 2000});
 				}
 			},
 			processData: false,
