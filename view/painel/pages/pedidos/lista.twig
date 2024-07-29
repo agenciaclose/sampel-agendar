@@ -46,10 +46,10 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     {% if pedido.status_pedido != 'Recusado' %}
-                                                    <li><a class="dropdown-item text-warning" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
-                                                    <li><a class="dropdown-item text-success" href="javascript:void(0)" onclick="deletar({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
-                                                    <li><a class="dropdown-item text-info" href="javascript:void(0)" onclick="deletar({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
-                                                    <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="deletar({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
+                                                    <li><a class="dropdown-item text-warning" href="{{ DOMAIN }}/painel/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+                                                    <li><a class="dropdown-item text-success" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
+                                                    <li><a class="dropdown-item text-info" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
+                                                    <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
                                                     {% else %}
                                                     <li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
                                                     {% endif %}

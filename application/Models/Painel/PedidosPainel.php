@@ -32,6 +32,15 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidoIDItensEdit($id_pedido): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT *, p.quantidade as qtd_produto, pi.quantidade as qtd_escolhida FROM produtos p
+                        LEFT JOIN (SELECT * FROM pedidos_itens WHERE id_pedido = :id_pedido AND status_itens = 'S') pi
+                        ON p.id = pi.id_produto ORDER BY pi.id_produto DESC", "id_pedido={$id_pedido}");
+        return $read;
+    }
+
     public function getPedidoEvento($tipo_evento, $id_evento): Read
     {
         $read = new Read();
@@ -72,6 +81,7 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    // CRIA NOVO PEDIDO
     public function addProductSave($params)
     {
         //FAZ O TRATAMENTO DOS ITENS PARA SALVAR
@@ -105,7 +115,7 @@ class PedidosPainel extends Model
 
         //RETORNA O ID DO PEDIDO
         $id_pedido = $pedido->getResult();
-        
+
         //SALVA OS ITENS DO PRODUTO
         foreach ($itens as $product) {
 
@@ -113,6 +123,79 @@ class PedidosPainel extends Model
             $pedido_itens->ExeCreate('pedidos_itens', [
                 'id_pedido' => $id_pedido,
                 'id_user' => $params['id_user'],
+                'id_produto' => $product['id_produto'],
+                'quantidade' => $product['quantidade'],
+                'valor_unid' => $product['valor_unid'],
+                'qt_total' => $product['qt_total'],
+                'valor_total' => $product['valor_total']
+            ]);
+
+            //ATUALIZA DIMUNINDO O ESTOQUE DOS PRODUTOS
+            $estoque_update = new Read();
+            $estoque_update->FullRead("UPDATE `produtos` SET `quantidade` = (`quantidade` - :quantidade), `estoque` = (`estoque` - :estoque) 
+                                    WHERE `id` = :id", "id={$product['id_produto']}&quantidade={$product['quantidade']}&estoque={$product['qt_total']}");
+        }
+        
+        return 'success';
+    }
+
+
+    // EDITAR PEDIDO
+    public function editProductSave($params)
+    {
+        //RETORNA O ID DO PEDIDO
+        $id_pedido = $params['id'];
+        unset($params['id']);
+
+        //FAZ O TRATAMENTO DOS ITENS PARA SALVAR
+        $itens = $this->tratarParamsPedidos($params);
+
+        $params['id_user_update'] = $_SESSION['sampel_user_id'];
+
+        if($params['id_equipe'] == ''){
+            $params['id_equipe'] = 0;
+        }
+
+        if($params['id_evento'] == ''){
+            $params['id_evento'] = 0;
+        }
+
+        //ATUALIZA O PEDIDO
+        $pedido = new Update();
+        $pedido->ExeUpdate('pedidos', [
+            'id_user_update' => $params['id_user_update'],
+            'id_equipe' => $params['id_equipe'],
+            'id_evento' => $params['id_evento'],
+            'tipo_evento' => $params['tipo_evento'],
+            'solicitante' => $params['solicitante'],
+            'estado_pedido' => $params['estado_pedido'],
+            'finalidade' => $params['finalidade'],
+            'descricao_pedido' => $params['descricao_pedido'],
+            'valor_total_pedido' => $params['valor_total_pedido']
+        ], 'WHERE id = :id', "id={$id_pedido}");
+
+
+        // REALOCA DE VOLTA O ESTOQUE
+        $devolver = new Read();
+        $devolver->FullRead("SELECT * FROM pedidos_itens WHERE id_pedido = :id_pedido AND `status_itens` = 'S'", "id_pedido={$id_pedido}");
+
+        if ($devolver->getResult()) {
+            foreach ($devolver->getResult() as $p_itens) {
+                $devolver_update = new Read();
+                $devolver_update->FullRead("UPDATE `produtos` SET `quantidade` = (`quantidade` + :quantidade), `estoque` = (`estoque` + :estoque) 
+                                    WHERE `id` = :id", "id={$p_itens['id_produto']}&quantidade={$p_itens['quantidade']}&estoque={$p_itens['qt_total']}");
+            }
+        }
+        $devolver_desativa = new Read();
+        $devolver_desativa->FullRead("UPDATE `pedidos_itens` SET `status_itens` = 'N' WHERE `id_pedido` = :id_pedido", "id_pedido={$id_pedido}");
+        
+        //SALVA OS ITENS DO PRODUTO
+        foreach ($itens as $product) {
+
+            $pedido_itens = new Create();
+            $pedido_itens->ExeCreate('pedidos_itens', [
+                'id_pedido' => $id_pedido,
+                'id_user' => $params['id_user_update'],
                 'id_produto' => $product['id_produto'],
                 'quantidade' => $product['quantidade'],
                 'valor_unid' => $product['valor_unid'],

@@ -57,6 +57,31 @@ class PedidosPainelController extends Controller
         $this->render('painel/pages/pedidos/add.twig', ['menu' => 'pedidos',  'produtos' => $produtos,  'equipes' => $equipes]);
     }
 
+    public function editPedido($params)
+    {
+        $this->setParams($params);
+        $this->permissions('pedidos', '"add"');
+
+        $model = new EquipesPainel();
+        $equipes = $model->getEquipesList()->getResult();
+
+        $model = new PedidosPainel();
+        $pedido = $model->getPedidoID($params['id']);
+
+        if($pedido->getResult()){
+            $pedido = $pedido->getResult()[0];
+            
+            $evento = [];
+            if($pedido['tipo_evento'] != 'extra'){
+                $evento = $model->getPedidoEvento($pedido['tipo_evento'], $pedido['id_evento'])->getResult()[0];
+            }
+
+            $produtos = $model->getPedidoIDItensEdit($pedido['id'])->getResult();
+        }
+
+        $this->render('painel/pages/pedidos/edit.twig', ['menu' => 'pedidos', 'equipes' => $equipes, 'pedido' => $pedido, 'produtos' => $produtos, 'evento' => $evento, 'estados' => $this->estados()]);
+    }
+
     public function getTipoEvento($params)
     {
         $this->setParams($params);
@@ -88,6 +113,16 @@ class PedidosPainelController extends Controller
         }
     }
 
+    public function editPedidoSave($params)
+    {
+        $this->setParams($params);
+        $model = new PedidosPainel();
+        $save = $model->editProductSave($params);
+        if($save === 'success'){
+           echo '1'; 
+        }
+    }
+
     public function statusPedidoSave($params)
     {
         $this->setParams($params);
@@ -97,6 +132,40 @@ class PedidosPainelController extends Controller
         }else{
             $model->statusPedidoSave($params);
         }
+    }
+
+    public function estados()
+    {
+        $estados = [
+            'Acre', 
+            'Alagoas', 
+            'Amapá', 
+            'Amazonas', 
+            'Bahia', 
+            'Ceará', 
+            'Distrito Federal', 
+            'Espírito Santo', 
+            'Goiás', 
+            'Maranhão', 
+            'Mato Grosso', 
+            'Mato Grosso do Sul', 
+            'Minas Gerais', 
+            'Pará', 
+            'Paraíba', 
+            'Paraná', 
+            'Pernambuco', 
+            'Piauí', 
+            'Rio de Janeiro', 
+            'Rio Grande do Norte', 
+            'Rio Grande do Sul', 
+            'Rondônia', 
+            'Roraima', 
+            'Santa Catarina', 
+            'São Paulo', 
+            'Sergipe', 
+            'Tocantins'
+        ];
+        return $estados;
     }
     
 }

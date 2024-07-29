@@ -8,4 +8,5 @@ $router->get("/painel/pedidos/edit/{id}", "PedidosPainelController:editPedido");
 $router->get("/painel/pedidos/view/{id}", "PedidosPainelController:viewPedido");
 $router->post("/painel/pedidos/tipo", "PedidosPainelController:getTipoEvento");
 $router->post("/painel/pedidos/add/save", "PedidosPainelController:addPedidoSave");
+$router->post("/painel/pedidos/edit/save", "PedidosPainelController:editPedidoSave");
 $router->post("/painel/pedidos/add/status", "PedidosPainelController:statusPedidoSave");

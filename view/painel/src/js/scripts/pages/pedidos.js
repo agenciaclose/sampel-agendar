@@ -140,11 +140,11 @@ $(function(){
 			type: 'POST',
 			success: function(data){
 				if (data == "1") {
-					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 2000});
-					setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 2000);
+					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 1500});
+					setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 1500);
 				}else{
 					$('#salvar').prop('type', 'submit');
-					swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 2000});
+					swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 1500});
 				}
 			},
 			processData: false,
@@ -153,21 +153,22 @@ $(function(){
 		});
 	});
 
-	$('#form-editar').submit(function(e){
+	$('#editar_pedido').submit(function(e){
+		var DOMAIN = $('body').data('domain');
 		$('#salvar').prop('type', 'button');
 		e.preventDefault();
 		var formData = new FormData(this);
 		$.ajax({
-			url: domain + 'assets/data/gestao-pedidos/editar.php',
+			url: DOMAIN + '/painel/pedidos/edit/save',
 			data: formData,
-			type: 'post',
+			type: 'POST',
 			success: function(data){
 				if (data == "1") {
-					swal({type: 'success',title: 'EDITADO COM SUCESSO!',showConfirmButton: false,timer: 2000});
-					setTimeout(function() {window.location.href= domain + 'gestao-pedidos-lista/'+formData.get('daraj')+'';}, 2000);
+					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 1500});
+					setTimeout(function() {location.reload();}, 1500);
 				}else{
 					$('#salvar').prop('type', 'submit');
-					swal({type: 'error',title: 'ERRO AO EDITAR!',showConfirmButton: false,timer: 2000});
+					swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 1500});
 				}
 			},
 			processData: false,
@@ -178,7 +179,7 @@ $(function(){
 	
 });
 
-function deletar(id, status_pedido){
+function statusPedido(id, status_pedido){
 	var DOMAIN = $('body').data('domain');
 	if(status_pedido == 'Recusado'){
 		Swal.fire({
@@ -196,7 +197,7 @@ function deletar(id, status_pedido){
 					data: {id:id, status_pedido:status_pedido},
 					success: function () {
 						Swal.fire({title: 'RECUSADO!',type: "success",showCancelButton: false});
-						setTimeout(function() {location.reload();}, 2000);
+						setTimeout(function() {location.reload();}, 1500);
 					}
 				});
 			}
@@ -208,7 +209,7 @@ function deletar(id, status_pedido){
 			data: {id:id, status_pedido:status_pedido},
 			success: function () {
 				swal("", "ALTERADO!", "success");
-				setTimeout(function() {location.reload();}, 2000);
+				setTimeout(function() {location.reload();}, 1500);
 			}
 		});
 	}

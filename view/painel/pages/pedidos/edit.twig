@@ -1,0 +1,188 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %} Editar Pedido {% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row"></div>
+            <div class="content-body">
+
+				<form action="javascript:void(0)" id="editar_pedido" method="POST">
+
+					<div class="card">
+						<div class="card-body">
+
+							<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+								<div class="mb-1 flex-fill w-md-100">
+									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<select class="form-control text-uppercase select2" name="id_equipe" id="id_equipe" required="required">
+										<option value="">Selecione</option>
+										{% for equipe in equipes %}
+										<option value="{{ equipe.id }}" {{ pedido.id_equipe == equipe.id ? 'selected' }}>{{ equipe.nome }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 ms-md-3">
+									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<input type="text" name="solicitante" class="form-control text-uppercase" value="{{ pedido.solicitante }}" required="required">
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 mx-md-3">
+									<label for="id_equipe" class="form-label">Estado de despacho:</label>
+									<select name="estado_pedido" class="form-control text-uppercase" required="required">
+										<option value="">Selecione</option>
+										{% for estado in estados %}
+											<option value="{{ estado }}" {{ pedido.estado_pedido == estado ? 'selected' }}>{{ estado }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100">
+									<label for="id_equipe" class="form-label">Finalidade do pedido:</label>
+									<input type="text" name="finalidade" class="form-control text-uppercase" value="{{ pedido.finalidade }}" required="required">
+								</div>
+
+							</div>
+
+							<div class="d-flex justify-content-between flex-wrap align-items-end">
+								<div class="mb-1 flex-fill w-md-100">
+									<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
+									<select class="form-control text-uppercase" name="tipo_evento" id="tipo_evento" required="required">
+										<option value="">Selecione</option>
+										<option value="visitas" {{ pedido.tipo_evento == 'visitas' ? 'selected' }}>Visitas</option>
+										<option value="palestras" {{ pedido.tipo_evento == 'palestras' ? 'selected' }}>Palestras</option>
+										<option value="eventos" {{ pedido.tipo_evento == 'eventos' ? 'selected' }}>Eventos e Feitas</option>
+										<option value="extra" {{ pedido.tipo_evento == 'extra' ? 'selected' }}>Pedido Extra</option>
+									</select>
+								</div>
+								<div class="mb-1 flex-fill mx-md-3 w-md-100">
+									<div class="id_evento" style="{{ pedido.tipo_evento == 'extra' ? 'display:none;' }}">
+										<label for="id_evento_select" class="form-label">Selecione o Evento</label>
+										<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" {{ pedido.tipo_evento != 'extra' ? 'required="required"' }}>
+											<option value="">Selecione</option>
+											{% if pedido.tipo_evento != 'extra' %}<option value="{{ pedido.id_evento }}" selected>{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}</option>{% endif %}
+										</select>
+									</div>
+								</div>
+								<div class="mb-1 flex-fill me-md-3 w-md-100">
+									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
+									<input class="form-control text-uppercase" name="descricao_pedido" value="{{ pedido.descricao_pedido }}" id="descricao_pedido" placeholder="Descrição sobre o Pedido">
+								</div>
+								<div class="mb-1">
+									<input type="hidden" name="id" value="{{ pedido.id }}">
+									<button type="submit" class="btn btn-primary" id="salvar">SALVAR ALTERAÇÃO</button>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-body">
+							<div class="valor_total_pedido bg-success p-1 text-black">
+								Valor Total do Pedido: <b>R$ <span class="total">{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</span></b>
+								<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+							</div>
+							<div class="table-responsive lista_produtos"> 
+								<div class="table-wrapper">
+									<table id="produtos" class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Nome Produto</th>
+												<th>Codigo</th>
+												<th class="text-center">Embalagem</th>
+												<th class="text-center">Unidades</th>
+												<th class="text-center">Valor Unit (R$)</th>
+												<th class="text-center" width="50">Quantidade</th>
+												<th class="text-center" width="50">Qtd Total</th>
+												<th class="text-center">Valor Total (R$)</th>
+												<th class="text-center" width="75"><span>Estoque</span></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% set outros = false %}
+
+												{% for produto in produtos %}
+													
+												{% if produto.qtd_escolhida == null and outros == false %}
+													{% set outros = true %}
+													<tr class="bg-warning text-black"><td></td><td class="outros text-black">Outros produtos <i class="fa fa-angle-double-down"></i></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+												{% endif %}
+											
+												<tr>
+													<td class="p-0">
+														<input type="hidden" name="id_produto[]" value="{{ produto.id }}">
+														{% if produto.imagem != '' %}
+															<a href="{{ produto.imagem }}" class="img"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></a>
+														{% else %}                                                            
+															<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
+														{% endif %}
+													</td>
+													<td>{{ produto.nome }}</td>
+													<td>{{ produto.codigo }}</td>
+													{% set qtd_produto = (produto.qtd_produto + produto.qtd_escolhida) %}
+													<td class="text-center">{{ produto.embalagem }} / {{ qtd_produto }}</td>
+													<td class="text-center">{{ produto.unidades }}</td>
+													<td class="text-center">
+														R$ {{ produto.preco|number_format(2, ',', '.') }}
+														<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">
+													</td>
+													<td class="text-center" width="50">
+														{% if qtd_produto > 0 %}
+															<div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="Qtd. disponível atualmente: <b>{{ qtd_produto > 0 ? qtd_produto : 0 }}</b>">
+																<input type="number" name="quantidade[]" data-numspin
+																data-valor="{{ produto.preco|number_format(2, ',', '.') }}"
+																data-item="{{ produto.id }}"
+																data-validation="0"
+																data-unidades="{{ produto.unidades }}"
+																class="{{ qtd_produto <= 0 ? 'disabled' }} form-control text-center quantidade-{{ produto.id }}" 
+																min="0" max="{{ qtd_produto > 0 ? qtd_produto : 0 }}" value="{{ produto.qtd_escolhida ? produto.qtd_escolhida : 0 }}">
+															</div>
+														{% else %}
+															<input type="hidden" name="quantidade[]"
+															class="{{ qtd_produto <= 0 ? 'disabled' }} form-control text-center quantidade-{{ produto.id }}" 
+															min="0" max="{{ qtd_produto > 0 ? qtd_produto : 0 }}" value="0">
+															<div class="alert alert-danger m-0" role="alert"><small>Indisponível</small></div>
+														{% endif %}
+													</td>
+													<td class="text-center" width="50">
+														<span class="text-success" id="qtd-total-{{ produto.id }}">{{ produto.qt_total ? produto.qt_total : 0 }}</span>
+														<input type="hidden" name="qt_total[]" value="{{ produto.qt_total ? produto.qt_total : 0 }}" id="qtd-total-value-{{ produto.id }}">
+													</td>
+													<td class="text-center text-success">
+														R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">{{ produto.valor_total ? produto.valor_total|number_format(2, ',', '.') : '0,00' }}</span>
+														<input type="hidden" name="valor_total[]" value="{{ produto.valor_total ? produto.valor_total : '0.00' }}" id="valor-itemTotal-{{ produto.id }}">
+													</td>
+													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}"><span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span> </td>
+												</tr>
+
+											{% endfor %}
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ DOMAIN }}/view/painel/src/vendors/numspin/js/input-numspin.js"></script>
+<link href="{{ DOMAIN }}/view/painel/src/vendors/numspin/css/input-numspin.min.css" rel="stylesheet" type="text/css" />
+<script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/pedidos.js"></script>
+{% endblock %}
