@@ -14,27 +14,26 @@
 
 				<div class="card">
 					<div class="card-body">
-
 						<div class="d-flex justify-content-between flex-wrap align-items-end">
 
 							<div class="mb-1 flex-fill w-md-100">
 								<label for="id_equipe" class="form-label">Retirada em nome:</label>
-								<input type="text" class="form-control" value="{{ pedido.equipe }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.equipe }}" readonly>
 							</div>
 
 							<div class="mb-1 flex-fill w-md-100 ms-md-3">
 								<label for="id_equipe" class="form-label">Solicitante:</label>
-								<input type="text" class="form-control" value="{{ pedido.solicitante }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.solicitante }}" readonly>
 							</div>
 
 							<div class="mb-1 flex-fill w-md-100 mx-md-3">
 								<label for="id_equipe" class="form-label">Estado de despacho:</label>
-								<input type="text" class="form-control" value="{{ pedido.estado_pedido }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.estado_pedido }}" readonly>
 							</div>
 
 							<div class="mb-1 flex-fill w-md-100">
 								<label for="id_equipe" class="form-label">Finalidade do pedido:</label>
-								<input type="text" class="form-control" value="{{ pedido.finalidade }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.finalidade }}" readonly>
 							</div>
 
 						</div>
@@ -42,26 +41,33 @@
 						<div class="d-flex justify-content-between flex-wrap align-items-end">
 							<div class="mb-1 flex-fill w-md-100">
 								<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
-								<input type="text" class="form-control" value="{{ pedido.tipo_evento }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.tipo_evento }}" readonly>
 							</div>
+							{% if pedido.tipo_evento != 'extra' %}
 							<div class="mb-1 flex-fill mx-md-3 w-md-100">
 								<div class="id_evento">
 									<label for="id_evento" class="form-label">Nome do Evento</label>
-									<input type="text" class="form-control" value="{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}" readonly>
+									<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}" readonly>
 								</div>
 							</div>
-							<div class="mb-1 flex-fill me-md-3 w-md-100">
+							{% endif %}
+							<div class="mb-1 flex-fill {{ pedido.tipo_evento != 'extra' ? 'me-md-3' : 'mx-md-3' }} w-md-100">
 								<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
-								<input type="text" class="form-control" value="{{ pedido.descricao_pedido }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0" value="{{ pedido.descricao_pedido }}" readonly>
 							</div>
 							<div class="mb-1 flex-fill me-md-3 w-md-100">
 								<label for="descricao_pedido" class="form-label">Valor Total do Pedido</label>
-								<input type="text" class="form-control" value="{{ pedido.valor_total_pedido }}" readonly>
+								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 text-success fw-bold" value="R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}" readonly>
 							</div>
 							<div class="mb-1">
-								<button type="button" class="btn btn-primary border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</button>
+								<span class="btn btn-primary border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</span>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-body">
 
 						<div class="table-responsive lista_produtos"> 
 							<div class="table-wrapper">
