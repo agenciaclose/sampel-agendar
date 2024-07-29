@@ -12,10 +12,10 @@
             <div class="content-header row"></div>
             <div class="content-body">
 
-				<div class="card">
-					<div class="card-body">
+				<form action="javascript:void(0)" id="novo_pedido" method="POST">
 
-						<form action="javascript:void(0)" id="novo_pedido" method="POST">
+					<div class="card">
+						<div class="card-body">
 
 							<div class="d-flex justify-content-between flex-wrap align-items-end">
 
@@ -31,12 +31,12 @@
 
 								<div class="mb-1 flex-fill w-md-100 ms-md-3">
 									<label for="id_equipe" class="form-label">Retirada em nome:</label>
-									<input type="text" name="solicitante" class="form-control" required="required">
+									<input type="text" name="solicitante" class="form-control text-uppercase" required="required">
 								</div>
 
 								<div class="mb-1 flex-fill w-md-100 mx-md-3">
 									<label for="id_equipe" class="form-label">Estado de despacho:</label>
-									<select name="estado_pedido" class="form-control" required="required">
+									<select name="estado_pedido" class="form-control text-uppercase" required="required">
 										<option value="">Selecione</option>
 										<option value="Acre">Acre</option>
 										<option value="Alagoas">Alagoas</option>
@@ -70,7 +70,7 @@
 
 								<div class="mb-1 flex-fill w-md-100">
 									<label for="id_equipe" class="form-label">Finalidade do pedido:</label>
-									<input type="text" name="finalidade" class="form-control" required="required">
+									<input type="text" name="finalidade" class="form-control text-uppercase" required="required">
 								</div>
 
 							</div>
@@ -88,8 +88,8 @@
 								</div>
 								<div class="mb-1 flex-fill mx-md-3 w-md-100">
 									<div class="id_evento">
-										<label for="id_evento" class="form-label">Selecione o Evento</label>
-										<select class="form-control select2 id_evento_select text-uppercase" name="id_evento" required="required">
+										<label for="id_evento_select" class="form-label">Selecione o Evento</label>
+										<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" required="required">
 											<option value="">Selecione</option>
 										</select>
 									</div>
@@ -102,14 +102,23 @@
 									<button type="submit" class="btn btn-primary" id="salvar">ENVIAR PEDIDO</button>
 								</div>
 							</div>
+						
+						</div>
+					</div>
 
+					<div class="card">
+						<div class="card-body">
+							<div class="valor_total_pedido bg-success p-1 text-black">
+								Valor Total do Pedido: <b>R$ <span class="total">0,00</span></b>
+								<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+							</div>
 							<div class="table-responsive lista_produtos"> 
 								<div class="table-wrapper">
 									<table id="produtos" class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th></th>
-												<th class="filter-column"><i class="fa-regular fa-magnifying-glass"></i> Nome Produto</th>
+												<th>Nome Produto</th>
 												<th>Codigo</th>
 												<th class="text-center">Embalagem</th>
 												<th class="text-center">Unidades</th>
@@ -174,10 +183,10 @@
 								</div>
 							</div>
 
-						</form>
-
+						</div>
 					</div>
-				</div>
+
+				</form>
 
 			</div>
 		</div>

@@ -99,13 +99,12 @@ class PedidosPainel extends Model
             'solicitante' => $params['solicitante'],
             'estado_pedido' => $params['estado_pedido'],
             'finalidade' => $params['finalidade'],
-            'descricao_pedido' => $params['descricao_pedido']
+            'descricao_pedido' => $params['descricao_pedido'],
+            'valor_total_pedido' => $params['valor_total_pedido']
         ]);
 
         //RETORNA O ID DO PEDIDO
         $id_pedido = $pedido->getResult();
-        
-        $valor_total_pedido = 0;
         
         //SALVA OS ITENS DO PRODUTO
         foreach ($itens as $product) {
@@ -121,18 +120,12 @@ class PedidosPainel extends Model
                 'valor_total' => $product['valor_total']
             ]);
 
-            $valor_total_pedido .= ($valor_total_pedido + $product['valor_total']);
-
             //ATUALIZA DIMUNINDO O ESTOQUE DOS PRODUTOS
             $estoque_update = new Read();
             $estoque_update->FullRead("UPDATE `produtos` SET `quantidade` = (`quantidade` - :quantidade), `estoque` = (`estoque` - :estoque) 
                                     WHERE `id` = :id", "id={$product['id_produto']}&quantidade={$product['quantidade']}&estoque={$product['qt_total']}");
         }
-
-        //ATUALIZA VALOR TOTAL DO PEDIDO
-        $update_valor = new Read();
-        $update_valor->FullRead("UPDATE `pedidos` SET `valor_total_pedido` = :valor_total_pedido WHERE `id` = :id", "id={$id_pedido}&valor_total_pedido={$valor_total_pedido}");
-
+        
         return 'success';
     }
 

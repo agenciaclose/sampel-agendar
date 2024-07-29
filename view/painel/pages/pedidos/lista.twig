@@ -33,13 +33,13 @@
                                     {% for pedido in pedidos %}
                                     <tr>
                                         <th class="text-center" width="50">{{ pedido.id }}</th>
-                                        <td width="125"><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.date_create }}</a></td>
+                                        <td width="125"><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.date_create|date("d-m-Y H:i") }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.solicitante }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.estado_pedido }}</a></td>
-                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.valor_total_pedido }}</a></td>
+                                        <td><a class="text-success fw-bold" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
                                         <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">{{ pedido.status_pedido }}</td>
-                                        <td width="255" class="text-end">
+                                        <td width="100" class="text-end">
                                             <div class="btn-group dropstart">
                                                 <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis"></i>
