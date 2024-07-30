@@ -20,11 +20,9 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" width="50">ID</th>
-                                        <th width="125">Data Pedido</th>
                                         <th>Comprador</th>
                                         <th>Solicitante</th>
                                         <th>Finalidade</th>
-                                        <th>Destino</th>
                                         <th>Valor Pedido</th>
                                         <th width="100">Status</th>
                                         <th class="text-end">Opções</th>
@@ -34,11 +32,15 @@
                                     {% for pedido in pedidos %}
                                     <tr>
                                         <th class="text-center" width="50">{{ pedido.id }}</th>
-                                        <td width="125"><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.date_create|date("d-m-Y H:i") }}</a></td>
-                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a></td>
+                                        <td>
+                                            <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a>
+                                            <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.date_create|date("d-m-Y H:i") }}</small></a></div>
+                                        </td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.solicitante }}</a></td>
-                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.finalidade }}</a></td>
-                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.estado_pedido }}</a></td>
+                                        <td>
+                                            <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.finalidade }}</a>
+                                            <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
+                                        </td>
                                         <td><a class="text-success fw-bold" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
                                         <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">{{ pedido.status_pedido }}</td>
                                         <td width="100" class="text-end">
