@@ -38,7 +38,7 @@
                                                     <th>COD.PRODUTO</th>
                                                     <th class="text-center">EMBALAGENS</th>
                                                     <th class="text-center">UNID. PACOTE</th>
-                                                    <th class="text-center">TOTAL EM ESTOQUE</th>
+                                                    <th width="150" class="text-center">TOTAL EM ESTOQUE</th>
                                                     <th class="text-center">UNI. PREÇO</th>
                                                     <th width="100" class="text-end">OPÇÕES</th>
                                                 </tr>
@@ -57,7 +57,13 @@
                                                     <td>{{ produto.codigo }}</td>
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
-                                                    <td class="text-center">{{ produto.estoque }}</td>
+                                                    <td class="text-center">
+                                                        {% if produto.estoque > 0 %}
+                                                            {{ produto.estoque }}
+                                                        {% else %}
+                                                            <div class="alert alert-danger m-0" role="alert"><small>Indisponível</small></div>
+                                                        {% endif %}
+                                                    </td>
                                                     <td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
                                                     <td width="100" class="text-end p-0">
                                                         <div class="d-flex justify-content-end">

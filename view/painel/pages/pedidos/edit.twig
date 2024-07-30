@@ -117,7 +117,7 @@
 													<tr class="outros text-black"><td></td><td class="outros text-black">Outros produtos <i class="fa fa-angle-double-down"></i></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 												{% endif %}
 											
-												<tr>
+												<tr  style="{{ produto.estoque <= 0 and outros == true ? 'display: none;' }}">
 													<td class="p-0">
 														<input type="hidden" name="id_produto[]" value="{{ produto.id }}">
 														{% if produto.imagem != '' %}
