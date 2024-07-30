@@ -238,3 +238,23 @@ span.ck-file-dialog-button {
 .offcanvas-end {
     width: 400px;
 }
+.Pendente-bg {
+    box-shadow: inset 0 0 0 9999px var(--bs-warning) !important
+  }
+  .Aprovado-bg {
+    box-shadow: inset 0 0 0 9999px var(--bs-success) !important
+  }
+  .Recusado-bg {
+    box-shadow: inset 0 0 0 9999px var(--bs-danger) !important
+  }
+  .Revisar-bg {
+    box-shadow: inset 0 0 0 9999px var(--bs-info) !important
+  }
+@media print {
+    html, body{
+      font-size: 12px;
+    }
+    .no-print, .filter-table {
+      display: none;
+    }
+  }
