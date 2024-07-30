@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var gallery = $('#produtos a.img').simpleLightbox();
+    var gallery = $('.produtos a.img').simpleLightbox();
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
