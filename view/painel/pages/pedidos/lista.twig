@@ -12,8 +12,66 @@
             <div class="content-header row"></div>
             <div class="content-body">
 
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="GET">
+                            <div class="row align-items-end">
+                                <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="mb-1">
+                                        <label for="id_equipe" class="form-label">Data do Pedido:</label>
+                                        <div class="input-group">
+                                            <input type="date" class="form-control" name="de" value="{{ _get.de }}">
+                                        <span class="input-group-text">a</span>
+                                            <input type="date" class="form-control" name="ate" value="{{ _get.ate }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="mb-1">
+                                        <label for="id_equipe" class="form-label">Retirada em nome:</label>
+                                        <select class="form-control text-uppercase select2" name="id_equipe" id="id_equipe">
+                                            <option value="">Selecione</option>
+                                            {% for equipe in equipes %}
+                                                <option value="{{ equipe.id }}" {{ _get.id_equipe == equipe.id ? 'selected' }}>{{ equipe.nome }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-sm-6 col-12">
+                                    <div class="mb-1">
+                                        <label for="id_equipe" class="form-label">Status do Pedido:</label>
+                                        <select class="form-control text-uppercase" name="status_pedido" id="status_pedido">
+                                            <option value="">Selecione</option>
+                                            <option value="Pendente" {{ _get.status_pedido == 'Pendente' ? 'selected' }}>Pendente</option>
+                                            <option value="Aprovado" {{ _get.status_pedido == 'Aprovado' ? 'selected' }}>Aprovado</option>
+                                            <option value="Recusado" {{ _get.status_pedido == 'Recusado' ? 'selected' }}>Recusado</option>
+                                            <option value="Revisar" {{ _get.status_pedido == 'Revisar' ? 'selected' }}>Revisar</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-sm-6 col-12">
+                                    <div class="mb-1 btn-group">
+                                        <button type="submit" class="btn btn-primary w-100" id="salvar">FILTRAR PEDIDOS</button>
+                                        <a href="{{ DOMAIN }}/painel/pedidos" class="btn btn-danger px-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Resetar Filtro"><i class="fa-solid fa-octagon-xmark"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
 				<div class="card">
 					<div class="card-body">
+                        {% set valor_total = 0 %}
+                        {% for pedido in pedidos %}
+                            {% set valor_total = valor_total + pedido.valor_total_pedido %}
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-center fs-5 fw-bold">VALOR TOTAL: <span class="text-success ms-1">R$ {{ valor_total|number_format(2, ',', '.') }}</span></div>
 
                         <div class="table-responsive min-vh-100"> 
                             <table class="table table-striped table-hover" id="pedidos">

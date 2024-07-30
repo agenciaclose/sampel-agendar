@@ -9,10 +9,40 @@ use Agencia\Close\Models\Model;
 
 class PedidosPainel extends Model
 {
+
+    public function getFilter()
+    {
+        $where = '';
+
+        if((!empty($_GET['de'])) OR (!empty($_GET['ate']))){
+
+            if(empty($_GET['de'])){
+                $_GET['de'] = '2024-07-01';
+            }
+            if(empty($_GET['ate'])){
+                $_GET['ate'] = date('Y:m:d');
+            }
+
+            $where .= " AND DATE(p.`date_create`) BETWEEN '".$_GET['de']."' AND '".$_GET['ate']."' ";
+        }
+
+        if(!empty($_GET['id_equipe'])){
+            $where .= " AND p.`id_equipe` = '".$_GET['id_equipe']."' ";
+        }
+
+        if(!empty($_GET['status_pedido'])){
+            $where .= " AND p.`status_pedido` = '".$_GET['status_pedido']."' ";
+        }
+
+        return $where;
+    }
+
     public function getPedidos(): Read
     {
+        $where = $this->getFilter();
+
         $read = new Read();
-        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe ORDER BY `id` DESC");
+        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.ativo = 'S' $where ORDER BY `id` DESC");
         return $read;
     }
 
