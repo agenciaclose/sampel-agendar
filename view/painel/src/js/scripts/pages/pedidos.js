@@ -235,7 +235,7 @@ function itemTotal(quantidade, valor, item, validation, unidades){
 	$('#qtd-total-value-'+item+'').val(qtd_total);
 
 	$('#itemTotal-'+item+'').html(numberToReal(itemTotal)); 
-	$('#valor-itemTotal-'+item+'').val(itemTotal); 
+	$('#valor-itemTotal-'+item+'').val(numberToReal(itemTotal)); 
 
 	var valorTotal = 0;
 
@@ -245,7 +245,7 @@ function itemTotal(quantidade, valor, item, validation, unidades){
 	});
 	 
 	$('.total').html(numberToReal(valorTotal));
-	$('#valor_total_pedido').val(valorTotal);
+	$('#valor_total_pedido').val(numberToReal(valorTotal));
 	
 	// if(valorTotal >= 200){
 	// 	$('#salvar').prop("disabled", false);

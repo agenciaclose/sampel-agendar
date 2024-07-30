@@ -98,6 +98,10 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
+        $valor_total_pedido = $params['valor_total_pedido'];
+        $valor_total_pedido = str_replace(',', '.', str_replace('.', '', $valor_total_pedido));
+        $valor_total_pedido = number_format((float)$valor_total_pedido, 2, '.', '');
+
         //SALVA O PEDIDO
         $pedido = new Create();
         $pedido->ExeCreate('pedidos', [
@@ -110,7 +114,7 @@ class PedidosPainel extends Model
             'estado_pedido' => $params['estado_pedido'],
             'finalidade' => $params['finalidade'],
             'descricao_pedido' => $params['descricao_pedido'],
-            'valor_total_pedido' => $params['valor_total_pedido']
+            'valor_total_pedido' => $valor_total_pedido
         ]);
 
         //RETORNA O ID DO PEDIDO
@@ -160,6 +164,10 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
+        $valor_total_pedido = $params['valor_total_pedido'];
+        $valor_total_pedido = str_replace(',', '.', str_replace('.', '', $valor_total_pedido));
+        $valor_total_pedido = number_format((float)$valor_total_pedido, 2, '.', '');
+
         //ATUALIZA O PEDIDO
         $pedido = new Update();
         $pedido->ExeUpdate('pedidos', [
@@ -171,7 +179,7 @@ class PedidosPainel extends Model
             'estado_pedido' => $params['estado_pedido'],
             'finalidade' => $params['finalidade'],
             'descricao_pedido' => $params['descricao_pedido'],
-            'valor_total_pedido' => $params['valor_total_pedido']
+            'valor_total_pedido' => $valor_total_pedido
         ], 'WHERE id = :id', "id={$id_pedido}");
 
 
@@ -266,6 +274,5 @@ class PedidosPainel extends Model
         $itens->FullRead("UPDATE `pedidos` SET `status_pedido` = :status_pedido WHERE id = :id", "id={$params['id']}&status_pedido={$params['status_pedido']}");
         return $itens;
     }
-
 
 }

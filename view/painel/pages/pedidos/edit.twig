@@ -88,7 +88,7 @@
 						<div class="card-body">
 							<div class="valor_total_pedido bg-success p-1 text-black">
 								Valor Total do Pedido: <b>R$ <span class="total">{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</span></b>
-								<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+								<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}">
 							</div>
 							<div class="table-responsive lista_produtos"> 
 								<div class="table-wrapper">
@@ -114,7 +114,7 @@
 													
 												{% if produto.qtd_escolhida == null and outros == false %}
 													{% set outros = true %}
-													<tr class="bg-warning text-black"><td></td><td class="outros text-black">Outros produtos <i class="fa fa-angle-double-down"></i></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+													<tr class="outros text-black"><td></td><td class="outros text-black">Outros produtos <i class="fa fa-angle-double-down"></i></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 												{% endif %}
 											
 												<tr>
@@ -159,7 +159,7 @@
 													</td>
 													<td class="text-center text-success">
 														R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">{{ produto.valor_total ? produto.valor_total|number_format(2, ',', '.') : '0,00' }}</span>
-														<input type="hidden" name="valor_total[]" value="{{ produto.valor_total ? produto.valor_total : '0.00' }}" id="valor-itemTotal-{{ produto.id }}">
+														<input type="hidden" name="valor_total[]" value="{{ produto.valor_total ? produto.valor_total|number_format(2, ',', '.') : '0.00' }}" id="valor-itemTotal-{{ produto.id }}">
 													</td>
 													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}"><span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span> </td>
 												</tr>
