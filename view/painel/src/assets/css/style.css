@@ -253,8 +253,12 @@ span.ck-file-dialog-button {
 @media print {
     html, body{
       font-size: 12px;
+      color: #000000 !important;
     }
     .no-print, .filter-table {
       display: none;
+    }
+    td, td {
+        color: #000000 !important;
     }
   }
