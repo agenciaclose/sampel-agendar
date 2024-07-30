@@ -24,6 +24,7 @@
                                         <th>Comprador</th>
                                         <th>Solicitante</th>
                                         <th>Destino</th>
+                                        <th>Finalidade</th>
                                         <th>Valor Pedido</th>
                                         <th width="100">Status</th>
                                         <th class="text-end">Opções</th>
@@ -36,6 +37,7 @@
                                         <td width="125"><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.date_create|date("d-m-Y H:i") }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.solicitante }}</a></td>
+                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.finalidade }}</a></td>
                                         <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.estado_pedido }}</a></td>
                                         <td><a class="text-success fw-bold" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
                                         <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">{{ pedido.status_pedido }}</td>
