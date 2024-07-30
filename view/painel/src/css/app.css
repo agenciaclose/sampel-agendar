@@ -3894,8 +3894,3 @@ td.bg-danger {
 .dark-layout .outros {
   --bs-table-accent-bg: #ff9f43 !important;
 }
-.btn-print {
-  position: absolute;
-  right: 1.5rem;
-  z-index: 9;
-}
