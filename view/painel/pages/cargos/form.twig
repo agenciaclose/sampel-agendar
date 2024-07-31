@@ -22,7 +22,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[cargos][]" type="checkbox" id="cargos2" value="add" {{ 'add' in permissions.cargos ? 'checked' }}>
-                <label class="form-check-label" for="cargos2">Crir / Editar</label>
+                <label class="form-check-label" for="cargos2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[cargos][]" type="checkbox" id="cargos3" value="delete" {{ 'delete' in permissions.cargos ? 'checked' }}>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[equipes][]" type="checkbox" id="equipes2" value="add" {{ 'add' in permissions.equipes ? 'checked' }}>
-                <label class="form-check-label" for="equipes2">Crir / Editar</label>
+                <label class="form-check-label" for="equipes2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[equipes][]" type="checkbox" id="equipes3" value="delete" {{ 'delete' in permissions.equipes ? 'checked' }}>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[visitas][]" type="checkbox" id="visitas2" value="add" {{ 'add' in permissions.visitas ? 'checked' }}>
-                <label class="form-check-label" for="visitas2">Crir / Editar</label>
+                <label class="form-check-label" for="visitas2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[visitas][]" type="checkbox" id="visitas3" value="delete" {{ 'delete' in permissions.visitas ? 'checked' }}>
@@ -70,7 +70,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[estatisticas][]" type="checkbox" id="estatisticas2" value="add" {{ 'add' in permissions.estatisticas ? 'checked' }}>
-                <label class="form-check-label" for="estatisticas2">Crir / Editar</label>
+                <label class="form-check-label" for="estatisticas2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[estatisticas][]" type="checkbox" id="estatisticas3" value="delete" {{ 'delete' in permissions.estatisticas ? 'checked' }}>
@@ -86,7 +86,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[palestras][]" type="checkbox" id="palestras2" value="add" {{ 'add' in permissions.palestras ? 'checked' }}>
-                <label class="form-check-label" for="palestras2">Crir / Editar</label>
+                <label class="form-check-label" for="palestras2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[palestras][]" type="checkbox" id="palestras3" value="delete" {{ 'delete' in permissions.palestras ? 'checked' }}>
@@ -102,11 +102,27 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[produtos][]" type="checkbox" id="produtos2" value="add" {{ 'add' in permissions.produtos ? 'checked' }}>
-                <label class="form-check-label" for="produtos2">Crir / Editar</label>
+                <label class="form-check-label" for="produtos2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[produtos][]" type="checkbox" id="produtos3" value="delete" {{ 'delete' in permissions.produtos ? 'checked' }}>
                 <label class="form-check-label" for="produtos3">Excluir</label>
+            </div>
+        </div>
+
+        <div class="mb-2 border-bottom">
+            <div><b>Pedidos</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido1" value="view" {{ 'view' in permissions.pedido ? 'checked' }}>
+                <label class="form-check-label" for="pedido1">Ver</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido2" value="add" {{ 'add' in permissions.pedido ? 'checked' }}>
+                <label class="form-check-label" for="pedido2">Criar / Editar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido3" value="manager" {{ 'manager' in permissions.pedido ? 'checked' }}>
+                <label class="form-check-label" for="pedido3">Gerenciar</label>
             </div>
         </div>
 
@@ -118,7 +134,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[eventos][]" type="checkbox" id="eventos2" value="add" {{ 'add' in permissions.eventos ? 'checked' }}>
-                <label class="form-check-label" for="eventos2">Crir / Editar</label>
+                <label class="form-check-label" for="eventos2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="permission[eventos][]" type="checkbox" id="eventos3" value="delete" {{ 'delete' in permissions.eventos ? 'checked' }}>
