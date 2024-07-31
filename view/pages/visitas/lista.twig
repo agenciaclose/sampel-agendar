@@ -259,15 +259,15 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5 text-black"><b>Lista de Equipes</b></h1>
-				
 				{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
-					{% if visita.email_equipe == 'N' %}
+					{% if equipevisita|length < 4 %}
+					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 4 MEMBROS PARA ENVIO</button>
+					{% elseif visita.email_equipe == 'N' %}
 					<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
 					{% else %}
 					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
 					{% endif %}
 				{% endif %}
-
 			</div>
 			<div class="modal-body">
 				<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
@@ -318,7 +318,7 @@
 				<script>$('.repeater').repeater();</script>
 				{% endif %}
 
-				<table class="table table-striped table-sm">
+				<table class="table table-sm">
 					<tbody class="lista_equipe">
 						{% if equipevisita|length == 0 %}
 							<tr>
