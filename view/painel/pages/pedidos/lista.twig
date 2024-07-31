@@ -79,8 +79,7 @@
                                     <tr>
                                         <th class="text-center" width="50">ID</th>
                                         <th>Comprador</th>
-                                        <th>Solicitante</th>
-                                        <th>Finalidade</th>
+                                        <th>Descrição</th>
                                         <th>Valor Pedido</th>
                                         <th width="100">Status</th>
                                         <th class="text-end">Opções</th>
@@ -94,9 +93,8 @@
                                             <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a>
                                             <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.date_create|date("d-m-Y H:i") }}</small></a></div>
                                         </td>
-                                        <td><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.solicitante }}</a></td>
                                         <td>
-                                            <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.finalidade }}</a>
+                                            <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">{{ pedido.descricao_pedido }}</a>
                                             <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                                         </td>
                                         <td><a class="text-success fw-bold" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
