@@ -78,7 +78,7 @@ class PedidosPainelController extends Controller
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();
 
-        $this->render('painel/pages/pedidos/add.twig', ['menu' => 'pedidos',  'produtos' => $produtos,  'equipes' => $equipes]);
+        $this->render('painel/pages/pedidos/add.twig', ['menu' => 'pedidos',  'produtos' => $produtos,  'equipes' => $equipes, 'estados' => $this->estados()]);
     }
 
     public function editPedido($params)

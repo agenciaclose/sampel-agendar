@@ -140,9 +140,7 @@ class PedidosPainel extends Model
             'id_equipe' => $params['id_equipe'],
             'id_evento' => $params['id_evento'],
             'tipo_evento' => $params['tipo_evento'],
-            'solicitante' => $params['solicitante'],
             'estado_pedido' => $params['estado_pedido'],
-            'finalidade' => $params['finalidade'],
             'descricao_pedido' => $params['descricao_pedido'],
             'valor_total_pedido' => $valor_total_pedido
         ]);
@@ -205,9 +203,7 @@ class PedidosPainel extends Model
             'id_equipe' => $params['id_equipe'],
             'id_evento' => $params['id_evento'],
             'tipo_evento' => $params['tipo_evento'],
-            'solicitante' => $params['solicitante'],
             'estado_pedido' => $params['estado_pedido'],
-            'finalidade' => $params['finalidade'],
             'descricao_pedido' => $params['descricao_pedido'],
             'valor_total_pedido' => $valor_total_pedido
         ], 'WHERE id = :id', "id={$id_pedido}");
