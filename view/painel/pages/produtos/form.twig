@@ -82,6 +82,24 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">PDV</label>
+                    <select name="PDV" class="form-control">
+                        <option value="N" {{ product.PDV == 'N' ? 'selected' }}>Não</option>
+                        <option value="S" {{ product.PDV == 'S' ? 'selected' }}>Sim</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="mb-1">
+                    <label class="form-label">PDV Prazo</label>
+                    <input type="number" name="PDV_prazo" value="{{ product.PDV_prazo }}" class="form-control">
+                </div>
+            </div>
+        </div>
+
         <div class="mb-1">
             <label for="formFile" class="form-label">Foto do Produto</label>
             <input class="form-control" type="file" id="formFile" name="imagem" accept="image/png, image/jpeg">
