@@ -102,7 +102,7 @@
 															<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
 														{% endif %}
 													</td>
-													<td>{{ produto.nome }}</td>
+													<td>{{ produto.nome }} {% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %}</td>
 													<td>{{ produto.codigo }}</td>
 													<td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
 													<td class="text-center">{{ produto.unidades }}</td>
@@ -137,11 +137,7 @@
 														<input type="hidden" name="valor_total[]" id="valor-itemTotal-{{ produto.id }}">
 													</td>
 													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}">
-														{% if produto.PDV == 'S' %}
-															<span>PDV</span>
-														{% else %}
-															<span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span>
-														{% endif %}
+														<span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span>
 													</td>
 												</tr>
 											{% endfor %}
