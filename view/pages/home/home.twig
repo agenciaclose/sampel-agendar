@@ -183,7 +183,7 @@
 												</div>
 
 												{% if visita.status_visita != 'Concluido' %}
-													{% if visita.equipevisita|length > 0 %}
+													{% if visita.equipevisita|length >= 4 %}
 														<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
 														{% if visita.email_equipe == 'N' %}
 														<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning btn-lg w-100"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
