@@ -111,7 +111,7 @@
 															<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
 														{% endif %}
 													</td>
-													<td>{{ produto.nome }} {% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %}</td>
+													<td>{% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %} {{ produto.nome }}</td>
 													<td>{{ produto.codigo }}</td>
 													{% set qtd_produto = (produto.qtd_produto + produto.qtd_escolhida) %}
 													<td class="text-center">{{ produto.embalagem }} / {{ qtd_produto }}</td>

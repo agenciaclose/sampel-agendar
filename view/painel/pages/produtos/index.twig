@@ -22,7 +22,8 @@
 
                                 <div class="card-header pb-0">
                                     <h5 class="card-title">Lista de Produtos</h5>
-                                    <div class="fs-4">Valor total do Estoque: <span class="text-success">R$ {{ valorTotalEstoque.valor_total_estoque|number_format(2, ',', '.') }}</span></div>
+                                    <div class="fs-4">Valor Estoque: <span class="text-success">R$ {{ valorTotalEstoque.valor_total_estoque|number_format(2, ',', '.') }}</span></div>
+                                    <div class="fs-4">Valor Estoque PDV: <span class="text-success">R$ {{ valorTotalEstoquePDV.valor_total_estoque_PDV|number_format(2, ',', '.') }}</span></div>
                                     <div class="heading-elements mb-1">
                                         <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/produtos/add" data-bs-toggle="offcanvas" data-bs-target="#formProduct" aria-controls="formProduct"><i class="fa-regular fa-plus"></i> Add Novo</a>
                                     </div>
@@ -53,7 +54,7 @@
                                                             <img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
                                                         {% endif %}
                                                     </td>
-                                                    <td>{{ produto.nome }} {% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %}
+                                                    <td>{% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %} {{ produto.nome }}
                                                     </td>
                                                     <td>{{ produto.codigo }}</td>
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>

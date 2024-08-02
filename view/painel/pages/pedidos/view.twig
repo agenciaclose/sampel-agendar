@@ -87,7 +87,7 @@
 														<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
 													{% endif %}
 												</td>
-												<td>{{ produto.nome }}</td>
+												<td>{% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %} {{ produto.nome }}</td>
 												<td>{{ produto.codigo }}</td>
 												<td class="text-center">{{ produto.embalagem }}</td>
 												<td class="text-center">{{ produto.unidades }}</td>

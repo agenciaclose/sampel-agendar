@@ -16,10 +16,17 @@ class ProdutosPainel extends Model
         return $read;
     }
 
-    public function valorTotalEstoque(): Read
+    public function valorTotalEstoqueSemPDV(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT ROUND((SELECT SUM(estoque * preco) FROM produtos), 2) AS valor_total_estoque FROM produtos WHERE estoque > 0 AND preco <> ''");
+        $read->FullRead("SELECT SUM(estoque * preco) AS valor_total_estoque FROM produtos WHERE estoque > 0 AND preco <> '' AND PDV = 'N'");
+        return $read;
+    }
+
+    public function valorTotalEstoquePDV(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(estoque * preco) AS valor_total_estoque_PDV FROM produtos WHERE estoque > 0 AND preco <> '' AND PDV = 'S'");
         return $read;
     }
 
