@@ -1,0 +1,162 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %} Pedidos {% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row"></div>
+            <div class="content-body">
+
+				<form action="javascript:void(0)" id="novo_pedido" method="POST">
+
+					<div class="card">
+						<div class="card-body">
+
+							<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<select class="form-control text-uppercase select2" name="id_equipe" id="id_equipe" required="required">
+										<option value="">Selecione</option>
+										{% for equipe in equipes %}
+										<option value="{{ equipe.id }}">{{ equipe.nome }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="id_equipe" class="form-label">Estado de despacho:</label>
+									<select name="estado_pedido" class="form-control text-uppercase" required="required">
+										<option value="">Selecione</option>
+										{% for estado in estados %}
+											<option value="{{ estado }}">{{ estado }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
+									<select class="form-control text-uppercase" name="tipo_evento" id="tipo_evento" required="required">
+										<option value="">Selecione</option>
+										<option value="visitas">Visitas</option>
+										<option value="palestras">Palestras</option>
+										<option value="eventos">Eventos e Feiras</option>
+										<option value="extra">Pedido Extra</option>
+									</select>
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1 id_evento">
+									<label for="id_evento_select" class="form-label">Selecione o Evento</label>
+									<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" required="required">
+										<option value="">Selecione</option>
+									</select>
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
+									<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" placeholder="Descrição do Pedido">
+								</div>
+
+								<div class="mb-1 me-md-1">
+									<button type="submit" class="btn btn-primary" id="salvar">ENVIAR PEDIDO</button>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-body">
+							<div class="valor_total_pedido bg-success p-1 text-black">
+								Valor Total do Pedido: <b>R$ <span class="total">0,00</span></b>
+								<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+							</div>
+							<div class="table-responsive lista_produtos"> 
+								<div class="table-wrapper">
+									<table id="produtos" class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Nome Produto</th>
+												<th>Codigo</th>
+												<th class="text-center">Embalagem</th>
+												<th class="text-center">Unidades</th>
+												<th class="text-center">Valor Unit (R$)</th>
+												<th class="text-center" width="50">Quantidade</th>
+												<th class="text-center" width="50">Qtd Total</th>
+												<th class="text-center">Valor Total (R$)</th>
+												<th class="text-center" width="75"><span>Estoque</span></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for produto in produtos %}
+												<tr style="{{ produto.estoque <= 0 ? 'display: none;' }}">
+													<td class="p-0">
+														<input type="hidden" name="id_produto[]" value="{{ produto.id }}">
+														{% if produto.imagem != '' %}
+															<a href="{{ produto.imagem }}" class="img"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></a>
+														{% else %}                                                            
+															<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
+														{% endif %}
+													</td>
+													<td>{{ produto.nome }} {% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %}</td>
+													<td>{{ produto.codigo }}</td>
+													<td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
+													<td class="text-center">{{ produto.unidades }}</td>
+													<td class="text-center">
+														R$ {{ produto.preco|number_format(2, ',', '.') }}
+														<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">
+													</td>
+													<td class="text-center" width="50">
+														{% if produto.quantidade > 0 %}
+															<div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="Qtd. disponível atualmente: <b>{{ produto.quantidade > 0 ? produto.quantidade : 0 }}</b>">
+																<input type="number" name="quantidade[]" data-numspin
+																data-valor="{{ produto.preco|number_format(2, ',', '.') }}"
+																data-item="{{ produto.id }}"
+																data-validation="0"
+																data-unidades="{{ produto.unidades }}"
+																class="{{ produto.quantidade <= 0 ? 'disabled' }} form-control text-center quantidade-{{ produto.id }}" 
+																min="0" max="{{ produto.quantidade > 0 ? produto.quantidade : 0 }}" value="0">
+															</div>
+														{% else %}
+															<input type="hidden" name="quantidade[]"
+															class="{{ produto.quantidade <= 0 ? 'disabled' }} form-control text-center quantidade-{{ produto.id }}" 
+															min="0" max="{{ produto.quantidade > 0 ? produto.quantidade : 0 }}" value="0">
+															<div class="alert alert-danger m-0" role="alert"><small>Indisponível</small></div>
+														{% endif %}
+													</td>
+													<td class="text-center" width="50">
+														<span class="text-success" id="qtd-total-{{ produto.id }}">0</span>
+														<input type="hidden" name="qt_total[]" id="qtd-total-value-{{ produto.id }}">
+													</td>
+													<td class="text-center text-success">
+														R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">0,00</span>
+														<input type="hidden" name="valor_total[]" id="valor-itemTotal-{{ produto.id }}">
+													</td>
+													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}">
+														<span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span>
+													</td>
+												</tr>
+											{% endfor %}
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+<script src="{{ DOMAIN }}/view/painel/src/vendors/numspin/js/input-numspin.js"></script>
+<link href="{{ DOMAIN }}/view/painel/src/vendors/numspin/css/input-numspin.min.css" rel="stylesheet" type="text/css" />
+<script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/pedidos.js"></script>
+{% endblock %}

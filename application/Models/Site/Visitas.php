@@ -14,8 +14,11 @@ class Visitas extends Model
     public function listarVisitas($limit = '999999999'): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
-                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, 
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas,
+                        (SELECT p.id FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS pedido,
+                        (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
 						WHERE v.id_empresa = :user_id  AND v.`status_visita` <> 'Concluido' ORDER BY v.`data_visita` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
@@ -25,8 +28,11 @@ class Visitas extends Model
     public function listarVisitasConcluidas(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
-                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, 
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas,
+                        (SELECT p.id FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS pedido,
+                        (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
 						WHERE v.`status_visita` = 'Concluido' ORDER BY v.`data_visita` DESC");
@@ -36,8 +42,11 @@ class Visitas extends Model
     public function listarVisitasOutros(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
-                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+        $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, 
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas,
+                        (SELECT p.id FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS pedido,
+                        (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
 						WHERE v.`status_visita` <> 'Concluido' ORDER BY v.`data_visita` ASC");

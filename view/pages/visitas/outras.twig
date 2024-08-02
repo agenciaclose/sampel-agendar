@@ -58,6 +58,10 @@
 										<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black"><i class="fa-solid fa-users"></i> {{ visita.total_inscricao }} / {{ visita.qtd_visitas }}</a>
 										<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#verEquip{{ visita.id }}" class="mb-2 badge bg-warning text-black">VER EQUIPE <span class="px-1 bg-black rounded-pill text-white">{{ visita.equipevisita|length }}</span></a>
 										
+										{% if visita.pedido != '' %} 
+											<a href="{{ DOMAIN }}/pedidos/view/{{ visita.pedido }}" class="mb-2 ms-0 ms-sm-2 badge {{ visita.status_pedido }}-bg text-black"><i class="fa-solid fa-basket-shopping"></i> VER PEDIDO</span></a>
+										{% endif %}
+
 										{% if (visita.status_visita != 'Concluido') and (visita.status_visita != 'Recusado') %}
 											<div class="modal fade" id="shared_{{ visita.visita_id }}" tabindex="-1" aria-labelledby="shared_{{ visita.visita_id }}" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

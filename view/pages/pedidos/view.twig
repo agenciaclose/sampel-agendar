@@ -1,0 +1,111 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Ver Pedido {% endblock %}
+
+{% block body %}
+
+    <!-- BEGIN: Content-->
+<div class="container py-5">
+	
+	<session>
+
+		<div class="mb-2">
+			<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<label for="id_equipe" class="form-label">Retirada em nome:</label>
+					<div class="text-uppercase rounded-0 border-0 border-bottom px-0">{{ pedido.equipe }}</div>
+				</div>
+
+
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<label for="id_equipe" class="form-label">Estado de despacho:</label>
+					<div class="text-uppercase rounded-0 border-0 border-bottom px-0">{{ pedido.estado_pedido }}</div>
+				</div>
+
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
+					<div class="text-uppercase rounded-0 border-0 border-bottom px-0">{{ pedido.tipo_evento }}</div>
+				</div>
+				{% if pedido.tipo_evento != 'extra' %}
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<div class="id_evento">
+						<label for="id_evento" class="form-label">Nome do Evento</label>
+						<div class="text-uppercase rounded-0 border-0 border-bottom px-0">{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}</div>
+					</div>
+				</div>
+				{% endif %}
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
+					<div class="text-uppercase rounded-0 border-0 border-bottom px-0">{{ pedido.descricao_pedido }}</div>
+				</div>
+				<div class="mb-1 flex-fill w-md-100 me-md-1">
+					<label for="descricao_pedido" class="form-label">Valor Total do Pedido</label>
+					<div class="text-uppercase rounded-0 border-0 border-bottom px-0 text-warning fw-bold">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="d-block mt-2">
+			<div class="d-flex justify-content-end mb-1">
+				{# <div><a href="{{ DOMAIN }}/painel/pedidos/edit/{{ pedido.id }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> EDITAR PEDIDO</a></div> #}
+				<div><a href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank" class="btn btn-info text-black"><i class="fa-solid fa-file-pdf"></i> IMPRIMIR EM PDF</a></div>
+				<div class="mb-1 ms-md-1">
+					<span class="btn border-0 text-white text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</span>
+				</div>
+			</div>
+			<div class="table-responsive lista_produtos"> 
+				<div class="table-wrapper">
+					<table id="produtos" class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="filter-column">Nome Produto</th>
+								<th>Codigo</th>
+								<th class="text-center">Embalagem</th>
+								<th class="text-center">Unidades</th>
+								{# <th class="text-center">Valor Unit (R$)</th> #}
+								<th class="text-center" width="50">Quantidade</th>
+								<th class="text-center" width="100">Qtd Total</th>
+								{# <th class="text-center">Valor Total (R$)</th> #}
+							</tr>
+						</thead>
+						<tbody>
+							{% for produto in itens %}
+								<tr>
+									<td class="p-0">
+										{% if produto.imagem != '' %}
+											<a href="{{ produto.imagem }}" class="img"><img src="{{ produto.imagem }}" width="50" class="img-fluid"></a>
+										{% else %}                                                            
+											<img src="{{ DOMAIN }}/view/painel/src/images/produtos/produto-placeholder-small.png" width="50" class="img-fluid">
+										{% endif %}
+									</td>
+									<td>{{ produto.nome }}</td>
+									<td>{{ produto.codigo }}</td>
+									<td class="text-center">{{ produto.embalagem }}</td>
+									<td class="text-center">{{ produto.unidades }}</td>
+									{# <td class="text-center">
+										R$ {{ produto.preco|number_format(2, ',', '.') }}
+									</td> #}
+									<td class="text-center" width="50">
+										<span class="badge bg-success">{{ produto.qtd_escolhida }}</span>
+									</td>
+									<td class="text-center" width="100">
+										<span>{{ produto.qt_total }}</span>
+									</td>
+									{# <td class="text-center text-success">
+										R$ <span class="valorItemTotal">{{ produto.valor_total }}</span>
+									</td> #}
+								</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</session>
+
+</div>	
+{% endblock %}
