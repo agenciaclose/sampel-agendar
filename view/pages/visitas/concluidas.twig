@@ -52,7 +52,7 @@
 										<a href="{{ DOMAIN }}/feedback/ver/{{ visita.visita_id }}" class="mb-2 me-0 me-sm-2 badge bg-warning text-black">ESTATÍSTICAS</a>
 										<a href="{{ DOMAIN }}/visita/fotos/{{ visita.visita_id }}" class="mb-2 badge bg-info text-black"><i class="fa-solid fa-images"></i> VER FOTOS</a>
 										{% if visita.pedido != '' %} 
-											<a href="{{ DOMAIN }}/pedidos/view/{{ visita.pedido }}" class="mb-2 ms-0 ms-sm-2 badge {{ visita.status_pedido }}-bg text-black"><i class="fa-solid fa-basket-shopping"></i> VER PEDIDO</span></a>
+											<a href="{{ DOMAIN }}/pedidos/view/{{ visita.pedido }}" class="mb-2 ms-0 ms-sm-2 badge {{ visita.status_pedido }}-bg"><i class="fa-solid fa-basket-shopping"></i> VER PEDIDO</span></a>
 										{% endif %}
 										
 										{% if (visita.status_visita != 'Concluido') and (visita.status_visita != 'Recusado') %}
