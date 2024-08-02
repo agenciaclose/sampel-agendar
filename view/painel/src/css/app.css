@@ -3873,6 +3873,22 @@ tr.group {
 .dataTables_wrapper .row {
   margin: 0 !important;
 }
+.highcharts-credits {
+  display: none;
+}
+.atalhos-link li a {
+  padding: 12px;
+  color: #fff;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-color: #171717;
+}
+.atalhos-link li a:hover {
+  background-color: #1194dc;
+}
+.bg-primary {
+  background-color: #1194dc !important;
+}
 td.bg-success {
   box-shadow: inset 0 0 0 9999px #1f9151 !important;
 }

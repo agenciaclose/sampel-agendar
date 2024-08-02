@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-body pb-0">
+        <div class="row flex-nowrap">
+              
+            <div class="col">
+                <div class="card bg-success">
+                    <div class="card-body text-center text-black">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 mb-1 mx-auto">
+                            <div class="round-3 rounded bg-white text-black p-1"><i class="fa-solid fa-lg fa-cart-shopping"></i></div>
+                        </div>
+                        <div class="fw-bolder">Total de Produtos Normais</div>
+                        <div class="d-flex align-items-center justify-content-center gap-1 fs-3">
+                            <div class="badge bg-white text-black">{{ produtosSemPDV|length }}</div>
+                        </div>
+                        <div>Valor Estoque <div class="fw-bolder">R$ {{ valorTotalEstoque.valor_total_estoque|number_format(2, ',', '.') }}</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card bg-primary">
+                    <div class="card-body text-center text-black">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 mb-1 mx-auto">
+                            <div class="round-3 rounded bg-white text-black p-1"><i class="fa-solid fa-lg fa-cart-shopping"></i></div>
+                        </div>
+                        <div class="fw-bolder">Total de Produtos PDV</div>
+                        <div class="d-flex align-items-center justify-content-center gap-1 fs-3">
+                            <div class="badge bg-white text-black">{{ produtosSemPDV|length }}</div>
+                        </div>
+                        <div>Valor Estoque PDV <div class="fw-bolder">R$ {{ valorTotalEstoquePDV.valor_total_estoque_PDV|number_format(2, ',', '.') }}</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card bg-warning">
+                    <div class="card-body text-center text-black">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 mb-1 mx-auto">
+                            <div class="round-3 rounded bg-white text-black p-1"><i class="fa-solid fa-lg fa-cart-shopping"></i></div>
+                        </div>
+                        <div class="fw-bolder">Total de Pedidos</div>
+                        <div class="d-flex align-items-center justify-content-center gap-1 fs-3 mb-1">
+                            <div class="badge bg-white text-black">{{ pedidosTotal|length }}</div>
+                        </div>
+                        <div><a href="{{ DOMAIN }}/painel/pedidos" class="btn btn-sm btn-light">Ver Mais</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card bg-danger">
+                    <div class="card-body text-center text-black">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 mb-1 mx-auto">
+                            <div class="round-3 rounded bg-white text-black p-1"><i class="fa-solid fa-lg fa-cart-shopping"></i></div>
+                        </div>
+                        <div class="fw-bolder">Produtos sem Estoque</div>
+                        <div class="d-flex align-items-center justify-content-center gap-1 fs-3 mb-1">
+                            <div class="badge bg-white text-black">{{ produtosSemEstoque|length }}</div>
+                        </div>
+                        <div><a href="{{ DOMAIN }}/painel/produtos" class="btn btn-sm btn-light">Ver Mais</a></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

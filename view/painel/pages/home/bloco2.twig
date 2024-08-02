@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-body">
+
+        <div id="abc" style="width:100%; height:400px;"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Highcharts.setOptions({
+                    chart: {backgroundColor: 'rgba(255, 255, 255, 0)'}
+                });
+
+                Highcharts.chart('abc', {
+                    chart: {type: 'variwide'},
+                    title: {text: 'Curva ABC para Produtos'},
+                    subtitle: {text: 'Análise ABC de Produtos nos Pedidos'},
+                    xAxis: {type: 'category'},
+                    yAxis: {title: {text: ''}},
+                    legend: { enabled: false},
+                    series: [{
+                        name: 'Curvas',
+                        data: [
+                            { name: 'Curva A', y: 35, z: 10, color: 'rgba(40, 199, 111, 0.8)' },
+                            { name: 'Curva B', y: 30, z: 8, color: 'rgba(54, 162, 235, 0.8)' },
+                            { name: 'Curva C', y: 15, z: 6, color: 'rgba(255, 159, 67, 0.8)' }
+                        ],
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        },
+                        tooltip: {
+                            pointFormat: '<b>{point.y}%</b><br>Percentual: <b>{point.z}%</b>'
+                        }
+                    }]
+                });
+            });
+        </script>
+    </div>
+</div>

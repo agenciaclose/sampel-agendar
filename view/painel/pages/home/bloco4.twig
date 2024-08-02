@@ -1,0 +1,83 @@
+<div class="card">
+    <div class="card-body">
+
+        <div id="valorTotalPedidosMes" style="width:100%; height:400px;"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Highcharts.chart('valorTotalPedidosMes', {
+                    chart: {
+                        type: 'column',
+                        backgroundColor: 'rgba(255, 255, 255, 0)' // Fundo transparente
+                    },
+                    title: {
+                        text: 'Valor Total dos Pedidos por Mês',
+                        style: { color: '#ffffff' }
+                    },
+                    subtitle: {
+                        text: 'De Janeiro a Dezembro de 2024',
+                        style: { color: '#ffffff' }
+                    },
+                    xAxis: {
+                        categories: [
+                            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+                        ],
+                        labels: { style: { color: '#ffffff' } },
+                        lineColor: '#ffffff',
+                        tickColor: '#ffffff'
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Valor Total de Pedidos (R$)',
+                            style: { color: '#ffffff' }
+                        },
+                        labels: { style: { color: '#ffffff' } },
+                        gridLineColor: 'rgba(255, 255, 255, 0.1)',
+                        lineColor: '#ffffff',
+                        tickColor: '#ffffff'
+                    },
+                    legend: {
+                        enabled: true, // Habilita a legenda
+                        itemStyle: { color: '#ffffff' }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                        style: { color: '#ffffff' },
+                        pointFormat: '<b>R$ {point.y}</b> total de pedidos'
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0,
+                            borderWidth: 0,
+                            groupPadding: 0,
+                            shadow: false,
+                            dataLabels: {
+                                enabled: true,
+                                inside: false,
+                                style: {
+                                    color: '#ffffff'
+                                }
+                            }
+                        }
+                    },
+                    series: [
+                        { name: 'Janeiro', data: [12000], color: 'rgba(255, 99, 132, 0.8)' },
+                        { name: 'Fevereiro', data: [15000], color: 'rgba(54, 162, 235, 0.8)' },
+                        { name: 'Março', data: [18000], color: 'rgba(255, 206, 86, 0.8)' },
+                        { name: 'Abril', data: [13000], color: 'rgba(75, 192, 192, 0.8)' },
+                        { name: 'Maio', data: [17000], color: 'rgba(153, 102, 255, 0.8)' },
+                        { name: 'Junho', data: [14000], color: 'rgba(255, 159, 64, 0.8)' },
+                        { name: 'Julho', data: [16000], color: 'rgba(199, 199, 199, 0.8)' },
+                        { name: 'Agosto', data: [22000], color: 'rgba(83, 102, 255, 0.8)' },
+                        { name: 'Setembro', data: [19000], color: 'rgba(255, 99, 132, 0.8)' },
+                        { name: 'Outubro', data: [21000], color: 'rgba(54, 162, 235, 0.8)' },
+                        { name: 'Novembro', data: [23000], color: 'rgba(255, 206, 86, 0.8)' },
+                        { name: 'Dezembro', data: [25000], color: 'rgba(75, 192, 192, 0.8)' }
+                    ]
+                });
+            });
+        </script>
+    </div>
+</div>

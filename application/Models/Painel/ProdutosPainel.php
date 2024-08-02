@@ -16,6 +16,20 @@ class ProdutosPainel extends Model
         return $read;
     }
 
+    public function getProdutosSemPDV(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' AND PDV = 'N' ORDER BY `nome` ASC");
+        return $read;
+    }
+
+    public function getProdutosPDV(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' AND PDV = 'S' ORDER BY `nome` ASC");
+        return $read;
+    }
+
     public function valorTotalEstoqueSemPDV(): Read
     {
         $read = new Read();
@@ -27,6 +41,13 @@ class ProdutosPainel extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT SUM(estoque * preco) AS valor_total_estoque_PDV FROM produtos WHERE estoque > 0 AND preco <> '' AND PDV = 'S'");
+        return $read;
+    }
+
+    public function getProdutosSemEstoque(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos WHERE estoque = 0");
         return $read;
     }
 

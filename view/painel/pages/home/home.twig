@@ -4,12 +4,29 @@
 
 {% block body %}
 
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variwide.js"></script>
+     <script src="https://code.highcharts.com/themes/dark-unica.js"></script>
+
     <div class="app-content content ">
         <div class="content-wrapper">
             <div class="content-body">
 
                 <section id="dashboard-ecommerce">
-                
+
+                    {{ include('painel/pages/home/bloco1.twig') }}
+
+                    <div class="row">
+                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/bloco2.twig') }}</div>
+                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/bloco3.twig') }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/bloco4.twig') }}</div>
+                        {# <div class="col-md-6 cold-12">{{ include('painel/pages/home/bloco3.twig') }}</div> #}
+                    </div>
+
                 </section>
 
             </div>
