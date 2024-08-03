@@ -180,24 +180,24 @@
 						<tr>
 							<td class="d-none">{{ lista.visita_id }}</td>
 							<td class="ps-0 text-uppercase">
-								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
-									
-									<div>{{ lista.presenca == 'Sim' ? '<i class="fa-solid fa-shield-check fa-lg text-warning"></i>' : '<i class="fa-solid fa-shield fa-lg text-dark"></i>' }}</div>
-									<div class="ms-1">{{ lista.feedback != '' ? '<i class="fa-solid fa-message-smile fa-lg text-warning"></i>' : '<i class="fa-solid fa-message-smile fa-lg text-dark"></i>' }}</div>
-									<div class="ms-2 row">
-										{{ lista.nome }}
-										<div class="d-block d-sm-none p-0">
-											<div class="col-md-6 col-sm-12">
-												<div class="text-lowercase">{{ lista.email }}</div>
-												{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
-												<div>{{ lista.empresa }}</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<a href="{{ DOMAIN }}/visita/inscricao/{{ lista.visita_id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
-											</div>
+								<div class="ms-2">
+									{{ lista.nome }}
+									<div class="d-flex justify-content-start">
+										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}><i class="fa-solid fa-shield-check fa-lg"></i></div>
+										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
+										<div {{ lista.certificado == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CERTIFICADO EMITIDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM CERTIFICADO"' }}><i class="fa-solid fa-file-certificate fa-lg"></i></div>
+									</div>
+									<div class="d-block d-sm-none p-0">
+										<div class="col-md-6 col-sm-12">
+											<div class="text-lowercase">{{ lista.email }}</div>
+											{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
+											<div>{{ lista.empresa }}</div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<a href="{{ DOMAIN }}/visita/inscricao/{{ lista.visita_id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 										</div>
 									</div>
-								</span>
+								</div>
 							</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
 							<td class="ps-0 no-mobile text-uppercase text-nowrap">{{ lista.telefone }}</td>
