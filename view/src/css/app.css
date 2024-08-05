@@ -4797,16 +4797,25 @@ span.fr-counter {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     max-width: 1400px;
   }
+  .minhas-inscricoes {
+    margin-top: -5rem
+  }
 }
 @media (max-width: 1200px) {
   .gallery-item {
       width: calc(25% - 20px); /* Quatro itens por linha em telas menores */
   }
+  .minhas-inscricoes {
+    margin-top: -5rem
+  }
 }
 
 @media (max-width: 768px) {
   .gallery-item {
-      width: calc(33.333% - 20px); /* Três itens por linha em telas ainda menores */
+    width: calc(33.333% - 20px); /* Três itens por linha em telas ainda menores */
+  }
+  .minhas-inscricoes {
+    margin-top: -3rem
   }
 }
 
@@ -4814,11 +4823,17 @@ span.fr-counter {
   .gallery-item {
       width: calc(50% - 20px); /* Dois itens por linha em telas pequenas */
   }
+  .minhas-inscricoes {
+    margin-top: -1rem
+  }
 }
 
 @media (max-width: 320px) {
   .gallery-item {
       width: calc(100% - 20px); /* Um item por linha em telas muito pequenas */
+  }
+  .minhas-inscricoes {
+    margin-top: -1rem
   }
 }
 

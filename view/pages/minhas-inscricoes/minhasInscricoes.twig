@@ -8,15 +8,17 @@
 	
 	<session>
 
-		<div class="text-center">
-			<h3><b>MINHAS INSCRIÇÕES</b></h3>
+		<div class="d-flex justify-content-between">
+			<div>
+				<h3 class="border-bottom"><b>MINHAS INSCRIÇÕES</b></h3>
+				<div class="text-start">
+					<div><span class="text-uppercase fw-bold">{{ user.nome }}</span></div>
+					<div><span class="text-warning">{{ user.cpf }}</span></div>
+				</div>
+			</div>
 		</div>
 
-		<hr class="w-25 m-auto mb-3">
-
-		<div class="text-center">Listamos abaixo as suas inscrições com links para seus Certificados.</div>
-
-		<div class="table-responsive mt-5">
+		<div class="table-responsive minhas-inscricoes">
 			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4" style="width:100%">
 				<thead>
 					<tr>

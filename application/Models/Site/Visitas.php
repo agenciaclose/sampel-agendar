@@ -56,14 +56,14 @@ class Visitas extends Model
     public function listarVisitasUltimas(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN (SELECT vi1.id_visita, vi1.imagem FROM visitas_imagens vi1 WHERE vi1.id = (SELECT vi2.id FROM visitas_imagens vi2 WHERE vi2.id_visita = vi1.id_visita ORDER BY vi2.`order` ASC, vi2.id DESC LIMIT 1)) AS vi ON vi.id_visita = v.id WHERE v.data_visita <= CURRENT_DATE GROUP BY v.id ORDER BY v.data_visita DESC LIMIT 6");
         return $read;
     }
 
     public function listarUltimasFotosPalestras(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN palestras_imagens AS pim ON pim.id_palestra = p.id WHERE p.data_palestra <= CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC LIMIT 6");
+        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN (SELECT pim1.id_palestra, pim1.imagem FROM palestras_imagens pim1 WHERE pim1.id = (SELECT pim2.id FROM palestras_imagens pim2 WHERE pim2.id_palestra = pim1.id_palestra ORDER BY pim2.`order` ASC, pim2.id DESC LIMIT 1)) AS pim ON pim.id_palestra = p.id WHERE p.data_palestra <= CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC LIMIT 6");
         return $read;
     }
 

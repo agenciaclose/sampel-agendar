@@ -17,7 +17,7 @@ class MinhasInscricoesController extends Controller
         $this->setParams($params);
 
         $checklist = new MinhasInscricoes();
-        $checklist = $checklist->checkInscricoes($params['cpf']);
+        $checklist = $checklist->getLista($params['cpf']);
 
         //if($checklist->getResult()){
 
@@ -40,7 +40,14 @@ class MinhasInscricoesController extends Controller
             $getlist = new MinhasInscricoes();
             $lista = $getlist->getLista($_COOKIE['sampel_user_cpf'])->getResult();
 
-            $this->render('pages/minhas-inscricoes/minhasInscricoes.twig', ['active' => 'minhas-inscricoes', 'lista' => $lista]);
+            $userDados = $getlist->getLista($_COOKIE['sampel_user_cpf']);
+            if($userDados->getResult()){
+                $user = $userDados->getResult()[0];
+            }else{
+                $user = [];
+            }
+
+            $this->render('pages/minhas-inscricoes/minhasInscricoes.twig', ['active' => 'minhas-inscricoes', 'lista' => $lista, 'user' => $user]);
 
         }else{
             unset($_COOKIE['sampel_user_cpf']);
