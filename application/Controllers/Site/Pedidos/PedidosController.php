@@ -16,7 +16,14 @@ class PedidosController extends Controller
         $this->permissions('pedidos', '"view"');
 
         $model = new PedidosPainel();
-        $pedidos = $model->getPedidos()->getResult();
+        $by_user = '';
+        if($_SESSION['sampel_user_tipo'] != 1){
+            if ($this->checkPermissionsUser('pedidos', '"manager"') == null){ 
+                $by_user = ' AND p.id_user = '.$_SESSION['sampel_user_id'].'';
+            }
+        };
+
+        $pedidos = $model->getPedidos($by_user)->getResult();
 
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();

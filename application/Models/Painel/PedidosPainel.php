@@ -37,12 +37,12 @@ class PedidosPainel extends Model
         return $where;
     }
 
-    public function getPedidos(): Read
+    public function getPedidos($by_user = null): Read
     {
         $where = $this->getFilter();
 
         $read = new Read();
-        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.ativo = 'S' $where ORDER BY `id` DESC");
+        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.ativo = 'S' $where $by_user ORDER BY `id` DESC");
         return $read;
     }
 

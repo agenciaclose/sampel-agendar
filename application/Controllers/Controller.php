@@ -95,6 +95,15 @@ class Controller
         }
     }
 
+    public function checkPermissionsUser($permission, $action)
+    {
+        if(isset($_SESSION['sampel_user_id']) && $_SESSION['sampel_user_tipo'] != 1){
+            $permissions = new Permissions();
+            $permissions = $permissions->getPermissions($permission, $action, $_SESSION['sampel_user_id'])->getResult();
+            return $permissions;
+        }
+    }
+
     public function getPermissionsUser()
     {
         if(isset($_SESSION['sampel_user_id']) && $_SESSION['sampel_user_tipo'] != 1){

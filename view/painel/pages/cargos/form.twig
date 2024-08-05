@@ -113,15 +113,15 @@
         <div class="mb-2 border-bottom">
             <div><b>Pedidos</b></div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido1" value="view" {{ 'view' in permissions.pedido ? 'checked' }}>
+                <input class="form-check-input" name="permission[pedidos][]" type="checkbox" id="pedido1" value="view" {{ 'view' in permissions.pedidos ? 'checked' }}>
                 <label class="form-check-label" for="pedido1">Ver</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido2" value="add" {{ 'add' in permissions.pedido ? 'checked' }}>
+                <input class="form-check-input" name="permission[pedidos][]" type="checkbox" id="pedido2" value="add" {{ 'add' in permissions.pedidos ? 'checked' }}>
                 <label class="form-check-label" for="pedido2">Criar / Editar</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="permission[pedido][]" type="checkbox" id="pedido3" value="manager" {{ 'manager' in permissions.pedido ? 'checked' }}>
+                <input class="form-check-input" name="permission[pedidos][]" type="checkbox" id="pedido3" value="manager" {{ 'manager' in permissions.pedidos ? 'checked' }}>
                 <label class="form-check-label" for="pedido3">Gerenciar</label>
             </div>
         </div>

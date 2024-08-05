@@ -44,10 +44,12 @@
                                 <li class="menu-item {{ menu == 'equipes' ? 'current-menu-item' }}">
                                     <a href="{{ DOMAIN }}/equipes"><i class="fa-thin fa-users"></i> Equipes</a>
                                 </li>
+                                {% if 'view' in permissions.pedidos or permissions == 'all' %}
+                                <li class="menu-item {{ menu == 'pedidos' ? 'current-menu-item' }}">
+                                    <a href="{{ DOMAIN }}/pedidos"><i class="fa-thin fa-box-open-full"></i> Pedidos</a>
+                                </li>
+                                {% endif %}
                             {% endif %}
-                            <li class="menu-item d-none">
-                                <a href="{{ DOMAIN }}/certificados/visita"><i class="fa-thin fa-file-certificate"></i> Certificados</a>
-                            </li>
                             <li class="menu-item">
                                 <a href="{{ DOMAIN }}/minhas-inscricoes"><i class="fa-light fa-file-certificate"></i> Minhas inscrições</a>
                             </li>
@@ -67,9 +69,6 @@
                                 <li class="menu-item">
                                     <a class="nav-link dropdown-toggle dropdown-user-link d-flex align-items-center" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="d-flex justify-content-end align-items-center">
-                                            <div class="text-end me-2 d-none d-sm-block">
-                                                <div class="lh-sm">{{ _session.sampel_user_nome | AbreviarNome }}</div>
-                                            </div>
                                             <i class="fa-thin fa-circle-user fa-3x"></i>
                                         </div>
                                     </a>
