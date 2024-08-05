@@ -71,6 +71,8 @@ class ProdutosPainel extends Model
 
         $create = new Create();
         $create->ExeCreate('produtos', $params);
+        var_dump($create);
+        die();
         return $create;
     }
 

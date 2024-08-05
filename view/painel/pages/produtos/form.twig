@@ -95,7 +95,7 @@
             <div class="col-md-6 col-12">
                 <div class="mb-1">
                     <label class="form-label">PDV Prazo</label>
-                    <input type="number" name="PDV_prazo" value="{{ product.PDV_prazo }}" class="form-control">
+                    <input type="number" name="PDV_prazo" value="{{ product.PDV_prazo != '' ? product.PDV_prazo : 0 }}" class="form-control" min="0">
                 </div>
             </div>
         </div>

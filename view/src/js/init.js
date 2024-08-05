@@ -15,7 +15,7 @@ import './app';
 import DataTable from 'datatables.net-dt';
  
 let table = new DataTable('#tabela_dinamica',  {
-    dom: '<"top"fi>rt<"bottom"lp><"clear">',
+    dom: '<"top"i><"top"f>rt<"bottom"lp><"clear">',
     ordering: false,
     language: {
         "emptyTable": "Nenhum registro encontrado",
@@ -24,7 +24,7 @@ let table = new DataTable('#tabela_dinamica',  {
         "infoThousands": ".",
         "loadingRecords": "Carregando...",
         "zeroRecords": "Nenhum registro encontrado",
-        "search": "Pesquisar",
+        "search": "",
         "paginate": {
             "next": "Próximo",
             "previous": "Anterior",
@@ -261,7 +261,7 @@ let table = new DataTable('#tabela_dinamica',  {
         "infoEmpty": "Mostrando 0 até 0 de 0 registro(s)",
         "processing": "Carregando...",
         "searchPlaceholder": "Buscar registros"
-    },
+    }
 });
 
 let table_concluida = new DataTable('#tabela_dinamica_concluida',  {

@@ -159,10 +159,10 @@
 
 		</div>
 
-		<hr>
+		<hr class="mb-0">
 
 		<div class="table-responsive">
-			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-4 mb-4 table-sm" style="width:100%">
+			<table id="tabela_dinamica" class="table table-hover align-middle text-white pt-1 mb-4 table-sm" style="width:100%">
 		        <thead>
 		            <tr>
 						<th class="d-none">#</th>
@@ -177,14 +177,14 @@
 		        </thead>
 		        <tbody>
 		        	{% for lista in listas %}
-						<tr>
+						<tr class="inscricao-item" data-presenca="{{ lista.presenca }}" data-certificado="{{ lista.certificado }}" data-feedback="{{ lista.feedback != '' ? 'Sim' : 'No' }}">
 							<td class="d-none">{{ lista.visita_id }}</td>
 							<td class="ps-0 text-uppercase">
 								<div class="ms-2">
 									{{ lista.nome }}
 									<div class="d-flex justify-content-start">
 										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}><i class="fa-solid fa-shield-check fa-lg"></i></div>
-										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
+										<div {{ lista.feedback != '' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
 										<div {{ lista.certificado == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CERTIFICADO EMITIDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM CERTIFICADO"' }}><i class="fa-solid fa-file-certificate fa-lg"></i></div>
 									</div>
 									<div class="d-block d-sm-none p-0">

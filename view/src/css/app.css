@@ -181,7 +181,7 @@ video {
 }
 .dataTables_wrapper .top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .limit-3 {
   overflow: hidden;
