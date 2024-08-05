@@ -262,7 +262,7 @@ class Palestras extends Model
     public function listarUltimasFotosPalestras(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN palestras_imagens AS pim ON pim.id_palestra = p.id WHERE p.data_palestra <= CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC");
+        $read->FullRead("SELECT p.id, p.title, pim.imagem, p.data_palestra FROM palestras AS p INNER JOIN (SELECT pim1.id_palestra, pim1.imagem FROM palestras_imagens pim1 WHERE pim1.id = (SELECT pim2.id FROM palestras_imagens pim2 WHERE pim2.id_palestra = pim1.id_palestra ORDER BY pim2.`order` ASC, pim2.id DESC LIMIT 1)) AS pim ON pim.id_palestra = p.id WHERE p.data_palestra <= CURRENT_DATE GROUP BY p.id ORDER BY p.data_palestra DESC");
         return $read;
     }
 

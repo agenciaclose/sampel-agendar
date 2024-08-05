@@ -425,7 +425,7 @@ class Visitas extends Model
     public function listarGalerias(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN visitas_imagens AS vi ON vi.id_visita = v.id GROUP BY v.id ORDER BY v.data_visita DESC");
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN (SELECT vi1.id_visita, vi1.imagem FROM visitas_imagens vi1 WHERE vi1.id = (SELECT vi2.id FROM visitas_imagens vi2 WHERE vi2.id_visita = vi1.id_visita ORDER BY vi2.`order` ASC, vi2.id DESC LIMIT 1)) AS vi ON vi.id_visita = v.id WHERE v.data_visita <= CURRENT_DATE GROUP BY v.id ORDER BY v.data_visita DESC");
         return $read;
     }
 
