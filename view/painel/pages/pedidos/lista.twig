@@ -97,8 +97,8 @@
                                             <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="text-uppercase">{{ pedido.descricao_pedido }}</a>
                                             <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                                         </td>
-                                        <td><a class="{{ pedido.status_pedido }}-text fw-bold" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
-                                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">
+                                        <td><a class="{{ pedido.status_pedido }}-text fw-bolder" href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
+                                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bolder text-center text-uppercase">
                                             {{ pedido.status_pedido|payStatus|raw }}
                                             <div><small>{{ pedido.status_entrega }}</small></div>
                                         </td>
