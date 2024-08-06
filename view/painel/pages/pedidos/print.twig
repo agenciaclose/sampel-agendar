@@ -35,7 +35,7 @@
 					</div>
 					<div class="mb-1 flex-fill w-md-100 me-md-1">
 						<label for="descricao_pedido" class="form-label">Valor Total do Pedido</label>
-						<div class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 text-success fw-bold">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
+						<div class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 fw-bold">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
 					</div>
 					<div class="mb-1 me-md-1">
 						<div class="btn border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</div>
@@ -53,11 +53,12 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th class="filter-column"><i class="fa-regular fa-magnifying-glass"></i> Nome Produto</th>
-									<th>Codigo</th>
+									<th class="filter-column">Produto</th>
+									<th>Código</th>
 									<th class="text-center">Embalagem</th>
-									<th class="text-center">Unidades</th>
-									<th class="text-center" width="50">Quantidade</th>
+									<th class="text-center">Unit</th>
+									<th class="text-center">Valor Unit</th>
+									<th class="text-center" width="50">Qtd</th>
 									<th class="text-center" width="50">Qtd Total</th>
 								</tr>
 							</thead>
@@ -76,11 +77,14 @@
 										<td>{{ produto.codigo }}</td>
 										<td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
 										<td class="text-center">{{ produto.unidades }}</td>
-										<td class="text-center" width="50">
-											<span class="badge bg-success text-black">{{ produto.qtd_escolhida }}</span>
+										<td class="text-center">
+											R$ {{ produto.preco|number_format(2, ',', '.') }}
 										</td>
 										<td class="text-center" width="50">
-											<span class="text-success fw-bold">{{ produto.qt_total }}</span>
+											<span class="text-black">{{ produto.qtd_escolhida }}</span>
+										</td>
+										<td class="text-center" width="50">
+											<span class="fw-bold">{{ produto.qt_total }}</span>
 										</td>
 									</tr>
 								{% endfor %}
