@@ -50,7 +50,7 @@
 
                 <div class="col-md-2 col-sm-6 col-12">
                     <div class="mb-1 btn-group d-flex">
-                        <button type="submit" class="btn btn-warning w-100" id="salvar">FILTRAR</button>
+                        <button type="submit" class="btn btn-warning w-100 fw-bolder" id="salvar">FILTRAR</button>
                         <a href="{{ DOMAIN }}/pedidos" class="btn btn-danger px-1 flex-shrink-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Resetar Filtro"><i class="fa-solid fa-octagon-xmark"></i></a>
                     </div>
                 </div>
@@ -63,7 +63,12 @@
             {% for pedido in pedidos %}
                 {% set valor_total = valor_total + pedido.valor_total_pedido %}
             {% endfor %}
-            <div class="d-flex justify-content-center fs-5 fw-bold">VALOR TOTAL: <span class="text-warning ms-1">R$ {{ valor_total|number_format(2, ',', '.') }}</span></div>
+            <div class="d-flex {{ 'add' in permissions.pedidos or permissions == 'all' ? 'justify-content-between' : 'justify-content-center' }} align-items-center">
+                <div class="fs-5 fw-bolder">VALOR TOTAL: <span class="text-warning ms-1">R$ {{ valor_total|number_format(2, ',', '.') }}</span></div>
+                {% if 'add' in permissions.pedidos or permissions == 'all' %}
+                    <div><a href="{{ DOMAIN }}/pedidos/add" class="btn btn-warning fw-bolder"><i class="fa-solid fa-basket-shopping"></i> Adicionar Novo</a></div>
+                {% endif %}
+            </div>
         </div>
 
 
@@ -90,7 +95,7 @@
                             <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.date_create|date("d-m-Y H:i") }}</small></a></div>
                         </td>
                         <td>
-                            <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">{{ pedido.descricao_pedido }}</a>
+                            <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase">{{ pedido.descricao_pedido }}</a>
                             <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                         </td>
                         <td><a class="{{ pedido.status_pedido }}-text fw-bold " href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>

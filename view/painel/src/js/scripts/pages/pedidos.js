@@ -130,8 +130,18 @@ $(function(){
 	});
 
 	$('#novo_pedido').submit(function(e){
+
 		var DOMAIN = $('body').data('domain');
 		$('#salvar').prop('type', 'button');
+
+		var point = $(this).attr('data-point');
+
+		if(point == 'site'){
+			var returnURL = DOMAIN + '/pedidos';
+		}else{
+			var returnURL = DOMAIN + '/painel/pedidos';
+		}
+
 		e.preventDefault();
 		var formData = new FormData(this);
 		$.ajax({
@@ -141,7 +151,7 @@ $(function(){
 			success: function(data){
 				if (data == "1") {
 					swal({type: 'success',title: 'SALVO COM SUCESSO!',showConfirmButton: false,timer: 1500});
-					setTimeout(function() {window.location.href = DOMAIN + '/painel/pedidos';}, 1500);
+					setTimeout(function() {window.location.href = returnURL;}, 1500);
 				}else{
 					$('#salvar').prop('type', 'submit');
 					swal({type: 'error',title: 'ERRO AO SALVAR!',showConfirmButton: false,timer: 1500});
@@ -151,6 +161,7 @@ $(function(){
 			cache: false,
 			contentType: false
 		});
+		
 	});
 
 	$('#editar_pedido').submit(function(e){
