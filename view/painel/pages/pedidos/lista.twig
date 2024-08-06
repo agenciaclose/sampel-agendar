@@ -106,6 +106,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     {% if pedido.status_pedido != 'Recusado' %}
+                                                    <li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a></li>
                                                     <li><a class="dropdown-item text-warning" href="{{ DOMAIN }}/painel/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
                                                     <li><a class="dropdown-item text-success" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
                                                     <li><a class="dropdown-item text-info" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
