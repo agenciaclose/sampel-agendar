@@ -100,8 +100,6 @@
                         </td>
                         <td><a class="{{ pedido.status_pedido }}-text fw-bold " href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
                         <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">{{ pedido.status_pedido }}</td>
-                        
-                        {% if 'manager' in permissions.pedidos or permissions == 'all' %}
                         <td width="100" class="text-end">
                             <div class="btn-group dropstart">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,19 +107,27 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% if pedido.status_pedido != 'Recusado' %}
-                                    <li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a></li>
-                                    <li><a class="dropdown-item border-bottom text-warning" href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
-                                    <li><a class="dropdown-item border-bottom text-success" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
-                                    <li><a class="dropdown-item border-bottom text-info" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
-                                    <li><a class="dropdown-item border-bottom text-danger" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a></li>
+                                       
+                                        {% if 'add' in permissions.pedidos or permissions == 'all' %}
+                                            {% if pedido.status_pedido == 'Revisar' %}
+                                                <li><a class="dropdown-item border-bottom" href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                        
+                                        {% if 'manager' in permissions.pedidos or permissions == 'all' %}
+                                            <li><a class="dropdown-item border-bottom" href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
+                                        {% endif %}
+
                                     {% else %}
-                                    <li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
+                                        <li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
                         </td>
-                        {% endif %}
-
                     </tr>
                     {% endfor %}
                 </tbody>
