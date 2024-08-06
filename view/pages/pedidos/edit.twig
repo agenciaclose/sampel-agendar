@@ -68,6 +68,7 @@
 				<div class="valor_total_pedido bg-success p-2 text-white">
 					Valor Total do Pedido: <b>R$ <span class="total">{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</span></b>
 					<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}">
+					<input type="hidden" name="status_entrega" value="{{ pedido.status_entrega }}">
 				</div>
 				<div class="lista_produtos"> 
 					<div class="table-wrapper">

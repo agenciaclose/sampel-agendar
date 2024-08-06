@@ -4928,6 +4928,7 @@ span.fr-counter {
   position: absolute;
   top: 0.5rem;
   right: 0;
+  z-index: 1;
 }
 .outros {
   --bs-table-accent-bg: #ff9f43 !important;

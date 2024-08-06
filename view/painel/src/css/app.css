@@ -3633,6 +3633,7 @@ table.dataTable.dtr-column > tbody > tr > td.control:before, table.dataTable.dtr
   position: absolute;
   right: 1.5rem;
   top: 1.5rem;
+  z-index: 1;
 }
 .lista_produtos .filter-table {
   max-width: 350px;
