@@ -81,9 +81,7 @@
                         <th>Descrição</th>
                         <th>Valor Pedido</th>
                         <th width="100">Status</th>
-                        {% if 'manager' in permissions.pedidos or permissions == 'all' %}
-                            <th class="text-end">Opções</th>
-                        {% endif %}
+                        <th class="text-end">Opções</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,9 +96,9 @@
                             <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase">{{ pedido.descricao_pedido }}</a>
                             <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                         </td>
-                        <td><a class="{{ pedido.status_pedido }}-text fw-bold " href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
-                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bold text-center text-uppercase">
-                            {{ pedido.status_pedido }}
+                        <td><a class="{{ pedido.status_pedido }}-text fw-bolder" href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
+                        <td width="100" class="{{ pedido.status_pedido }}-bg text-black fw-bolder text-center text-uppercase">
+                            {{ pedido.status_pedido|payStatus|raw }}
                             <div><small>{{ pedido.status_entrega }}</small></div>
                         </td>
                         <td width="100" class="text-end">
