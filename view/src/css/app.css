@@ -145,6 +145,12 @@ a:focus{
 .btn-light:hover, .btn-light:focus, .btn-light:active {
   --bs-btn-color: #000 !important;
 }
+.fw-bold {
+  font-weight: 500 !important;
+}
+.fw-bolder {
+  font-weight: 600 !important;
+}
 h1,
 h2,
 h3,
