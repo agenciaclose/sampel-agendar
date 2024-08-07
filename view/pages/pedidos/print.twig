@@ -38,10 +38,7 @@
 						<div class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 fw-bold">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
 					</div>
 					<div class="mb-1 me-md-1">
-						<div class="btn border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</div>
-					</div>
-					<div class="mb-1 me-md-1">
-						<div class="btn border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_entrega }}</div>
+						<div class="btn border-0 rounded-0 text-black text-uppercase bg-{{ pedido.status_pedido|pedidoStatusColor }} ">{{ pedido.status_pedido|pedidoStatus|raw }}</div>
 					</div>
 				</div>
 			</div>

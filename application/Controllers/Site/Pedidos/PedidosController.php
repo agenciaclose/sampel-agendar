@@ -28,7 +28,7 @@ class PedidosController extends Controller
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();
 
-        $this->render('pages/pedidos/lista.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
+        $this->render('pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
     }
 
     public function viewPedido($params)

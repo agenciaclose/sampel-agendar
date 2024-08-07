@@ -21,7 +21,7 @@ class PedidosPainelController extends Controller
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();
 
-        $this->render('painel/pages/pedidos/lista.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
+        $this->render('painel/pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
     }
 
     public function viewPedido($params)
@@ -192,4 +192,15 @@ class PedidosPainelController extends Controller
         return $estados;
     }
     
+    public function showModerate($params)
+    {
+        $this->setParams($params);
+        $this->permissions('pedidos', '"manager"');
+
+        $model = new PedidosPainel();
+        $pedido = $model->getPedidoID($params['id']);
+
+        $this->render('painel/pages/pedidos/moderate.twig', ['menu' => 'pedidos',  'pedido' => $pedido]);
+    }
+
 }

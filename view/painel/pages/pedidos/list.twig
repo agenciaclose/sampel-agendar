@@ -44,10 +44,15 @@
                                         <label for="id_equipe" class="form-label">Status do Pedido:</label>
                                         <select class="form-control text-uppercase" name="status_pedido" id="status_pedido">
                                             <option value="">Selecione</option>
-                                            <option value="Pendente" {{ _get.status_pedido == 'Pendente' ? 'selected' }}>Pendente</option>
-                                            <option value="Aprovado" {{ _get.status_pedido == 'Aprovado' ? 'selected' }}>Aprovado</option>
-                                            <option value="Recusado" {{ _get.status_pedido == 'Recusado' ? 'selected' }}>Recusado</option>
-                                            <option value="Revisar" {{ _get.status_pedido == 'Revisar' ? 'selected' }}>Revisar</option>
+                                            <option value="0" {{ _get.status_pedido == '0' ? 'selected' }}>{{ '0'|pedidoStatus|raw }}</option>
+                                            <option value="1" {{ _get.status_pedido == '1' ? 'selected' }}>{{ '1'|pedidoStatus|raw }}</option>
+                                            <option value="2" {{ _get.status_pedido == '2' ? 'selected' }}>{{ '2'|pedidoStatus|raw }}</option>
+                                            <option value="3" {{ _get.status_pedido == '3' ? 'selected' }}>{{ '3'|pedidoStatus|raw }}</option>
+                                            <option value="4" {{ _get.status_pedido == '4' ? 'selected' }}>{{ '4'|pedidoStatus|raw }}</option>
+                                            <option value="5" {{ _get.status_pedido == '5' ? 'selected' }}>{{ '5'|pedidoStatus|raw }}</option>
+                                            <option value="6" {{ _get.status_pedido == '6' ? 'selected' }}>{{ '6'|pedidoStatus|raw }}</option>
+                                            <option value="7" {{ _get.status_pedido == '7' ? 'selected' }}>{{ '7'|pedidoStatus|raw }}</option>
+                                            <option value="10" {{ _get.status_pedido == '10' ? 'selected' }}>{{ '10'|pedidoStatus|raw }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -111,9 +116,7 @@
                                                     {% if pedido.status_pedido != 'Recusado' %}
                                                     <li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a></li>
                                                     <li><a class="dropdown-item text-warning" href="{{ DOMAIN }}/painel/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
-                                                    <li><a class="dropdown-item text-success" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
-                                                    <li><a class="dropdown-item text-info" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
-                                                    <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
+                                                    <li><a class="dropdown-item" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/pedidos/moderate/{{ pedido.id }}" data-bs-toggle="modal-remote" data-bs-target="#moderar"><i class="fa-solid fa-shield-check"></i> Moderar</a></li>
                                                     {% else %}
                                                     <li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
                                                     {% endif %}
@@ -133,5 +136,11 @@
 		</div>
 	</div>
 
+<!-- Modal -->
+<div class="modal fade" id="moderar" tabindex="-1" aria-labelledby="moderarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"></div>
+  </div>
+</div>
 <script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/pedidos.js"></script>
 {% endblock %}

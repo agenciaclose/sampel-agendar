@@ -29,6 +29,23 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 (function (window, undefined) {
   'use strict';
 
+	// MODAL REMOTO
+	$('[data-bs-toggle="modal-remote"]').on('click', function() {
+
+		$(".modal-content").html('');
+		var url = $(this).attr('data-bs-remote');
+		var modal = $(this).attr('data-bs-target');
+		$.ajax({
+			url: url,
+			method: 'GET',
+			success: function(response) {
+				$('.modal-content').html(response);
+			}
+		});
+		$(modal).modal('show');
+
+	});
+
 	//offcanvas remote
 	$('[data-bs-toggle="offcanvas"]').on('click', function() {
 		$('.offcanvas-body').html('');
@@ -186,17 +203,6 @@ function format_slug(titulo, slug) {
 function reset_date(campo) {
   $('.'+campo).val('').attr('type', 'text').attr('type', 'date');
 }
-
-// MODAL REMOTO
-$('body').on('click', '[data-bs-toggle="modal-remote"]', function(){
-
-	$(".modal-body").empty();
-	var link = $(this).data("remote");
-	var target = $(this).attr('data-bs-target');
-	$(target+' .modal-body').load(link);
-	$(target).modal('show');
-
-});
 
 $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
 	$(e.target).removeData("bs.modal").find(".modal-body").empty();
