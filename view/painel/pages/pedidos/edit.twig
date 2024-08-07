@@ -74,15 +74,6 @@
 
 							<div class="valor_total_pedido">
 								<div class="d-flex justify-content-between align-items-center">
-									<div>
-										<select name="status_entrega" class="form-control">
-											<option value="">STATUS DE ENTREGA</option>
-											<option {{ pedido.status_entrega == 'SEPARAÇÃO' ? 'selected' }} value="SEPARAÇÃO">SEPARAÇÃO</option>
-											<option {{ pedido.status_entrega == 'TRANSPORTADORA' ? 'selected' }} value="TRANSPORTADORA">TRANSPORTADORA</option>
-											<option {{ pedido.status_entrega == 'CORREIO' ? 'selected' }} value="CORREIO">CORREIO</option>
-											<option {{ pedido.status_entrega == 'RETIRADA' ? 'selected' }} value="RETIRADA">RETIRADA</option>
-										</select>
-									</div>
 									<div class="bg-success p-1 text-black ms-0 ms-md-1">
 										Valor Total do Pedido: <b>R$ <span class="total">{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</span></b>
 										<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="{{ pedido.valor_total_pedido|number_format(2, ',', '.') }}">

@@ -112,7 +112,7 @@ class PedidosPainel extends Model
     }
 
     // CRIA NOVO PEDIDO
-    public function addProductSave($params)
+    public function addPedidoSave($params)
     {
         //FAZ O TRATAMENTO DOS ITENS PARA SALVAR
         $itens = $this->tratarParamsPedidos($params);
@@ -142,7 +142,6 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
-            'status_entrega' => $params['status_entrega'],
             'valor_total_pedido' => $valor_total_pedido
         ]);
 
@@ -174,7 +173,7 @@ class PedidosPainel extends Model
 
 
     // EDITAR PEDIDO
-    public function editProductSave($params)
+    public function editPedidoSave($params)
     {
         //RETORNA O ID DO PEDIDO
         $id_pedido = $params['id'];
@@ -206,7 +205,6 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
-            'status_entrega' => $params['status_entrega'],
             'valor_total_pedido' => $valor_total_pedido
         ], 'WHERE id = :id', "id={$id_pedido}");
 

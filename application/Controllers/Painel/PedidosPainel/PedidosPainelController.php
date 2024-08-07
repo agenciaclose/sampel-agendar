@@ -131,7 +131,7 @@ class PedidosPainelController extends Controller
     {
         $this->setParams($params);
         $model = new PedidosPainel();
-        $save = $model->addProductSave($params);
+        $save = $model->addPedidoSave($params);
         if($save === 'success'){
            echo '1'; 
         }
@@ -141,17 +141,31 @@ class PedidosPainelController extends Controller
     {
         $this->setParams($params);
         $model = new PedidosPainel();
-        $save = $model->editProductSave($params);
+        $save = $model->editPedidoSave($params);
         if($save === 'success'){
            echo '1'; 
         }
+    }
+
+    public function showModerate($params)
+    {
+        $this->permissions('pedidos', '"manager"');
+        $model = new PedidosPainel();
+        $pedido = $model->getPedidoID($params['id']);
+        if($pedido->getResult()){
+            $moderar = $pedido->getResult()[0];
+        }else{
+            $moderar = [];
+        }
+
+        $this->render('painel/pages/pedidos/moderate.twig', ['moderar' => $moderar]);
     }
 
     public function statusPedidoSave($params)
     {
         $this->setParams($params);
         $model = new PedidosPainel();
-        if($params['status_pedido'] == 'Recusado'){
+        if($params['status_pedido'] == '0'){
             $model->statusRecusadoSave($params);
         }else{
             $model->statusPedidoSave($params);
@@ -192,15 +206,4 @@ class PedidosPainelController extends Controller
         return $estados;
     }
     
-    public function showModerate($params)
-    {
-        $this->setParams($params);
-        $this->permissions('pedidos', '"manager"');
-
-        $model = new PedidosPainel();
-        $pedido = $model->getPedidoID($params['id']);
-
-        $this->render('painel/pages/pedidos/moderate.twig', ['menu' => 'pedidos',  'pedido' => $pedido]);
-    }
-
 }

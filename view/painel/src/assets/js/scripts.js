@@ -37,7 +37,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 		var modal = $(this).attr('data-bs-target');
 		$.ajax({
 			url: url,
-			method: 'GET',
+			method: 'POST',
 			success: function(response) {
 				$('.modal-content').html(response);
 			}
