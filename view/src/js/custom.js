@@ -59,7 +59,6 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-  // MODAL REMOTO
   $(document).on('click', '[data-bs-remote="modal"]', function(e) {
     e.preventDefault();
     let modalTarget = $(this).data('bs-target');

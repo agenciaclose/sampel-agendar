@@ -7,7 +7,7 @@ $router->get("/pedidos/add", "PedidosController:addPedido");
 $router->get("/pedidos/edit/{id}", "PedidosController:editPedido");
 $router->get("/pedidos/view/{id}", "PedidosController:viewPedido");
 $router->get("/pedidos/print/{id}", "PedidosController:printPedido");
-$router->post("/pedidos/moderate/{id}", "PedidosController:showModerate");
+$router->get("/pedidos/moderate", "PedidosController:showModerate");
 $router->post("/pedidos/tipo", "PedidosController:getTipoEvento");
 $router->post("/pedidos/add/save", "PedidosController:addPedidoSave");
 $router->post("/pedidos/edit/save", "PedidosController:editPedidoSave");

@@ -1,0 +1,31 @@
+<div class="content-body">
+	<div class="p-3">
+		<form action="javascript:void(0)" method="POST" id="moderate_pedido">
+			<div class="border-bottom">
+				<h3 class="text-black">Moderar Pedido</h3>
+			</div>
+			<div class="pt-2">
+				<div class="mb-3">
+					<label class="form-label text-black">Selecione um Status para o Pedido</label>
+					<select class="form-control text-uppercase" name="status_pedido">
+						<option value="">Selecione</option>
+						<option value="0" {{ moderar.status_pedido == '0' ? 'selected' }}>{{ '0'|pedidoStatus|raw }}</option>
+						<option value="1" {{ moderar.status_pedido == '1' ? 'selected' }}>{{ '1'|pedidoStatus|raw }}</option>
+						<option value="2" {{ moderar.status_pedido == '2' ? 'selected' }}>{{ '2'|pedidoStatus|raw }}</option>
+						<option value="3" {{ moderar.status_pedido == '3' ? 'selected' }}>{{ '3'|pedidoStatus|raw }}</option>
+						<option value="4" {{ moderar.status_pedido == '4' ? 'selected' }}>{{ '4'|pedidoStatus|raw }}</option>
+						<option value="5" {{ moderar.status_pedido == '5' ? 'selected' }}>{{ '5'|pedidoStatus|raw }}</option>
+						<option value="6" {{ moderar.status_pedido == '6' ? 'selected' }}>{{ '6'|pedidoStatus|raw }}</option>
+						<option value="7" {{ moderar.status_pedido == '7' ? 'selected' }}>{{ '7'|pedidoStatus|raw }}</option>
+						<option value="10" {{ moderar.status_pedido == '10' ? 'selected' }}>{{ '10'|pedidoStatus|raw }}</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<input type="hidden" name="id" value="{{ moderar.id }}">
+					<button class="btn btn-primary" type="submit" id="salvar">SALVAR ALTERAÇÃO</button>
+				</div>
+			</div>
+		</form>
+	</div>	
+</div>
+<script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/moderar.js"></script>

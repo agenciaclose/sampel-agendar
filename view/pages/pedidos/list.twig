@@ -122,9 +122,7 @@
                                         
                                         {% if 'manager' in permissions.pedidos or permissions == 'all' %}
                                             <li><a class="dropdown-item border-bottom" href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
-                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Aprovado')"><i class="fa-solid fa-shield-check"></i> Aprovar</a></li>
-                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Revisar')"><i class="fa-solid fa-pen-to-square"></i> Revisar</a></li>
-                                        <li><a class="dropdown-item border-bottom" href="javascript:void(0)" onclick="statusPedido({{ pedido.id }},'Recusado')"><i class="fa-solid fa-shield-xmark"></i> Recusar</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0)" data-remote="{{ DOMAIN }}/pedidos/moderate?id={{ pedido.id }}" data-bs-remote="modal" data-bs-toggle="modal" data-bs-target="#moderarModal"><i class="fa-solid fa-shield-check"></i> Moderar</a></li>
                                         {% endif %}
 
                                     {% else %}
@@ -142,6 +140,10 @@
 	</session>
 </div>
 	
-
+<div class="modal fade" id="moderarModal" tabindex="-1" aria-labelledby="moderarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"><div class="modal-body"></div></div>
+  </div>
+</div>
 <script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/pedidos.js"></script>
 {% endblock %}

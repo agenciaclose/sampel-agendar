@@ -154,18 +154,18 @@ class PedidosController extends Controller
         }
     }
 
-    public function showModerate($params)
+    public function showModerate()
     {
         $this->permissions('pedidos', '"manager"');
         $model = new PedidosPainel();
-        $pedido = $model->getPedidoID($params['id']);
+        $pedido = $model->getPedidoID($_GET['id']);
         if($pedido->getResult()){
             $moderar = $pedido->getResult()[0];
         }else{
             $moderar = [];
         }
 
-        $this->render('painel/pages/pedidos/moderate.twig', ['moderar' => $moderar]);
+        $this->render('pages/pedidos/moderate.twig', ['moderar' => $moderar]);
     }
     
     public function statusPedidoSave($params)
