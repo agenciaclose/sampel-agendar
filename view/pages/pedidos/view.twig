@@ -52,7 +52,7 @@
 					<div><a href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}" class="btn btn-warning fw-bolder"><i class="fa-solid fa-pen-to-square"></i> EDITAR PEDIDO</a></div>
 				{% endif %}
 				<div class="mb-1 ms-md-1">
-					<span class="btn border-0 text-white text-uppercase fw-bolder {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</span>
+					<span class="btn border-0 text-white text-uppercase fw-bolder bg-{{ pedido.status_pedido|pedidoStatusColor }} ">{{ pedido.status_pedido|pedidoStatus|raw }}</span>
 				</div>
 				<div><a href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank" class="btn btn-info text-black fw-bolder"><i class="fa-solid fa-file-pdf"></i> IMPRIMIR EM PDF</a></div>
 			</div>

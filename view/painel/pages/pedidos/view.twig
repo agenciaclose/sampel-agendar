@@ -48,7 +48,7 @@
 								<input type="text" class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 text-success fw-bold" value="R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}" readonly>
 							</div>
 							<div class="mb-1 me-md-1">
-								<span class="btn border-0 rounded-0 text-black text-uppercase {{ pedido.status_pedido }}-bg ">{{ pedido.status_pedido }}</span>
+								<span class="btn border-0 rounded-0 text-white text-uppercase bg-{{ pedido.status_pedido|pedidoStatusColor }} ">{{ pedido.status_pedido|pedidoStatus|raw }}</span>
 							</div>
 						</div>
 					</div>
