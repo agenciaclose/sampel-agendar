@@ -1,3 +1,86 @@
+:root {
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-gray: #6c757d;
+}
+.bg-blue{
+  background-color: var(--bs-blue) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-blue) !important;
+}
+.bg-gray{
+  background-color: var(--bs-gray) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-gray) !important;
+}
+.bg-pink{
+  background-color: var(--bs-pink) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-pink) !important;
+}
+.bg-pink{
+  background-color: var(--bs-pink) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-pink) !important;
+}
+.bg-red{
+  background-color: var(--bs-red) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-red) !important;
+}
+.bg-orange{
+  background-color: var(--bs-orange) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-orange) !important;
+}
+.bg-yellow{
+  background-color: var(--bs-yellow) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-yellow) !important;
+}
+.bg-green{
+  background-color: var(--bs-green) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-green) !important;
+}
+.bg-teal{
+  background-color: var(--bs-teal) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-teal) !important;
+}
+.bg-cyan{
+  background-color: var(--bs-cyan) !important;
+  box-shadow: inset 0 0 0 9999px var(--bs-cyan) !important;
+}
+.text-blue{
+  color: var(--bs-blue) !important;
+}
+.text-gray{
+  color: var(--bs-gray) !important;
+}
+.text-purple{
+  color: var(--bs-purple) !important;
+}
+.text-pink{
+  color: var(--bs-pink) !important;
+}
+.text-red{
+  color: var(--bs-red) !important;
+}
+.text-orange{
+  color: var(--bs-orange) !important;
+}
+.text-yellow{
+  color: var(--bs-yellow) !important;
+}
+.text-green{
+  color: var(--bs-green) !important;
+}
+.text-teal{
+  color: var(--bs-teal) !important;
+}
+.text-cyan{
+  color: var(--bs-cyan) !important;
+}
 html {
   font-size: 14px;
   height: 100%;

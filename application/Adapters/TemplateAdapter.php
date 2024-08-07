@@ -4,7 +4,8 @@ namespace Agencia\Close\Adapters;
 
 use Agencia\Close\Adapters\Twig\DataGoogle;
 use Agencia\Close\Adapters\Twig\AbreviarNome;
-use Agencia\Close\Adapters\Twig\PayStatus;
+use Agencia\Close\Adapters\Twig\PedidoStatus;
+use Agencia\Close\Adapters\Twig\PedidoStatusColor;
 use Agencia\Close\Adapters\Twig\DayTranslate;
 use Agencia\Close\Adapters\Twig\MonthTranslate;
 use Agencia\Close\Adapters\Twig\FilterHash;
@@ -33,7 +34,8 @@ class TemplateAdapter
         $this->twig->addExtension(new FilterHash());
         $this->twig->addExtension(new MonthTranslate());
         $this->twig->addExtension(new DayTranslate());
-        $this->twig->addExtension(new PayStatus());
+        $this->twig->addExtension(new PedidoStatus());
+        $this->twig->addExtension(new PedidoStatusColor());
         $this->twig->addExtension(new PriceCheck());
         $this->twig->addExtension(new UserType());
         $this->twig->addExtension(new UserStatus());

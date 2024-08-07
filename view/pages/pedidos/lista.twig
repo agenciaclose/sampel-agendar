@@ -80,7 +80,7 @@
                         <th>Comprador</th>
                         <th>Descrição</th>
                         <th>Valor Pedido</th>
-                        <th width="100">Status</th>
+                        <th width="200">Status</th>
                         <th class="text-end">Opções</th>
                     </tr>
                 </thead>
@@ -96,9 +96,9 @@
                             <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase">{{ pedido.descricao_pedido }}</a>
                             <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                         </td>
-                        <td><a class="{{ pedido.status_pedido }}-text fw-bolder" href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
-                        <td width="100" class="{{ pedido.status_pedido }}-bg fw-bolder text-center text-uppercase">
-                            {{ pedido.status_pedido|payStatus|raw }}
+                        <td><a class="fw-bolder" href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
+                        <td width="200" class="bg-{{ pedido.status_pedido|pedidoStatusColor }} fw-bolder text-center text-uppercase">
+                            {{ pedido.status_pedido|pedidoStatus|raw }}
                             <div><small>{{ pedido.status_entrega }}</small></div>
                         </td>
                         <td width="100" class="text-end">
