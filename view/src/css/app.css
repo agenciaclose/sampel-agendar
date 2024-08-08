@@ -193,7 +193,6 @@ body{
   position: relative;
   line-height: 1.3em;
   letter-spacing: 0.5px;
-  font-family: 'Roboto', sans-serif;
 }
 
 a,
@@ -1503,7 +1502,6 @@ img.alignright{
 
 .site-logo-title.logo-text{
   font-size: 25px;
-  font-family: "Roboto",sans-serif;
   font-weight: 100;
 }
 .site-logo-title.has-logo{

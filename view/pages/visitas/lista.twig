@@ -183,9 +183,9 @@
 								<div class="ms-2">
 									{{ lista.nome }}
 									<div class="d-flex justify-content-start">
-										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}><i class="fa-solid fa-shield-check fa-lg"></i></div>
-										<div {{ lista.feedback != '' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
-										<div {{ lista.certificado == 'Sim' ? 'class="ms-1 text-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CERTIFICADO EMITIDO"' : 'class="ms-1 text-black" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM CERTIFICADO"' }}><i class="fa-solid fa-file-certificate fa-lg"></i></div>
+										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}><i class="fa-solid fa-shield-check fa-lg"></i></div>
+										<div {{ lista.feedback != '' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
+										<div {{ lista.certificado == 'Sim' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CERTIFICADO EMITIDO"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM CERTIFICADO"' }}><i class="fa-solid fa-file-certificate fa-lg"></i></div>
 									</div>
 									<div class="d-block d-sm-none p-0">
 										<div class="col-md-6 col-sm-12">
