@@ -6,21 +6,20 @@
 
     <!-- BEGIN: Content-->
     <div class="container py-5">
-        <div class="row match-height">
+        <form class="" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
+            <div class="row match-height justify-content-center">
 
-            <div class="col-xl-4 col-lg-6 col col-12 m-auto">
-                <div class="card bg-transparent text-white border-0 card-company-table">
-                    <div class="border-0">
-                        {% if editar %}
-                            <h5 class="card-title text-warning text-center">EDITAR DE EQUIPE</h5>
-                        {% else %}
-                            <h5 class="card-title text-warning text-center">CADASTRO DE EQUIPE</h5>
-                        {% endif %}
-                        <hr>
-                    </div>
-                    <div class="card-body">
-                        <form class="" action="javascript:void(0)" {% if editar %} id="editar-client-form" {% else %}id="register-client-form"{% endif %} method="POST">
-
+                <div class="col-xl-4 col-lg-6 col col-12">
+                    <div class="card bg-transparent text-white border-0 card-company-table">
+                        <div class="border-0">
+                            {% if editar %}
+                                <h5 class="card-title text-warning text-center">EDITAR DE EQUIPE</h5>
+                            {% else %}
+                                <h5 class="card-title text-warning text-center">CADASTRO DE EQUIPE</h5>
+                            {% endif %}
+                            <hr>
+                        </div>
+                        <div class="card-body">
                             <div class="row">
 
                                 <div class="col-md-12">
@@ -60,13 +59,42 @@
                             
                             {% if editar %}<input type="hidden" name="id" value="{{ editar.id }}" />{% endif %}
                             <button type="submit" class="rounded-pill btn btn-warning mt-2" id="salvar"><i class="fa-solid fa-unlock-alt me-1"></i> SALVAR INFORMAÇÕES</button>
-                        
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+                <div class="col-xl-4 col-lg-6 col col-12">
+                    <div class="card bg-transparent text-white border-0 card-company-table">
+                        <div class="border-0">
+                            <h5 class="card-title text-warning text-center">CARGOS E PERMISSÕES</h5>
+                            <hr>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for cargo in cargos %}
+                                <li class="list-group-item px-0 text-uppercase fw-bold d-flex justify-content-between bg-transparent text-white">
+                                    {{ cargo.role }}
+
+                                    {% set encontrado = false %}
+                                    {% for item in cargos_user %}
+                                        {% if item.id_role == cargo.id %}
+                                            {% set encontrado = true %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" value="{{cargo.id}}" name="cargos[]" type="checkbox" role="switch" id="cargo{{cargo.id}}" {{ encontrado ? 'checked' }}>
+                                        <label class="form-check-label" for="cargo{{cargo.id}}"></label>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
 
     <script src="{{ PATH }}/view/painel/src/js/scripts/pages/equipes.js"></script>

@@ -2,9 +2,10 @@
 
 namespace Agencia\Close\Controllers\Site\Equipes;
 
-use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Equipes;
+use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Helpers\User\EmailUser;
+use Agencia\Close\Models\Painel\CargosPainel;
 
 class EquipesController extends Controller
 {
@@ -21,7 +22,10 @@ class EquipesController extends Controller
 
     public function cadastro()
     {
-        $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes']);
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+        
+        $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes', 'cargos' => $cargos]);
     }
 
     public function cadastroSave(array $params)
@@ -76,7 +80,13 @@ class EquipesController extends Controller
         $editar = new Equipes();
         $editar = $editar->getEquipesEditar($params['id'])->getResult()[0];
 
-        $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar]);
+        $cargos_user = new CargosPainel();
+        $cargos_user = $cargos_user->getCargosUser($params['id'])->getResult();
+
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+
+        $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar, 'cargos' => $cargos, 'cargos_user' => $cargos_user]);
     }
 
     public function editarSave(array $params)
