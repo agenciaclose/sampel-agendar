@@ -299,3 +299,25 @@ function numberToReal(numero) {
     numero[0] = '' + numero[0].split(/(?=(?:...)*$)/).join('.');
     return numero.join(',');
 }
+
+$(document).ready(function() {
+	$('#emitente_nome').on('keyup', function() {
+		var emitenteNome = $(this).val();
+
+		if (emitenteNome.length > 0) {  // Apenas faz a requisição se houver algum texto
+			$.ajax({
+				url: 'http://189.108.94.90:8180/api/intranet/v1/emitente/'+emitenteNome,
+				type: 'GET',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader('Authorization', 'Basic ' + btoa('super:sampel@sampel'));
+				},
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.error('Error: ' + textStatus, errorThrown);
+				}
+			});
+		}
+	});
+});

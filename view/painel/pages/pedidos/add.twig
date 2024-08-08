@@ -49,12 +49,14 @@
 										<option value="extra">Pedido Extra</option>
 									</select>
 								</div>
+
 								<div class="mb-1 flex-fill w-md-100 me-md-1 id_evento">
 									<label for="id_evento_select" class="form-label">Selecione o Evento</label>
 									<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" required="required">
 										<option value="">Selecione</option>
 									</select>
 								</div>
+
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
 									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
 									<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" placeholder="Descrição do Pedido">
@@ -63,8 +65,38 @@
 								<div class="mb-1 me-md-1">
 									<button type="submit" class="btn btn-primary" id="salvar">ENVIAR PEDIDO</button>
 								</div>
+
 							</div>
-						
+
+							<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="emitente_nome" class="form-label">Código ou Nome do Emitente</label>
+									<input class="form-control text-uppercase" name="emitente_nome" id="emitente_nome" placeholder="Código ou Nome do Emitente">
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="emitente_cep" class="form-label">CEP do Emitente</label>
+									<input class="form-control text-uppercase" name="emitente_cep" id="emitente_cep" placeholder="CEP">
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="emitente_endereco" class="form-label">Endereço do Emitente</label>
+									<input class="form-control text-uppercase" name="emitente_endereco" id="emitente_endereco" placeholder="Endereço do Emitente">
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="emitente_bairrro" class="form-label">Bairro do Emitente</label>
+									<input class="form-control text-uppercase" name="emitente_bairrro" id="emitente_bairrro" placeholder="Bairro do Emitente">
+								</div>
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="emitente_cidade" class="form-label">Cidade e Estado</label>
+									<div class="input-group">
+										<input class="form-control text-uppercase" name="emitente_cidade" id="emitente_cidade" placeholder="Cidade">
+										<span class="input-group-text">UF</span>
+										<input class="form-control text-uppercase" name="emitente_estado" id="emitente_estado" placeholder="UF">
+									</div>
+								</div>
+
+							</div>
+
 						</div>
 					</div>
 
