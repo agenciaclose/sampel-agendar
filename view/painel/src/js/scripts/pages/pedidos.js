@@ -301,9 +301,9 @@ function numberToReal(numero) {
 }
 
 $(document).ready(function() {
-	$('#emitente_nome').on('keyup', function() {
+	$('#buscar_emitente').on('click', function() {
 		var DOMAIN = $('body').data('domain');
-		var emitenteNome = $(this).val();
+		var emitenteNome = $('#emitente_nome').val();
 		$.ajax({
 			type: 'POST',
 			url: DOMAIN + '/painel/pedidos/emitente',
@@ -312,7 +312,7 @@ $(document).ready(function() {
 				var response = JSON.parse(data);
 				if (response.emitente && response.emitente.length > 0) {
 					var emitenteData = response.emitente[0];
-					//$('#emitente_nome').val(emitenteData.nome);
+					$('#emitente_nome').val(emitenteData.nome);
 					$('#emitente_cep').val(emitenteData.cep);
 					$('#emitente_endereco').val(emitenteData.endereco);
 					$('#emitente_bairrro').val(emitenteData.bairro);
@@ -320,7 +320,7 @@ $(document).ready(function() {
 					$('#emitente_estado').val(emitenteData.uf);
 				} else {
 					// Limpa os campos se a resposta estiver vazia
-					//$('#emitente_nome').val('');
+					$('#emitente_nome').val('');
 					$('#emitente_cep').val('');
 					$('#emitente_endereco').val('');
 					$('#emitente_bairrro').val('');
