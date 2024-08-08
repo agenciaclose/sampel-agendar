@@ -12,3 +12,4 @@ $router->post("/painel/pedidos/moderate/save", "PedidosPainelController:statusPe
 $router->post("/painel/pedidos/tipo", "PedidosPainelController:getTipoEvento");
 $router->post("/painel/pedidos/add/save", "PedidosPainelController:addPedidoSave");
 $router->post("/painel/pedidos/edit/save", "PedidosPainelController:editPedidoSave");
+$router->post("/painel/pedidos/emitente", "PedidosPainelController:getEmitentData");

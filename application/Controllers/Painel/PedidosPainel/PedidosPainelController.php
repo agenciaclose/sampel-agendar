@@ -205,5 +205,30 @@ class PedidosPainelController extends Controller
         ];
         return $estados;
     }
+
+
+    public function getEmitentData($params)
+    {
+        $emitenteNome = urlencode($params['emitenteNome']);
+        $url = "http://189.108.94.90:8180/api/intranet/v1/emitente/$emitenteNome";
+    
+        $username = 'super';
+        $password = 'sampel@sampel';
+    
+        $ch = curl_init();
+    
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+    
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+    
+        echo $result;
+    }
     
 }

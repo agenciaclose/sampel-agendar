@@ -302,22 +302,21 @@ function numberToReal(numero) {
 
 $(document).ready(function() {
 	$('#emitente_nome').on('keyup', function() {
+		var DOMAIN = $('body').data('domain');
 		var emitenteNome = $(this).val();
-
-		if (emitenteNome.length > 0) {  // Apenas faz a requisição se houver algum texto
-			$.ajax({
-				url: 'http://189.108.94.90:8180/api/intranet/v1/emitente/'+emitenteNome,
-				type: 'GET',
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader('Authorization', 'Basic ' + btoa('super:sampel@sampel'));
-				},
-				success: function(data) {
-					console.log(data);
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					console.error('Error: ' + textStatus, errorThrown);
-				}
-			});
-		}
+		$.ajax({
+			type: 'POST',
+			url: DOMAIN + '/painel/pedidos/emitente',
+			data: {emitenteNome:emitenteNome},
+			success: function (data) {
+				var emitenteData = JSON.parse(data).emitente[0];
+				$('#emitente_nome').val(emitenteData.nome);
+				$('#emitente_cep').val(emitenteData.cep);
+				$('#emitente_endereco').val(emitenteData.endereco);
+				$('#emitente_bairrro').val(emitenteData.bairro);
+				$('#emitente_cidade').val(emitenteData.cidade);
+				$('#emitente_estado').val(emitenteData.uf);
+			}
+		});
 	});
 });
