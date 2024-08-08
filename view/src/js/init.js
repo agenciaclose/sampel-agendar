@@ -15,7 +15,7 @@ import './app';
 import DataTable from 'datatables.net-dt';
  
 let table = new DataTable('#tabela_dinamica',  {
-    dom: '<"top"i><"top"f>rt<"bottom"lp><"clear">',
+    dom: '<"top"fi>rt<"bottom"lp><"clear">',
     ordering: false,
     language: {
         "emptyTable": "Nenhum registro encontrado",

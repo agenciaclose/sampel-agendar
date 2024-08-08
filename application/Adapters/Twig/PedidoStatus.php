@@ -25,6 +25,7 @@ class PedidoStatus extends AbstractExtension
             case '5': $return = '<i class="fa-solid fa-truck-container"></i> Transportadora'; break;
             case '6': $return = '<i class="fa-solid fa-truck-fast"></i> Correios'; break;
             case '7': $return = '<i class="fa-solid fa-people-carry-box"></i> Nosso Carro'; break;
+            case '8': $return = '<i class="fa-solid fa-person-carry-box"></i> Retirado'; break;
             case '10': $return = '<i class="fa-solid fa-shield-quartered"></i> Concluído'; break;
         }
 
