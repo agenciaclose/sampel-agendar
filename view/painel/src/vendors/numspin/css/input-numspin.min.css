@@ -5,7 +5,7 @@
 
 .input-numspin-element input[type=number] {
     -moz-appearance: textfield;
-    padding: 5px 0;
+    padding: 2px 0;
 }
 
 .input-numspin-element {
@@ -26,7 +26,7 @@
 
 .input-numspin-element .form-control {
     box-shadow: none;
-    border-color: transparent
+    border-color: white;
 }
 
 .input-numspin-element .btn-primary {
@@ -34,8 +34,8 @@
     border-radius: 0;
     min-width: 25px;
     text-align: center;
-    background-color: #3b4253 !important;
-    border-color: #3b4253 !important;
+    background-color: #0d6efd !important;
+    border: none;
 }
 
 .input-numspin-element.numspin-input-square {
@@ -113,4 +113,8 @@
     --bs-btn-disabled-bg: #fff;
     --bs-btn-disabled-border-color: #fff;
     box-shadow: rgb(0 0 0 / 5%) 0 6px 24px 0
+}
+.input-numspin-element i {
+    font-size: 12px;
+    font-weight: bold;
 }
