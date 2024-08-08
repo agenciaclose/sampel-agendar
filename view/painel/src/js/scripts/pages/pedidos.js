@@ -309,13 +309,24 @@ $(document).ready(function() {
 			url: DOMAIN + '/painel/pedidos/emitente',
 			data: {emitenteNome:emitenteNome},
 			success: function (data) {
-				var emitenteData = JSON.parse(data).emitente[0];
-				$('#emitente_nome').val(emitenteData.nome);
-				$('#emitente_cep').val(emitenteData.cep);
-				$('#emitente_endereco').val(emitenteData.endereco);
-				$('#emitente_bairrro').val(emitenteData.bairro);
-				$('#emitente_cidade').val(emitenteData.cidade);
-				$('#emitente_estado').val(emitenteData.uf);
+				var response = JSON.parse(data);
+				if (response.emitente && response.emitente.length > 0) {
+					var emitenteData = response.emitente[0];
+					//$('#emitente_nome').val(emitenteData.nome);
+					$('#emitente_cep').val(emitenteData.cep);
+					$('#emitente_endereco').val(emitenteData.endereco);
+					$('#emitente_bairrro').val(emitenteData.bairro);
+					$('#emitente_cidade').val(emitenteData.cidade);
+					$('#emitente_estado').val(emitenteData.uf);
+				} else {
+					// Limpa os campos se a resposta estiver vazia
+					//$('#emitente_nome').val('');
+					$('#emitente_cep').val('');
+					$('#emitente_endereco').val('');
+					$('#emitente_bairrro').val('');
+					$('#emitente_cidade').val('');
+					$('#emitente_estado').val('');
+				}
 			}
 		});
 	});
