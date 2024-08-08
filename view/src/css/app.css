@@ -4824,6 +4824,12 @@ img.fancybox__image {
 .dropdown-menu.show {
   min-width: 200px;
 }
+.btn-primary {
+  --bs-btn-bg: #1194dc;
+  --bs-btn-border-color: #1194dc;
+  --bs-btn-disabled-bg: #1194dc;
+  --bs-btn-disabled-border-color: #1194dc;
+}
 .btn-success {
   --bs-btn-bg: #25d366;
   --bs-btn-border-color: #25d366;
