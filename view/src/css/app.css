@@ -186,6 +186,7 @@ ul, ol {
 *************************************************************************/
 
 body{
+  background-color: #171717;
   color: #ffffff;
   font-size: 14px;
   font-weight: 400;
@@ -1413,6 +1414,7 @@ img.alignright{
   z-index: 9;
   position: relative;
   width: 100%;
+  background-color: #212121;
 }
 .standard-menu{
   position: relative;
@@ -4819,7 +4821,7 @@ img.fancybox__image {
   color: var(--bs-btn-active-color) !important;
 }
 .body-palestras {
-  background-color: #1b5184 !important;
+  background-color: #212121 !important;
 }
 .dropdown-menu.show {
   min-width: 200px;
