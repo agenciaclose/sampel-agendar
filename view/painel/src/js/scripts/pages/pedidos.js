@@ -310,8 +310,8 @@ $(document).ready(function() {
 			data: {emitenteNome:emitenteNome},
 			success: function (data) {
 				var response = JSON.parse(data);
-				if (response.emitente && response.emitente.length > 0) {
-					var emitenteData = response.emitente[0];
+				if (response.items && response.items.length > 0) {
+					var emitenteData = response.items[0];
 					$('#emitente_nome').val(emitenteData.nome);
 					$('#emitente_cep').val(emitenteData.cep);
 					$('#emitente_endereco').val(emitenteData.endereco);
