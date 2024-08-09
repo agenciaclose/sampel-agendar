@@ -57,17 +57,48 @@
 					<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
 					<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" placeholder="Descrição do Pedido">
 				</div>
+			</div>
 
-				<div class="mb-1 me-md-1">
-					<button type="submit" class="btn btn-warning fw-bolder" id="salvar">ENVIAR PEDIDO</button>
+			<hr>
+			<div class="card-body">
+				<div class="row">
+
+					<div class="col-md-6 col-lg-6 col-xl-6 col-xxl-4">
+						<div class="input-group">
+							<input type="text" class="form-control text-uppercase" name="emitente_check" id="emitente_check" placeholder="Código ou Nome do Emitente">
+							<button class="btn btn-primary" type="button" id="buscar_emitente"><i class="fa-solid fa-magnifying-glass"></i></button>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-lg-6 col-xl-6 col-xxl-8 emitent-dados">
+						<div class="text-primary fw-bold">Informações do Emitente</div>
+						<div>Nenhum informação encontrada.</div>
+					</div>
+
+					<div class="d-none">
+						<input type="hidden" name="emitente_nome" id="emitente_nome">
+						<input type="hidden" name="emitente_cep" id="emitente_cep">
+						<input type="hidden" name="emitente_endereco" id="emitente_endereco">
+						<input type="hidden" name="emitente_bairrro" id="emitente_bairrro">
+						<input type="hidden" name="emitente_cidade" id="emitente_cidade">
+						<input type="hidden" name="emitente_estado" id="emitente_estado">
+					</div>
+
 				</div>
 			</div>
+			<hr>
 		
 			<div class="mt-3 position-relative">
-
-				<div class="valor_total_pedido bg-success p-2 text-white">
-					Valor Total do Pedido: <b>R$ <span class="total">0,00</span></b>
-					<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+				<div class="valor_total_pedido">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="bg-success p-3 text-white">
+							Valor Total do Pedido: <b>R$ <span class="total">0,00</span></b>
+							<input type="hidden" name="valor_total_pedido" id="valor_total_pedido" value="0">
+						</div>
+						<div class="bg-primary p-2 ms-0 ms-md-2 align-items-center">
+							<button type="submit" class="btn btn-transparent p-1 rounded-0 text-white fw-bolder" id="salvar"><i class="fa-solid fa-floppy-disk"></i> ENVIAR PEDIDO</button>
+						</div>
+					</div>
 				</div>
 				
 				<div class="lista_produtos"> 
