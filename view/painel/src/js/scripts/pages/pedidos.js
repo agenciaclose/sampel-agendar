@@ -299,6 +299,13 @@ function numberToReal(numero) {
     numero[0] = '' + numero[0].split(/(?=(?:...)*$)/).join('.');
     return numero.join(',');
 }
+$(document).ready(function() {
+	$(document).on('keydown', function(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+		}
+	});
+});
 
 $(document).ready(function() {
 	$('#buscar_emitente').on('click', function() {
