@@ -6,7 +6,6 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex justify-content-between flex-wrap align-items-end">
-
 					<div class="mb-1 flex-fill w-md-100 me-md-1">
 						<label for="id_equipe" class="form-label">Retirada em nome:</label>
 						<div class="form-control text-uppercase rounded-0 border-0 border-bottom px-0">{{ pedido.equipe }}</div>
@@ -37,7 +36,16 @@
 						<label for="descricao_pedido" class="form-label">Valor Total do Pedido</label>
 						<div class="form-control text-uppercase rounded-0 border-0 border-bottom px-0 fw-bold">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
 					</div>
-					<div class="mb-1 me-md-1">
+				</div>
+
+				<div class="d-flex justify-content-between flex-wrap align-items-end">
+					{% if pedido.emitente_nome != '' %}
+					<div>
+						<div class="fw-bold">{{ pedido.emitente_nome }}</div><div>{{ pedido.emitente_endereco }} - {{ pedido.emitente_bairrro }}, 
+						{{ pedido.emitente_cidade }}-{{ pedido.emitente_estado }}, {{ pedido.emitente_cep }}</div>
+					</div>
+					{% endif %}
+					<div>
 						<div class="btn border-0 rounded-0 text-black text-uppercase bg-{{ pedido.status_pedido|pedidoStatusColor }} ">{{ pedido.status_pedido|pedidoStatus|raw }}</div>
 					</div>
 				</div>
