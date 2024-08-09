@@ -119,13 +119,35 @@ class PedidosPainel extends Model
 
         $params['id_user'] = $_SESSION['sampel_user_id'];
         $params['id_user_update'] = $_SESSION['sampel_user_id'];
-
-        if($params['id_equipe'] == ''){
-            $params['id_equipe'] = 0;
-        }
-
+        
         if($params['id_evento'] == ''){
             $params['id_evento'] = 0;
+        }
+
+        $emitente_nome = '';
+        $emitente_cep = '';
+        $emitente_endereco = '';
+        $emitente_bairrro = '';
+        $emitente_cidade = '';
+        $emitente_estado = '';
+
+        if($params['emitente_nome'] == ''){
+            $emitente_nome = $params['emitente_nome'];
+        }
+        if($params['emitente_cep'] == ''){
+            $emitente_cep = $params['emitente_cep'];
+        }
+        if($params['emitente_endereco'] == ''){
+            $emitente_endereco = $params['emitente_endereco'];
+        }
+        if($params['emitente_bairrro'] == ''){
+            $emitente_bairrro = $params['emitente_bairrro'];
+        }
+        if($params['emitente_cidade'] == ''){
+            $emitente_cidade = $params['emitente_cidade'];
+        }
+        if($params['emitente_estado'] == ''){
+            $emitente_estado = $params['emitente_estado'];
         }
 
         $valor_total_pedido = $params['valor_total_pedido'];
@@ -142,6 +164,12 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
+            'emitente_nome' => $emitente_nome,
+            'emitente_cep' => $emitente_cep,
+            'emitente_endereco' => $emitente_endereco,
+            'emitente_bairrro' => $emitente_bairrro,
+            'emitente_cidade' => $emitente_cidade,
+            'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido
         ]);
 
@@ -192,6 +220,32 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
+        $emitente_nome = '';
+        $emitente_cep = '';
+        $emitente_endereco = '';
+        $emitente_bairrro = '';
+        $emitente_cidade = '';
+        $emitente_estado = '';
+
+        if($params['emitente_nome'] == ''){
+            $emitente_nome = $params['emitente_nome'];
+        }
+        if($params['emitente_cep'] == ''){
+            $emitente_cep = $params['emitente_cep'];
+        }
+        if($params['emitente_endereco'] == ''){
+            $emitente_endereco = $params['emitente_endereco'];
+        }
+        if($params['emitente_bairrro'] == ''){
+            $emitente_bairrro = $params['emitente_bairrro'];
+        }
+        if($params['emitente_cidade'] == ''){
+            $emitente_cidade = $params['emitente_cidade'];
+        }
+        if($params['emitente_estado'] == ''){
+            $emitente_estado = $params['emitente_estado'];
+        }
+
         $valor_total_pedido = $params['valor_total_pedido'];
         $valor_total_pedido = str_replace(',', '.', str_replace('.', '', $valor_total_pedido));
         $valor_total_pedido = number_format((float)$valor_total_pedido, 2, '.', '');
@@ -205,6 +259,12 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
+            'emitente_nome' => $emitente_nome,
+            'emitente_cep' => $emitente_cep,
+            'emitente_endereco' => $emitente_endereco,
+            'emitente_bairrro' => $emitente_bairrro,
+            'emitente_cidade' => $emitente_cidade,
+            'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido
         ], 'WHERE id = :id', "id={$id_pedido}");
 

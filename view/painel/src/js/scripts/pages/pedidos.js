@@ -303,31 +303,44 @@ function numberToReal(numero) {
 $(document).ready(function() {
 	$('#buscar_emitente').on('click', function() {
 		var DOMAIN = $('body').data('domain');
-		var emitenteNome = $('#emitente_nome').val();
-		$.ajax({
-			type: 'POST',
-			url: DOMAIN + '/painel/pedidos/emitente',
-			data: {emitenteNome:emitenteNome},
-			success: function (data) {
-				var response = JSON.parse(data);
-				if (response.items && response.items.length > 0) {
-					var emitenteData = response.items[0];
-					$('#emitente_nome').val(emitenteData.nome);
-					$('#emitente_cep').val(emitenteData.cep);
-					$('#emitente_endereco').val(emitenteData.endereco);
-					$('#emitente_bairrro').val(emitenteData.bairro);
-					$('#emitente_cidade').val(emitenteData.cidade);
-					$('#emitente_estado').val(emitenteData.uf);
-				} else {
-					// Limpa os campos se a resposta estiver vazia
-					$('#emitente_nome').val('');
-					$('#emitente_cep').val('');
-					$('#emitente_endereco').val('');
-					$('#emitente_bairrro').val('');
-					$('#emitente_cidade').val('');
-					$('#emitente_estado').val('');
+		var emitenteNome = $('#emitente_check').val();
+		if (emitenteNome.length > 0) {
+			$.ajax({
+				type: 'POST',
+				url: DOMAIN + '/painel/pedidos/emitente',
+				data: {emitenteNome:emitenteNome},
+				success: function (data) {
+					var response = JSON.parse(data);
+					if (response.items && response.items.length > 0) {
+						var emitenteData = response.items[0];
+						var emitenteEndereco = `<div class="text-primary fw-bold">${emitenteData.nome}</div><div>${emitenteData.endereco} - ${emitenteData.bairro}, ${emitenteData.cidade}-${emitenteData.uf}, ${emitenteData.cep}</div>`;
+						$('.emitent-dados').html(emitenteEndereco);
+						$('#emitente_nome').val(emitenteData.nome);
+						$('#emitente_cep').val(emitenteData.cep);
+						$('#emitente_endereco').val(emitenteData.endereco);
+						$('#emitente_bairrro').val(emitenteData.bairro);
+						$('#emitente_cidade').val(emitenteData.cidade);
+						$('#emitente_estado').val(emitenteData.uf);
+
+					} else {
+						$('.emitent-dados').html('<div class="text-primary fw-bold">Informações do Emitente</div><div>Nenhum informação encontrada.</div>');
+						$('#emitente_nome').val('');
+						$('#emitente_cep').val('');
+						$('#emitente_endereco').val('');
+						$('#emitente_bairrro').val('');
+						$('#emitente_cidade').val('');
+						$('#emitente_estado').val('');
+					}
 				}
-			}
-		});
+			});
+		}else{
+			$('.emitent-dados').html('<div class="text-primary fw-bold">Informações do Emitente</div><div>Nenhum informação encontrada.</div>');
+			$('#emitente_nome').val('');
+			$('#emitente_cep').val('');
+			$('#emitente_endereco').val('');
+			$('#emitente_bairrro').val('');
+			$('#emitente_cidade').val('');
+			$('#emitente_estado').val('');
+		}
 	});
 });
