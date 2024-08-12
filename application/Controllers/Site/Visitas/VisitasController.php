@@ -418,8 +418,15 @@ class VisitasController extends Controller
             $visita = new Visitas();
             $visita = $visita->listarVisitaID($params['id'])->getResult()[0];
 
+            //VERIFICA SE É ADMIN EDITANDO
+            if($_SESSION['sampel_user_tipo'] == 1){
+                $byuser = null;
+            }else{
+                $byuser = $_SESSION['sampel_user_id'];
+            }
+
             $imagens = new Visitas();
-            $imagem = $imagens->getVisitasImages($this->params['id'], $_SESSION['sampel_user_id'])->getResult();
+            $imagem = $imagens->getVisitasImages($this->params['id'], $byuser)->getResult();
 
             if($visita['id'] != ''){
                 $this->render('pages/visitas/importe_galeria.twig', ['menu' => 'visitas', 'visita' => $visita, 'imagens' => $imagem]);

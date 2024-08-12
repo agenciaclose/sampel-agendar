@@ -74,6 +74,9 @@ class HomeController extends Controller
         $comparecimentos = new Visitas();
         $comparecimentos = $comparecimentos->listarComparecimentosTotal($params['visita_id'])->getResult()[0];
 
+        $faltas = new Visitas();
+        $faltas = $faltas->listarFaltasTotal($params['visita_id'])->getResult()[0];
+
         $perguntas = new Feedback();
         $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
 
@@ -84,7 +87,7 @@ class HomeController extends Controller
             $i++;
         }
 
-        $this->render('components/email/emailEstatisticas.twig', ['visita' => $visita, 'inscritos' => $inscritos, 'comparecimentos' => $comparecimentos]);
+        $this->render('components/email/emailEstatisticas.twig', ['visita' => $visita, 'inscritos' => $inscritos, 'comparecimentos' => $comparecimentos, 'faltas' => $faltas]);
     }
 
     //ENVIAR EMAIL PARA EQUIPE

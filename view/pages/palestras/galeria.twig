@@ -12,7 +12,13 @@
 	<session class="py-5">
 
 		<div class="mb-4">
-			<h3>{{ palestra.title }}</h3>
+			<div class="d-flex justify-content-between mb-2">
+				<h3 class="mb-0">{{ palestra.title }}</h3>
+				{% if (_session.sampel_user_tipo == 1) %}
+					<a href="{{ DOMAIN }}/palestras/galeria/{{ palestra.id }}" class="btn btn-warning fw-bolder"><i class="fa-solid fa-pen-to-square"></i> Editar Fotos</a>
+				{% endif %}
+			</div>
+
 			<div class="d-flex justify-content-between">
 				<div>Palestrante: <span class="text-warning fw-bold">{{ palestra.palestrante_nome }}</span></div>
 				<div>Data de Início: <span class="text-warning fw-bold">{{ palestra.data_palestra | date("d/m/Y H:i") }}</span></div>

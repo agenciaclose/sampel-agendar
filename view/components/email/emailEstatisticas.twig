@@ -14,7 +14,11 @@
                                 <div><h2 style="margin: 0;">ESTATÍSTICA SOBRE A VISITA:</h2></div>
                                 <div><h4 style="margin: 10px 0; color: #2458a9;">{{ visita.title }}</h4></div>
                                 <div><b>Data:</b> {{ visita.data_visita | date("d/m/Y") }} {{ visita.horario_visita }} <span style="margin-left: 15px;"><b>Criado por:</b> {{ visita.nome }}</span></div>
-                                <div style="margin-top: 10px"><b>Inscritos:</b> {{ inscritos.total }} <span style="margin-left: 15px;"><b>Comparecimentos:</b> {{ comparecimentos.total }}</span></div>
+                                <div style="margin-top: 10px">
+                                    <b>Inscritos:</b> {{ inscritos.total }} 
+                                    <span style="margin-left: 15px;"><b>Comparecimentos:</b> {{ comparecimentos.total }}</span>
+                                    <span style="margin-left: 15px;color: red;"><b>Faltas:</b> {{ faltas.total }}</span>
+                                </div>
                             </div>
                            	
                            	<br>
