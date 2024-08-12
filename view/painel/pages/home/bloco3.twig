@@ -1,75 +1,59 @@
 <div class="card">
-    <div class="card-body">
+    <div class="card-body d-flex justify-content-between">
 
-        <div id="pedidos_mes" style="width:100%; height:400px;"></div>
+        <div class="d-flex flex-column me-xl-7">
+            <div class="card-title mb-auto">
+                <h2 class="mb-2 text-nowrap">Relatórios de Pedidos</h2>
+                <p class="mb-0">Estatísticas Semanais</p>
+            </div>
+            <div class="chart-statistics">
+                <h3 class="card-title mb-1">R$ 4,673</h3>
+                <span class="badge bg-primary">+15.2%</span>
+            </div>
+        </div>
+        <div id="revenueGrowth"></div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Highcharts.chart('pedidos_mes', {
-                    chart: {
-                        type: 'column',
-                        backgroundColor: 'rgba(255, 255, 255, 0)', // Fundo transparente
-                        spacingLeft: 0,
-                        spacingRight: 0
-                    },
-                    title: {
-                        text: 'Quantidade por Mês',
-                        style: { color: '#ffffff' }
-                    },
-                    subtitle: {
-                        text: 'De Janeiro a Dezembro de 2024',
-                        style: { color: '#ffffff' }
-                    },
-                    xAxis: {
-                        categories: [
-                            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-                            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-                        ],
-                        labels: { style: { color: '#ffffff' } },
-                        lineColor: '#ffffff',
-                        tickColor: '#ffffff'
-                    },
-                    yAxis: {min: 0,title: {text: ''} },
-                    legend: {
-                        enabled: true, // Habilita a legenda
-                        itemStyle: { color: '#ffffff' }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                        style: { color: '#ffffff' },
-                        pointFormat: '<b>{point.y}</b> quantidades'
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0,
-                            borderWidth: 0,
-                            groupPadding: 0,
-                            shadow: false,
-                            dataLabels: {
-                                enabled: true,
-                                inside: false,
-                                style: {
-                                    color: '#ffffff'
-                                }
-                            }
-                        }
-                    },
-                    series: [
-                        { name: 'Janeiro', data: [29], color: 'rgba(255, 99, 132, 0.8)' },
-                        { name: 'Fevereiro', data: [71], color: 'rgba(54, 162, 235, 0.8)' },
-                        { name: 'Março', data: [106], color: 'rgba(255, 206, 86, 0.8)' },
-                        { name: 'Abril', data: [129], color: 'rgba(75, 192, 192, 0.8)' },
-                        { name: 'Maio', data: [144], color: 'rgba(153, 102, 255, 0.8)' },
-                        { name: 'Junho', data: [176], color: 'rgba(255, 159, 64, 0.8)' },
-                        { name: 'Julho', data: [135], color: 'rgba(199, 199, 199, 0.8)' },
-                        { name: 'Agosto', data: [148], color: 'rgba(83, 102, 255, 0.8)' },
-                        { name: 'Setembro', data: [216], color: 'rgba(255, 99, 132, 0.8)' },
-                        { name: 'Outubro', data: [194], color: 'rgba(54, 162, 235, 0.8)' },
-                        { name: 'Novembro', data: [95], color: 'rgba(255, 206, 86, 0.8)' },
-                        { name: 'Dezembro', data: [54], color: 'rgba(75, 192, 192, 0.8)' }
-                    ]
-                });
-            });
-        </script>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-6">
+        <div class="card card-border-shadow-pink h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-pink text-pink">
+                            <i class="fa-regular fs-4 fa-truck-container"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
+                </div>
+                <h4 class="mb-1">Em Transportadores e Correios</h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-pink me-2">R$ 1.000,00</span>
+                    <small>Valor Total de todos os pedidos</small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-6">
+        <div class="card card-border-shadow-teal h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-teal text-teal">
+                            <i class="fa-regular fs-4 fa-people-carry-box"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
+                </div>
+                <h4 class="mb-1">Em Nosso Carro e Retirado</h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-teal me-2">R$ 1.000,00</span>
+                    <small>Valor Total de todos os pedidos</small>
+                </p>
+            </div>
+        </div>
     </div>
 </div>

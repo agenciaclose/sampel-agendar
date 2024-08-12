@@ -1,38 +1,62 @@
-<div class="card">
-    <div class="card-body">
-
-        <div id="abc" style="width:100%; height:400px;"></div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Highcharts.setOptions({
-                    chart: {backgroundColor: 'rgba(255, 255, 255, 0)'}
-                });
-
-                Highcharts.chart('abc', {
-                    chart: {type: 'variwide'},
-                    title: {text: 'Curva ABC para Produtos'},
-                    subtitle: {text: 'Análise ABC de Produtos nos Pedidos'},
-                    xAxis: {type: 'category'},
-                    yAxis: {title: {text: ''}},
-                    legend: { enabled: false},
-                    series: [{
-                        name: 'Curvas',
-                        data: [
-                            { name: 'Curva A', y: 35, z: 10, color: 'rgba(40, 199, 111, 0.8)' },
-                            { name: 'Curva B', y: 30, z: 8, color: 'rgba(54, 162, 235, 0.8)' },
-                            { name: 'Curva C', y: 15, z: 6, color: 'rgba(255, 159, 67, 0.8)' }
-                        ],
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}'
-                        },
-                        tooltip: {
-                            pointFormat: '<b>{point.y}%</b><br>Percentual: <b>{point.z}%</b>'
-                        }
-                    }]
-                });
-            });
-        </script>
+<div class="card h-100">
+    <div class="card-header pb-0 d-flex justify-content-between">
+        <div class="card-title mb-0">
+            <h2 class="mb-1">Relatórios de ganhos</h2>
+            <p class="card-subtitle">Visão geral dos ganhos mensais</p>
+        </div>
+    </div>
+    <div class="card-body pb-0">
+        <div class="row align-items-center g-md-8">
+            <div class="col-12 col-md-4 d-flex flex-column">
+                <div class="d-flex gap-2 align-items-center mb-3 flex-wrap">
+                <h1 class="mb-0">R$ 468,00</h1>
+                <div class="badge rounded bg-primary">+4.2%</div>
+                </div>
+                <small class="text-body">Informatico ganhos desse mês em comparação ao mês passado.</small>
+            </div>
+            <div class="col-12 col-md-8 ps-xl-8">
+                <div id="weeklyEarningReports"></div>
+            </div>
+        </div>
+        <div class="border rounded p-2 mt-2">
+            <div class="row gap-4 gap-sm-0">
+                <div class="col-12 col-sm-4">
+                    <div class="d-flex gap-1 align-items-center">
+                        <div class="badge rounded bg-label-primary p-1">
+                            <i class="fa-light fs-5 fa-money-bill-trend-up"></i>
+                        </div>
+                        <h5 class="mb-0 fw-normal">Ganhos</h5>
+                    </div>
+                    <h4 class="mt-1">R$ 10.545,69</h4>
+                    <div class="progress w-75" style="height: 4px">
+                        <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="d-flex gap-1 align-items-center">
+                        <div class="badge rounded bg-label-info p-1">
+                            <i class="fa-light fs-5 fa-chart-pie"></i>
+                        </div>
+                        <h5 class="mb-0 fw-normal">Lucros</h5>
+                    </div>
+                    <h4 class="mt-1">R$ 8.256,34</h4>
+                    <div class="progress w-75" style="height: 4px">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="d-flex gap-1 align-items-center">
+                        <div class="badge rounded bg-label-danger p-1">
+                            <i class="fa-light fs-5 fa-money-check-dollar-pen"></i>
+                        </div>
+                        <h5 class="mb-0 fw-normal">Despesas</h5>
+                    </div>
+                    <h4 class="mt-1">R$ 5.074,19</h4>
+                    <div class="progress w-75" style="height: 4px">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
