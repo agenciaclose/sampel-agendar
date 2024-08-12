@@ -48,6 +48,7 @@
 										<option value="extra" {{ pedido.tipo_evento == 'extra' ? 'selected' }}>Pedido Extra</option>
 									</select>
 								</div>
+
 								<div class="mb-1 flex-fill w-md-100 me-md-1 id_evento" style="{{ pedido.tipo_evento == 'extra' ? 'display:none;' }}">
 									<label for="id_evento_select" class="form-label">Selecione o Evento</label>
 									<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" {{ pedido.tipo_evento != 'extra' ? 'required="required"' }}>
@@ -55,6 +56,12 @@
 										{% if pedido.tipo_evento != 'extra' %}<option value="{{ pedido.id_evento }}" selected>{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}</option>{% endif %}
 									</select>
 								</div>
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
+									<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" value="{{ pedido.descricao_pedido }}" placeholder="Descrição do Pedido">
+								</div>
+
 							</div>
 						
 						</div>
@@ -76,12 +83,13 @@
 										<div class="text-primary fw-bold">Informações do Emitente</div>
 										<div>Nenhum informação encontrada.</div>
 									{% else %}
-										<div class="text-primary fw-bold">{{ pedido.emitente_nome }}</div><div>{{ pedido.emitente_endereco }} - {{ pedido.emitente_bairrro }}, 
+										<div class="text-primary fw-bold">{{ pedido.emitente_codigo }} - {{ pedido.emitente_nome }}</div><div>{{ pedido.emitente_endereco }} - {{ pedido.emitente_bairrro }}, 
 										{{ pedido.emitente_cidade }}-{{ pedido.emitente_estado }}, {{ pedido.emitente_cep }}</div>
 									{% endif %}
 								</div>
 
 								<div class="d-none">
+									<input type="hidden" name="emitente_codigo" id="emitente_codigo" value="{{ pedido.emitente_codigo }}">
 									<input type="hidden" name="emitente_nome" id="emitente_nome" value="{{ pedido.emitente_nome }}">
 									<input type="hidden" name="emitente_cep" id="emitente_cep" value="{{ pedido.emitente_cep }}">
 									<input type="hidden" name="emitente_endereco" id="emitente_endereco" value="{{ pedido.emitente_endereco }}">

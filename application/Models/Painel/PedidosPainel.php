@@ -124,6 +124,7 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
+        $emitente_codigo = '';
         $emitente_nome = '';
         $emitente_cep = '';
         $emitente_endereco = '';
@@ -131,6 +132,9 @@ class PedidosPainel extends Model
         $emitente_cidade = '';
         $emitente_estado = '';
 
+        if($params['emitente_codigo'] != ''){
+            $emitente_codigo = $params['emitente_codigo'];
+        }
         if($params['emitente_nome'] != ''){
             $emitente_nome = $params['emitente_nome'];
         }
@@ -164,6 +168,7 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
+            'emitente_codigo' => $emitente_codigo,
             'emitente_nome' => $emitente_nome,
             'emitente_cep' => $emitente_cep,
             'emitente_endereco' => $emitente_endereco,
@@ -220,6 +225,7 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
+        $emitente_codigo = '';
         $emitente_nome = '';
         $emitente_cep = '';
         $emitente_endereco = '';
@@ -227,6 +233,9 @@ class PedidosPainel extends Model
         $emitente_cidade = '';
         $emitente_estado = '';
 
+        if($params['emitente_codigo'] != ''){
+            $emitente_codigo = $params['emitente_codigo'];
+        }
         if($params['emitente_nome'] != ''){
             $emitente_nome = $params['emitente_nome'];
         }
@@ -259,6 +268,7 @@ class PedidosPainel extends Model
             'tipo_evento' => $params['tipo_evento'],
             'estado_pedido' => $params['estado_pedido'],
             'descricao_pedido' => $params['descricao_pedido'],
+            'emitente_codigo' => $emitente_codigo,
             'emitente_nome' => $emitente_nome,
             'emitente_cep' => $emitente_cep,
             'emitente_endereco' => $emitente_endereco,

@@ -320,8 +320,9 @@ $(document).ready(function() {
 					var response = JSON.parse(data);
 					if (response.items && response.items.length > 0) {
 						var emitenteData = response.items[0];
-						var emitenteEndereco = `<div class="text-primary fw-bold">${emitenteData.nome}</div><div>${emitenteData.endereco} - ${emitenteData.bairro}, ${emitenteData.cidade}-${emitenteData.uf}, ${emitenteData.cep}</div>`;
+						var emitenteEndereco = `<div class="text-primary fw-bold">${emitenteData.codigo} - ${emitenteData.nome}</div><div>${emitenteData.endereco} - ${emitenteData.bairro}, ${emitenteData.cidade}-${emitenteData.uf}, ${emitenteData.cep}</div>`;
 						$('.emitent-dados').html(emitenteEndereco);
+						$('#emitente_codigo').val(emitenteData.codigo);
 						$('#emitente_nome').val(emitenteData.nome);
 						$('#emitente_cep').val(emitenteData.cep);
 						$('#emitente_endereco').val(emitenteData.endereco);
@@ -331,6 +332,7 @@ $(document).ready(function() {
 
 					} else {
 						$('.emitent-dados').html('<div class="text-primary fw-bold">Informações do Emitente</div><div>Nenhum informação encontrada.</div>');
+						$('#emitente_codigo').val('');
 						$('#emitente_nome').val('');
 						$('#emitente_cep').val('');
 						$('#emitente_endereco').val('');
@@ -342,6 +344,7 @@ $(document).ready(function() {
 			});
 		}else{
 			$('.emitent-dados').html('<div class="text-primary fw-bold">Informações do Emitente</div><div>Nenhum informação encontrada.</div>');
+			$('#emitente_codigo').val('');
 			$('#emitente_nome').val('');
 			$('#emitente_cep').val('');
 			$('#emitente_endereco').val('');
