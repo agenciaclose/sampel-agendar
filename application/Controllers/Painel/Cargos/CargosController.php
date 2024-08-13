@@ -33,6 +33,7 @@ class CargosController extends Controller
         $cargo = new CargosPainel();
         $cargo = $cargo->getCargoID($params['id'])->getResult();
         if($cargo){ $cargo = $cargo[0]; }
+        
         $this->render('painel/pages/cargos/form.twig', ['cargo' => $cargo]);
     }
     
