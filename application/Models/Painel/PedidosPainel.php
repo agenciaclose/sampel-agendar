@@ -53,6 +53,13 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidoOrcamentoID($id_evento, $tipo_evento): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.id_evento = :id_evento AND p.tipo_evento = :tipo_evento ORDER BY p.`id` DESC", "id_evento={$id_evento}&tipo_evento={$tipo_evento}");
+        return $read;
+    }
+
     public function getPedidoIDItens($id_pedido): Read
     {
         $read = new Read();

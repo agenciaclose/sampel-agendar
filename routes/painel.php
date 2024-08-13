@@ -80,11 +80,6 @@ $router->post("/painel/feedback/perguntas/order", "FeedbackController:ordernarPe
 $router->get("/painel/feedback/lista", "FeedbackController:feedbacks");
 $router->get("/painel/feedback/ver/{id}", "FeedbackController:feedbacksList");
 
-// PAINEL ORÇAMENTOS
-$router->namespace("Agencia\Close\Controllers\Painel\Orcamentos");
-$router->get("/painel/orcamentos/lista", "OrcamentosPainelController:lista");
-$router->get("/painel/orcamentos/editar/{id}", "OrcamentosPainelController:editar");
-
 // PAINEL EQUIPE
 $router->namespace("Agencia\Close\Controllers\Painel\Equipes");
 $router->get("/painel/equipes", "EquipesController:equipes");

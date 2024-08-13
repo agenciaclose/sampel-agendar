@@ -792,7 +792,7 @@ input:focus ~ .bg-secondary {
 .btn-success {
   border-color: #28c76f !important;
   background-color: #28c76f !important;
-  color: #fff !important; }
+}
 
 .btn-success:focus, .btn-success:active, .btn-success.active {
   color: #fff;

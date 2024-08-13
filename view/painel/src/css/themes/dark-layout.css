@@ -72,7 +72,7 @@ body.dark-layout {
   color: #676d7d; }
 
 .dark-layout .shadow {
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24) !important; }
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%) !important; }
 
 .dark-layout .blockquote-footer {
   color: #676d7d; }
@@ -497,7 +497,7 @@ body.dark-layout {
 
 .dark-layout .toast {
   background-color: rgba(40, 48, 70, 0.85);
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24);
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
   color: #b4b7bd; }
 
 .dark-layout .toast .toast-header {
@@ -573,7 +573,7 @@ body.dark-layout {
 
 .dark-layout .card {
   background-color: var(--primary-background-color);
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24); }
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%); }
 
 .dark-layout .card .card-footer {
   border-color: #3b4253; }
@@ -810,7 +810,7 @@ body.dark-layout {
 
 
 .dark-layout .dataTables_wrapper .dt-button-collection > div[role='menu'] {
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24); }
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%); }
 
 .dark-layout .dataTables_wrapper .table.dataTable tr.group td {
   background-color: #1e1e1e;
@@ -1077,7 +1077,7 @@ body.dark-layout {
   color: #676d7d; }
 
 .dark-layout .todo-application .content-area-wrapper .content-right .todo-task-list .todo-item:hover {
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24); }
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%); }
 
 .dark-layout .todo-application .content-area-wrapper .content-right .todo-task-list .todo-item .todo-item-action .todo-item-favorite:not(.text-warning) i,
 .dark-layout .todo-application .content-area-wrapper .content-right .todo-task-list .todo-item .todo-item-action .todo-item-favorite:not(.text-warning) svg {
@@ -1086,7 +1086,7 @@ body.dark-layout {
 .dark-layout .todo-item.gu-mirror {
   background-color: var(--primary-background-color);
   border-color: #3b4253;
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.24); }
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%); }
 
 .dark-layout .todo-item.gu-mirror.completed .todo-title {
   color: #676d7d; }
