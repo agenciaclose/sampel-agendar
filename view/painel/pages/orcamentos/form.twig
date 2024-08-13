@@ -5,13 +5,13 @@
 <div class="mt-2">
     <form action="javascript:void(0)" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}">
         <div class="mb-2">
-            <label class="control-label">Nome do Orçamento</label>
+            <label class="control-label">Despesa</label>
             <select class="form-control" name="orcamento" id="orcamento">
                 <option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
             </select>
         </div>
         <div class="mb-2">
-            <label class="control-label">Nome do Orçamento</label>
+            <label class="control-label">Valor Gasto</label>
             <input type="text" name="valor_orcamento" class="form-control money" value="{{ orcamento.valor_orcamento }}">
         </div>
         <div class="mb-2">
