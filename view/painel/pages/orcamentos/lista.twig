@@ -8,6 +8,9 @@
 {% for brinde in brindes %}
     {% set valor_total_orcamento = valor_total_orcamento + brinde.valor_total_pedido %}
 {% endfor %}
+{% for orcamento in orcamentos %}
+    {% set valor_total_orcamento = valor_total_orcamento + orcamento.valor_orcamento %}
+{% endfor %}
 <div class="app-content content">
 
     <div class="card card-company-table">
@@ -15,7 +18,7 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap w-100">
                 <h5 class="card-title">Lista de Orçamentos</h5>
                 <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento|number_format(2, ',', '.') }}</span></h5>
-                <a href="#" class="btn btn-primary fw-bolder"><i class="fa-solid fa-plus"></i> Adicionar Novo</a>
+                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/{{ dados.tipo }}/orcamento/add/{{ dados.id }}" data-bs-toggle="offcanvas" data-bs-target="#orcamentoManager" aria-controls="orcamentoManager" class="btn btn-primary fw-bolder"><i class="fa-solid fa-plus"></i> Adicionar Novo</a>
             </div>
         </div>
         <div class="card-body">
@@ -30,8 +33,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for orcamento in orcamentos %}
+                        <tr>
+                            <td>{{ orcamento.orcamento }}</td>
+                            <td class="text-success fw-bolder">R$ {{ orcamento.valor_orcamento|number_format(2, ',', '.') }}</td>
+                            <td class="text-end" width="250">{{ orcamento.date_create|date("d-m-Y H:i") }}</td>
+                            <td class="text-end" width="150">
+                                <div class="d-flex justify-content-end">
+                                    <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/{{ dados.tipo }}/orcamento/edit/{{ dados.id }}/{{ orcamento.id }}" data-bs-toggle="offcanvas" data-bs-target="#orcamentoManager" aria-controls="orcamentoManager" class="ms-1 btn btn-warning text-black btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="javascript:void(0);" onclick="removeOrcamento('{{ orcamento.id }}')" class="ms-1 btn btn-danger text-black btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     {% for brinde in brindes %}
-                        {% set valor_total_orcamento = valor_total_orcamento + brinde.valor_total_pedido %}
                         <tr>
                             <td><span class="badge bg-primary">Brindes</span> {{ brinde.descricao_pedido }}</td>
                             <td class="text-success fw-bolder">R$ {{ brinde.valor_total_pedido|number_format(2, ',', '.') }}</td>
@@ -51,7 +66,11 @@
     </div>
 
 </div>
-
+<div class="offcanvas offcanvas-end" id="orcamentoManager" aria-labelledby="orcamentoManagerLabel">
+    <div class="offcanvas-body">
+        Carregando...
+    </div>
+</div>
 <script src="{{ PATH }}/view/painel/src/js/scripts/pages/orcamentos.js"></script>
 
 {% endblock %}

@@ -1,0 +1,32 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ cargo.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+    <form action="javascript:void(0)" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}">
+        <div class="mb-2">
+            <label class="control-label">Nome do Orçamento</label>
+            <select class="form-control" name="orcamento" id="orcamento">
+                <option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
+            </select>
+        </div>
+        <div class="mb-2">
+            <label class="control-label">Nome do Orçamento</label>
+            <input type="text" name="valor_orcamento" class="form-control money" value="{{ orcamento.valor_orcamento }}">
+        </div>
+        <div class="mb-2">
+            <label class="control-label">Descrição</label>
+            <textarea name="descricao_orcamento" class="form-control">{{ orcamento.descricao_orcamento }}</textarea>
+        </div>
+
+        <div class="mb-2">
+            <input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
+            <input type="hidden" name="id_evento" value="{{ dados.id }}">
+            {% if orcamento.id != '' %}
+            <input type="hidden" name="id" value="{{ orcamento.id }}">
+            {% endif %}            
+            <button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
+        </div>
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/orcamentos.js?fsdfa"></script>

@@ -15,17 +15,73 @@ class OrcamentosPainelController extends Controller
        
         $model = new PedidosPainel();
         $brindes = $model->getPedidoOrcamentoID($params['id'], $params['tipo'])->getResult();
+
+        $model = new OrcamentosPainel();
+        $orcamentos = $model->getOrcamentosByEvento($params['id'], $params['tipo'])->getResult();
             
-        $this->render('painel/pages/orcamentos/lista.twig', ['menu' => $params['tipo'], 'brindes' => $brindes]);
+        $this->render('painel/pages/orcamentos/lista.twig', ['menu' => $params['tipo'], 'dados' => $params, 'brindes' => $brindes, 'orcamentos' => $orcamentos]);
     }
 
-    public function editar($params)
+    public function getTerms($params)
+    {
+        $this->setParams($params);
+        $model = new OrcamentosPainel();
+        $terms = $model->getTerms();
+  
+        $json = [];
+        if(count($terms->getResult()) > 0){
+            foreach ($terms->getResult() as $key => $value) {
+                $json[] = ['id'=>$value['orcamento'], 'text'=>$value['orcamento']];
+            }
+        } else {
+            $json[] = array('id' => '0', 'text' => 'Nenhum item encontrado');
+        }
+        echo json_encode($json);
+        
+    }
+
+    public function addOrcamento($params)
+    {
+        $this->setParams($params);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params]);
+    }
+
+    public function editOrcamento($params)
     {
         $this->setParams($params);
 
-        $visitas = new OrcamentosPainel();
-        $visitas = $visitas->getVisitasList()->getResult();
-        $this->render('painel/pages/orcamentos/editar.twig', ['menu' => 'orcamentos', 'visitas' => $visitas]);
+        $model = new OrcamentosPainel();
+        $orcamentos = $model->getOrcamentosID($params['id'], $params['tipo'], $params['id_edit']);
+        if($orcamentos->getResult()){
+            $orcamento = $orcamentos->getResult()[0];
+        }else{
+            $orcamento = [];
+        }
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento]);
+    }
+
+    public function addOrcamentoSave($params)
+    {
+        $this->setParams($params);
+        $save = new OrcamentosPainel();
+        $save = $save->addOrcamentoSave($params);
+        if($save){ echo '1'; }
+    }
+
+    public function editOrcamentoSave($params)
+    {
+        $this->setParams($params);
+        $save = new OrcamentosPainel();
+        $save = $save->editOrcamentoSave($params);
+        if($save){ echo '1'; }
+    }
+
+    public function removeOrcamento($params)
+    {
+        $this->setParams($params);
+        $remove = new OrcamentosPainel();
+        $remove = $remove->removeOrcamento($params['id']);
+        if($remove){ echo '1'; }
     }
 
 }
