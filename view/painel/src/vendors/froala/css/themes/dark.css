@@ -125,9 +125,9 @@
   background: #b5d6fd;
   color: #000; }
 .dark-theme.fr-box.fr-basic .fr-wrapper {
-  background: #171c31;
-  border: 1px solid #171c31;
-  border-bottom-color: #171c31;
+  background: #212121;
+  border: 1px solid #212121;
+  border-bottom-color: #212121;
   top: 0;
   left: 0; }
 .dark-theme.fr-box.fr-basic.fr-top .fr-wrapper {
@@ -2008,7 +2008,7 @@
   box-sizing: border-box; }
 .dark-theme.fr-toolbar {
     color: #FFF;
-    background: #171c31;
+    background: #212121;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -2025,7 +2025,7 @@
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid #171c31;
+    border: 1px solid #212121;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-bottom: 0;
@@ -2157,9 +2157,9 @@
     visibility: hidden;
   }
 .dark-theme .fr-second-toolbar {
-  border: 1px solid #171c31;
+  border: 1px solid #212121;
   border-top: 0;
-  background: #171c31;
+  background: #212121;
   border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
   -webkit-border-radius: 0 0 10px 10px;
@@ -2193,3 +2193,6 @@
   color: #0098f7; }
 .dark-theme #fr-logo:hover > svg .fr-logo, .dark-theme #fr-logo:focus > svg .fr-logo {
   fill: #0098f7; }
+  .fr-box.fr-basic {
+    border: 1px solid #404656;
+}
