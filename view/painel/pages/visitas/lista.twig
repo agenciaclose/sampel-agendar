@@ -19,13 +19,15 @@
 
                         <div class="col-lg-12 col-12">
                             <div class="card card-company-table">
-                                <div class="card-header pb-0">
+
+                                <div class="card-header">
                                     <h5 class="card-title">Lista de Visitas</h5>
                                     <div class="heading-elements">
                                         <a class="btn btn-warning" href="{{ DOMAIN }}/painel/inscricao/visitas/exportemails"><i class="fa-solid fa-file-csv"></i> Exportar Lista de inscritos</a>
                                         <a class="btn btn-primary" href="{{ DOMAIN }}/painel/visitas/add"><i class="fa-regular fa-plus"></i> Add Nova</a>
                                     </div>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table dataTable_list">
@@ -47,9 +49,11 @@
                                                     <td>
                                                         <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="text-uppercase"><b>{{ visita.title }}</b></a>
                                                         <div class="d-flex">
-                                                            <a href="{{ DOMAIN }}/painel/visitas/editar/{{ visita.visita_id }}" class="opacity-75">Editar</a>
+                                                            <a href="{{ DOMAIN }}/painel/visitas/editar/{{ visita.visita_id }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                                             <span class="mx-05">|</span>
-                                                            <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="opacity-75">Ver detalhes</a>
+                                                            <a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}" class="text-primary"><i class="fa-solid fa-eye"></i> Ver detalhes</a>
+                                                            <span class="mx-05">|</span>
+                                                            <a href="{{ DOMAIN }}/painel/visita/orcamento/{{ visita.visita_id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
                                                             {% if visita.total_inscricao == 0 %}
                                                             <span class="mx-05">|</span>
                                                             <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" class="text-danger visita-excluir">Excluir</a>
@@ -70,8 +74,8 @@
                                                         <div>
                                                             {% if visita.status_visita == 'Concluido' %}
                                                                 <div class="input-group input-group-sm d-flex align-items-center">
-                                                                    <span class="badge bg-dark text-white text-uppercase">{{ visita.status_visita }}</span>
-                                                                    <span class="input-group-text bg-white text-black py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
+                                                                    <span class="badge bg-primary text-white text-uppercase">{{ visita.status_visita }}</span>
+                                                                    <span class="input-group-text bg-white text-black border-0 px-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
                                                                 </div>	
                                                             {% endif %}
                                                             {% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}

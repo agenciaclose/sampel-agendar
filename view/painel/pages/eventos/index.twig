@@ -44,8 +44,10 @@
                                                         <a href="{{ DOMAIN }}/painel/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
                                                         <div>
                                                             {% if 'add' in permissions.eventos or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" data-bs-toggle="offcanvas" data-bs-target="#formProduct"><small class="text-warning">Editar Evento</small></a>
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formProduct"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</a>
                                                             {% endif %}
+                                                            <span class="mx-05">|</span>
+                                                            <a href="{{ DOMAIN }}/painel/eventos/orcamento/{{ evento.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
                                                         </div>
                                                     </td>
                                                     <td class="no-mobile">

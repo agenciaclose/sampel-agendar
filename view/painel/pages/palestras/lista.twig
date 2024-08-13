@@ -42,7 +42,9 @@
                                                     <td>
                                                         <a href="{{ DOMAIN }}/painel/palestra/ver/{{ palestra.id }}" class="text-uppercase"><b>{{ palestra.title }}</b></a>
                                                         <div class="d-flex">
-                                                            <a href="{{ DOMAIN }}/painel/palestras/editar/{{ palestra.id }}" class="opacity-75">Editar</a>
+                                                            <a href="{{ DOMAIN }}/painel/palestras/editar/{{ palestra.id }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                            <span class="mx-05">|</span>
+                                                            <a href="{{ DOMAIN }}/painel/palestras/orcamento/{{ palestra.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
                                                             <span class="mx-05">|</span>
                                                             <a href="javascript:void(0);" data-id="{{ palestra.id }}" class="text-danger excluir_palestra">Excluir</a>
                                                         </div>
