@@ -172,7 +172,7 @@
 														R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">0,00</span>
 														<input type="hidden" name="valor_total[]" id="valor-itemTotal-{{ produto.id }}">
 													</td>
-													<td id="cota-{{ produto.id }}" class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}">
+													<td id="cota-{{ produto.id }}" class="text-center text-black {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}">
 														<span class="itemMax-{{ produto.id }}">{{ produto.estoque > 0 ? produto.estoque : 0 }}</span>
 													</td>
 												</tr>
