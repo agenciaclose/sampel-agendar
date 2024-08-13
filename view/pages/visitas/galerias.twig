@@ -9,22 +9,20 @@
 	<session class="py-5">
 
 		<div class="mb-4">
-			<h3>Fotos de Visitas</h3>
-		</div>
-
-		<hr>
-
-		<div>
-			<div class="gallery-visita">
-				<div class="row m-0 gallery">
-					{% for galeria in galerias %}
-						<a class="gallery-item position-relative" href="{{ DOMAIN }}/visita/fotos/{{ galeria.id }}" style="background-image:url('{{ galeria.imagem }}');">
-							<div class="data-visita fw-bold">{{ galeria.data_visita|date('d/m/Y') }}</div>
-						</a>
-					{% endfor %}
+			<h5>Fotos de Visitas</h5>
+			<div>
+				<div class="gallery-visita">
+					<div class="row m-0 gallery">
+						{% for galeria in galerias %}
+							<a class="gallery-item position-relative" href="{{ DOMAIN }}/visita/fotos/{{ galeria.id }}" style="background-image:url('{{ galeria.imagem }}');">
+								<div class="data-visita fw-bold">{{ galeria.data_visita|date('d/m/Y') }}</div>
+							</a>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 		</div>
+
 
 	</session>
 </div>

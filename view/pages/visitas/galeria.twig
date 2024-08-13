@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex justify-content-between mb-2 flex-wrap">
-					<h3 class="mb-0">{{ visita.title }}</h3>
+					<h5 class="mb-0 text-warning">{{ visita.title }}</h5>
 					{% if (_session.sampel_user_tipo == 1) %}
 					<a href="{{ DOMAIN }}/visita/galeria/{{ visita.id }}" class="btn btn-warning fw-bolder mt-2 mt-md-0"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
 					{% endif %}
