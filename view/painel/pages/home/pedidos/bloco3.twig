@@ -46,11 +46,11 @@
                             <i class="fa-regular fs-4 fa-people-carry-box"></i>
                         </span>
                     </div>
-                    <h2 class="mb-0">{{ correios|length }}</h2>
+                    <h2 class="mb-0">{{ retirada|length }}</h2>
                 </div>
                 <h4 class="mb-1">Em Nosso Carro e Retirado</h4>
                 <p class="mb-0">
-                    <span class="text-heading fw-bolder text-teal me-2">R$ {{ correiosTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
+                    <span class="text-heading fw-bolder text-teal me-2">R$ {{ retiradaTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
                     <small>Valor Total de todos os pedidos</small>
                 </p>
             </div>

@@ -40,8 +40,8 @@ class HomeController extends Controller
         $transportadoras = $pedidos->getPedidosTransportadoras()->getResult();
         $transportadorasTotal = $pedidos->getPedidosTransportadorasTotal()->getResult()[0];
 
-        $correios = $pedidos->getPedidosCorreios()->getResult();
-        $correiosTotal = $pedidos->getPedidosCorreiosTotal()->getResult()[0];
+        $retirada = $pedidos->getPedidosRetirada()->getResult();
+        $retiradaTotal = $pedidos->getPedidosRetiradaTotal()->getResult()[0];
 
         
         $model = new HomePainel();
@@ -61,8 +61,8 @@ class HomeController extends Controller
             'eventosGastos' => $eventosGastos,
             'transportadoras' => $transportadoras,
             'transportadorasTotal' => $transportadorasTotal,
-            'correios' => $correios,
-            'correiosTotal' => $correiosTotal
+            'retirada' => $retirada,
+            'retiradaTotal' => $retiradaTotal
         ]);
     }
 

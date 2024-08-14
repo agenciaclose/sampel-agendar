@@ -388,28 +388,28 @@ class PedidosPainel extends Model
     public function getPedidosTransportadoras()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido = '5' AND ativo = 'S'");
+        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido in ('5', '6') AND ativo = 'S'");
         return $itens;
     }
 
     public function getPedidosTransportadorasTotal()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido = '5' AND ativo = 'S'");
+        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido in ('5', '6') AND ativo = 'S'");
         return $itens;
     }
 
-    public function getPedidosCorreios()
+    public function getPedidosRetirada()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido = '6' AND ativo = 'S'");
+        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido in ('7', '8') AND ativo = 'S'");
         return $itens;
     }
 
-    public function getPedidosCorreiosTotal()
+    public function getPedidosRetiradaTotal()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido = '6' AND ativo = 'S'");
+        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido in ('7', '8') AND ativo = 'S'");
         return $itens;
     }
 }
