@@ -119,15 +119,6 @@ color: var(--bs-cyan) !important;
     margin-right: 0.5rem !important;
     margin-left: 0.5rem !important;
 }
-.progress {
-    display: none;
-    font-size: 0.6rem;
-    font-weight: bold;
-}
-.progress-bar {
-    border-radius: 0 !important;
-    color: #181b30;
-}
 .text-primary {
     color: #1194dc !important;
 }

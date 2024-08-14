@@ -2,7 +2,9 @@
 
 namespace Agencia\Close\Controllers\Painel\Home;
 
+use Agencia\Close\Conn\Read;
 use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Painel\HomePainel;
 use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\ProdutosPainel;
 
@@ -32,7 +34,9 @@ class HomeController extends Controller
 
         $pedidos = new PedidosPainel();
         $pedidosTotal = $pedidos->getPedidos()->getResult();
-        
+
+        $model = new HomePainel();
+        $eventosGastos = $model->getFourEventosYear()->getResult();
 
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
@@ -42,7 +46,8 @@ class HomeController extends Controller
             'produtosPDV' => $produtosPDV,
             'valorTotalEstoque' => $valorTotalEstoque,
             'valorTotalEstoquePDV' => $valorTotalEstoquePDV,
-            'pedidosTotal' => $pedidosTotal
+            'pedidosTotal' => $pedidosTotal,
+            'eventosGastos' => $eventosGastos
         ]);
     }
 

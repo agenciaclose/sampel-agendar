@@ -28,7 +28,7 @@ class OrcamentosPainel extends Model
             $term = "";
         }
         $read = new Read();
-        $read->FullRead("SELECT * FROM orcamentos $term ORDER BY orcamento ASC");
+        $read->FullRead("SELECT * FROM orcamentos $term GROUP BY orcamento ORDER BY orcamento ASC");
         return $read;
     }
 

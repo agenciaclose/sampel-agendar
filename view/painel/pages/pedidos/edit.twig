@@ -156,8 +156,8 @@
 													<td>{% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %} {{ produto.nome }}</td>
 													<td>{{ produto.codigo }}</td>
 													{% set qtd_produto = (produto.qtd_produto + produto.qtd_escolhida) %}
-													<td class="text-center">{{ produto.embalagem }} / {{ qtd_produto }}</td>
-													<td class="text-center">{{ produto.unidades }}</td>
+													<td class="text-center">{{ produto.embalagem }} / <span class="qtd-base-estoque-{{ produto.id }}">{{ qtd_produto }}</span></td>
+													<td class="text-center qtd-base-unidade-{{ produto.id }}">{{ produto.unidades }}</td>
 													<td class="text-center">
 														R$ {{ produto.preco|number_format(2, ',', '.') }}
 														<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">

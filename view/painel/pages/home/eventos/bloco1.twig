@@ -1,0 +1,60 @@
+<div class="col-xxl-6">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-title mb-0 w-100">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <h2 class="mb-0">Média de Gastos por Ano</h2>
+            {% set valor_total_orcamento_all = 0 %}
+            {% for evento in eventosGastos %}
+                {% set valor_total_orcamento_all = valor_total_orcamento_all + evento.total_gastos %}
+            {% endfor %}
+            <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento_all|number_format(2, ',', '.') }}</span></h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="vehicles-overview-progress progress rounded-3 mb-2" style="height: 46px;">
+          {% set bg_colors = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-white'] %}
+          {% for evento in eventosGastos %}
+          {% set participacao = (evento.total_gastos / valor_total_orcamento_all) * 100 %}
+          <div data-bs-toggle="tooltip" data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="{{ evento.nome_evento }}" 
+              class="progress-bar {{ bg_colors[(loop.index0 % bg_colors|length)] }} fw-bolder text-start text-black px-3 rounded-0" 
+              role="progressbar" 
+              style="width: {{ participacao|number_format(1, '.', ',') }}%" aria-valuenow="{{ participacao|number_format(1, '.', ',') }}" aria-valuemin="0" aria-valuemax="100">{{ participacao|number_format(1, '.', ',') }}%</div>
+          {% endfor %}
+        </div>
+
+        <div class="table-responsive">
+          <table class="table card-table">
+            <tbody class="table-border-bottom-0">
+              {% set text_colors = ['text-primary', 'text-secondary', 'text-success', 'text-danger', 'text-warning', 'text-info', 'text-light', 'text-white'] %}
+              {% for evento in eventosGastos %}
+              {% set participacao = (evento.total_gastos / valor_total_orcamento_all) * 100 %}
+              <tr>
+                <td class="w-50 ps-0">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <div class="me-2">
+                      <i class="fa-light fa-lg fa-calendars"></i>
+                    </div>
+                    <h6 class="mb-0 fw-normal">{{ evento.nome_evento }}</h6>
+                  </div>
+                </td>
+                <td class="text-end pe-0 text-nowrap">
+                  <h6 class="mb-0">R$ {{ evento.total_gastos|number_format(2, ',', '.') }}</h6>
+                </td>
+                <td class="text-end pe-0">
+                  <span class="{{ text_colors[(loop.index0 % text_colors|length)] }}">{{ participacao|number_format(1, '.', ',') }}%</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+  </div>

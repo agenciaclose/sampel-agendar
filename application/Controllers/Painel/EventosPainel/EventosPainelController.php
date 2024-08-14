@@ -15,9 +15,7 @@ class EventosPainelController extends Controller
         $model = new EventosPainel();
         $eventos = $model->getEventos()->getResult();
 
-        $paises = $this->nomesPaises();
-
-        $this->render('painel/pages/eventos/index.twig', ['menu' => 'eventos', 'eventos' => $eventos, 'paises' => $paises]);
+        $this->render('painel/pages/eventos/index.twig', ['menu' => 'eventos', 'eventos' => $eventos]);
     }
 
     public function productAdd($params)
@@ -35,8 +33,10 @@ class EventosPainelController extends Controller
 
         $evento = new EventosPainel();
         $evento = $evento->getEventoID($params['id'])->getResult();
+
+        $paises = $this->nomesPaises();
         
-        $this->render('painel/pages/eventos/form.twig', ['evento' => $evento[0]]);
+        $this->render('painel/pages/eventos/form.twig', ['evento' => $evento[0], 'paises' => $paises]);
     }
 
     public function nomesPaises()

@@ -6,16 +6,52 @@
 
     <!-- BEGIN: Content-->
     <div class="app-content content ">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
             <div class="content-body">
-                <!-- Dashboard Ecommerce Starts -->
+            
                 <section id="dashboard-ecommerce">
 
-                    <div class="row match-height">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" method="GET">
+
+                                <div class="row align-items-end justify-content-between">
+                                
+                                    <div class="col-md-2 col-sm-6 col-12">
+                                        <div class="mb-1">
+                                            <label class="form-label">Ano do Evento:</label>
+                                            <select class="form-control text-uppercase" name="ano_evento" id="ano_evento">
+                                                <option value="">Selecione</option>
+                                                {% set current_year = "now"|date("Y") %}
+                                                {% for year in range(current_year + 1, 2018) %}                                                    
+                                                    <option value="{{ year }}" {{ _get.ano_evento == year ? 'selected' }}>{{ year }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-6 col-12">
+                                        {% set valor_total_orcamento_all = 0 %}
+                                        {% for evento in eventos %}
+                                            {% set valor_total_orcamento_all = valor_total_orcamento_all + evento.total_gastos %}
+                                        {% endfor %}
+                                        <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento_all|number_format(2, ',', '.') }}</span></h5>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-6 col-12">
+                                        <div class="mb-1 btn-group d-flex">
+                                            <button type="submit" class="btn btn-primary w-100" id="salvar">FILTRAR</button>
+                                            <a href="{{ DOMAIN }}/painel/eventos" class="btn btn-danger px-1 flex-shrink-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Resetar Filtro"><i class="fa-solid fa-octagon-xmark"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                         <div class="col-lg-12 col-12">
                             <div class="card card-company-table">
@@ -33,6 +69,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Evento</th>
+                                                    <th class="text-center">Orçamento</th>
                                                     <th>Local</th>
                                                     <th class="text-end">Data da Evento</th>
                                                 </tr>
@@ -50,9 +87,16 @@
                                                             <a href="{{ DOMAIN }}/painel/eventos/orcamento/{{ evento.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
                                                         </div>
                                                     </td>
+                                                    <td class="bg-success text-black text-center">
+                                                        R$ {{ evento.total_gastos|number_format(2, ',', '.') }}
+                                                    </td>
                                                     <td class="no-mobile">
                                                         {{ evento.local_evento }}
-                                                        <div class="text-white-50"><small>{{ evento.cidade_evento }}, {{ evento.estado_evento }}</small></div>
+                                                        {% if evento.cidade_evento != '' %}
+                                                            <div class="text-white-50"><small>{{ evento.cidade_evento }}, {{ evento.estado_evento }} - {{ evento.pais_evento }}</small></div>
+                                                        {% else %}
+                                                            <div class="text-white-50"><small>{{ evento.pais_evento }}</small></div>
+                                                        {% endif %}
                                                     </td>
                                                     <td class="text-end">
                                                         <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ evento.data_evento_inicio | date("d-m-Y") }}</span>

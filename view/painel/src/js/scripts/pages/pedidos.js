@@ -253,24 +253,25 @@ function statusPedido(id, status_pedido){
 function itemTotal(quantidade, valor, item, validation, unidades){
 
 	var max = $('.itemMax-'+item+'').text();
+
 	var qtd_total = 0;
 	qtd_total = quantidade * unidades;
 
 	if(parseInt(quantidade) > parseInt(max)){
-		$('#cota-'+item+'').removeClass('bg-success');
-		$('#cota-'+item+'').addClass('bg-danger');
+		$('#cota-'+item).removeClass('bg-success');
+		$('#cota-'+item).addClass('bg-danger');
 		var itemTotal = (parseFloat(valor.replace('.','').replace(',','.')) * parseInt(qtd_total));
 	}else{
-		$('#cota-'+item+'').removeClass('bg-danger');
-		$('#cota-'+item+'').addClass('bg-success');
+		$('#cota-'+item).removeClass('bg-danger');
+		$('#cota-'+item).addClass('bg-success');
 		var itemTotal = (parseFloat(valor.replace('.','').replace(',','.')) * parseInt(qtd_total));
 	}
 
-	$('#qtd-total-'+item+'').html(qtd_total);
-	$('#qtd-total-value-'+item+'').val(qtd_total);
+	$('#qtd-total-'+item).html(qtd_total);
+	$('#qtd-total-value-'+item).val(qtd_total);
 
-	$('#itemTotal-'+item+'').html(numberToReal(itemTotal)); 
-	$('#valor-itemTotal-'+item+'').val(numberToReal(itemTotal)); 
+	$('#itemTotal-'+item).html(numberToReal(itemTotal)); 
+	$('#valor-itemTotal-'+item).val(numberToReal(itemTotal)); 
 
 	var valorTotal = 0;
 
@@ -281,6 +282,22 @@ function itemTotal(quantidade, valor, item, validation, unidades){
 	 
 	$('.total').html(numberToReal(valorTotal));
 	$('#valor_total_pedido').val(numberToReal(valorTotal));
+
+	var qtdBaseEstoque = $('.qtd-base-estoque-'+item).text();
+	var qtdBaseUnidade = $('.qtd-base-unidade-'+item).text();
+
+	var totalEstoque = qtdBaseEstoque * qtdBaseUnidade;
+	var totalAtual = totalEstoque - qtd_total
+
+	if(totalAtual <= 0){
+		$('#cota-'+item).removeClass('bg-success');
+		$('#cota-'+item).addClass('bg-danger');
+	}else{
+		$('#cota-'+item).removeClass('bg-danger');
+		$('#cota-'+item).addClass('bg-success');
+	}
+
+	$('.itemMax-'+item).text(totalAtual);
 	
 	// if(valorTotal >= 200){
 	// 	$('#salvar').prop("disabled", false);

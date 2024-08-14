@@ -4351,6 +4351,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 2.5rem;
   cursor: pointer;
 }
+.progress {
+  background-color: transparent;
+}
 .avatar .avatar-initial {
   position: absolute;
   top: 0;
@@ -4364,4 +4367,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #fff;
   background-color: #eeedf0;
   font-size: .9375rem;
+}
+.vehicles-progress-labels .vehicles-progress-label {
+  position: relative;
+  padding-bottom: 15px;
+}
+.vehicles-progress-labels .vehicles-progress-label::after {
+  background-color: #157bb3;
+}
+.vehicles-progress-labels .vehicles-progress-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  height: 10px;
+  width: 2px;
 }
