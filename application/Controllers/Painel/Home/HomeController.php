@@ -28,13 +28,22 @@ class HomeController extends Controller
         $produtosPDV = $produtos->getProdutosPDV()->getResult();
 
         $produtosSemEstoque = $produtos->getProdutosSemEstoque()->getResult();
-
         $valorTotalEstoque = $produtos->valorTotalEstoqueSemPDV()->getResult()[0];
         $valorTotalEstoquePDV = $produtos->valorTotalEstoquePDV()->getResult()[0];
+        $valorTotalSemEstoque = $produtos->valorTotalSemEstoque()->getResult()[0];
 
         $pedidos = new PedidosPainel();
         $pedidosTotal = $pedidos->getPedidos()->getResult();
+        $PedidosValorTotal = $pedidos->getPedidosValorTotal()->getResult()[0];
 
+        $pedidos = new PedidosPainel();
+        $transportadoras = $pedidos->getPedidosTransportadoras()->getResult();
+        $transportadorasTotal = $pedidos->getPedidosTransportadorasTotal()->getResult()[0];
+
+        $correios = $pedidos->getPedidosCorreios()->getResult();
+        $correiosTotal = $pedidos->getPedidosCorreiosTotal()->getResult()[0];
+
+        
         $model = new HomePainel();
         $eventosGastos = $model->getFourEventosYear()->getResult();
 
@@ -46,8 +55,14 @@ class HomeController extends Controller
             'produtosPDV' => $produtosPDV,
             'valorTotalEstoque' => $valorTotalEstoque,
             'valorTotalEstoquePDV' => $valorTotalEstoquePDV,
+            'valorTotalSemEstoque' => $valorTotalSemEstoque,
             'pedidosTotal' => $pedidosTotal,
-            'eventosGastos' => $eventosGastos
+            'PedidosValorTotal' => $PedidosValorTotal,
+            'eventosGastos' => $eventosGastos,
+            'transportadoras' => $transportadoras,
+            'transportadorasTotal' => $transportadorasTotal,
+            'correios' => $correios,
+            'correiosTotal' => $correiosTotal
         ]);
     }
 

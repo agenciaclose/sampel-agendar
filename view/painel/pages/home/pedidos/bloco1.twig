@@ -1,6 +1,26 @@
 <div class="row g-6 mb-2">
 
     <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-info h-100">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-info">
+                            <i class="fa-regular fs-5 fa-cart-circle-plus"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
+                </div>
+                <h4 class="mb-1">Total de Pedidos</h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-info me-2">R$ {{ PedidosValorTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
+                    <small>Valor Total de todos os pedidos</small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
         <div class="card card-border-shadow-success h-100">
             <div class="card-body pb-0">
                 <div class="d-flex align-items-center mb-2">
@@ -11,7 +31,7 @@
                     </div>
                     <h2 class="mb-0">{{ produtosSemPDV|length }}</h2>
                 </div>
-                <h4 class="mb-1">Total de Produtos Normais</h4>
+                <h4 class="mb-1">Total de Produtos</h4>
                 <p class="mb-0">
                     <span class="text-heading fw-bolder text-success me-2">R$ {{ valorTotalEstoque.valor_total_estoque|number_format(2, ',', '.') }}</span>
                     <small>Valor Estoque</small>
@@ -40,25 +60,6 @@
         </div>
     </div>
 
-    <div class="col-lg-3 col-sm-6">
-        <div class="card card-border-shadow-info h-100">
-            <div class="card-body pb-0">
-                <div class="d-flex align-items-center mb-2">
-                    <div class="avatar me-1">
-                        <span class="avatar-initial rounded bg-label-info">
-                            <i class="fa-regular fs-5 fa-cart-circle-plus"></i>
-                        </span>
-                    </div>
-                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
-                </div>
-                <h4 class="mb-1">Total de Pedidos</h4>
-                <p class="mb-0">
-                    <span class="text-heading fw-bolder text-info me-2">R$ 1.000.000,00</span>
-                    <small>Valor Total de todos os pedidos</small>
-                </p>
-            </div>
-        </div>
-    </div>
 
     <div class="col-lg-3 col-sm-6">
         <div class="card card-border-shadow-danger h-100">
@@ -74,7 +75,7 @@
                 </div>
                 <h4 class="mb-1">Produtos sem Estoque</h4>
                 <p class="mb-0">
-                    <span class="text-heading fw-bolder text-danger me-2">R$ 1.000,00</span>
+                    <span class="text-heading fw-bolder text-danger me-2">R$ {{ valorTotalSemEstoque.valor_total_sem_estoque|number_format(2, ',', '.') }}</span>
                     <small>Valor de Produtos sem Estoque</small>
                 </p>
             </div>

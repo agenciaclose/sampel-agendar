@@ -46,6 +46,13 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidosValorTotal(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE ativo = 'S' ORDER BY `id` DESC");
+        return $read;
+    }
+
     public function getPedidoID($id_pedido): Read
     {
         $read = new Read();
@@ -378,4 +385,31 @@ class PedidosPainel extends Model
         return $itens;
     }
 
+    public function getPedidosTransportadoras()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido = '5' AND ativo = 'S'");
+        return $itens;
+    }
+
+    public function getPedidosTransportadorasTotal()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido = '5' AND ativo = 'S'");
+        return $itens;
+    }
+
+    public function getPedidosCorreios()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido = '6' AND ativo = 'S'");
+        return $itens;
+    }
+
+    public function getPedidosCorreiosTotal()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido = '6' AND ativo = 'S'");
+        return $itens;
+    }
 }

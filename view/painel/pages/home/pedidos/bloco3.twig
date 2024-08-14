@@ -26,11 +26,11 @@
                             <i class="fa-regular fs-4 fa-truck-container"></i>
                         </span>
                     </div>
-                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
+                    <h2 class="mb-0">{{ transportadoras|length }}</h2>
                 </div>
-                <h4 class="mb-1">Em Transportadores e Correios</h4>
+                <h4 class="mb-1">Em Transportadoras e Correios</h4>
                 <p class="mb-0">
-                    <span class="text-heading fw-bolder text-pink me-2">R$ 1.000,00</span>
+                    <span class="text-heading fw-bolder text-pink me-2">R$ {{ transportadorasTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
                     <small>Valor Total de todos os pedidos</small>
                 </p>
             </div>
@@ -46,11 +46,11 @@
                             <i class="fa-regular fs-4 fa-people-carry-box"></i>
                         </span>
                     </div>
-                    <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
+                    <h2 class="mb-0">{{ correios|length }}</h2>
                 </div>
                 <h4 class="mb-1">Em Nosso Carro e Retirado</h4>
                 <p class="mb-0">
-                    <span class="text-heading fw-bolder text-teal me-2">R$ 1.000,00</span>
+                    <span class="text-heading fw-bolder text-teal me-2">R$ {{ correiosTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
                     <small>Valor Total de todos os pedidos</small>
                 </p>
             </div>

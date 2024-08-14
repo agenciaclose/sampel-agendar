@@ -44,12 +44,21 @@ class ProdutosPainel extends Model
         return $read;
     }
 
+    public function valorTotalSemEstoque(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(preco) AS valor_total_sem_estoque FROM produtos WHERE estoque = 0 AND preco <> '' AND PDV = 'N'");
+        return $read;
+    }
+
     public function getProdutosSemEstoque(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM produtos WHERE estoque = 0");
+        $read->FullRead("SELECT * FROM produtos WHERE estoque = 0  AND preco <> ''");
         return $read;
     }
+
+    
 
     public function getProdutoID($id): Read
     {
