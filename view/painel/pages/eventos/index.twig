@@ -23,7 +23,7 @@
                                     <h5 class="card-title">Lista de Eventos</h5>
                                     <div class="heading-elements">
                                         {% if 'add' in permissions.eventos or permissions == 'all' %}
-                                            <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/add" data-bs-toggle="offcanvas" data-bs-target="#formProduct" aria-controls="formProduct"><i class="fa-regular fa-plus"></i> Add Nova</a>
+                                            <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/add" data-bs-toggle="offcanvas" data-bs-target="#formEvent" aria-controls="formEvent"><i class="fa-regular fa-plus"></i> Add Nova</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                                         <a href="{{ DOMAIN }}/painel/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
                                                         <div>
                                                             {% if 'add' in permissions.eventos or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formProduct"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</a>
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formEvent"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</a>
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
                                                             <a href="{{ DOMAIN }}/painel/eventos/orcamento/{{ evento.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
@@ -75,11 +75,11 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="formProduct" aria-labelledby="formProductLabel">
+    <div class="offcanvas offcanvas-end" id="formEvent" aria-labelledby="formEventLabel">
         <div class="offcanvas-body">
             Carregando...
         </div>
     </div>
     
-    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/evento.js"></script>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/eventos.js"></script>
 {% endblock %}

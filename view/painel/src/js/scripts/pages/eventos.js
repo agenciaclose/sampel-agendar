@@ -1,4 +1,14 @@
 if ($('#descricao').length){
+
+    if ($('#pais_evento').length){
+		$('#pais_evento').select2({       
+            dropdownParent: $('#formEvent .offcanvas-body'),
+            dropdownAutoWidth: true,
+            width: '100%',
+            tabindex: -1
+        });
+	}
+
     new FroalaEditor('#descricao', {
         key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
         enter: FroalaEditor.ENTER_BR,
@@ -76,7 +86,7 @@ $(document).ready(function () {
                 if (data != "0") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.href = DOMAIN + '/eventos/view/'+data;
+                        location.reload();
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
@@ -118,6 +128,17 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    $('#pais_evento').on('change', function() {
+        var selectedValue = $(this).val();
+        if (selectedValue !== 'Brasil') {
+            $('.cep_evento').hide();
+            $('.cidade_estado').hide();
+        }else{
+            $('.cep_evento').show();
+            $('.cidade_estado').show();
+        }
     });
 
 });

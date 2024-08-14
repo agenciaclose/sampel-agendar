@@ -10,6 +10,14 @@
             <input type="text" class="form-control" id="nome_evento" name="nome_evento" value="{{ evento.nome_evento }}">
         </div>
         <div class="mb-1">
+            <label for="pais_evento" class="form-label">País:</label>
+            <select name="pais_evento" id="pais_evento" class="form-control">
+                {% for pais in paises %}
+                    <option value="{{ pais }}" {{ evento.pais_evento == pais ? 'selected' }}>{{ pais }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-1 cep_evento">
             <label for="cep_evento" class="form-label">CEP:</label>
             <input type="text" class="form-control cep" id="cep_evento" name="cep_evento" value="{{ evento.cep_evento }}">
         </div>
@@ -17,12 +25,12 @@
             <label for="local_evento" class="form-label">Local:</label>
             <input type="text" class="form-control" id="local_evento" name="local_evento" value="{{ evento.local_evento }}">
         </div>
-        <div class="row">
+        <div class="row cidade_estado">
             <div class="mb-1 col-md-6">
                 <label for="cidade_evento" class="form-label">Cidade:</label>
                 <input type="text" class="form-control" id="cidade_evento" name="cidade_evento" value="{{ evento.cidade_evento }}">
             </div>
-            <div class="mb-1 col-md-6">
+            <div class="mb-1 col-md-6 estado_evento">
                 <label for="estado_evento" class="form-label">Estado:</label>
                 <input type="text" class="form-control" id="estado_evento" name="estado_evento" maxlength="2" value="{{ evento.estado_evento }}">
             </div>
@@ -43,6 +51,7 @@
     </form>
 </div>
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
 <script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
 <script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
 <script src="{{ PATH }}/view/painel/src/js/scripts/pages/eventos.js"></script>
