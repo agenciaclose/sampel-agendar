@@ -19,7 +19,7 @@ class PedidosController extends Controller
         $by_user = '';
         if($_SESSION['sampel_user_tipo'] != 1){
             if ($this->checkPermissionsUser('pedidos', '"manager"') == null){ 
-                $by_user = ' AND p.id_user = '.$_SESSION['sampel_user_id'].'';
+                $by_user = ' AND p.id_equipe = '.$_SESSION['sampel_user_id'].'';
             }
         };
 
