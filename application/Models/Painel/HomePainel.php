@@ -63,13 +63,13 @@ class HomePainel extends Model
         $read->FullRead("SELECT semanas.dia_semana AS semana_nome, COALESCE(pedidos_por_semana.quantidade_pedidos, 0) AS quantidade_pedidos, COALESCE(pedidos_por_semana.total_valor_pedidos, 0) AS total_valor_pedidos
         FROM 
             (
-                SELECT 1 AS dia_num, 'Dom' AS dia_semana UNION ALL
-                SELECT 2 AS dia_num, 'Seg' AS dia_semana UNION ALL
-                SELECT 3 AS dia_num, 'Ter' AS dia_semana UNION ALL
-                SELECT 4 AS dia_num, 'Qua' AS dia_semana UNION ALL
-                SELECT 5 AS dia_num, 'Qui' AS dia_semana UNION ALL
-                SELECT 6 AS dia_num, 'Sex' AS dia_semana UNION ALL
-                SELECT 7 AS dia_num, 'Sab' AS dia_semana
+                SELECT 1 AS dia_num, 'Seg' AS dia_semana UNION ALL
+                SELECT 2 AS dia_num, 'Ter' AS dia_semana UNION ALL
+                SELECT 3 AS dia_num, 'Qua' AS dia_semana UNION ALL
+                SELECT 4 AS dia_num, 'Qui' AS dia_semana UNION ALL
+                SELECT 5 AS dia_num, 'Sex' AS dia_semana UNION ALL
+                SELECT 6 AS dia_num, 'Sab' AS dia_semana UNION ALL
+                SELECT 7 AS dia_num, 'Dom' AS dia_semana
             ) AS semanas
         LEFT JOIN 
             (

@@ -8,6 +8,8 @@ use Agencia\Close\Models\Painel\HomePainel;
 use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\ProdutosPainel;
 
+use DateTime; 
+
 class HomeController extends Controller
 {
 	
@@ -48,6 +50,18 @@ class HomeController extends Controller
         $pedidosMensais = $model->getPedidosMensais()->getResult();
         $pedidosSemanais = $model->getPedidosSemanais()->getResult();
 
+        $date = new DateTime();
+
+        // Calcula o início da semana (domingo)
+        $date = new DateTime();
+        $dayOfWeek = $date->format('N');
+        $startOfWeek = (clone $date)->modify('-' . ($dayOfWeek - 1) . ' days');
+        $endOfWeek = (clone $startOfWeek)->modify('+6 days');
+        $weekNumber = $startOfWeek->format("W");
+        $startDay = $startOfWeek->format('d');
+        $endDay = $endOfWeek->format('d');
+        $month = $this->formatMonthInPortuguese($startOfWeek);
+
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
             'loop' => $backgroundColors,
@@ -65,8 +79,32 @@ class HomeController extends Controller
             'retirada' => $retirada,
             'retiradaTotal' => $retiradaTotal,
             'pedidosMensais' => $pedidosMensais,
-            'pedidosSemanais' => $pedidosSemanais
+            'pedidosSemanais' => $pedidosSemanais,
+            'weekNumber' => $weekNumber,
+            'startDay' => $startDay,
+            'endDay' => $endDay,
+            'month' => $month
         ]);
+    }
+
+    private function formatMonthInPortuguese(DateTime $date)
+    {
+        $months = [
+            'January' => 'Janeiro',
+            'February' => 'Fevereiro',
+            'March' => 'Março',
+            'April' => 'Abril',
+            'May' => 'Maio',
+            'June' => 'Junho',
+            'July' => 'Julho',
+            'August' => 'Agosto',
+            'September' => 'Setembro',
+            'October' => 'Outubro',
+            'November' => 'Novembro',
+            'December' => 'Dezembro',
+        ];
+
+        return $months[$date->format('F')];
     }
 
 }
