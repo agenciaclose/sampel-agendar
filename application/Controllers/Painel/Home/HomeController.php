@@ -43,9 +43,10 @@ class HomeController extends Controller
         $retirada = $pedidos->getPedidosRetirada()->getResult();
         $retiradaTotal = $pedidos->getPedidosRetiradaTotal()->getResult()[0];
 
-        
         $model = new HomePainel();
         $eventosGastos = $model->getFourEventosYear()->getResult();
+        $pedidosMensais = $model->getPedidosMensais()->getResult();
+        $pedidosSemanais = $model->getPedidosSemanais()->getResult();
 
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
@@ -62,7 +63,9 @@ class HomeController extends Controller
             'transportadoras' => $transportadoras,
             'transportadorasTotal' => $transportadorasTotal,
             'retirada' => $retirada,
-            'retiradaTotal' => $retiradaTotal
+            'retiradaTotal' => $retiradaTotal,
+            'pedidosMensais' => $pedidosMensais,
+            'pedidosSemanais' => $pedidosSemanais
         ]);
     }
 

@@ -3,15 +3,22 @@
 
         <div class="d-flex flex-column me-xl-7">
             <div class="card-title mb-auto">
-                <h2 class="mb-2 text-nowrap">Relatórios de Pedidos</h2>
-                <p class="mb-0">Estatísticas Semanais</p>
+                <h4>Relatórios de Semanais</h4>
             </div>
-            <div class="chart-statistics">
-                <h3 class="card-title mb-1">R$ 4,673</h3>
-                <span class="badge bg-primary">+15.2%</span>
+            <div class="d-flex gap-2 flex-wrap flex-column">
+                {% set valor_total_pedidos = 0 %}
+                    {% for pedidos in pedidosSemanais %}
+                        {% set valor_total_pedidos = valor_total_pedidos + pedidos.total_valor_pedidos %}
+                    {% endfor %}
+                <h1 class="mb-0 text-primary">R$ {{ valor_total_pedidos|number_format(2, ',', '.') }}</h1>
+                <small class="text-body">Valor total de todos os pedidos de {{ "now"|date("Y") }}.</small>
             </div>
         </div>
-        <div id="revenueGrowth"></div>
+        <div 
+            id="revenueGrowth"
+            data-dias="{% for pedidos in pedidosSemanais %}{{ pedidos.semana_nome }}{% if not loop.last %}, {% endif %}{% endfor %}"
+            data-qtd="{% for pedidos in pedidosSemanais %}{{ pedidos.quantidade_pedidos }}{% if not loop.last %}, {% endif %}{% endfor %}"
+        ></div>
 
     </div>
 </div>
@@ -22,7 +29,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center mb-2">
                     <div class="avatar me-1">
-                        <span class="avatar-initial rounded bg-label-pink text-pink">
+                        <span class="avatar-initial rounded bg-label-danger text-pink">
                             <i class="fa-regular fs-4 fa-truck-container"></i>
                         </span>
                     </div>
@@ -42,7 +49,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center mb-2">
                     <div class="avatar me-1">
-                        <span class="avatar-initial rounded bg-label-teal text-teal">
+                        <span class="avatar-initial rounded bg-label-success text-teal">
                             <i class="fa-regular fs-4 fa-people-carry-box"></i>
                         </span>
                     </div>

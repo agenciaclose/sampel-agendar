@@ -1,23 +1,31 @@
 <div class="card h-100">
-    <div class="card-header pb-0 d-flex justify-content-between">
-        <div class="card-title mb-0">
-            <h2 class="mb-1">Relatórios de ganhos</h2>
-            <p class="card-subtitle">Visão geral dos ganhos mensais</p>
-        </div>
-    </div>
     <div class="card-body pb-0">
-        <div class="row align-items-center g-md-8">
-            <div class="col-12 col-md-4 d-flex flex-column">
-                <div class="d-flex gap-2 align-items-center mb-3 flex-wrap">
-                <h1 class="mb-0">R$ 468,00</h1>
-                <div class="badge rounded bg-primary">+4.2%</div>
+        <div class="d-flex justify-content-between">
+
+            <div class="d-flex flex-column">
+                <div class="card-title mb-auto">
+                    <h4>Relatórios de Mensais</h4>
                 </div>
-                <small class="text-body">Informatico ganhos desse mês em comparação ao mês passado.</small>
+                <div class="d-flex gap-2 align-items-center mb-2 flex-wrap">
+                    {% set valor_total_pedidos = 0 %}
+                    {% for pedidos in pedidosMensais %}
+                        {% set valor_total_pedidos = valor_total_pedidos + pedidos.total_valor_pedidos %}
+                    {% endfor %}
+                    <h1 class="mb-0 text-primary">R$ {{ valor_total_pedidos|number_format(2, ',', '.') }}</h1>
+                    <small class="text-body">Valor total de todos os pedidos de {{ "now"|date("Y") }}.</small>
+                </div>
             </div>
-            <div class="col-12 col-md-8 ps-xl-8">
-                <div id="weeklyEarningReports"></div>
+
+            <div class="flex-grow-1 w-100">
+                <div
+                    id="weeklyEarningReports"
+                    data-meses="{% for pedidos in pedidosMensais %}{{ pedidos.mes_nome }}{% if not loop.last %}, {% endif %}{% endfor %}"
+                    data-qtd="{% for pedidos in pedidosMensais %}{{ pedidos.quantidade_pedidos }}{% if not loop.last %}, {% endif %}{% endfor %}"
+                >
+                </div>
             </div>
         </div>
+
         <div class="border rounded p-2 mt-2">
             <div class="row gap-4 gap-sm-0">
                 <div class="col-12 col-sm-4">
@@ -58,5 +66,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>

@@ -1,23 +1,96 @@
-// Revenue Growth Chart
+(function () {
+
+  let labelColor, headingColor, borderColor;
+
+  labelColor = config.colors_dark.textMuted;
+  headingColor = config.colors_dark.headingColor;
+  borderColor = config.colors_dark.borderColor;
+
+
+  function radialBarChart(color, value, show) {
+    const radialBarChartOpt = {
+      chart: {
+        height: show == 'true' ? 58 : 48,
+        width: show == 'true' ? 58 : 38,
+        type: 'radialBar'
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: show == 'true' ? '50%' : '25%'
+          },
+          dataLabels: {
+            show: show == 'true' ? true : false,
+            value: {
+              offsetY: -10,
+              fontSize: '15px',
+              fontWeight: 500,
+              fontFamily: 'Public Sans',
+              color: headingColor
+            }
+          },
+          track: {
+            background: config.colors_label.secondary
+          }
+        }
+      },
+      stroke: {
+        lineCap: 'round'
+      },
+      colors: [color],
+      grid: {
+        padding: {
+          top: show == 'true' ? -12 : -15,
+          bottom: show == 'true' ? -17 : -15,
+          left: show == 'true' ? -17 : -5,
+          right: -15
+        }
+      },
+      series: [value],
+      labels: show == 'true' ? [''] : ['Progress']
+    };
+    return radialBarChartOpt;
+  }
+
+  const chartProgressList = document.querySelectorAll('.chart-progress');
+  if (chartProgressList) {
+    chartProgressList.forEach(function (chartProgressEl) {
+      const color = config.colors[chartProgressEl.dataset.color],
+        series = chartProgressEl.dataset.series;
+      const progress_variant = chartProgressEl.dataset.progress_variant;
+      const optionsBundle = radialBarChart(color, series, progress_variant);
+      const chart = new ApexCharts(chartProgressEl, optionsBundle);
+      chart.render();
+    });
+  }
+
+})();
+
+  let dias = $('#revenueGrowth').attr('data-dias').split(',');
+  let dias_qtd = $('#revenueGrowth').attr('data-qtd').split(',').map(Number);
+
   // --------------------------------------------------------------------
   const revenueGrowthEl = document.querySelector('#revenueGrowth'),
     revenueGrowthConfig = {
       chart: {
         height: 170,
         type: 'bar',
-        parentHeightOffset: 0,
+        parentHeightOffset: -20,
         toolbar: {
           show: false
         }
       },
       plotOptions: {
         bar: {
-          barHeight: '80%',
-          columnWidth: '30%',
+          barHeight: '100%',
+          columnWidth: '50%',
           startingShape: 'rounded',
           endingShape: 'rounded',
-          borderRadius: 6,
-          distributed: true
+          borderRadius: 4,
+          distributed: true,
+          dataLabels: {
+            position: 'top'
+          }
         }
       },
       tooltip: {
@@ -37,23 +110,25 @@
         '#05618e',
         '#05618e',
         '#05618e',
-        '#1194dc',
+        '#05618e',
         '#05618e',
         '#05618e'
       ],
       dataLabels: {
-        enabled: false
+        enabled: true,
+        offsetY: 0
       },
       series: [
         {
-          data: [25, 40, 55, 70, 85, 70, 55]
+          name: 'Pedidos',
+          data: dias_qtd
         }
       ],
       legend: {
         show: false
       },
       xaxis: {
-        categories: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+        categories: dias,
         axisBorder: {
           show: false
         },
@@ -161,97 +236,106 @@
   }
 
 
-  // Earning Reports Bar Chart
-  // --------------------------------------------------------------------
+
+  // PEDIDOS POR MESES
+  let meses = $('#weeklyEarningReports').attr('data-meses').split(',');
+  let meses_qtd = $('#weeklyEarningReports').attr('data-qtd').split(',').map(Number);
+  
   const weeklyEarningReportsEl = document.querySelector('#weeklyEarningReports'),
-    weeklyEarningReportsConfig = {
-      chart: {
-        height: 170,
-        parentHeightOffset: 0,
-        type: 'bar',
-        toolbar: {
-          show: false
+  weeklyEarningReportsConfig = {
+    chart: {
+      height: 200,
+      parentHeightOffset: -20,
+      type: 'bar',
+      toolbar: {
+        show: false
+      }
+    },
+    plotOptions: {
+      bar: {
+        barHeight: '100%',
+        columnWidth: '50%',
+        startingShape: 'rounded',
+        endingShape: 'rounded',
+        borderRadius: 4,
+        distributed: true,
+        dataLabels: {
+          position: 'top'
         }
-      },
-      plotOptions: {
-        bar: {
-          barHeight: '60%',
-          columnWidth: '38%',
-          startingShape: 'rounded',
-          endingShape: 'rounded',
-          borderRadius: 4,
-          distributed: true
-        }
-      },
-      grid: {
-        show: false,
-        padding: {
-          top: -30,
-          bottom: 0,
-          left: -10,
-          right: -10
-        }
-      },
-      colors: [
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#1194dc',
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#05618e',
-        '#05618e'
-      ],
-      dataLabels: {
-        enabled: false
-      },
-      series: [
-        {
-          data: [25,40,55,70,85,70,45,65,75,85,95,35]
-        }
-      ],
-      legend: {
+      }
+    },
+    grid: {
+      show: false,
+      padding: {
+        top: -30,
+        bottom: 0,
+        left: 0,
+        right: 0
+      }
+    },
+    colors: [
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e',
+      '#05618e'
+    ],
+    dataLabels: {
+      enabled: true,
+      offsetY: 0
+    },
+    series: [
+      {
+        name: 'Pedidos',
+        data: meses_qtd
+      }
+    ],
+    legend: {
+      show: false
+    },
+    xaxis: {
+      categories: meses,
+      axisBorder: {
         show: false
       },
-      xaxis: {
-        categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        labels: {
-          style: {
-            colors: '#1194dc',
-            fontSize: '13px',
-            fontFamily: 'Public Sans'
+      axisTicks: {
+        show: false
+      },
+      labels: {
+        style: {
+          colors: '#1194dc',
+          fontSize: '13px',
+          fontFamily: 'Public Sans'
+        }
+      }
+    },
+    yaxis: {
+      labels: {
+        show: false
+      }
+    },
+    tooltip: {
+      enabled: false
+    },
+    responsive: [
+      {
+        breakpoint: 1025,
+        options: {
+          chart: {
+            height: 199
           }
         }
-      },
-      yaxis: {
-        labels: {
-          show: false
-        }
-      },
-      tooltip: {
-        enabled: false
-      },
-      responsive: [
-        {
-          breakpoint: 1025,
-          options: {
-            chart: {
-              height: 199
-            }
-          }
-        }
-      ]
-    };
+      }
+    ]
+  };
+  
   if (typeof weeklyEarningReportsEl !== undefined && weeklyEarningReportsEl !== null) {
     const weeklyEarningReports = new ApexCharts(weeklyEarningReportsEl, weeklyEarningReportsConfig);
     weeklyEarningReports.render();
