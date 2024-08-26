@@ -107,7 +107,7 @@
                                     <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
                                 </td>
                                 <td><a class="fw-bolder" href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</a></td>
-                                <td width="200" class="bg-{{ pedido.status_pedido|pedidoStatusColor }} fw-bolder text-center text-uppercase text-white">
+                                <td width="200" class="bg-{{ pedido.status_pedido|pedidoStatusColor }} fw-bolder text-center text-uppercase text-black">
                                     {{ pedido.status_pedido|pedidoStatus|raw }}
                                 </td>
                                 <td width="100" class="text-end">
