@@ -369,3 +369,5 @@
       }
   });
 });
+
+var gallery = $('#curva_abc a.img').simpleLightbox();
