@@ -455,7 +455,7 @@ table.dataTable th,table.dataTable td {
     box-sizing: border-box;
     display: inline-block;
     min-width: 1.5em;
-    padding: .5em 1em;
+    padding: .5em 0;
     margin-left: 2px;
     text-align: center;
     text-decoration: none !important;
