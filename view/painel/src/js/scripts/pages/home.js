@@ -347,6 +347,12 @@
         "info": false,
         "ordering": false,
         "pageLength": 6,
+        "language": {
+            "paginate": {
+                "next": '',
+                "previous": ''
+            }
+        }
     });
     $('#pedidos_equipe').DataTable({
       "paging": true,
@@ -355,5 +361,11 @@
       "info": false,
       "ordering": false,
       "pageLength": 6,
+      "language": {
+          "paginate": {
+              "next": '',
+              "previous": ''
+          }
+      }
   });
 });
