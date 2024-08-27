@@ -90,10 +90,10 @@
   stroke: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-radialbar .apexcharts-radialbar-track .apexcharts-radialbar-area {
-  stroke: #161d31; }
+  stroke: #171717; }
 
 .dark-layout .apexcharts-canvas .apexcharts-radar-series polygon {
-  fill: #161d31;
+  fill: #171717;
   stroke: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-datalabels-group .apexcharts-datalabel-value {
@@ -116,29 +116,29 @@
   border-bottom-color: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-xaxistooltip-bottom::after {
-  border-bottom-color: #161d31; }
+  border-bottom-color: #171717; }
 
 .dark-layout .apexcharts-canvas .apexcharts-xaxistooltip-top:before {
   border-top-color: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-xaxistooltip-top::after {
-  border-top-color: #161d31; }
+  border-top-color: #171717; }
 
 .dark-layout .apexcharts-canvas .apexcharts-yaxistooltip-left:before {
   border-left-color: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-yaxistooltip-left:after {
-  border-left-color: #161d31; }
+  border-left-color: #171717; }
 
 .dark-layout .apexcharts-canvas .apexcharts-yaxistooltip-right:before {
   border-right-color: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-yaxistooltip-right:after {
-  border-right-color: #161d31; }
+  border-right-color: #171717; }
 
 .dark-layout .apexcharts-canvas .apexcharts-xaxistooltip,
 .dark-layout .apexcharts-canvas .apexcharts-yaxistooltip {
-  background: #161d31;
+  background: #171717;
   border-color: #3b4253; }
 
 .dark-layout .apexcharts-canvas .apexcharts-xaxistooltip .apexcharts-xaxistooltip-text,

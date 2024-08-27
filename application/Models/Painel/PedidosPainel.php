@@ -34,6 +34,10 @@ class PedidosPainel extends Model
             $where .= " AND p.`status_pedido` = '".$_GET['status_pedido']."' ";
         }
 
+        if(!empty($_GET['estado'])){
+            $where .= " AND p.`estado_pedido` = '".$_GET['estado']."' ";
+        }
+
         return $where;
     }
 
@@ -417,4 +421,29 @@ class PedidosPainel extends Model
         $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido in ('7', '8') AND ativo = 'S'");
         return $itens;
     }
+
+    public function getCurvaABCProdutos()
+    {
+        $itens = new Read();
+        $itens->FullRead("WITH ProdutoQuantidades AS (SELECT pi.id_produto, SUM(pi.qt_total) AS quantidade_total FROM pedidos_itens pi GROUP BY pi.id_produto), ProdutoPercentuais AS (SELECT pq.id_produto, pq.quantidade_total, pq.quantidade_total * 100.0 / SUM(pq.quantidade_total) OVER () AS percentual FROM ProdutoQuantidades pq), ProdutoClassificacao AS (SELECT pq.id_produto, pq.quantidade_total, pq.percentual, SUM(pq.percentual) OVER (ORDER BY pq.percentual DESC) AS acumulado FROM ProdutoPercentuais pq) SELECT p.codigo, p.nome, p.imagem, pc.quantidade_total, ROUND(pc.percentual) AS porcentagem,
+        ROUND(pc.acumulado) AS acumulado, CASE WHEN pc.acumulado <= 80 THEN 'A' WHEN pc.acumulado <= 95 THEN 'B' ELSE 'C' END AS curva_abc 
+        FROM ProdutoClassificacao pc INNER JOIN produtos p ON p.id = pc.id_produto ORDER BY pc.acumulado");
+        return $itens;
+    }
+
+    public function getpedidosPorEquipe()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT u.id AS user_id, u.nome AS nome_usuario, u.email, COUNT(p.id) AS quantidade_pedidos, ROUND((COUNT(p.id) / (SELECT COUNT(*) FROM pedidos) * 100)) AS porcentagem_pedidos FROM pedidos p INNER JOIN usuarios u ON p.id_user = u.id GROUP BY u.id, u.nome ORDER BY porcentagem_pedidos DESC");
+        return $itens;
+    }
+
+    public function getpedidosPorEstados()
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT estado_pedido, COUNT(*) AS quantidade_pedidos, ROUND((COUNT(*) / (SELECT COUNT(*) FROM pedidos) * 100)) AS porcentagem_pedidos
+                        FROM pedidos GROUP BY estado_pedido ORDER BY quantidade_pedidos DESC LIMIT 5");
+        return $itens;
+    }
+
 }

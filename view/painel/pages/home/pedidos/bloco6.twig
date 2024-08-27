@@ -2,109 +2,32 @@
 <div class="col-xxl-4 col-md-6 mt-2">
     <div class="card h-100">
     <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="card-title mb-0">
-            <h4>Espacho por Estado</h4>
-            <p class="card-subtitle">1.250 Pedidos</p>
+        <div class="card-title d-flex justify-content-between align-items-center w-100 mb-0">
+            <h4 class="mb-0">Pedidos por Estado</h4>
+            <p class="card-subtitle">{{ pedidosTotal|length }}  Pedidos</p>
         </div>
     </div>
     <div class="card-body">
         <ul class="p-0 m-0">
+
+            {% for item in pedidosEstados %}
+            {% set bg_colors = ['primary', 'success', 'danger', 'warning', 'info'] %}
             <li class="d-flex mb-1">
-                <div class="chart-progress me-2" data-color="primary" data-series="72" data-progress_variant="true"></div>
+                <div class="chart-progress me-2" data-color="{{ bg_colors[(loop.index0 % bg_colors|length)] }}" data-series="{{ item.porcentagem_pedidos }}" data-progress_variant="true"></div>
                 <div class="row w-100 align-items-center">
                     <div class="col-9">
                         <div class="me-2">
-                            <h6>São Paulo</h6>
-                            <small>535 Pedidos</small>
+                            <h6>{{ item.estado_pedido }}</h6>
+                            <small>{{ item.quantidade_pedidos }} Pedidos</small>
                         </div>
                     </div>
                     <div class="col-3 text-end">
-                        <button type="button" class="btn btn-dark btn-sm">
-                            <i class="fa-light fa-lg fa-arrow-right-to-line"></i>
-                        </button>
+                        <a href="{{ DOMAIN }}/painel/pedidos?estado={{ item.estado_pedido }}" class="btn btn-dark btn-sm"><i class="fa-light fa-lg fa-arrow-right-to-line"></i></a>
                     </div>
                 </div>
             </li>
-            <li class="d-flex mb-1">
-                <div
-                class="chart-progress me-2"
-                data-color="success"
-                data-series="48"
-                data-progress_variant="true"></div>
-                <div class="row w-100 align-items-center">
-                <div class="col-9">
-                    <div class="me-2">
-                    <h6>Basic fundamentals</h6>
-                    <small>32 Tasks</small>
-                    </div>
-                </div>
-                <div class="col-3 text-end">
-                    <button type="button" class="btn btn-dark btn-sm">
-                        <i class="fa-light fa-lg fa-arrow-right-to-line"></i>
-                    </button>
-                </div>
-                </div>
-            </li>
-            <li class="d-flex mb-1">
-                <div
-                class="chart-progress me-2"
-                data-color="danger"
-                data-series="15"
-                data-progress_variant="true"></div>
-                <div class="row w-100 align-items-center">
-                <div class="col-9">
-                    <div class="me-2">
-                    <h6>React native components</h6>
-                    <small>182 Tasks</small>
-                    </div>
-                </div>
-                <div class="col-3 text-end">
-                    <button type="button" class="btn btn-dark btn-sm">
-                        <i class="fa-light fa-lg fa-arrow-right-to-line"></i>
-                    </button>
-                </div>
-                </div>
-            </li>
-            <li class="d-flex mb-1">
-                <div
-                class="chart-progress me-2"
-                data-color="info"
-                data-series="24"
-                data-progress_variant="true"></div>
-                <div class="row w-100 align-items-center">
-                <div class="col-9">
-                    <div class="me-2">
-                    <h6>Basic of music theory</h6>
-                    <small>56 Tasks</small>
-                    </div>
-                </div>
-                <div class="col-3 text-end">
-                    <button type="button" class="btn btn-dark btn-sm">
-                        <i class="fa-light fa-lg fa-arrow-right-to-line"></i>
-                    </button>
-                </div>
-                </div>
-            </li>
-            <li class="d-flex">
-                <div
-                class="chart-progress me-2"
-                data-color="info"
-                data-series="24"
-                data-progress_variant="true"></div>
-                <div class="row w-100 align-items-center">
-                <div class="col-9">
-                    <div class="me-2">
-                    <h6>Basic of music theory</h6>
-                    <small>56 Tasks</small>
-                    </div>
-                </div>
-                <div class="col-3 text-end">
-                    <button type="button" class="btn btn-dark btn-sm">
-                        <i class="fa-light fa-lg fa-arrow-right-to-line"></i>
-                    </button>
-                </div>
-                </div>
-            </li>
+            {% endfor %}
+
         </ul>
     </div>
     </div>

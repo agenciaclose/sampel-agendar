@@ -235,8 +235,6 @@
     revenueGrowth.render();
   }
 
-
-
   // PEDIDOS POR MESES
   let meses = $('#weeklyEarningReports').attr('data-meses').split(',');
   let meses_qtd = $('#weeklyEarningReports').attr('data-qtd').split(',').map(Number);
@@ -340,3 +338,22 @@
     const weeklyEarningReports = new ApexCharts(weeklyEarningReportsEl, weeklyEarningReportsConfig);
     weeklyEarningReports.render();
   }
+
+  $(document).ready(function() {
+    $('#curva_abc').DataTable({
+        "paging": true,
+        "searching": false,
+        "lengthChange": false,
+        "info": false,
+        "ordering": false,
+        "pageLength": 6,
+    });
+    $('#pedidos_equipe').DataTable({
+      "paging": true,
+      "searching": false,
+      "lengthChange": false,
+      "info": false,
+      "ordering": false,
+      "pageLength": 6,
+  });
+});

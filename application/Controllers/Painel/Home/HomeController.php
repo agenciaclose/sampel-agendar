@@ -62,6 +62,15 @@ class HomeController extends Controller
         $endDay = $endOfWeek->format('d');
         $month = $this->formatMonthInPortuguese($startOfWeek);
 
+        $pedidos = new PedidosPainel();
+        $pedidosEstados = $pedidos->getpedidosPorEstados()->getResult();
+
+        $pedidos = new PedidosPainel();
+        $pedidosEquipe = $pedidos->getpedidosPorEquipe()->getResult();
+
+        $pedidos = new PedidosPainel();
+        $curvaABC = $pedidos->getCurvaABCProdutos()->getResult();
+
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
             'loop' => $backgroundColors,
@@ -83,7 +92,10 @@ class HomeController extends Controller
             'weekNumber' => $weekNumber,
             'startDay' => $startDay,
             'endDay' => $endDay,
-            'month' => $month
+            'month' => $month,
+            'pedidosEstados' => $pedidosEstados,
+            'curvaABC' => $curvaABC,
+            'pedidosEquipe' => $pedidosEquipe
         ]);
     }
 
