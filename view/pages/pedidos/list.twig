@@ -107,11 +107,11 @@
                                     <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase" data-bs-toggle="tooltip" data-bs-placement="top"
                                     data-bs-title="{{ pedido.descricao_pedido }}">
                                         {% if pedido.tipo_evento == 'eventos' %}
-                                            {{ pedido.nome_evento|slice(0, 50) ~ (pedido.nome_evento|length > 50 ? '...' : '') }}
+                                            {{ pedido.nome_evento|slice(0, 35) ~ (pedido.nome_evento|length > 35 ? '...' : '') }}
                                         {% elseif pedido.tipo_evento == 'visitas' %}
-                                            {{ pedido.nome_visita|slice(0, 50) ~ (pedido.nome_visita|length > 50 ? '...' : '') }}
+                                            {{ pedido.nome_visita|slice(0, 35) ~ (pedido.nome_visita|length > 35 ? '...' : '') }}
                                         {% elseif pedido.tipo_evento == 'palestras' %}
-                                            {{ pedido.nome_palestra|slice(0, 50) ~ (pedido.nome_palestra|length > 50 ? '...' : '') }}
+                                            {{ pedido.nome_palestra|slice(0, 35) ~ (pedido.nome_palestra|length > 35 ? '...' : '') }}
                                         {% else %}
                                             <span class="opacity-50">Pedido Extra</span>
                                         {% endif %}                             
