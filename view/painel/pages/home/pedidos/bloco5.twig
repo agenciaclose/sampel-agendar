@@ -11,22 +11,23 @@
             <table class="table table-striped list-unstyled mb-0" id="pedidos_equipe">
                 <thead class="d-none">
                     <tr>
-                        <th class="text-end">Valores</th>
+                        <th>Nome</th>
+                        <th>Valores</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in pedidosEquipe %}
                     <tr>
-                        <td class="w-100">
-                            <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">{{ item.nome_usuario }}</h6>
-                                    <small class="text-body">{{ item.email }}</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <p class="mb-0">{{ item.quantidade_pedidos }}</p>
-                                    <div class="ms-4 badge bg-label-success">{{ item.porcentagem_pedidos }}%</div>
-                                </div>
+                        <td>
+                            <div class="me-1">
+                                <h6 class="mb-0">{{ item.nome_usuario }}</h6>
+                                <small class="text-body">{{ item.email }}</small>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end align-items-center">
+                                <p class="mb-0">{{ item.quantidade_pedidos }}</p>
+                                <div class="ms-2 badge bg-label-success">{{ item.porcentagem_pedidos }}%</div>
                             </div>
                         </td>
                     </tr>

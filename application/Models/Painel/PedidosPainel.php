@@ -434,7 +434,7 @@ class PedidosPainel extends Model
     public function getpedidosPorEquipe()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT u.id AS user_id, u.nome AS nome_usuario, u.email, COUNT(p.id) AS quantidade_pedidos, ROUND((COUNT(p.id) / (SELECT COUNT(*) FROM pedidos) * 100)) AS porcentagem_pedidos FROM pedidos p INNER JOIN usuarios u ON p.id_user = u.id GROUP BY u.id, u.nome ORDER BY porcentagem_pedidos DESC");
+        $itens->FullRead("SELECT u.id AS user_id, u.nome AS nome_usuario, u.email, COUNT(p.id) AS quantidade_pedidos, ROUND((COUNT(p.id) / (SELECT COUNT(*) FROM pedidos) * 100)) AS porcentagem_pedidos FROM pedidos p INNER JOIN usuarios u ON p.id_equipe = u.id GROUP BY u.id, u.nome ORDER BY porcentagem_pedidos DESC");
         return $itens;
     }
 
