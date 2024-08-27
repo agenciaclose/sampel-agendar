@@ -42,7 +42,12 @@ class PedidosPainel extends Model
         $where = $this->getFilter();
 
         $read = new Read();
-        $read->FullRead("SELECT p.*, u.nome AS equipe FROM pedidos AS p INNER JOIN usuarios AS u ON u.id = p.id_equipe WHERE p.ativo = 'S' $where $by_user ORDER BY `id` DESC");
+        $read->FullRead("SELECT p.*, u.nome AS equipe, v.title AS nome_visita, e.nome_evento, pa.title AS nome_palestra FROM pedidos AS p 
+        INNER JOIN usuarios AS u ON u.id = p.id_equipe 
+        LEFT JOIN visitas AS v ON v.id = p.id_evento
+        LEFT JOIN eventos AS e ON e.id = p.id_evento
+        LEFT JOIN palestras AS pa ON pa.id = p.id_evento
+        WHERE p.ativo = 'S' $where $by_user ORDER BY `id` DESC");
         return $read;
     }
 

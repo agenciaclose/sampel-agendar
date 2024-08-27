@@ -88,6 +88,7 @@
                             <tr>
                                 <th class="text-center" width="50">ID</th>
                                 <th>Comprador</th>
+                                <th>Evento</th>
                                 <th>Descrição</th>
                                 <th>Valor Pedido</th>
                                 <th width="200">Status</th>
@@ -101,6 +102,19 @@
                                 <td>
                                     <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}">{{ pedido.equipe }}</a>
                                     <div><a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.date_create|date("d-m-Y H:i") }}</small></a></div>
+                                </td>
+                                <td>
+                                    <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase">
+                                        {% if pedido.tipo_evento == 'eventos' %}
+                                            {{ pedido.nome_evento }}
+                                        {% elseif pedido.tipo_evento == 'visitas' %}
+                                            {{ pedido.nome_visita }}
+                                        {% elseif pedido.tipo_evento == 'palestras' %}
+                                            {{ pedido.nome_palestra }}
+                                        {% else %}
+                                            <span class="opacity-50">Pedido Extra</span>
+                                        {% endif %}   
+                                    </a>
                                 </td>
                                 <td>
                                     <a href="{{ DOMAIN }}/pedidos/view/{{ pedido.id }}" class="text-uppercase">{{ pedido.descricao_pedido }}</a>
