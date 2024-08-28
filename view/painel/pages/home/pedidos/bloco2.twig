@@ -1,12 +1,8 @@
 <div class="card h-100">
     <div class="card-body pb-0">
-        <div class="d-flex justify-content-between">
-
+        <div class="d-flex flex-column">
             <div class="d-flex flex-column">
-                <div class="card-title mb-auto">
-                    <h4>Relatórios de Mensais</h4>
-                </div>
-                <div class="d-flex gap-2 align-items-center mb-2 flex-wrap">
+                <div class="d-flex flex-column">
                     {% set valor_total_pedidos = 0 %}
                     {% for pedidos in pedidosMensais %}
                         {% set valor_total_pedidos = valor_total_pedidos + pedidos.total_valor_pedidos %}
@@ -15,7 +11,6 @@
                     <small class="text-body">Valor total de todos os pedidos de {{ "now"|date("Y") }}.</small>
                 </div>
             </div>
-
             <div class="flex-grow-1 w-100">
                 <div
                     id="weeklyEarningReports"
