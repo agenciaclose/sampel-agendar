@@ -2,7 +2,7 @@
     <div class="card-body pb-0">
         <div class="d-flex flex-column">
             <div class="d-flex flex-column">
-                <div class="d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center">
                     {% set valor_total_pedidos = 0 %}
                     {% for pedidos in pedidosMensais %}
                         {% set valor_total_pedidos = valor_total_pedidos + pedidos.total_valor_pedidos %}
