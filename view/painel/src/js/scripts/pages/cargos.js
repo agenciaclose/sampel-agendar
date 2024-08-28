@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    
+    $('#admin1').change(function() {
+        $('.form_permissoes input[type="checkbox"]').prop('checked', this.checked);
+    });
 
 	$("#add_cargo").submit(function (c) {
 

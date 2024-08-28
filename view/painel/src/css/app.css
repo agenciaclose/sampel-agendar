@@ -4407,3 +4407,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 #curva_abc_paginate .pagination, #pedidos_equipe_paginate .pagination {
   margin-bottom: 0 !important;
 }
+.tooltip {
+  text-transform: uppercase;
+}

@@ -4,7 +4,7 @@
 </div>
 <div class="mt-2">
 
-    <form action="javascript:void(0)" method="POST" id="{{ cargo.id == '' ? 'add_cargo' : 'edit_cargo' }}">
+    <form action="javascript:void(0)" class="form_permissoes" method="POST" id="{{ cargo.id == '' ? 'add_cargo' : 'edit_cargo' }}">
         <div class="mb-2">
             <label class="form-label">Nome do Cargo</label>
             <input type="text" name="role" value="{{ cargo.role }}" class="form-control" placeholder="Ex. Financeiro">
@@ -14,6 +14,15 @@
         {% if cargo.permissions %}
             {% set permissions = cargo.permissions|json_decode %}
         {% endif %}
+
+        <div class="mb-2 border-bottom">
+            <div><b>Painel Administrativo</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="permission[admin][]" type="checkbox" id="admin1" value="view" {{ 'view' in permissions.admin ? 'checked' }}>
+                <label class="form-check-label" for="admin1">Permitir Acesso Total</label>
+            </div>
+        </div>
+
         <div class="mb-2 border-bottom">
             <div><b>Cargos</b></div>
             <div class="form-check form-check-inline">

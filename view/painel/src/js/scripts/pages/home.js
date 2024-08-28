@@ -360,7 +360,7 @@
       "lengthChange": false,
       "info": false,
       "ordering": false,
-      "pageLength": 6,
+      "pageLength": 8,
       "language": {
           "paginate": {
               "next": '',
