@@ -55,9 +55,7 @@
 									<th></th>
 									<th class="filter-column">Produto</th>
 									<th>Código</th>
-									<th class="text-center">Embalagem</th>
 									<th class="text-center">Unit</th>
-									<th class="text-center">Valor Unit</th>
 									<th class="text-center" width="50">Qtd</th>
 									<th class="text-center" width="50">Qtd Total</th>
 								</tr>
@@ -75,11 +73,7 @@
 										</td>
 										<td>{{ produto.nome }}</td>
 										<td>{{ produto.codigo }}</td>
-										<td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
 										<td class="text-center">{{ produto.unidades }}</td>
-										<td class="text-center">
-											R$ {{ produto.preco|number_format(2, ',', '.') }}
-										</td>
 										<td class="text-center" width="50">
 											<span class="text-black">{{ produto.qtd_escolhida }}</span>
 										</td>
