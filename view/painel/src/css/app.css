@@ -4136,6 +4136,9 @@ td.bg-success {
 td.bg-danger {
   box-shadow: inset 0 0 0 9999px #ea5455 !important;
 }
+td.bg-warning {
+  box-shadow: inset 0 0 0 9999px #ff922a !important;
+}
 .Pendente-bg {
   box-shadow: inset 0 0 0 9999px var(--bs-warning) !important
 }

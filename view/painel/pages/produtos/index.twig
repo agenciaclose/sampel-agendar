@@ -59,7 +59,8 @@
                                                     <td>{{ produto.codigo }}</td>
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
-                                                    <td class="text-center text-white {{ produto.estoque <= 0 ? 'bg-danger' : 'bg-success' }}">
+                                                    {% set bg_class = produto.estoque <= 0 ? 'bg-danger' : (produto.estoque <= produto.estoque_minimo ? 'bg-warning' : 'bg-success') %}
+                                                    <td class="text-center text-black {{ bg_class }}">
                                                         {{ produto.estoque }}
                                                     </td>
                                                     <td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
