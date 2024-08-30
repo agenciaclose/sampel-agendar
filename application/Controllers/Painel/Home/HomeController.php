@@ -29,10 +29,10 @@ class HomeController extends Controller
         $produtosSemPDV = $produtos->getProdutosSemPDV()->getResult();
         $produtosPDV = $produtos->getProdutosPDV()->getResult();
 
-        $produtosSemEstoque = $produtos->getProdutosSemEstoque()->getResult();
+        $produtosEstoqueBaixo = $produtos->getProdutosEstoqueBaixo()->getResult();
         $valorTotalEstoque = $produtos->valorTotalEstoqueSemPDV()->getResult()[0];
         $valorTotalEstoquePDV = $produtos->valorTotalEstoquePDV()->getResult()[0];
-        $valorTotalSemEstoque = $produtos->valorTotalSemEstoque()->getResult()[0];
+        $valorTotalEstoqueBaixo = $produtos->valorTotalEstoqueBaixo()->getResult()[0];
 
         $pedidos = new PedidosPainel();
         $pedidosTotal = $pedidos->getPedidos()->getResult();
@@ -74,12 +74,12 @@ class HomeController extends Controller
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
             'loop' => $backgroundColors,
-            'produtosSemEstoque' => $produtosSemEstoque,
+            'produtosEstoqueBaixo' => $produtosEstoqueBaixo,
             'produtosSemPDV' => $produtosSemPDV,
             'produtosPDV' => $produtosPDV,
             'valorTotalEstoque' => $valorTotalEstoque,
             'valorTotalEstoquePDV' => $valorTotalEstoquePDV,
-            'valorTotalSemEstoque' => $valorTotalSemEstoque,
+            'valorTotalEstoqueBaixo' => $valorTotalEstoqueBaixo,
             'pedidosTotal' => $pedidosTotal,
             'PedidosValorTotal' => $PedidosValorTotal,
             'eventosGastos' => $eventosGastos,

@@ -9,10 +9,32 @@ use Agencia\Close\Models\Model;
 
 class ProdutosPainel extends Model
 {
+
+    public function getFilter()
+    {
+        $where = '';
+
+        if(!empty($_GET['tipo'])){
+
+            if($_GET['tipo'] == 'PDV'){
+                $where .= " AND `PDV` = 'S' ";
+            }
+            if($_GET['tipo'] == 'estoque'){
+                $where .= " AND estoque < estoque_minimo ";
+            }
+
+        }
+        return $where;
+    }
+
+
+
     public function getProdutos(): Read
     {
+        $where = $this->getFilter();
+
         $read = new Read();
-        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' ORDER BY `nome` ASC");
+        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' $where ORDER BY `nome` ASC");
         return $read;
     }
 
@@ -44,17 +66,17 @@ class ProdutosPainel extends Model
         return $read;
     }
 
-    public function valorTotalSemEstoque(): Read
+    public function valorTotalEstoqueBaixo(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT SUM(preco) AS valor_total_sem_estoque FROM produtos WHERE estoque = 0 AND preco <> '' AND PDV = 'N'");
+        $read->FullRead("SELECT SUM((estoque_minimo - estoque) * CAST(preco AS DECIMAL(10, 2))) AS total_reabastecimento FROM produtos WHERE estoque < estoque_minimo  AND preco <> '' AND PDV = 'N'");
         return $read;
     }
 
-    public function getProdutosSemEstoque(): Read
+    public function getProdutosEstoqueBaixo(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM produtos WHERE estoque = 0  AND preco <> ''");
+        $read->FullRead("SELECT * FROM produtos WHERE estoque < estoque_minimo  AND preco <> ''");
         return $read;
     }
 

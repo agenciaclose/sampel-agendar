@@ -11,7 +11,7 @@
                     </div>
                     <h2 class="mb-0">{{ pedidosTotal|length }}</h2>
                 </div>
-                <h4 class="mb-1">Total de Pedidos</h4>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/pedidos">Total de Pedidos</a></h4>
                 <p class="mb-0">
                     <span class="text-heading fw-bolder text-info me-2">R$ {{ PedidosValorTotal.valor_total_pedido|number_format(2, ',', '.') }}</span>
                     <small>Valor Total de todos os pedidos</small>
@@ -31,7 +31,7 @@
                     </div>
                     <h2 class="mb-0">{{ produtosSemPDV|length }}</h2>
                 </div>
-                <h4 class="mb-1">Total de Produtos</h4>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos">Total de Produtos</a></h4>
                 <p class="mb-0">
                     <span class="text-heading fw-bolder text-success me-2">R$ {{ valorTotalEstoque.valor_total_estoque|number_format(2, ',', '.') }}</span>
                     <small>Valor Estoque</small>
@@ -51,7 +51,7 @@
                     </div>
                     <h2 class="mb-0">{{ produtosPDV|length }}</h2>
                 </div>
-                <h4 class="mb-1">Total de Produtos PDV</h4>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos?tipo=PDV">Total de Produtos PDV</a></h4>
                 <p class="mb-0">
                     <span class="text-heading fw-bolder text-warning me-2">R$ {{ valorTotalEstoquePDV.valor_total_estoque_PDV|number_format(2, ',', '.') }}</span>
                     <small>Valor Estoque PDV</small>
@@ -71,12 +71,12 @@
                             <i class="fa-regular fs-5 fa-cart-circle-xmark"></i>
                         </span>
                     </div>
-                    <h2 class="mb-0">{{ produtosSemEstoque|length }}</h2>
+                    <h2 class="mb-0">{{ produtosEstoqueBaixo|length }}</h2>
                 </div>
-                <h4 class="mb-1">Produtos sem Estoque</h4>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos?tipo=estoque">Produtos com Estoque baixo</a></h4>
                 <p class="mb-0">
-                    <span class="text-heading fw-bolder text-danger me-2">R$ {{ valorTotalSemEstoque.valor_total_sem_estoque|number_format(2, ',', '.') }}</span>
-                    <small>Valor de Produtos sem Estoque</small>
+                    <span class="text-heading fw-bolder text-danger me-2">R$ {{ valorTotalEstoqueBaixo.total_reabastecimento|number_format(2, ',', '.') }}</span>
+                    <small>Valor Total para Reabastecer o Estoque</small>
                 </p>
             </div>
         </div>
