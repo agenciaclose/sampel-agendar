@@ -14,7 +14,7 @@ class EventosPainel extends Model
         $where = '';
 
         if(!empty($_GET['ano_evento'])){
-            $where .= " WHERE data_evento_inicio like '%".$_GET['ano_evento']."%'";
+            $where .= " AND data_evento_inicio like '%".$_GET['ano_evento']."%'";
         }
 
         $read = new Read();
@@ -26,7 +26,7 @@ class EventosPainel extends Model
             IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id), 0)
         ) AS total_gastos
         FROM eventos
-        $where
+        WHERE status_evento = 'Ativo' $where
         ORDER BY data_evento_inicio ASC");
         return $read;
     }
@@ -55,10 +55,10 @@ class EventosPainel extends Model
         return $update;
     }
 
-    public function productStatus($params)
+    public function getEventoStatus($params)
     {
         $read = new Read();
-        $read->FullRead("UPDATE `eventos` SET `status` = :status WHERE id = :id", "status={$params['status']}&id={$params['id']}");
+        $read->FullRead("UPDATE `eventos` SET `status_evento` = :status_evento WHERE id = :id", "status_evento={$params['status_evento']}&id={$params['id']}");
         return $read;
     }
 

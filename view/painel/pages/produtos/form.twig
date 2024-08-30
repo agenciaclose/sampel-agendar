@@ -47,7 +47,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-12">
+            <div class="col-md-4 col-12">
                 <div class="mb-1">
                     <label class="form-label">Unidades <i class="fa-solid fa-block-question"
                     data-bs-toggle="tooltip" 
@@ -56,13 +56,22 @@
                     <input type="number" name="unidades" min="0" value="{{ product.unidades != '' ? product.unidades : '0' }}" class="form-control">
                 </div>
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-md-4 col-12">
                 <div class="mb-1">
-                    <label class="form-label">Estoque (Qtd x Unidade) <i class="fa-solid fa-block-question"
+                    <label class="form-label">Estoque <i class="fa-solid fa-block-question"
                     data-bs-toggle="tooltip" 
                     data-bs-placement="top" 
                     data-bs-title="Total de Produtos. Calculando a Qtd. de Embalagens x Qtd. de Unidades"></i></label>
                     <input type="number" name="estoque" value="{{ product.estoque != '' ? product.estoque : '0' }}" class="form-control estoque">
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="mb-1">
+                    <label class="form-label">Estoque Min. <i class="fa-solid fa-block-question"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    data-bs-title="Estoque Mínimo"></i></label>
+                    <input type="number" name="estoque_minimo" value="{{ product.estoque_minimo != '' ? product.estoque_minimo : '0' }}" class="form-control">
                 </div>
             </div>
         </div>

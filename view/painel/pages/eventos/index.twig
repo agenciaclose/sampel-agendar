@@ -81,7 +81,11 @@
                                                         <a href="{{ DOMAIN }}/painel/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
                                                         <div>
                                                             {% if 'add' in permissions.eventos or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formEvent"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</a>
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formEvent"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                            {% endif %}
+                                                            <span class="mx-05">|</span>
+                                                            {% if 'delete' in permissions.eventos or permissions == 'all' %}
+                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ evento.id }}', '{{ evento.status_evento == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
                                                             <a href="{{ DOMAIN }}/painel/eventos/orcamento/{{ evento.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>

@@ -142,3 +142,31 @@ $(document).ready(function () {
     });
 
 });
+
+function statusEvent(id, status_evento) {
+	Swal.fire({
+		title: "Desativar esse Evento?",
+		text: "Ele será removido dos relatórios, e caso existam pedidos vinculados a ele, esses pedidos serão recusados e os itens retornarão ao estoque.",
+		showCancelButton: true,
+		cancelButtonText: 'Não',
+		confirmButtonText: 'Sim',
+		dangerMode: true,
+	}).then((result) => {
+		if (result.value === true) {
+			var DOMAIN = $('body').data('domain');
+            $.ajax({
+                type: "POST", 
+                async: true,
+                data: {'id': id, status_evento: status_evento},
+                url: DOMAIN + '/painel/eventos/status',
+                success: function (data) {
+                    if (data == "success") {
+                        window.location.reload();
+                    }else{
+                        alert('ERRO AO ATUALIZADO');
+                    }
+                }
+            });
+		}
+	});
+}
