@@ -4404,8 +4404,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 10px;
   width: 2px;
 }
-#curva_abc_paginate .pagination, #pedidos_equipe_paginate .pagination {
-  margin-bottom: 0 !important;
+#curva_abc_paginate .pagination, #pedidos_equipe_paginate .pagination, #pedidos_estados_paginate .pagination {
+  margin: 0 !important;
 }
 .tooltip {
   text-transform: uppercase;

@@ -367,7 +367,21 @@
               "previous": ''
           }
       }
+    });
+    $('#pedidos_estados').DataTable({
+      "paging": true,
+      "searching": false,
+      "lengthChange": false,
+      "info": false,
+      "ordering": false,
+      "pageLength": 5,
+      "language": {
+          "paginate": {
+              "next": '',
+              "previous": ''
+          }
+      }
+    });
   });
-});
 
 var gallery = $('#curva_abc a.img').simpleLightbox();

@@ -24,11 +24,8 @@
                                     <a href="{{ DOMAIN }}/painel/pedidos?id_equipe={{ item.id_equipe }}"<h6 class="mb-0">{{ item.nome_usuario }}</h6></a>
                                 </div>
                             </td>
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end align-items-center">
-                                    <p class="mb-0">{{ item.quantidade_pedidos }}</p>
-                                    <div class="ms-2 badge bg-label-success">{{ item.porcentagem_pedidos }}%</div>
-                                </div>
+                            <td class="text-end text-success" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="<b>Total de Pedidos:</b> <span class='ms-1 badge bg-label-success'>{{ item.quantidade_pedidos }}</span> <span class='d-block mt-1'><b>Porcentagem:</b><span class='ms-1 badge bg-label-success'>{{ item.porcentagem_pedidos }}%</span></span>">
+                                R$ {{ item.valor_total_pedido|number_format(2, ',', '.') }}
                             </td>
                         </tr>
                         {% endfor %}
