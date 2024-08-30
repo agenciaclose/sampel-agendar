@@ -60,7 +60,7 @@
                                                     <td class="text-center">{{ produto.embalagem }} / {{ produto.quantidade }}</td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
                                                     {% set bg_class = produto.estoque <= 0 ? 'bg-danger' : (produto.estoque <= produto.estoque_minimo ? 'bg-warning' : 'bg-success') %}
-                                                    <td class="text-center text-black {{ bg_class }}">
+                                                    <td class="text-center text-black {{ bg_class }}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="<b>Estoqeu Mínimo:</b> <span class='ms-1 badge bg-label-success'>{{ produto.estoque_minimo }}</span>">
                                                         {{ produto.estoque }}
                                                     </td>
                                                     <td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
