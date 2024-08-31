@@ -1361,11 +1361,6 @@ img.alignright{
 .has-transparent-menu .primary-menu.mobile-show .wbc_menu > li > a{
   color: #b4b7bd !important;
 }
-
-.mobile li a {
-  color: #000000 !important;
-}
-
 .site-logo-title .wbc-alt-logo{
   opacity: 0;
   filter: alpha(opacity=0);
