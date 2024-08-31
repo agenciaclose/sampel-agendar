@@ -72,9 +72,13 @@ $("#confirmar-presenca").submit(function (c) {
       type: "POST", async: true, data: form.serialize(),
       url: DOMAIN + '/visita/recepcao/confirmar',
       success: function (data) {
-
-        $('#sendContentModal').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
-        setTimeout(function() { location.reload(); }, 3000);
+        if(data == 0){
+          $('#sendContentModal').html('<button type="button" class="btn btn-success btn-lg w-100 fw-bold rounded-0"><i class="fa-solid fa-shield-check fa-beat"></i> VERIFICADO</button>');
+          setTimeout(function() { location.reload(); }, 3000);
+        }else{
+          $('#sendContentModal').html('<button type="submit" class="btn btn-danger btn-lg w-100 fw-bold rounded-0">INSCRIÇÃO NÃO ENCONTRADA. VERIFICAR NOVAMENTE.</button>');
+          //setTimeout(function() { location.reload(); }, 3000);
+        }
 
       }
   });
