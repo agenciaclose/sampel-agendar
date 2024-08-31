@@ -9,7 +9,7 @@
 	<session>
 
 		{% set now = "now"|date("Y-m-d H:i:s") %}
-		{% set eventDate = visita.data_visita ~ " 11:59:59" %}
+		{% set eventDate = visita.data_visita ~ " 10:59:59" %}
 
 		{% if now < eventDate %}
 
