@@ -1,6 +1,30 @@
 $(document).ready(function () {
     var DOMAIN = $('body').data('domain');
 
+    if ($('#descricao').length){    
+        new FroalaEditor('#descricao', {
+            key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+            enter: FroalaEditor.ENTER_BR,
+            language: 'pt_br',
+            placeholderText: 'Digite uma descrição...', 
+            pastePlain: true,
+            attribution: false,
+            theme: 'dark',
+            toolbarButtons: {
+                'moreText': {
+                'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
+                'buttonsVisible': 2
+                },
+                'moreParagraph': {
+                'buttons': ['alignLeft', 'alignCenter',  'alignRight']
+                },
+                'moreRich': {
+                'buttons': ['emoticons', 'fontAwesome']
+                }
+            }
+        });
+    }
+
     $("#add_orcamento").submit(function (c) {
 
         $('.form-load').addClass('show');
@@ -104,6 +128,32 @@ $(document).ready(function () {
     });
     
     $('.money').mask("#.##0,00", {reverse: true});
+
+    //PARCELAS
+    $('#gerar_parcelas').on('click', function() {
+        let valorOrcamento = parseFloat($('input[name="valor_orcamento"]').val().replace(/\./g, '').replace(',', '.'));
+        let qtdParcelas = parseInt($('input[name="qtd_parcelas"]').val());
+        let valorParcela = valorOrcamento / qtdParcelas;
+        let $divParcelas = $('.parcelas');
+
+        $divParcelas.empty();
+
+        for (let i = 0; i < qtdParcelas; i++) {
+            let parcelaHtml = `
+                <div class="mb-2 row">
+                    <div class="col-sm-6">
+                        <label class="control-label">Valor da Parcela</label>
+                        <input type="text" name="valor_parcela[]" class="form-control money" value="${valorParcela.toFixed(2).replace('.', ',')}">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Data de Pagamento</label>
+                        <input type="date" name="data_parcela[]" class="form-control">
+                    </div>
+                </div>
+            `;
+            $divParcelas.append(parcelaHtml);
+        }
+    });
     
 });
 
