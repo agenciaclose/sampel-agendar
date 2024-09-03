@@ -37,11 +37,11 @@
                                 </li>
                                 {% endif %}
 
-                                {% if 'view' in permissions.paletras or permissions == 'all' %}
-                                <li class="menu-item {{ menu == 'paletras' ? 'current-menu-item' }}">
+                                {% if 'view' in permissions.palestras or permissions == 'all' %}
+                                <li class="menu-item {{ menu == 'palestras' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
                                     <ul>
-                                        <li><a href="{{ DOMAIN }}/palestras">Lista de Paletras</a></li>
+                                        <li><a href="{{ DOMAIN }}/palestras">Lista de Palestras</a></li>
                                         <li><a href="{{ DOMAIN }}/palestras/cadastro">Criar nova Palestra</a></li>
                                         <li><a href="{{ DOMAIN }}/palestras/relatorios">Relatórios Gerais</a></li>
                                     </ul>
@@ -126,10 +126,10 @@
                                                     <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="menu-item  border-bottom {{ menu == 'paletras' ? 'current-menu-item' }}">
+                                            <li class="menu-item  border-bottom {{ menu == 'palestras' ? 'current-menu-item' }}">
                                                 <a href="javascript:void(0);" class="submenu py-2"><i class="fa-thin fa-microphone-lines"></i> Palestras  <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="{{ DOMAIN }}/palestras">Lista de Paletras</a></li>
+                                                    <li><a href="{{ DOMAIN }}/palestras">Lista de Palestras</a></li>
                                                     <li><a href="{{ DOMAIN }}/palestras/cadastro">Criar nova Palestra</a></li>
                                                 </ul>
                                             </li>
