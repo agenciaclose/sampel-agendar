@@ -16,6 +16,7 @@
                             <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
                                 <a href="{{ DOMAIN }}" class="ps-0"><i class="fa-thin fa-house-chimney"></i> Home</a>
                             </li>
+                            
                             {% if _session.sampel_user_id %}
 
                                 {% if 'view' in permissions.eventos or permissions == 'all' %}
@@ -24,6 +25,7 @@
                                 </li>
                                 {% endif %}
 
+                                {% if 'view' in permissions.visitas or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
                                     <ul>
@@ -33,6 +35,9 @@
                                         <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
                                     </ul>
                                 </li>
+                                {% endif %}
+
+                                {% if 'view' in permissions.paletras or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'paletras' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
                                     <ul>
@@ -41,15 +46,22 @@
                                         <li><a href="{{ DOMAIN }}/palestras/relatorios">Relatórios Gerais</a></li>
                                     </ul>
                                 </li>
+                                {% endif %}
+
+                                {% if 'view' in permissions.equipes or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'equipes' ? 'current-menu-item' }}">
                                     <a href="{{ DOMAIN }}/equipes"><i class="fa-thin fa-users"></i> Equipes</a>
                                 </li>
+                                {% endif %}
+
                                 {% if 'view' in permissions.pedidos or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'pedidos' ? 'current-menu-item' }}">
                                     <a href="{{ DOMAIN }}/pedidos" class="text-success"><i class="fa-thin fa-box-open-full"></i> Pedidos</a>
                                 </li>
                                 {% endif %}
+
                             {% endif %}
+
                             <li class="menu-item">
                                 <a href="{{ DOMAIN }}/minhas-inscricoes"><i class="fa-light fa-file-certificate"></i> Minhas inscrições</a>
                             </li>

@@ -140,10 +140,12 @@
 												<td>{{ produto.codigo }}</td>
 												<td class="text-center">{{ produto.embalagem }} / <span class="qtd-base-estoque-{{ produto.id }}">{{ produto.quantidade }}</span></td>
 												<td class="text-center qtd-base-unidade-{{ produto.id }}">{{ produto.unidades }}</td>
-												<td class="text-center">
+												
+												<td class="text-center {{ 'manager' in permissions.pedidos or permissions == 'all' ? '' : 'd-none' }}">
 													R$ {{ produto.preco|number_format(2, ',', '.') }}
 													<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">
 												</td>
+
 												<td class="text-center" width="50">
 													{% if produto.quantidade > 0 %}
 														<div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="Qtd. disponível atualmente: <b>{{ produto.quantidade > 0 ? produto.quantidade : 0 }}</b>">
