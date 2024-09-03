@@ -42,8 +42,10 @@
                                     <a href="javascript:void(0);"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
                                     <ul>
                                         <li><a href="{{ DOMAIN }}/palestras">Lista de Palestras</a></li>
+                                        {% if 'add' in permissions.palestras or permissions == 'all' %}
                                         <li><a href="{{ DOMAIN }}/palestras/cadastro">Criar nova Palestra</a></li>
                                         <li><a href="{{ DOMAIN }}/palestras/relatorios">Relatórios Gerais</a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
                                 {% endif %}

@@ -13,9 +13,11 @@
 				<h3>Sua listas de Palestras</h3>
 				<div>Aqui você ver e gerencia as Palestras.</div>
 			</div>
+			{% if 'add' in permissions.palestras or permissions == 'all' %}
 			<div>
 				<a href="{{ DOMAIN }}/palestras/cadastro" class="btn btn-warning btn-lg mt-2 mt-sm-0 fw-bold"><i class="fa-solid fa-plus"></i> CRIAR NOVA</a>
 			</div>
+			{% endif %}
 		</div>
 
 		<hr>
