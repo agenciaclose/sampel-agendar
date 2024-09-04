@@ -254,4 +254,5 @@ $(document).ready(function() {
 function editCPF() {
     $('.cpf-edit').hide();
     $('.cpf').show();
+    $('.cpf').val('');
 }
