@@ -130,7 +130,7 @@
                                             {% if pedido.status_pedido != '0' %}
                                                 <li><a class="dropdown-item" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a></li>
                                             
-                                                {% if 'add' in permissions.pedidos or permissions == 'all' %}
+                                                {% if 'add' in permissions.pedidos or permissions != 'all' %}
                                                     {% if pedido.status_pedido == '3' %}
                                                         <li><a class="dropdown-item" href="{{ DOMAIN }}/pedidos/edit/{{ pedido.id }}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
                                                     {% endif %}
