@@ -16,9 +16,12 @@ class UserCPF extends AbstractExtension
 
     public function UserCPF($cpf): string
     {
+        // Remove todos os caracteres que não sejam números
         $cpf = preg_replace("/[^0-9]/", "", $cpf);
-		// Em seguida, aplica a formatação
-	    $cpf = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
-	    return $cpf;
+
+        // Oculta os cinco números centrais do CPF
+        $cpf = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.***.***-\$4", $cpf);
+
+        return $cpf;
     }
 }

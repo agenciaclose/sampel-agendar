@@ -3,18 +3,18 @@
 	<hr>
 	<session>
 		<div>
-
 			<form action="javascript:void(0)" id="form_inscricao_editar" method="POST">
-							
 				<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-
 				<div class="row">
 				
-
 					<div class="col-md-6 col-12">
 						<div class="mb-3">
 							<label for="cpf" class="form-label">Seu CPF</label>
-							<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ inscricao.cpf }}" required="required">
+							<div class="cpf-edit position-relative">
+								<input type="text" class="form-control rounded-pill" value="{{ inscricao.cpf|UserCPF }}" readonly>
+								<a href="javascript:void(0)" class="position-absolute top-25 end-5" onclick="editCPF();"><i class="fa-solid fa-pen-to-square"></i></a>
+							</div>
+							<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ inscricao.cpf }}" required="required" style="display:none;">
 							<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
 						</div>
 					</div>

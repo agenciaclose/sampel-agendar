@@ -250,3 +250,8 @@ $(document).ready(function() {
         img.src = url;
     } else {}
 });
+
+function editCPF() {
+    $('.cpf-edit').hide();
+    $('.cpf').show();
+}
