@@ -759,7 +759,7 @@ footer.footer-border {
 
 .main-menu.menu-light .navigation .navigation-header {
   color: #a6a4b0;
-  margin: calc(2rem + 0.286rem) 0 0.3rem 1.2rem;
+  margin: calc(1rem + 0.2rem) 0 0.3rem 1.2rem;
   padding: 0;
   line-height: 1.5;
   letter-spacing: 0.01rem;
