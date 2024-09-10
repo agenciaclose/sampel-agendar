@@ -1,0 +1,65 @@
+<?php
+namespace Agencia\Close\Models\Painel;
+
+use Agencia\Close\Conn\Conn;
+use Agencia\Close\Conn\Read;
+use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Update;
+use Agencia\Close\Models\Model;
+
+class PatrociniosPainel extends Model
+{
+    public function getPatrocinios(): Read
+    {
+        $where = '';
+
+        if(!empty($_GET['ano_patrocinio'])){
+            $where .= " AND data_patrocinio_inicio like '%".$_GET['ano_patrocinio']."%'";
+        }
+
+        $read = new Read();
+        $read->FullRead("SELECT *,
+        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_patrocinio = patrocinios.id) AS total_orcamento,
+        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_patrocinio = patrocinios.id) AS total_pedido,
+        (
+            IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_patrocinio = patrocinios.id), 0) +
+            IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_patrocinio = patrocinios.id), 0)
+        ) AS total_gastos
+        FROM patrocinios
+        WHERE status_patrocinio = 'Ativo' $where
+        ORDER BY data_patrocinio_inicio ASC");
+        return $read;
+    }
+
+    public function getEventoID($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM patrocinios WHERE id = :id", "id={$id}");
+        return $read;
+    }
+
+    public function addProductSave($params)
+    {   
+        $create = new Create();
+        $create->ExeCreate('patrocinios', $params);
+        return $create;
+    }
+
+    public function editProductSave($params)
+    {
+        $id = $params['id'];
+        unset($params['id']);
+    
+        $update = new Update();
+        $update->ExeUpdate('patrocinios', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
+    }
+
+    public function getEventoStatus($params)
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE `patrocinios` SET `status_patrocinio` = :status_patrocinio WHERE id = :id", "status_patrocinio={$params['status_patrocinio']}&id={$params['id']}");
+        return $read;
+    }
+
+}

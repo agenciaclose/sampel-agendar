@@ -1,0 +1,78 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} {{ evento.id == '' ? 'Criar' : 'Editar' }} Evento {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+	
+	<session>
+
+		
+		<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
+			<div>
+				{% if evento.id != '' %}<h3>Editar: <span class="text-warning">{{ evento.nome_evento }}</span></h3>{% else %}<h3>Criar novo Evento</h3>{% endif %}
+				<div>{{ evento.id == '' ? 'Criar novo Evento dará acesso as configurações de orçamentos e outros detalhes.' : 'Editar informações dos eventos.' }}</div>
+			</div>
+			<div></div>
+		</div>
+
+		<hr>
+
+		<form action="javascript:void(0)" id="{{ evento.id == '' ? 'add_evento' : 'edit_evento' }}" method="post">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="mb-3">
+						<label for="nome_evento" class="form-label">Nome do Evento:</label>
+						<input type="text" class="form-control" id="nome_evento" name="nome_evento" value="{{ evento.nome_evento }}">
+					</div>
+					<div class="mb-3">
+						<textarea id="descricao" class="form-control" name="descricao">{{ evento.descricao }}</textarea>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="mb-3 col-md-4">
+							<label for="cep_evento" class="form-label">CEP:</label>
+							<input type="text" class="form-control cep" id="cep_evento" name="cep_evento" value="{{ evento.cep_evento }}">
+						</div>
+						<div class="mb-3 col-md-8">
+							<label for="local_evento" class="form-label">Local:</label>
+							<input type="text" class="form-control" id="local_evento" name="local_evento" value="{{ evento.local_evento }}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="mb-3 col-md-6">
+							<label for="cidade_evento" class="form-label">Cidade:</label>
+							<input type="text" class="form-control" id="cidade_evento" name="cidade_evento" value="{{ evento.cidade_evento }}">
+						</div>
+						<div class="mb-3 col-md-6">
+							<label for="estado_evento" class="form-label">Estado:</label>
+							<input type="text" class="form-control" id="estado_evento" name="estado_evento" maxlength="2" value="{{ evento.estado_evento }}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="mb-3 col-md-6">
+							<label for="data_evento_inicio" class="form-label">Data de Início:</label>
+							<input type="date" class="form-control" id="data_evento_inicio" name="data_evento_inicio" value="{{ evento.data_evento_inicio }}">
+						</div>
+						<div class="mb-3 col-md-6">
+							<label for="data_evento_fim" class="form-label">Data de Encerramento:</label>
+							<input type="date" class="form-control" id="data_evento_fim" name="data_evento_fim" value="{{ evento.data_evento_fim }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			{% if evento.id != '' %} <input type="hidden" name="id" value="{{ evento.id }}"> {% endif %}
+			<button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ evento.id == '' ? 'SALVAR EVENTO' : 'SALVAR ALTERAÇÕES' }}</button>
+		</form>
+
+	</session>
+
+</div>
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
+<script src='{{ DOMAIN }}/view/src/js/services/eventos.js'></script>
+{% endblock %}
