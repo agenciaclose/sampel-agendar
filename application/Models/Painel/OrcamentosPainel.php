@@ -59,8 +59,18 @@ class OrcamentosPainel extends Model
 
         $params['id_user'] = $_SESSION['sampel_user_id'];
 
+        $valor_parcela = $params['valor_parcela'];
+        $data_parcela = $params['data_parcela'];
+        unset($params['valor_parcela']);
+        unset($params['data_parcela']);
+        
         $create = new Create();
         $create->ExeCreate('orcamentos', $params);
+
+        if($valor_parcela){
+            $this->atualizarParcelas($create->getResult(), $valor_parcela, $data_parcela);
+        }
+        
         return $create;
     }
 
