@@ -3330,9 +3330,11 @@ body:after {
 *[data-usn-if] {
   display: none;
 }
-
+.parcelas-content {
+  max-height: 600px;
+  overflow-y: auto;
+}
 .select2-container {
-  width: 100% !important;
   margin: 0;
   display: inline-block;
   position: relative;

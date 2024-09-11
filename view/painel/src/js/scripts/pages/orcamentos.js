@@ -32,6 +32,7 @@ $(document).ready(function () {
 
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
+        var ID = $(this).data('orcamento');
         var form = $(this)[0];
         var formData = new FormData(form);
 
@@ -46,7 +47,7 @@ $(document).ready(function () {
                 if (data == "1") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.reload();
+                        window.location.href = DOMAIN + "/painel/patrocinios/orcamento/" + ID;
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
@@ -96,7 +97,7 @@ $(document).ready(function () {
     
     $('#orcamento').select2({
         tags: true,
-        dropdownParent: $('#orcamentoManager .offcanvas-body'),
+        dropdownParent: $('form'),
         dropdownAutoWidth: true,
         width: '100%',
         tabindex: -1,
@@ -153,6 +154,21 @@ $(document).ready(function () {
             `;
             $divParcelas.append(parcelaHtml);
         }
+
+        // Adiciona o evento de mudança ao primeiro campo de data após gerar as parcelas
+        $('input[name="data_parcela[]"]').first().on('change', function() {
+            var primeiraData = new Date($(this).val());
+            var todosInputs = $('input[name="data_parcela[]"]');
+            
+            todosInputs.each(function(index) {
+                if(index > 0) {
+                    var novaData = new Date(primeiraData);
+                    novaData.setMonth(novaData.getMonth() + index);
+                    var novaDataFormatada = novaData.toISOString().split('T')[0];
+                    $(this).val(novaDataFormatada);
+                }
+            });
+        });
     });
     
 });

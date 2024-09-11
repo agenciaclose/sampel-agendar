@@ -1,76 +1,114 @@
-<div class="offcanvas-header px-0 border-bottom">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ cargo.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Add Orçamento{% endblock %}
+
+{% block body %}
+<div class="app-content content ">
+    <div class="content-wrapper">
+        <div class="content-body">
+        
+            <section id="addOrcamento">
+
+				<div class="offcanvas-header px-0 border-bottom">
+				    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ cargo.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
+					<a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
+				</div>
+				
+				<div class="mt-2">
+				    <form action="javascript:void(0)" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-orcamento="{{ dados.id }}">
+
+						<div class="row">
+
+							<div class="col-12 col-md-4">
+								<div class="card p-2">
+									<div class="mb-2">
+										<label class="control-label">Despesa</label>
+										<select class="form-control" name="orcamento" id="orcamento">
+											<option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
+										</select>
+									</div>
+
+									<div class="mb-2">
+										<label class="control-label">Valor Total Gasto</label>
+										<input type="text" name="valor_orcamento" class="form-control money" value="{{ orcamento.valor_orcamento }}">
+									</div>
+
+									<div class="mb-2">
+										<label class="control-label">Descrição</label>
+										<textarea id="descricao" name="descricao_orcamento" class="form-control">{{ orcamento.descricao_orcamento }}</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-4">
+								<div class="card p-2 parcelas-content">
+									<div class="mb-2">
+										<label class="control-label">Quantidade de Parcelas</label>
+										<div class="input-group">
+											<input type="number" class="form-control" name="qtd_parcelas" value="{{ orcamento.qtd_parcelas }}">
+											<button class="btn btn-outline-secondary" type="button" id="gerar_parcelas">Gerar</button>
+										</div>
+									</div>
+
+									<div class="parcelas">
+										{% if parcelas %}
+											{% for parcela in parcelas %}
+											<div class="mb-2 row">
+												<div class="col-sm-6">
+													<label class="control-label">Valor da Parcela</label>
+													<input type="text" name="valor_parcela[]" class="form-control money" value="{{ parcela.valor_parcela|number_format(2, ',', '.') }}">
+												</div>
+												<div class="col-sm-6">
+													<label class="control-label">Data de Pagamento</label>
+													<input type="date" name="data_parcela[]" class="form-control" value="{{ parcela.data_parcela }}">
+												</div>
+											</div>
+											{% endfor %}
+										{% else %}
+											<div class="mb-2 row">
+												<div class="col-sm-6">
+													<label class="control-label">Valor da Parcela</label>
+													<input type="text" name="valor_parcela[]" class="form-control money" value="">
+												</div>
+												<div class="col-sm-6">
+													<label class="control-label">Data de Pagamento</label>
+													<input type="date" name="data_parcela[]" class="form-control" value="">
+												</div>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-4">
+								<div class="card p-2">
+								</div>
+							</div>
+
+						</div>
+				       
+				        <div class="mb-2 row">
+							<div class="col-md-4">
+								<input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
+								<input type="hidden" name="id_evento" value="{{ dados.id }}">
+								{% if orcamento.id != '' %}
+									<input type="hidden" name="id" value="{{ orcamento.id }}">
+								{% endif %}            
+								<button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
+							</div>
+				        </div>
+
+				    </form>
+				</div>
+            </section>
+
+        </div>
+    </div>
 </div>
-<div class="mt-2">
-    <form action="javascript:void(0)" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}">
 
-        <div class="mb-2">
-            <label class="control-label">Despesa</label>
-            <select class="form-control" name="orcamento" id="orcamento">
-                <option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
-            </select>
-        </div>
-
-        <div class="mb-2">
-            <label class="control-label">Valor Total Gasto</label>
-            <input type="text" name="valor_orcamento" class="form-control money" value="{{ orcamento.valor_orcamento }}">
-        </div>
-
-        <div class="mb-2">
-            <label class="control-label">Quantidade de Parcelas</label>
-            <div class="input-group">
-                <input type="number" class="form-control" name="qtd_parcelas" value="{{ orcamento.qtd_parcelas }}">
-                <button class="btn btn-outline-secondary" type="button" id="gerar_parcelas">Gerar</button>
-            </div>
-        </div>
-
-        <div class="parcelas">
-            {% if parcelas %}
-                {% for parcela in parcelas %}
-                <div class="mb-2 row">
-                    <div class="col-sm-6">
-                        <label class="control-label">Valor da Parcela</label>
-                        <input type="text" name="valor_parcela[]" class="form-control money" value="{{ parcela.valor_parcela|number_format(2, ',', '.') }}">
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="control-label">Data de Pagamento</label>
-                        <input type="date" name="data_parcela[]" class="form-control" value="{{ parcela.data_parcela }}">
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <div class="mb-2 row">
-                    <div class="col-sm-6">
-                        <label class="control-label">Valor da Parcela</label>
-                        <input type="text" name="valor_parcela[]" class="form-control money" value="">
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="control-label">Data de Pagamento</label>
-                        <input type="date" name="data_parcela[]" class="form-control" value="">
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-
-        <div class="mb-2">
-            <label class="control-label">Descrição</label>
-            <textarea id="descricao" name="descricao_orcamento" class="form-control">{{ orcamento.descricao_orcamento }}</textarea>
-        </div>
-
-        <div class="mb-2">
-            <input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
-            <input type="hidden" name="id_evento" value="{{ dados.id }}">
-            {% if orcamento.id != '' %}
-                <input type="hidden" name="id" value="{{ orcamento.id }}">
-            {% endif %}            
-            <button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
-        </div>
-
-    </form>
-</div>
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
 <script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
 <script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
 <script src="{{ PATH }}/view/painel/src/js/scripts/pages/orcamentos.js"></script>
+{% endblock %}
