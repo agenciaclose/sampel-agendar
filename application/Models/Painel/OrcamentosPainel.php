@@ -123,4 +123,11 @@ class OrcamentosPainel extends Model
         return $read;
     }
 
+    public function getOrcamentosArquivos($id_orcamento, $id_item): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM orcamentos_arquivos WHERE id_orcamento = :id_orcamento AND id_item = :id_item ORDER BY `order` ASC", "id_orcamento={$id_orcamento}&id_item={$id_item}");
+        return $read;
+    }
+
 }

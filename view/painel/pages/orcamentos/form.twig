@@ -10,12 +10,12 @@
             <section id="addOrcamento">
 
 				<div class="offcanvas-header px-0 border-bottom">
-				    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ cargo.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
+				    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ orcamento.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
 					<a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
 				</div>
 				
 				<div class="mt-2">
-				    <form action="javascript:void(0)" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-orcamento="{{ dados.id }}">
+				    <form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
 
 						<div class="row">
 
@@ -82,6 +82,15 @@
 
 							<div class="col-12 col-md-4">
 								<div class="card p-2">
+									<div>Lista de Arquivos</div>
+									<hr>
+									{% if orcamento.id != '' %}
+										{{ include('painel/pages/orcamentos/arquivos.twig') }}
+									{% else %}
+										<div class="alert alert-warning p-2" role="alert">
+											Arquivos só podem ser adicionados na Edição desse Orçamento.
+										</div>
+									{% endif %}
 								</div>
 							</div>
 

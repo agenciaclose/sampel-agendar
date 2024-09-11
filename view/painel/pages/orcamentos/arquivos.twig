@@ -1,0 +1,217 @@
+<link href="{{ DOMAIN }}/view/src/js/plugins/fileuploader/fileuploader.css" media="all" rel="stylesheet">
+<script src="{{ DOMAIN }}/view/src/js/plugins/fileuploader/fileuploader.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function load_arquivos(){
+
+  	var id_orcamento = $('.form_orcamento').attr('data-orcamento');
+  	var id_item = $('.form_orcamento').attr('data-item');
+
+	$('input[name="files"]').fileuploader({
+		extensions: ['pdf'],
+		changeInput: '<div class="fileuploader-items" style="width: 100%; min-width: 100%; max-width: 100%; float: left;">\
+						<ul class="fileuploader-items-list">\
+							<li class="fileuploader-thumbnails-input" style="width: 100%; min-width: 100%; max-width: 100%;height: 50px;"><div class="fileuploader-thumbnails-input-inner d-flex justify-content-start align-items-center p-0 px-2"> <div class="me-1"><i class="fas fa-file-pdf"></i></div> <div>Arquivos de NF, Contrato, etc</div></div></li>\
+						</ul>\
+					</div>',
+		theme: 'thumbnails thumbnails-with-caption',
+		enableApi: true,
+		addMore: true,
+		files: [
+			{% for arquivo in arquivos %}
+			{
+				{% set arrayExtensao = arquivo.nome|split('.') %}
+				{% set extensao = arrayExtensao|last %}
+				name: '{{ arquivo.nome_customizado }}',
+				type: 'image/{{ extensao }}',
+				file: '{{ arquivo.arquivo }}'
+			},
+			{% endfor %}
+		],
+
+		thumbnails: {
+			box: 	'<div class="fileuploader-items">' +
+						'<ul class="fileuploader-items-list"></ul>' +
+					'</div>',
+			item: 	'<li class="fileuploader-item file-has-popup">' +
+						'<div class="columns">' +
+							'<div class="column-thumbnail"><span class="fileuploader-action-popup" data-item="${size}"></span></div>' +
+							'<div class="pdf-info d-flex justify-content-start align-items-center p-0 px-2 flex-wrap text-center">' +
+								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}"><div class="me-1"><i class="fas fa-file-pdf"></i></div> <div class="align-self-center item-name item-${size}" title="${size}">${name}</div></div>' +
+							'</div>' +
+							'<div class="column-actions">' +
+								'<a class="fileuploader-action fileuploader-action-sort" title="Ordenar"><i class="fal fa-arrows-alt"></i></a>' +
+								'<a class="fileuploader-action fileuploader-action-remove" title="Remover"><i class="fal fa-trash-alt"></i></a>' +
+							'</div>' +
+						'</div>' +
+					'</li>',
+			item2: 	'<li class="fileuploader-item file-has-popup">' +
+						'<div class="columns">' +
+							'<div class="column-thumbnail"><span class="fileuploader-action-popup" data-item="${size}"></span></div>' +
+							'<div class="pdf-info d-flex justify-content-start align-items-center p-0 px-2 flex-wrap text-center">' +
+								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}"><div class="me-1"><i class="fas fa-file-pdf"></i></div> <div class="align-self-center item-name item-${size}" title="${size}">${name}</div></div>' +
+							'</div>' +
+							'<div class="column-actions">' +
+								'<a class="fileuploader-action fileuploader-action-sort" title="Ordenar"><i class="fal fa-arrows-alt"></i></a>' +
+								'<a class="fileuploader-action fileuploader-action-remove" title="Remover"><i class="fal fa-trash-alt"></i></a>' +
+							'</div>' +
+						'</div>' +
+					'</li>',
+			startImageRenderer: true,
+			canvasImage: false,
+			_selectors: {
+				list: '.fileuploader-items-list',
+				item: '.fileuploader-item',
+				start: '.fileuploader-action-start',
+				retry: '.fileuploader-action-retry',
+				remove: '.fileuploader-action-remove'
+			},
+			onItemShow: function(item, listEl, parentEl, newInputEl, inputEl) {
+				var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+				api = $.fileuploader.getInstance(inputEl.get(0));
+				plusInput.insertAfter(item.html)[api.getOptions().limit && api.getChoosedFiles().length >= api.getOptions().limit ? 'hide' : 'show']();
+
+				if(item.format == 'image') {
+					item.html.find('.fileuploader-item-icon').hide();
+				}
+			}
+		},
+
+		dragDrop: {
+			container: '.fileuploader-thumbnails-input'
+		},
+
+		afterRender: function(listEl, parentEl, newInputEl, inputEl) {
+			var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+			api = $.fileuploader.getInstance(inputEl.get(0));
+
+			plusInput.on('click', function() {
+				api.open();
+			});
+		},
+
+		onRemove: function(item, listEl, parentEl, newInputEl, inputEl) {
+			var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+			api = $.fileuploader.getInstance(inputEl.get(0));
+
+			if (api.getOptions().limit && api.getChoosedFiles().length - 1 < api.getOptions().limit)
+				plusInput.show();
+		},
+	    
+		upload: {
+			url: '{{ DOMAIN }}/application/Fileuploader/ajax_upload_arquivo.php?id_orcamento='+id_orcamento+'&id_item='+id_item+'',
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			start: true,
+			synchron: true,
+			beforeSend: null,
+			onSuccess: function(data, item) {
+				var resultado = {};
+				try {
+					resultado = JSON.parse(data);
+				} catch (e) {
+					resultado.hasWarnings = true;
+				}
+
+				item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+				item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+
+				setTimeout(function() {
+					item.html.find('.progress-holder').hide();
+					item.renderThumbnail();
+					item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
+
+					var nome_item = resultado.files[0].name;
+
+					var id_item = nome_item.split('.');
+
+					item.html.find('.fileuploader-action-popup').attr('data-item', id_item[0]);
+					item.html.find('.item-name').addClass('item-'+id_item[0]);
+
+				}, 400);
+
+			},
+			onError: function(item) {
+				item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();
+			},
+			onProgress: function(data, item) {
+				var progressBar = item.html.find('.progress-holder');
+
+				if(progressBar.length > 0) {
+					progressBar.show();
+					progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
+				}
+
+				item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
+			}
+		},
+
+		editor: {
+			cropper: {
+				ratio: '5:5',
+				showGrid: true
+			},
+			quality: null
+		},
+
+		onRemove: function(item) {
+			$.post('{{ DOMAIN }}/application/Fileuploader/ajax_remove_arquivo.php?id_orcamento='+id_orcamento+'&id_item='+id_item+'', {
+				file: item.name
+			});
+		},
+		sorter: {
+			selectorExclude: null,
+			placeholder: null,
+			scrollContainer: window,
+			onSort: function(list, listEl, parentEl, newInputEl, inputEl) {
+				var api = $.fileuploader.getInstance(inputEl.get(0)),
+				fileList = api.getFileList(),
+				_list = [];
+
+				$.each(fileList, function(i, item) {
+					_list.push({
+						name: item.name,
+						index: item.index
+					});
+				});
+
+				$.post('{{ DOMAIN }}/application/Fileuploader/ajax_sort_arquivo.php?id_orcamento='+id_orcamento+'&id_item='+id_item+'', {
+					_list: JSON.stringify(_list)
+				});
+			}
+		},
+
+	});
+
+};
+
+$('body').on('click', '.fileuploader-action-popup', function() {
+    var item = $(this).attr('data-item');
+    $('#custom_name_item').val(item);
+});
+function ChangeNameView(item, nome){
+	$(".custom_name_change").text(nome);
+	$(".item-"+item).text(nome);
+}
+</script>
+<form action="" method="POST" enctype="multipart/form-data">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<div class="form-group">
+					<input type="file" name="files" id="pdfcap" accept="application/pdf">
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script>load_arquivos();</script>
+<style>
+.pdf-info, .fileuploader-item .column-thumbnail, .fileuploader-theme-thumbnails .fileuploader-thumbnails-input, .fileuploader-theme-thumbnails .fileuploader-items-list .fileuploader-item {
+    width: 100%;
+    height: 50px;
+    min-width: 100%;
+    max-width: 100%;
+}
+</style>

@@ -60,7 +60,11 @@ class OrcamentosPainelController extends Controller
             $parcelas = [];
             $orcamento = [];
         }
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'parcelas' => $parcelas]);
+
+        $model = new OrcamentosPainel();
+        $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();
+
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'parcelas' => $parcelas, 'arquivos' => $arquivos]);
     }
 
     public function addOrcamentoSave($params)
