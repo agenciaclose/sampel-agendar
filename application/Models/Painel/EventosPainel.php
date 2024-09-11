@@ -19,11 +19,11 @@ class EventosPainel extends Model
 
         $read = new Read();
         $read->FullRead("SELECT *,
-        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id) AS total_orcamento,
-        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id) AS total_pedido,
+        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id AND tipo_evento = 'eventos') AS total_orcamento,
+        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id AND tipo_evento = 'eventos') AS total_pedido,
         (
-            IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id), 0) +
-            IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id), 0)
+            IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id AND tipo_evento = 'eventos'), 0) +
+            IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id AND tipo_evento = 'eventos'), 0)
         ) AS total_gastos
         FROM eventos
         WHERE status_evento = 'Ativo' $where

@@ -31,7 +31,7 @@ class PatrociniosPainelController extends Controller
         $this->setParams($params);
 
         $patrocinio = new PatrociniosPainel();
-        $patrocinio = $patrocinio->getEventoID($params['id'])->getResult();
+        $patrocinio = $patrocinio->getPatrocinioID($params['id'])->getResult();
 
         $paises = $this->nomesPaises();
         
@@ -66,13 +66,29 @@ class PatrociniosPainelController extends Controller
 
         //DESATIVA O Patrocinios
         $status = new PatrociniosPainel();
-        $status = $status->getEventoStatus($params);
+        $status = $status->getPatrocinioStatus($params);
         if($status){
             echo 'success';
         }else{
             echo 'error';
         }
 
+    }
+
+    public function addPatrocinioSave($params)
+    {
+        $this->setParams($params);
+        $save = new PatrociniosPainel();
+        $save = $save->addPatrocinioSave($params);
+        if($save){ echo $save; }
+    }
+
+    public function editPatrocinioSave($params)
+    {
+        $this->setParams($params);
+        $save = new PatrociniosPainel();
+        $save = $save->editPatrocinioSave($params);
+        if($save){ echo '1'; }
     }
 
 }

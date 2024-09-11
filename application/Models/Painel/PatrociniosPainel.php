@@ -19,11 +19,11 @@ class PatrociniosPainel extends Model
 
         $read = new Read();
         $read->FullRead("SELECT *,
-        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_patrocinio = patrocinios.id) AS total_orcamento,
-        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_patrocinio = patrocinios.id) AS total_pedido,
+        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios') AS total_orcamento,
+        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios') AS total_pedido,
         (
-            IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_patrocinio = patrocinios.id), 0) +
-            IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_patrocinio = patrocinios.id), 0)
+        IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios'), 0) +
+        IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios'), 0)
         ) AS total_gastos
         FROM patrocinios
         WHERE status_patrocinio = 'Ativo' $where
@@ -31,7 +31,7 @@ class PatrociniosPainel extends Model
         return $read;
     }
 
-    public function getEventoID($id): Read
+    public function getPatrocinioID($id): Read
     {
         $read = new Read();
         $read->FullRead("SELECT * FROM patrocinios WHERE id = :id", "id={$id}");
@@ -55,11 +55,28 @@ class PatrociniosPainel extends Model
         return $update;
     }
 
-    public function getEventoStatus($params)
+    public function getPatrocinioStatus($params)
     {
         $read = new Read();
         $read->FullRead("UPDATE `patrocinios` SET `status_patrocinio` = :status_patrocinio WHERE id = :id", "status_patrocinio={$params['status_patrocinio']}&id={$params['id']}");
         return $read;
+    }
+
+    public function addPatrocinioSave($params)
+    {
+        $create = new Create();
+        $params['id_user'] = $_SESSION['sampel_user_id'];
+        $create->ExeCreate('patrocinios', $params);
+        return $create->getResult();
+    }
+
+    public function editPatrocinioSave($params)
+    {
+        $id = $params['id'];
+        unset($params['id']);
+        $update = new Update();
+        $update->ExeUpdate('patrocinios', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
     }
 
 }

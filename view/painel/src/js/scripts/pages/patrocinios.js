@@ -2,7 +2,7 @@ if ($('#descricao').length){
 
     if ($('#pais_patrocinio').length){
 		$('#pais_patrocinio').select2({       
-            dropdownParent: $('#formEvent .offcanvas-body'),
+            dropdownParent: $('#formPadrocinio .offcanvas-body'),
             dropdownAutoWidth: true,
             width: '100%',
             tabindex: -1
@@ -86,7 +86,7 @@ $(document).ready(function () {
                 if (data != "0") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        //location.reload();
+                        location.reload();
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
@@ -145,7 +145,7 @@ $(document).ready(function () {
 
 function statusEvent(id, status_patrocinio) {
 	Swal.fire({
-		title: "Desativar esse Evento?",
+		title: "Desativar esse Patrocínio?",
 		text: "Ele será removido dos relatórios, e caso existam pedidos vinculados a ele, esses pedidos serão recusados e os itens retornarão ao estoque.",
 		showCancelButton: true,
 		cancelButtonText: 'Não',

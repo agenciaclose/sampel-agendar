@@ -33,7 +33,7 @@
 
                                     <div class="col-md-2 col-sm-6 col-12">
                                         {% set valor_total_orcamento_all = 0 %}
-                                        {% for permission in patrocinios %}
+                                        {% for item in patrocinios %}
                                             {% set valor_total_orcamento_all = valor_total_orcamento_all + item.total_gastos %}
                                         {% endfor %}
                                         <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento_all|number_format(2, ',', '.') }}</span></h5>
