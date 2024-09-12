@@ -1,19 +1,6 @@
 $(document).ready(function () {
 
-    var options = {
-        onKeyPress: function(cep, e, field, options){
-            if (cep.length<=6)
-            {
-                var inputVal = parseFloat(cep);
-                jQuery('.money').val(inputVal.toFixed(2));
-            }                        
-            var masks = ['#.##0,00', '0,00'];
-            mask = (cep == 0) ? masks[1] : masks[0];
-            $('.money').mask(mask, options);
-        },
-        reverse: true
-    };
-    $('.money').mask('#.##0,00', options);
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
 
 	$("#add_empenho").submit(function (c) {
 
