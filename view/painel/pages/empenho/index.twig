@@ -1,0 +1,57 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Lista de Empenhos Anuais{% endblock %}
+
+{% block body %}
+
+<div class="app-content content">
+
+    <div class="card card-company-table">
+        <div class="card-header w-100">
+            <div class="d-flex justify-content-between align-items-center flex-wrap w-100">
+                <h5 class="card-title">Lista de Empenhos Anuais</h5>
+                {% if 'add' in permissions.empenho or permissions == 'all' %}
+                    <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/empenho/add" data-bs-toggle="offcanvas" data-bs-target="#formEmpenho" aria-controls="formEmpenho"><i class="fa-regular fa-plus"></i> Add Novo</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th class="text-end" width="250">Ano do Empenho</th>
+                        <th class="text-end" width="150">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empenho in empenhos %}
+                        <tr>
+                            <td class="text-success fw-bolder">R$ {{ empenho.valor_empenho|number_format(2, ',', '.') }}</td>
+                            <td>{{ empenho.tipo }}</td>
+                            <td class="text-end"><span class="badge bg-primary">{{ empenho.data_empenho }}</span></td>
+                            <td class="text-end" width="150">
+                                <div class="d-flex justify-content-end">
+                                    <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/empenho/edit/{{ empenho.id }}" data-bs-toggle="offcanvas" data-bs-target="#formEmpenho" aria-controls="formEmpenho" class="ms-1 btn btn-warning text-black btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="javascript:void(0);" onclick="removeEmpenho('{{ empenho.id }}')" class="ms-1 btn btn-danger text-black btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+<div class="offcanvas offcanvas-end" id="formEmpenho" aria-labelledby="formEmpenhoLabel">
+    <div class="offcanvas-body">
+        Carregando...
+    </div>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/empenho.js"></script>
+
+{% endblock %}

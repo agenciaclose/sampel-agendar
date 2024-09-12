@@ -1,0 +1,57 @@
+<?php
+namespace Agencia\Close\Models\Painel;
+
+use Agencia\Close\Conn\Conn;
+use Agencia\Close\Conn\Read;
+use Agencia\Close\Conn\Create;
+use Agencia\Close\Conn\Update;
+use Agencia\Close\Models\Model;
+
+class EmpenhoModel extends Model
+{
+    public function getEmpenhos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM empenhos ORDER BY `data_empenho` DESC");
+        return $read;
+    }
+
+    public function getEmpenhoID($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM empenhos WHERE id = :id ORDER BY `data_empenho` DESC", "id={$id}");
+        return $read;
+    }
+
+    public function addEmpenhoSave($params)
+    {   
+        $params['valor_empenho'] = str_replace(',', '.', str_replace('.', '', $params['valor_empenho']));
+        $params['id_user'] = $_SESSION['sampel_user_id'];
+
+        $create = new Create();
+        $create->ExeCreate('empenhos', $params);
+        
+        return $create;
+    }
+
+    public function editEmpenhoSave($params)
+    {
+        $id = $params['id'];
+        unset($params['id']);
+
+        $params['id_user'] = $_SESSION['sampel_user_id'];
+        $params['valor_empenho'] = str_replace(',', '.', str_replace('.', '', $params['valor_empenho']));
+
+        $update = new Update();
+        $update->ExeUpdate('empenhos', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
+    }
+
+    public function removeEmpenho($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `empenhos` WHERE `id`= :id", "id={$id}");
+        return $read;
+    }
+
+}

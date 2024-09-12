@@ -72,7 +72,7 @@ class OrcamentosPainelController extends Controller
         $this->setParams($params);
         $save = new OrcamentosPainel();
         $save = $save->addOrcamentoSave($params);
-        if($save){ echo '1'; }
+        if($save){ echo $save; }
     }
 
     public function editOrcamentoSave($params)

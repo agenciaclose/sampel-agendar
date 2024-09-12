@@ -16,7 +16,10 @@
                 <li class="navigation-header mt-1"><span>Dashboard</span></li>
 
                 <li class="{{ (menu == 'home') ? 'active' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i class="fa-light fa-calendar-check"></i><span class="menu-title text-truncate">Visitas</span></a>
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i class="fa-light fa-box-open-full"></i><span class="menu-title text-truncate">Pedidos</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center" href="javascript:void(0)"><i class="fa-light fa-calendar-check"></i><span class="menu-title text-truncate">Visitas</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="d-flex align-items-center" href="javascript:void(0)"><i class="fa-light fa-megaphone"></i><span class="menu-title text-truncate">Palestras</span></a>
@@ -50,12 +53,12 @@
 
                 <li class=" navigation-header"><span>Patrocínios</span></li>
                 <li class="{{ (menu == 'patrocinios') ? 'active' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/patrocinios"><i class="fa-light fa-handshake-angle"></i><span class="menu-title text-truncate">Lista</span></a>
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/patrocinios"><i class="fa-light fa-handshake-angle"></i><span class="menu-title text-truncate">Cadastros</span></a>
                 </li>
 
                 <li class=" navigation-header"><span>Feiras e Eventos</span></li>
                 <li class="{{ (menu == 'eventos') ? 'active' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/eventos"><i class="fa-light fa-star"></i><span class="menu-title text-truncate">Lista</span></a>
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/eventos"><i class="fa-light fa-star"></i><span class="menu-title text-truncate">Cadastros</span></a>
                 </li>
 
                 <li class=" navigation-header"><span>Listas de Visitas</span></li>
@@ -76,6 +79,11 @@
                         <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/palestras"><i data-feather="circle"></i><span class="menu-item">Ver Todas</span></a></li>
                         <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/palestras/add"><i data-feather="circle"></i><span class="menu-item">Criar Nova</span></a></li>
                     </ul>
+                </li>
+
+                <li class=" navigation-header"><span>Empenho Anual</span></li>
+                <li class="{{ (menu == 'empenho') ? 'active' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/empenho"><i class="fa-light fa-star"></i><span class="menu-title text-truncate">Cadastros</span></a>
                 </li>
 
 

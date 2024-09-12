@@ -1,0 +1,34 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ empenho.id == '' ? 'Criar Novo Empenho' : 'Editar Empenho' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" id="{{ empenho.id == '' ? 'add_empenho' : 'edit_empenho' }}" method="post">
+        <div class="mb-1">
+            <label for="nome_empenho" class="form-label">Tipo de Empenho:</label>
+            <select name="tipo" class="form-control">
+                <option value="">Selecione</option>
+                <option value="Pedido" {{ empenho.tipo == 'Pedido' ? 'selected' }}>Pedido</option>
+                <option value="Visitas" {{ empenho.tipo == 'Visitas' ? 'selected' }}>Visitas</option>
+                <option value="Palestras" {{ empenho.tipo == 'Palestras' ? 'selected' }}>Palestras</option>
+                <option value="Eventos" {{ empenho.tipo == 'Eventos' ? 'selected' }}>Eventos</option>
+                <option value="Patronicios" {{ empenho.tipo == 'Patronicios' ? 'selected' }}>Patronicios</option>
+            </select>
+        </div>
+        <div class="mb-1 cep_empenho">
+            <label for="cep_empenho" class="form-label">Valor Anual:</label>
+            <input type="text" name="valor_empenho" class="form-control money" value="{{ empenho.valor_empenho }}">
+        </div>
+        <div class="mb-1">
+            <label for="local_empenho" class="form-label">Ano do Empenho:</label>
+            {% set ano = now|date('Y') %}
+            <input type="number" name="data_empenho" min="2000" max="2099" step="1" class="form-control" value="{{ empenho.data_empenho ? empenho.data_empenho : ano }}" />
+        </div>
+
+        {% if empenho.id != '' %} <input type="hidden" name="id" value="{{ empenho.id }}"> {% endif %}
+        <button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ empenho.id == '' ? 'SALVAR EMPENHO' : 'SALVAR ALTERAÇÕES' }}</button>
+    </form>
+</div>
+
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/empenho.js"></script>

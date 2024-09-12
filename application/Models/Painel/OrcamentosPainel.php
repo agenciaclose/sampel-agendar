@@ -71,7 +71,7 @@ class OrcamentosPainel extends Model
             $this->atualizarParcelas($create->getResult(), $valor_parcela, $data_parcela);
         }
         
-        return $create;
+        return $create->getResult();
     }
 
     public function editOrcamentoSave($params)

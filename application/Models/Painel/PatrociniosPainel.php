@@ -27,7 +27,7 @@ class PatrociniosPainel extends Model
         ) AS total_gastos
         FROM patrocinios
         WHERE status_patrocinio = 'Ativo' $where
-        ORDER BY data_patrocinio_inicio ASC");
+        ORDER BY nome_patrocinio ASC");
         return $read;
     }
 
