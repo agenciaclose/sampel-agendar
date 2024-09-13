@@ -62,6 +62,13 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidosValorTotalByTipo($tipo_evento, $ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE ativo = 'S' AND tipo_evento = :tipo_evento AND YEAR(`date_create`) = :ano ORDER BY `id` DESC", "tipo_evento={$tipo_evento}&ano={$ano}");
+        return $read;
+    }
+
     public function getPedidoID($id_pedido): Read
     {
         $read = new Read();

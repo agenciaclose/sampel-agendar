@@ -4,119 +4,248 @@ namespace Agencia\Close\Controllers\Painel\Home;
 
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Models\Painel\HomePainel;
+use Agencia\Close\Models\Painel\EmpenhoModel;
 use Agencia\Close\Models\Painel\PedidosPainel;
-use Agencia\Close\Models\Painel\ProdutosPainel;
-
-use DateTime; 
+use Agencia\Close\Models\Painel\VisitasPainel;
+use Agencia\Close\Models\Painel\PalestrasPainel;
+use Agencia\Close\Models\Painel\OrcamentosPainel;
 
 class HomeController extends Controller
-{
+{   
+
+    public $ano;
 	
     public function index($params)
     {
+        $this->ano = isset($_GET['ano']) ? $_GET['ano'] : date('Y');
+
         $this->setParams($params);
 
-        $backgroundColors = [
-            'bg-primary',
-            'bg-success',
-            'bg-danger',
-            'bg-warning',
-            'bg-info'
-        ];
+        $dadospedidos = $this->getDadosEmpenhoPedidos();
+        $dadosvisitas = $this->getDadosEmpenhoVisitas();
+        $dadospalestras = $this->getDadosEmpenhoPalestras();
+        $dadoseventos = $this->getDadosEmpenhoEventos();
 
-        $produtos = new ProdutosPainel();
-        $produtosSemPDV = $produtos->getProdutosSemPDV()->getResult();
-        $produtosPDV = $produtos->getProdutosPDV()->getResult();
-
-        $produtosEstoqueBaixo = $produtos->getProdutosEstoqueBaixo()->getResult();
-        $valorTotalEstoque = $produtos->valorTotalEstoqueSemPDV()->getResult()[0];
-        $valorTotalEstoquePDV = $produtos->valorTotalEstoquePDV()->getResult()[0];
-        $valorTotalEstoqueBaixo = $produtos->valorTotalEstoqueBaixo()->getResult()[0];
-
-        $pedidos = new PedidosPainel();
-        $pedidosTotal = $pedidos->getPedidos()->getResult();
-        $PedidosValorTotal = $pedidos->getPedidosValorTotal()->getResult()[0];
-
-        $pedidos = new PedidosPainel();
-        $transportadoras = $pedidos->getPedidosTransportadoras()->getResult();
-        $transportadorasTotal = $pedidos->getPedidosTransportadorasTotal()->getResult()[0];
-
-        $retirada = $pedidos->getPedidosRetirada()->getResult();
-        $retiradaTotal = $pedidos->getPedidosRetiradaTotal()->getResult()[0];
-
-        $model = new HomePainel();
-        $eventosGastos = $model->getFourEventosYear()->getResult();
-        $pedidosMensais = $model->getPedidosMensais()->getResult();
-        $pedidosSemanais = $model->getPedidosSemanais()->getResult();
-
-        $date = new DateTime();
-
-        // Calcula o início da semana (domingo)
-        $date = new DateTime();
-        $dayOfWeek = $date->format('N');
-        $startOfWeek = (clone $date)->modify('-' . ($dayOfWeek - 1) . ' days');
-        $endOfWeek = (clone $startOfWeek)->modify('+6 days');
-        $weekNumber = $startOfWeek->format("W");
-        $startDay = $startOfWeek->format('d');
-        $endDay = $endOfWeek->format('d');
-        $month = $this->formatMonthInPortuguese($startOfWeek);
-
-        $pedidos = new PedidosPainel();
-        $pedidosEstados = $pedidos->getpedidosPorEstados()->getResult();
-
-        $pedidos = new PedidosPainel();
-        $pedidosEquipe = $pedidos->getpedidosPorEquipe()->getResult();
-
-        $pedidos = new PedidosPainel();
-        $curvaABC = $pedidos->getCurvaABCProdutos()->getResult();
+        $total_empenho = $dadospedidos['valorEmpenhoPedido'] + $dadosvisitas['valorEmpenhoPedido'] + $dadospalestras['valorEmpenhoPedido'] + $dadoseventos['valorEmpenhoPedido'];
+        $total_consumo = $dadospedidos['pedidosValorTotalConsumo'] + $dadosvisitas['pedidosValorTotalConsumo'] + $dadospalestras['pedidosValorTotalConsumo'] + $dadoseventos['pedidosValorTotalConsumo'];
 
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
-            'loop' => $backgroundColors,
-            'produtosEstoqueBaixo' => $produtosEstoqueBaixo,
-            'produtosSemPDV' => $produtosSemPDV,
-            'produtosPDV' => $produtosPDV,
-            'valorTotalEstoque' => $valorTotalEstoque,
-            'valorTotalEstoquePDV' => $valorTotalEstoquePDV,
-            'valorTotalEstoqueBaixo' => $valorTotalEstoqueBaixo,
-            'pedidosTotal' => $pedidosTotal,
-            'PedidosValorTotal' => $PedidosValorTotal,
-            'eventosGastos' => $eventosGastos,
-            'transportadoras' => $transportadoras,
-            'transportadorasTotal' => $transportadorasTotal,
-            'retirada' => $retirada,
-            'retiradaTotal' => $retiradaTotal,
-            'pedidosMensais' => $pedidosMensais,
-            'pedidosSemanais' => $pedidosSemanais,
-            'weekNumber' => $weekNumber,
-            'startDay' => $startDay,
-            'endDay' => $endDay,
-            'month' => $month,
-            'pedidosEstados' => $pedidosEstados,
-            'curvaABC' => $curvaABC,
-            'pedidosEquipe' => $pedidosEquipe
+            'dadospedidos' => $dadospedidos, 
+            'dadosvisitas' => $dadosvisitas,
+            'dadospalestras' => $dadospalestras,
+            'dadoseventos' => $dadoseventos,
+            'total_empenho' => $total_empenho,
+            'total_consumo' => $total_consumo
         ]);
     }
 
-    private function formatMonthInPortuguese(DateTime $date)
+    // DADOS PEDIDOS
+    public function getDadosEmpenhoPedidos()
     {
-        $months = [
-            'January' => 'Janeiro',
-            'February' => 'Fevereiro',
-            'March' => 'Março',
-            'April' => 'Abril',
-            'May' => 'Maio',
-            'June' => 'Junho',
-            'July' => 'Julho',
-            'August' => 'Agosto',
-            'September' => 'Setembro',
-            'October' => 'Outubro',
-            'November' => 'Novembro',
-            'December' => 'Dezembro',
-        ];
+        $dados = [];
 
-        return $months[$date->format('F')];
+        $pedido = new PedidosPainel();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('extra', $this->ano)->getResult();
+        
+        $empenho = new EmpenhoModel();
+        $pedidos = $empenho->getPedidos($this->ano)->getResult();
+        $empenhoPedidos = $empenho->getEmpenho('Pedidos', $this->ano)->getResult();
+
+        if($empenhoPedidos){
+            if($pedidosValorTotal){
+                $pedidosValorTotalConsumo = $pedidosValorTotal[0]['valor_total_pedido'];
+            }else{
+                $pedidosValorTotalConsumo = 0;
+            }
+
+            if($empenhoPedidos){
+                $valorEmpenhoPedido = $empenhoPedidos[0]['valor_empenho'];
+            }else{
+                $valorEmpenhoPedido = 0;
+            }
+        }else{
+            $pedidosValorTotalConsumo = [];
+            $valorEmpenhoPedido = [];
+        }
+        
+        // Calcular a porcentagem restante
+        $valorRestante = $valorEmpenhoPedido - $pedidosValorTotalConsumo;
+        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+
+        // Adicionando os valores no array $dados
+        $dados['pedidos'] =  count($pedidos);
+        $dados['pedidosValorTotalConsumo'] = $pedidosValorTotalConsumo;
+        $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
+        $dados['valorRestante'] = $valorRestante;
+        $dados['porcentagemRestante'] = $porcentagemRestante;
+
+        return $dados;
+    }
+
+    // DADOS VISITAS
+    public function getDadosEmpenhoVisitas()
+    {
+        $dados = [];
+
+        $visita = new EmpenhoModel();
+        $visitas = $visita->getVisitasListAprovadas($this->ano)->getResult();
+        
+        $pedido = new PedidosPainel();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('visitas', $this->ano)->getResult();
+
+        $orcamento = new OrcamentosPainel();
+        $orcamentosValorTotal = $orcamento->getOrcamentosByTipo('visitas', $this->ano)->getResult();
+
+        $empenho = new EmpenhoModel();
+        $empenhoPedidos = $empenho->getEmpenho('Visitas', $this->ano)->getResult();
+
+        if($empenhoPedidos){
+            if($orcamentosValorTotal){
+                $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
+            }else{
+                $valorTotalOrcamento = 0;
+            }
+
+            if($pedidosValorTotal){
+                $pedidosValorTotalConsumo = $pedidosValorTotal[0]['valor_total_pedido'];
+            }else{
+                $pedidosValorTotalConsumo = 0;
+            }
+
+            if($empenhoPedidos){
+                $valorEmpenhoPedido = $empenhoPedidos[0]['valor_empenho'];
+            }else{
+                $valorEmpenhoPedido = 0;
+            }
+        }else{
+            $pedidosValorTotalConsumo = [];
+            $valorEmpenhoPedido = [];
+        }
+        
+        // Calcular a porcentagem restante
+        $totalConsumo = $pedidosValorTotalConsumo + $valorTotalOrcamento;
+        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+
+        // Adicionando os valores no array $dados
+        $dados['visitas'] =  count($visitas);
+        $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
+        $dados['valorRestante'] = $valorRestante;
+        $dados['porcentagemRestante'] = $porcentagemRestante;
+
+        return $dados;
+    }
+
+    //DADOS PALESTRAS
+    public function getDadosEmpenhoPalestras()
+    {
+        $dados = [];
+
+        $palestra = new EmpenhoModel();
+        $palestras = $palestra->getPalestrasList($this->ano)->getResult();
+        
+        $pedido = new PedidosPainel();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('palestras', $this->ano)->getResult();
+
+        $orcamento = new OrcamentosPainel();
+        $orcamentosValorTotal = $orcamento->getOrcamentosByTipo('palestras', $this->ano)->getResult();
+
+        $empenho = new EmpenhoModel();
+        $empenhoPedidos = $empenho->getEmpenho('Palestras', $this->ano)->getResult();
+
+        if($empenhoPedidos){
+            if($orcamentosValorTotal){
+                $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
+            }else{
+                $valorTotalOrcamento = 0;
+            }
+
+            if($pedidosValorTotal){
+                $pedidosValorTotalConsumo = $pedidosValorTotal[0]['valor_total_pedido'];
+            }else{
+                $pedidosValorTotalConsumo = 0;
+            }
+
+            if($empenhoPedidos){
+                $valorEmpenhoPedido = $empenhoPedidos[0]['valor_empenho'];
+            }else{
+                $valorEmpenhoPedido = 0;
+            }
+        }else{
+            $pedidosValorTotalConsumo = [];
+            $valorEmpenhoPedido = [];
+        }
+        
+        // Calcular a porcentagem restante
+        $totalConsumo = $pedidosValorTotalConsumo + $valorTotalOrcamento;
+        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+
+        // Adicionando os valores no array $dados
+        $dados['palestras'] =  count($palestras);
+        $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
+        $dados['valorRestante'] = $valorRestante;
+        $dados['porcentagemRestante'] = $porcentagemRestante;
+
+        return $dados;
+    }
+
+    //DADOS EVNETOS
+    public function getDadosEmpenhoEventos()
+    {
+        $dados = [];
+
+        $evento = new EmpenhoModel();
+        $eventos = $evento->getEventos($this->ano)->getResult();
+        
+        $pedido = new PedidosPainel();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('eventos', $this->ano)->getResult();
+
+        $orcamento = new OrcamentosPainel();
+        $orcamentosValorTotal = $orcamento->getOrcamentosByTipo('eventos', $this->ano)->getResult();
+
+        $empenho = new EmpenhoModel();
+        $empenhoPedidos = $empenho->getEmpenho('Feiras e Eventos', $this->ano)->getResult();
+
+        if($empenhoPedidos){
+            if($orcamentosValorTotal){
+                $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
+            }else{
+                $valorTotalOrcamento = 0;
+            }
+
+            if($pedidosValorTotal){
+                $pedidosValorTotalConsumo = $pedidosValorTotal[0]['valor_total_pedido'];
+            }else{
+                $pedidosValorTotalConsumo = 0;
+            }
+
+            if($empenhoPedidos){
+                $valorEmpenhoPedido = $empenhoPedidos[0]['valor_empenho'];
+            }else{
+                $valorEmpenhoPedido = 0;
+            }
+        }else{
+            $pedidosValorTotalConsumo = [];
+            $valorEmpenhoPedido = [];
+        }
+        
+        // Calcular a porcentagem restante
+        $totalConsumo = $pedidosValorTotalConsumo + $valorTotalOrcamento;
+        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+
+        // Adicionando os valores no array $dados
+        $dados['eventos'] =  count($eventos);
+        $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
+        $dados['valorRestante'] = $valorRestante;
+        $dados['porcentagemRestante'] = $porcentagemRestante;
+
+        return $dados;
     }
 
 }

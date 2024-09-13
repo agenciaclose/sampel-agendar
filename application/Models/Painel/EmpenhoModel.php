@@ -9,6 +9,17 @@ use Agencia\Close\Models\Model;
 
 class EmpenhoModel extends Model
 {
+
+    public function getEmpenho($tipo, $ano): Read
+    {
+        if ($tipo == 'Eventos'){
+            $tipo = 'Feiras e Eventos';
+        }
+        $read = new Read();
+        $read->FullRead("SELECT * FROM empenhos WHERE tipo = :tipo AND data_empenho = :ano ORDER BY `data_empenho` DESC", "tipo={$tipo}&ano={$ano}");
+        return $read;
+    }
+
     public function getEmpenhos(): Read
     {
         $read = new Read();
@@ -51,6 +62,34 @@ class EmpenhoModel extends Model
     {
         $read = new Read();
         $read->FullRead("DELETE FROM `empenhos` WHERE `id`= :id", "id={$id}");
+        return $read;
+    }
+
+    public function getPedidos($ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM pedidos WHERE tipo_evento = 'extra' AND YEAR(date_create) = :ano", "ano={$ano}");
+        return $read;
+    }
+
+    public function getVisitasListAprovadas($ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT id FROM visitas WHERE status_visita not in ('Cancelado', 'Recusado') AND YEAR(data_visita) = :ano ORDER BY id DESC", "ano={$ano}");
+        return $read;
+    }
+
+    public function getPalestrasList($ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM palestras WHERE YEAR(data_palestra) = :ano ORDER BY id DESC", "ano={$ano}");
+        return $read;
+    }
+
+    public function getEventos($ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM eventos WHERE status_evento = 'Ativo' AND YEAR(data_evento_inicio) = :ano", "ano={$ano}");
         return $read;
     }
 

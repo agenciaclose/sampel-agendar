@@ -32,6 +32,13 @@ class OrcamentosPainel extends Model
         return $read;
     }
 
+    public function getOrcamentosByTipo($tipo_evento, $ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(valor_orcamento) as valor_total_orcamento FROM orcamentos WHERE tipo_evento = :tipo_evento  AND YEAR(`date_create`) = :ano", "tipo_evento={$tipo_evento}&ano={$ano}");
+        return $read;
+    }
+
     public function getOrcamentosByEvento($id_evento, $tipo_evento): Read
     {
         $read = new Read();

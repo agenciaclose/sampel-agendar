@@ -23,6 +23,18 @@ class VisitasPainel extends Model
         return $read;
     }
 
+    public function getVisitasListAprovadas(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
+        FROM visitas AS v
+        INNER JOIN usuarios AS u ON u.id = v.id_empresa 
+        WHERE v.status_visita not in ('Cancelado', 'Recusado')
+        ORDER BY v.id DESC");
+        return $read;
+    }
+
     public function getEstados(): read
     {
         $read = new Read();

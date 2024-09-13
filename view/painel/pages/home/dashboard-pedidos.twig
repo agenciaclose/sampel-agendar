@@ -1,0 +1,49 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Painel{% endblock %}
+
+{% block body %}
+
+    <div class="app-content content ">
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                {# AREA DE PEDIDOS #}
+                <section id="estatisticas-pedido">
+
+                    {{ include('painel/pages/home/pedidos/bloco1.twig') }}
+                    
+                    <div class="row">
+                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/pedidos/bloco2.twig') }}</div>
+                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/pedidos/bloco3.twig') }}</div>
+                    </div>
+
+                    <div class="row">
+                        {{ include('painel/pages/home/pedidos/bloco4.twig') }}
+                        {{ include('painel/pages/home/pedidos/bloco5.twig') }}
+                        {{ include('painel/pages/home/pedidos/bloco6.twig') }}
+                    </div>
+
+                </section>
+                {#  #}
+
+
+                {# AREA DE EVENTOS #}
+                <section id="estatisticas-eventos" class="mt-3">
+
+                    <div class="card">
+                        <div class="card-body"><h5 class="card-title mb-0">Relatórios de Eventos</h5></div>
+                    </div>
+
+                    <div class="row">
+                        {{ include('painel/pages/home/eventos/bloco1.twig') }}
+                        {# {{ include('painel/pages/home/eventos/bloco3.twig') }} #}
+                    </div>
+                </section>
+                {#  #}
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/dashboard-pedidos.js"></script>
+{% endblock %}

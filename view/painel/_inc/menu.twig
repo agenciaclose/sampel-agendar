@@ -12,11 +12,15 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+                <li class="{{ (menu == 'home') ? 'active' }} nav-item mt-1">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i class="fa-light fa-home"></i><span class="menu-title text-truncate">Home</span></a>
+                </li>
               
                 <li class="navigation-header mt-1"><span>Dashboard</span></li>
 
-                <li class="{{ (menu == 'home') ? 'active' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel"><i class="fa-light fa-box-open-full"></i><span class="menu-title text-truncate">Pedidos</span></a>
+                <li class="{{ (menu == 'dashboard-pedidos') ? 'active' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/dashboard-pedidos"><i class="fa-light fa-box-open-full"></i><span class="menu-title text-truncate">Pedidos</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="d-flex align-items-center" href="javascript:void(0)"><i class="fa-light fa-calendar-check"></i><span class="menu-title text-truncate">Visitas</span></a>

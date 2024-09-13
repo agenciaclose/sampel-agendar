@@ -8,36 +8,255 @@
         <div class="content-wrapper">
             <div class="content-body">
 
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body py-1">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>Total Geral de Empenho: <span class="text-success">R$ {{ total_empenho|number_format(2, ',', '.') }}</span></div>
+                                    <div>Total Geral de Consumo: <span class="text-primary">R$ {{ total_consumo|number_format(2, ',', '.') }}</span></div>
+                                    <div>
+                                      <select name="ano" class="form-control">
+                                        <option value="{{ now|date('Y') }}">{{ now|date('Y') }}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 {# AREA DE PEDIDOS #}
                 <section id="estatisticas-pedido">
 
-                    {{ include('painel/pages/home/pedidos/bloco1.twig') }}
-                    
                     <div class="row">
-                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/pedidos/bloco2.twig') }}</div>
-                        <div class="col-md-6 cold-12">{{ include('painel/pages/home/pedidos/bloco3.twig') }}</div>
-                    </div>
 
-                    <div class="row">
-                        {{ include('painel/pages/home/pedidos/bloco4.twig') }}
-                        {{ include('painel/pages/home/pedidos/bloco5.twig') }}
-                        {{ include('painel/pages/home/pedidos/bloco6.twig') }}
-                    </div>
+                        {# RELATORIO PEDIDOS #}
+                        <div class="col-md-6 mb-2">
+                          <div class="card h-100">
+                            {% set currentDate = date() %}
+                            {% set endOfYear = "now"|date("Y") ~ "-12-31" %}
+                            {% set daysRemaining = (endOfYear|date_modify("+1 day")|date("U") - currentDate|date("U")) / 86400 %}
 
-                </section>
-                {#  #}
+                            <div class="card-header d-flex justify-content-between">
+                              <div class="card-title mb-0 d-flex justify-content-between align-items-center w-100">
+                                <div class="mb-1">Pedidos Extras</div>
+                                <p class="m-0">{{ daysRemaining|round(0, 'floor') }} Dias Restantes</p>
+                              </div>
+                            </div>
 
+                            <div class="card-body row">
+                              <div class="col-12 col-sm-4 col-md-12 col-lg-4">
 
-                {# AREA DE EVENTOS #}
-                <section id="estatisticas-eventos" class="mt-3">
+                                <div class="">
+                                  <h1 class="mb-0 text-primary">R$ {{ dadospedidos.pedidosValorTotalConsumo|number_format(2, ',', '.') }}</h1>
+                                  <p class="mb-0">Valor Total Consumido</p>
+                                </div>
 
-                    <div class="card">
-                        <div class="card-body"><h5 class="card-title mb-0">Relatórios de Eventos</h5></div>
-                    </div>
+                                <ul class="p-0 mt-2">
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-success p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Total de Pedidos</h6>
+                                      <div class="text-success">{{ dadospedidos.pedidos }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1">
+                                      <i class="fa-solid fs-4 fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valor de Empenho</h6>
+                                      <div class="text-success">R$ {{ dadospedidos.valorEmpenhoPedido|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-warning p-1"><i class="fa-solid fs-4 fa-clock"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores Restante</h6>
+                                      <div class="text-success">R$ {{ dadospedidos.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-sm-8 col-md-12 col-lg-8">
+                                <div id="empenho-pedidos" data-porcentagem="{{ dadospedidos.porcentagemRestante }}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {#  #}
 
-                    <div class="row">
-                        {{ include('painel/pages/home/eventos/bloco1.twig') }}
-                        {# {{ include('painel/pages/home/eventos/bloco3.twig') }} #}
+                        {# RELATORIO EVENTOS #}
+                        <div class="col-md-6 mb-2">
+                          <div class="card h-100">
+                            {% set currentDate = date() %}
+                            {% set endOfYear = "now"|date("Y") ~ "-12-31" %}
+                            {% set daysRemaining = (endOfYear|date_modify("+1 day")|date("U") - currentDate|date("U")) / 86400 %}
+
+                            <div class="card-header d-flex justify-content-between">
+                              <div class="card-title mb-0 d-flex justify-content-between align-items-center w-100">
+                                <div class="mb-1">Valor Eventos</div>
+                                <p class="m-0">{{ daysRemaining|round(0, 'floor') }} Dias Restantes</p>
+                              </div>
+                            </div>
+
+                            <div class="card-body row">
+                              <div class="col-12 col-sm-4 col-md-12 col-lg-4">
+
+                                <div class="">
+                                  <h1 class="mb-0 text-primary">R$ {{ dadoseventos.pedidosValorTotalConsumo|number_format(2, ',', '.') }}</h1>
+                                  <p class="mb-0">Valor Total Consumido</p>
+                                </div>
+
+                                <ul class="p-0 mt-2">
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-success p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Total de Eventos</h6>
+                                      <div class="text-success">{{ dadoseventos.eventos }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1">
+                                      <i class="fa-solid fs-4 fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valor de Empenho</h6>
+                                      <div class="text-success">R$ {{ dadoseventos.valorEmpenhoPedido|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-warning p-1"><i class="fa-solid fs-4 fa-clock"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores Restante</h6>
+                                      <div class="text-success">R$ {{ dadoseventos.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-sm-8 col-md-12 col-lg-8">
+                                <div id="empenho-eventos" data-porcentagem="{{ dadoseventos.porcentagemRestante }}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {#  #}
+
+                        {# RELATORIO VISITAS #}
+                        <div class="col-md-6 mb-2">
+                          <div class="card h-100">
+                            {% set currentDate = date() %}
+                            {% set endOfYear = "now"|date("Y") ~ "-12-31" %}
+                            {% set daysRemaining = (endOfYear|date_modify("+1 day")|date("U") - currentDate|date("U")) / 86400 %}
+
+                            <div class="card-header d-flex justify-content-between">
+                              <div class="card-title mb-0 d-flex justify-content-between align-items-center w-100">
+                                <div class="mb-1">Valor Visitas</div>
+                                <p class="m-0">{{ daysRemaining|round(0, 'floor') }} Dias Restantes</p>
+                              </div>
+                            </div>
+
+                            <div class="card-body row">
+                              <div class="col-12 col-sm-4 col-md-12 col-lg-4">
+
+                                <div class="">
+                                  <h1 class="mb-0 text-primary">R$ {{ dadosvisitas.pedidosValorTotalConsumo|number_format(2, ',', '.') }}</h1>
+                                  <p class="mb-0">Valor Total Consumido</p>
+                                </div>
+
+                                <ul class="p-0 mt-2">
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-success p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Total de Visitas</h6>
+                                      <div class="text-success">{{ dadosvisitas.visitas }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1">
+                                      <i class="fa-solid fs-4 fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valor de Empenho</h6>
+                                      <div class="text-success">R$ {{ dadosvisitas.valorEmpenhoPedido|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-warning p-1"><i class="fa-solid fs-4 fa-clock"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores Restante</h6>
+                                      <div class="text-success">R$ {{ dadosvisitas.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-sm-8 col-md-12 col-lg-8">
+                                <div id="empenho-visitas" data-porcentagem="{{ dadosvisitas.porcentagemRestante }}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {#  #}
+
+                        {# RELATORIO PALESTRAS #}
+                        <div class="col-md-6 mb-2">
+                          <div class="card h-100">
+                            {% set currentDate = date() %}
+                            {% set endOfYear = "now"|date("Y") ~ "-12-31" %}
+                            {% set daysRemaining = (endOfYear|date_modify("+1 day")|date("U") - currentDate|date("U")) / 86400 %}
+
+                            <div class="card-header d-flex justify-content-between">
+                              <div class="card-title mb-0 d-flex justify-content-between align-items-center w-100">
+                                <div class="mb-1">Valor Palestras</div>
+                                <p class="m-0">{{ daysRemaining|round(0, 'floor') }} Dias Restantes</p>
+                              </div>
+                            </div>
+
+                            <div class="card-body row">
+                              <div class="col-12 col-sm-4 col-md-12 col-lg-4">
+
+                                <div class="">
+                                  <h1 class="mb-0 text-primary">R$ {{ dadospalestras.pedidosValorTotalConsumo|number_format(2, ',', '.') }}</h1>
+                                  <p class="mb-0">Valor Total Consumido</p>
+                                </div>
+
+                                <ul class="p-0 mt-2">
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-success p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Total de Palestras</h6>
+                                      <div class="text-success">{{ dadospalestras.palestras }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1">
+                                      <i class="fa-solid fs-4 fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valor de Empenho</h6>
+                                      <div class="text-success">R$ {{ dadospalestras.valorEmpenhoPedido|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-warning p-1"><i class="fa-solid fs-4 fa-clock"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores Restante</h6>
+                                      <div class="text-success">R$ {{ dadospalestras.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-sm-8 col-md-12 col-lg-8">
+                                <div id="empenho-palestras" data-porcentagem="{{ dadospalestras.porcentagemRestante }}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {#  #}
+
                     </div>
                 </section>
                 {#  #}

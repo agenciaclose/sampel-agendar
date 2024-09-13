@@ -3,6 +3,7 @@
 //PAINEL HOME
 $router->namespace("Agencia\Close\Controllers\Painel\Home");
 $router->get("/painel", "HomeController:index");
+$router->get("/painel/dashboard-pedidos", "DashboardPedidosController:index");
 
 // PAINEL LOGIN
 $router->namespace("Agencia\Close\Controllers\Painel\LoginPainel");
