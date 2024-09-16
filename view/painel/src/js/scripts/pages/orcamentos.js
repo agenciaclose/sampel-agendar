@@ -144,7 +144,7 @@ $(document).ready(function () {
                 <div class="mb-2 row">
                     <div class="col-sm-6">
                         <label class="control-label">Valor da Parcela</label>
-                        <input type="text" name="valor_parcela[]" class="form-control money" value="${valorParcela.toFixed(2).replace('.', ',')}">
+                        <input type="text" name="valor_parcela[]" class="form-control money" value="${valorParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}">
                     </div>
                     <div class="col-sm-6">
                         <label class="control-label">Data de Pagamento</label>
