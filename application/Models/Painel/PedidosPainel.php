@@ -472,7 +472,7 @@ class PedidosPainel extends Model
         FROM pedidos_itens p
         INNER JOIN produtos pr ON p.id_produto = pr.id
         INNER JOIN pedidos AS pp ON pp.id = p.id_pedido
-        WHERE pp.id_equipe = :id_user AND p.status_itens = 'S'
+        WHERE pp.id_equipe = :id_user AND p.status_itens = 'S' AND pr.PDV = 'N'
         GROUP BY p.id_user, p.id_produto
         ORDER BY total_quantidade DESC;", "id_user={$id_user}");
         return $itens;
