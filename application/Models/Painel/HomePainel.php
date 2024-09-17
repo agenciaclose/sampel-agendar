@@ -6,7 +6,7 @@ use Agencia\Close\Models\Model;
 
 class HomePainel extends Model
 {
-    public function getFourEventosYear(): Read
+    public function getForEventosYear(): Read
     {
         $where = " WHERE data_evento_inicio like '%".date('Y')."%'";
         
@@ -48,7 +48,7 @@ class HomePainel extends Model
             (
                 SELECT MONTH(date_create) AS mes_num, COUNT(id) AS quantidade_pedidos, SUM(valor_total_pedido) AS total_valor_pedidos
                 FROM pedidos
-                WHERE YEAR(date_create) = YEAR(CURDATE())
+                WHERE YEAR(date_create) = YEAR(CURDATE()) AND status_pedido not in ('0', '1')
                 GROUP BY  mes_num
             ) AS pedidos_por_mes
         ON meses.mes_num = pedidos_por_mes.mes_num
@@ -75,7 +75,7 @@ class HomePainel extends Model
             (
                 SELECT DAYOFWEEK(date_create) AS dia_num, COUNT(id) AS quantidade_pedidos, SUM(valor_total_pedido) AS total_valor_pedidos
                 FROM  pedidos
-                WHERE YEARWEEK(date_create, 1) = YEARWEEK(CURDATE(), 1)
+                WHERE YEARWEEK(date_create, 1) = YEARWEEK(CURDATE(), 1) AND status_pedido not in ('0', '1')
                 GROUP BY dia_num
             ) AS pedidos_por_semana
         ON semanas.dia_num = pedidos_por_semana.dia_num

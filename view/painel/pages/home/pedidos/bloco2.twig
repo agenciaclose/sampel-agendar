@@ -3,11 +3,7 @@
         <div class="d-flex flex-column">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
-                    {% set valor_total_pedidos = 0 %}
-                    {% for pedidos in pedidosMensais %}
-                        {% set valor_total_pedidos = valor_total_pedidos + pedidos.total_valor_pedidos %}
-                    {% endfor %}
-                    <h1 class="mb-0 text-primary">R$ {{ valor_total_pedidos|number_format(2, ',', '.') }}</h1>
+                    <h1 class="mb-0 text-primary">R$ {{ PedidosValorTotal.valor_total_pedido|number_format(2, ',', '.')  }}</h1>
                     <small class="text-body">Valor total de todos os pedidos de {{ "now"|date("Y") }}.</small>
                 </div>
             </div>

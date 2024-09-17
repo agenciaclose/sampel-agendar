@@ -46,7 +46,7 @@ class DashboardPedidosController extends Controller
         $retiradaTotal = $pedidos->getPedidosRetiradaTotal()->getResult()[0];
 
         $model = new HomePainel();
-        $eventosGastos = $model->getFourEventosYear()->getResult();
+        $eventosGastos = $model->getForEventosYear()->getResult();
         $pedidosMensais = $model->getPedidosMensais()->getResult();
         $pedidosSemanais = $model->getPedidosSemanais()->getResult();
 
