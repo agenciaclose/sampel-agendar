@@ -71,11 +71,6 @@
 
 				<div class="card">
 					<div class="card-body">
-                        {% set valor_total = 0 %}
-                        {% for pedido in pedidos %}
-                            {% set valor_total = valor_total + pedido.valor_total_pedido %}
-                        {% endfor %}
-
                         <div class="d-flex justify-content-center fs-5 fw-bold">VALOR TOTAL: <span class="text-success ms-1">R$ {{ valor_total|number_format(2, ',', '.') }}</span></div>
 
                         <div class="table-responsive min-vh-100"> 

@@ -24,11 +24,17 @@ class PedidosController extends Controller
         };
 
         $pedidos = $model->getPedidos($by_user)->getResult();
+        $valor_total = $model->getPedidosTotalValor($by_user);
+        if($valor_total->getResult()){
+            $valor_total = $valor_total->getResult()[0]['valor_total'];
+        }else{
+            $valor_total = 0;
+        }
 
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();
 
-        $this->render('pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
+        $this->render('pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes, 'valor_total' => $valor_total]);
     }
 
     public function viewPedido($params)

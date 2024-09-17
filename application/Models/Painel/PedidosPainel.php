@@ -55,6 +55,17 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getPedidosTotalValor($by_user = null): Read
+    {
+        $where = $this->getFilter();
+
+        $read = new Read();
+        $read->FullRead("SELECT SUM(p.valor_total_pedido) AS valor_total FROM pedidos AS p 
+            INNER JOIN usuarios AS u ON u.id = p.id_equipe 
+            WHERE p.ativo = 'S' AND p.status_pedido not in ('0', '1') $where $by_user ORDER BY p.`id` DESC");
+        return $read;
+    }
+
     public function getPedidosValorTotal(): Read
     {
         $read = new Read();

@@ -18,10 +18,17 @@ class PedidosPainelController extends Controller
         $model = new PedidosPainel();
         $pedidos = $model->getPedidos()->getResult();
 
+        $valor_total = $model->getPedidosTotalValor();
+        if($valor_total->getResult()){
+            $valor_total = $valor_total->getResult()[0]['valor_total'];
+        }else{
+            $valor_total = 0;
+        }
+
         $model = new EquipesPainel();
         $equipes = $model->getEquipesList()->getResult();
 
-        $this->render('painel/pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes]);
+        $this->render('painel/pages/pedidos/list.twig', ['menu' => 'pedidos',  'pedidos' => $pedidos,  'equipes' => $equipes, 'valor_total' => $valor_total]);
     }
 
     public function viewPedido($params)

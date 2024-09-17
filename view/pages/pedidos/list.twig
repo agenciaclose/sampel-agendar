@@ -70,10 +70,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="mb-2">
-                    {% set valor_total = 0 %}
-                    {% for pedido in pedidos %}
-                        {% set valor_total = valor_total + pedido.valor_total_pedido %}
-                    {% endfor %}
                     <div class="d-flex {{ 'add' in permissions.pedidos or permissions == 'all' ? 'justify-content-between' : 'justify-content-center' }} align-items-center">
                         <div class="fw-bolder">VALOR TOTAL: <span class="text-success ms-1">R$ {{ valor_total|number_format(2, ',', '.') }}</span></div>
                         {% if 'add' in permissions.pedidos or permissions == 'all' %}
