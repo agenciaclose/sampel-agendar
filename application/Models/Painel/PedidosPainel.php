@@ -468,7 +468,7 @@ class PedidosPainel extends Model
     public function getProdutosByUser($id_user)
     {
         $itens = new Read();
-        $itens->FullRead("SELECT pr.*, SUM(p.quantidade) AS total_quantidade, SUM(p.quantidade) * p.valor_unid AS valor_total
+        $itens->FullRead("SELECT pr.*, SUM(p.quantidade) AS total_quantidade, SUM(p.quantidade * pr.unidades) * p.valor_unid AS valor_total
         FROM pedidos_itens p
         INNER JOIN produtos pr ON p.id_produto = pr.id
         INNER JOIN pedidos AS pp ON pp.id = p.id_pedido
