@@ -24,6 +24,7 @@
                                                     <th>COD.PRODUTO</th>
                                                     <th width="50" class="text-center text-nowrap">QTD. PEDIDO</th>
                                                     <th class="text-center">UNID. PACOTE</th>
+                                                    <th class="text-center">VALOR UNID.</th>
                                                     <th width="50" class="text-center text-nowrap">QTD. TOTAL</th>
                                                     <th class="text-end">Valor Total</th>
                                                 </tr>
@@ -45,6 +46,7 @@
                                                         {{ produto.embalagem }} / {{ produto.total_quantidade }}
                                                     </td>
                                                     <td class="text-center">{{ produto.unidades }}</td>
+                                                    <td class="text-center">R$ {{ produto.preco|number_format(2, ',', '.') }}</td>
                                                     <td class="text-center text-black bg-success text-nowrap" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="<b>Estoqeu Mínimo:</b> <span class='ms-1 badge bg-label-success'>{{ produto.estoque_minimo }}</span>">
                                                         {% set qtd_total = produto.total_quantidade * produto.unidades %} {{ qtd_total }}
                                                     </td>
