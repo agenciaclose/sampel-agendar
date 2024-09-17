@@ -219,5 +219,4 @@ class PedidosController extends Controller
         ];
         return $estados;
     }
-    
 }

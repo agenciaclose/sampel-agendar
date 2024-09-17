@@ -7,6 +7,7 @@ $router->get("/painel/pedidos/add", "PedidosPainelController:addPedido");
 $router->get("/painel/pedidos/edit/{id}", "PedidosPainelController:editPedido");
 $router->get("/painel/pedidos/view/{id}", "PedidosPainelController:viewPedido");
 $router->get("/painel/pedidos/print/{id}", "PedidosPainelController:printPedido");
+$router->get("/painel/pedidos/user/{id}", "PedidosPainelController:userPedidosProdutos");
 $router->post("/painel/pedidos/moderate/{id}", "PedidosPainelController:showModerate");
 $router->post("/painel/pedidos/moderate/save", "PedidosPainelController:statusPedidoSave");
 $router->post("/painel/pedidos/tipo", "PedidosPainelController:getTipoEvento");

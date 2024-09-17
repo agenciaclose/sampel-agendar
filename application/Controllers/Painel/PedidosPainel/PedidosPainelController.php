@@ -238,4 +238,18 @@ class PedidosPainelController extends Controller
         echo $result;
     }
     
+    public function userPedidosProdutos($params) {
+        $this->setParams($params);
+
+        $model = new PedidosPainel();
+        $produtos = $model->getProdutosByUser($params['id']);
+        if($produtos->getResult()){
+            $produtos = $produtos->getResult();
+        }else{
+            $produtos = [];
+        }
+
+        $this->render('painel/pages/pedidos/userPedidos.twig', ['menu' => 'pedidos', 'produtos' => $produtos]);
+
+    }
 }

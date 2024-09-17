@@ -465,4 +465,17 @@ class PedidosPainel extends Model
         return $itens;
     }
 
+    public function getProdutosByUser($id_user)
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT pr.*, SUM(p.quantidade) AS total_quantidade, SUM(p.quantidade) * p.valor_unid AS valor_total
+        FROM pedidos_itens p
+        INNER JOIN produtos pr ON p.id_produto = pr.id
+        INNER JOIN pedidos AS pp ON pp.id = p.id_pedido
+        WHERE pp.id_equipe = :id_user AND p.status_itens = 'S'
+        GROUP BY p.id_user, p.id_produto
+        ORDER BY total_quantidade DESC;", "id_user={$id_user}");
+        return $itens;
+    }
+
 }
