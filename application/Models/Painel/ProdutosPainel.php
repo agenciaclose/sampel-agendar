@@ -140,8 +140,9 @@ class ProdutosPainel extends Model
                 u.nome AS user_nome,
                 u.email AS user_email
             FROM pedidos_itens p
+            JOIN pedidos pp ON pp.id_equipe = p.id_user
             JOIN produtos pr ON p.id_produto = pr.id
-            JOIN usuarios u ON u.id = p.id_user
+            JOIN usuarios u ON u.id = pp.id_equipe
             WHERE 
                 p.id_produto = :id_produto
             GROUP BY 
