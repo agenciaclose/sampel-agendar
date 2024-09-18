@@ -131,4 +131,24 @@ class ProdutosPainel extends Model
         return $read;
     }
 
+    public function getProdutosByUser($id_produto)
+    {
+        $itens = new Read();
+        $itens->FullRead("SELECT 
+                pr.*, SUM(p.quantidade) AS total_quantidade, SUM(p.quantidade * pr.unidades) qtd_total, SUM(p.quantidade * pr.unidades) * p.valor_unid AS valor_total,
+                SUM(p.quantidade) AS total_quantidade,
+                u.nome AS user_nome,
+                u.email AS user_email
+            FROM pedidos_itens p
+            JOIN produtos pr ON p.id_produto = pr.id
+            JOIN usuarios u ON u.id = p.id_user
+            WHERE 
+                p.id_produto = :id_produto
+            GROUP BY 
+                p.id_user, p.id_produto
+            ORDER BY 
+                total_quantidade DESC", "id_produto={$id_produto}");
+        return $itens;
+    }
+
 }

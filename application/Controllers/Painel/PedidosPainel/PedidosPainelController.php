@@ -249,7 +249,7 @@ class PedidosPainelController extends Controller
             $produtos = [];
         }
 
-        $this->render('painel/pages/pedidos/userPedidos.twig', ['menu' => 'pedidos', 'produtos' => $produtos]);
+        $this->render('painel/pages/pedidos/userPedidos.twig', ['menu' => 'dashboard-pedidos', 'produtos' => $produtos]);
 
     }
 }

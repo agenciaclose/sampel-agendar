@@ -22,16 +22,20 @@
                         <tr>
                             <td style="max-width: 38px" class="pe-0 ps-1"><a href="{{ item.imagem }}" class="img"><img src="{{ item.imagem }}" class="rounded" width="38"></a></td>
                             <td>
-                                <div class="me-1">
-                                    <h6 class="mb-0">{{ item.nome }}</h6>
-                                    <small class="text-body">{{ item.codigo }}</small>
-                                </div>
+                                <a href="{{ DOMAIN }}/painel/produtos/user/{{ item.id }}">
+                                    <div class="me-1">
+                                        <h6 class="mb-0">{{ item.nome }}</h6>
+                                        <small class="text-body">{{ item.codigo }}</small>
+                                    </div>
+                                </a>
                             </td>
                             <td class="text-end">
-                                <div class="d-flex justify-content-end align-items-center">
-                                    <p class="mb-0">{{ item.porcentagem }}%</p>
-                                    <div class="ms-2 badge bg-label-success">{{ item.curva_abc }}</div>
-                                </div>
+                                <a href="{{ DOMAIN }}/painel/produtos/user/{{ item.id }}">
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <p class="mb-0">{{ item.porcentagem }}%</p>
+                                        <div class="ms-2 badge bg-label-success">{{ item.curva_abc }}</div>
+                                    </div>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}

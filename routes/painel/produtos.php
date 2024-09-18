@@ -8,3 +8,4 @@ $router->get("/painel/produtos/edit/{id}", "ProdutosPainelController:productEdit
 $router->post("/painel/produtos/add/save", "ProdutosPainelController:productAddSave");
 $router->post("/painel/produtos/edit/save", "ProdutosPainelController:productEditSave");
 $router->post("/painel/produtos/status", "ProdutosPainelController:productStatus");
+$router->get("/painel/produtos/user/{id}", "ProdutosPainelController:productsByUser");

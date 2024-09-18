@@ -444,7 +444,7 @@ class PedidosPainel extends Model
     {
         $itens = new Read();
         $itens->FullRead("WITH ProdutoQuantidades AS (SELECT pi.id_produto, SUM(pi.qt_total) AS quantidade_total FROM pedidos_itens pi GROUP BY pi.id_produto), ProdutoPercentuais AS (SELECT pq.id_produto, pq.quantidade_total, pq.quantidade_total * 100.0 / SUM(pq.quantidade_total) OVER () AS percentual FROM ProdutoQuantidades pq), ProdutoClassificacao AS (SELECT pq.id_produto, pq.quantidade_total, pq.percentual, SUM(pq.percentual) OVER (ORDER BY pq.percentual DESC) AS acumulado FROM ProdutoPercentuais pq) SELECT p.codigo, p.nome, p.imagem, pc.quantidade_total, ROUND(pc.percentual) AS porcentagem,
-        ROUND(pc.acumulado) AS acumulado, CASE WHEN pc.acumulado <= 80 THEN 'A' WHEN pc.acumulado <= 95 THEN 'B' ELSE 'C' END AS curva_abc 
+        ROUND(pc.acumulado) AS acumulado, CASE WHEN pc.acumulado <= 80 THEN 'A' WHEN pc.acumulado <= 95 THEN 'B' ELSE 'C' END AS curva_abc, p.id
         FROM ProdutoClassificacao pc INNER JOIN produtos p ON p.id = pc.id_produto ORDER BY pc.acumulado");
         return $itens;
     }
@@ -474,7 +474,7 @@ class PedidosPainel extends Model
         INNER JOIN pedidos AS pp ON pp.id = p.id_pedido
         WHERE pp.id_equipe = :id_user AND p.status_itens = 'S' AND pr.PDV = 'N'
         GROUP BY p.id_user, p.id_produto
-        ORDER BY qtd_total DESC;", "id_user={$id_user}");
+        ORDER BY qtd_total DESC", "id_user={$id_user}");
         return $itens;
     }
 

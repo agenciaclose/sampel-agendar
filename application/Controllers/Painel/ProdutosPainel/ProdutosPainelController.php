@@ -79,4 +79,19 @@ class ProdutosPainelController extends Controller
         echo '1';
     }
 
+    public function productsByUser($params)
+    {
+        $this->setParams($params);
+
+        $model = new ProdutosPainel();
+        $usuarios = $model->getProdutosByUser($params['id']);
+        if($usuarios->getResult()){
+            $usuarios = $usuarios->getResult();
+        }else{
+            $usuarios = [];
+        }
+
+        $this->render('painel/pages/produtos/productsUser.twig', ['menu' => 'dashboard-pedidos', 'usuarios' => $usuarios]);
+    }
+
 }
