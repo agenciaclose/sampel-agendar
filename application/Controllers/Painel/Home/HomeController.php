@@ -25,9 +25,10 @@ class HomeController extends Controller
         $dadosvisitas = $this->getDadosEmpenhoVisitas();
         $dadospalestras = $this->getDadosEmpenhoPalestras();
         $dadoseventos = $this->getDadosEmpenhoEventos();
+        $dadospatrocinios = $this->getDadosEmpenhoPadrocinios();
 
-        $total_empenho = $dadospedidos['valorEmpenhoPedido'] + $dadosvisitas['valorEmpenhoPedido'] + $dadospalestras['valorEmpenhoPedido'] + $dadoseventos['valorEmpenhoPedido'];
-        $total_consumo = $dadospedidos['pedidosValorTotalConsumo'] + $dadosvisitas['pedidosValorTotalConsumo'] + $dadospalestras['pedidosValorTotalConsumo'] + $dadoseventos['pedidosValorTotalConsumo'];
+        $total_empenho = $dadospedidos['valorEmpenhoPedido'] + $dadosvisitas['valorEmpenhoPedido'] + $dadospalestras['valorEmpenhoPedido'] + $dadoseventos['valorEmpenhoPedido'] + $dadospatrocinios['valorEmpenhoPedido'];
+        $total_consumo = $dadospedidos['pedidosValorTotalConsumo'] + $dadosvisitas['pedidosValorTotalConsumo'] + $dadospalestras['pedidosValorTotalConsumo'] + $dadoseventos['pedidosValorTotalConsumo'] + $dadospatrocinios['pedidosValorTotalConsumo'];
 
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
@@ -35,6 +36,7 @@ class HomeController extends Controller
             'dadosvisitas' => $dadosvisitas,
             'dadospalestras' => $dadospalestras,
             'dadoseventos' => $dadoseventos,
+            'dadospatrocinios' => $dadospatrocinios,
             'total_empenho' => $total_empenho,
             'total_consumo' => $total_consumo
         ]);
@@ -76,6 +78,7 @@ class HomeController extends Controller
         // Adicionando os valores no array $dados
         $dados['pedidos'] =  count($pedidos);
         $dados['pedidosValorTotalConsumo'] = $pedidosValorTotalConsumo;
+        $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
         $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
         $dados['valorRestante'] = $valorRestante;
         $dados['porcentagemRestante'] = $porcentagemRestante;
@@ -131,6 +134,7 @@ class HomeController extends Controller
         // Adicionando os valores no array $dados
         $dados['visitas'] =  count($visitas);
         $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
         $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
         $dados['valorRestante'] = $valorRestante;
         $dados['porcentagemRestante'] = $porcentagemRestante;
@@ -186,6 +190,7 @@ class HomeController extends Controller
         // Adicionando os valores no array $dados
         $dados['palestras'] =  count($palestras);
         $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
         $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
         $dados['valorRestante'] = $valorRestante;
         $dados['porcentagemRestante'] = $porcentagemRestante;
@@ -241,6 +246,63 @@ class HomeController extends Controller
         // Adicionando os valores no array $dados
         $dados['eventos'] =  count($eventos);
         $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
+        $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
+        $dados['valorRestante'] = $valorRestante;
+        $dados['porcentagemRestante'] = $porcentagemRestante;
+
+        return $dados;
+    }
+
+    //DADOS EVNETOS
+    public function getDadosEmpenhoPadrocinios()
+    {
+        $dados = [];
+
+        $patrocinio = new EmpenhoModel();
+        $patrocinios = $patrocinio->getPatrocinios($this->ano)->getResult();
+        
+        $pedido = new PedidosPainel();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('patrocinios', $this->ano)->getResult();
+
+        $orcamento = new OrcamentosPainel();
+        $orcamentosValorTotal = $orcamento->getOrcamentosByTipo('patrocinios', $this->ano)->getResult();
+
+        $empenho = new EmpenhoModel();
+        $empenhoPedidos = $empenho->getEmpenho('Patrocinios', $this->ano)->getResult();
+
+        if($empenhoPedidos){
+            if($orcamentosValorTotal){
+                $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
+            }else{
+                $valorTotalOrcamento = 0;
+            }
+
+            if($pedidosValorTotal){
+                $pedidosValorTotalConsumo = $pedidosValorTotal[0]['valor_total_pedido'];
+            }else{
+                $pedidosValorTotalConsumo = 0;
+            }
+
+            if($empenhoPedidos){
+                $valorEmpenhoPedido = $empenhoPedidos[0]['valor_empenho'];
+            }else{
+                $valorEmpenhoPedido = 0;
+            }
+        }else{
+            $pedidosValorTotalConsumo = [];
+            $valorEmpenhoPedido = [];
+        }
+        
+        // Calcular a porcentagem restante
+        $totalConsumo = $pedidosValorTotalConsumo + $valorTotalOrcamento;
+        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+
+        // Adicionando os valores no array $dados
+        $dados['patrocinios'] =  count($patrocinios);
+        $dados['pedidosValorTotalConsumo'] = $totalConsumo;
+        $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
         $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
         $dados['valorRestante'] = $valorRestante;
         $dados['porcentagemRestante'] = $porcentagemRestante;

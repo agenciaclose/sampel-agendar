@@ -93,4 +93,11 @@ class EmpenhoModel extends Model
         return $read;
     }
 
+    public function getPatrocinios($ano): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM patrocinios WHERE status_patrocinio = 'Ativo' AND YEAR(data_patrocinio_inicio) = :ano", "ano={$ano}");
+        return $read;
+    }
+
 }

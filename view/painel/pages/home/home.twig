@@ -16,6 +16,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>Total Geral de Empenho: <span class="text-success">R$ {{ total_empenho|number_format(2, ',', '.') }}</span></div>
                                     <div>Total Geral de Consumo: <span class="text-primary">R$ {{ total_consumo|number_format(2, ',', '.') }}</span></div>
+                                    <div>Total Geral de Restante: <span class="text-danger">R$ {{ (total_empenho - total_consumo)|number_format(2, ',', '.') }}</span></div>
                                     <div>
                                       <select name="ano" class="form-control">
                                         <option value="{{ now|date('Y') }}">{{ now|date('Y') }}</option>
@@ -135,6 +136,13 @@
                                       <div class="text-success">R$ {{ dadoseventos.valorRestante|number_format(2, ',', '.') }}</div>
                                     </div>
                                   </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-cart-shopping-fast"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores de Pedidos</h6>
+                                      <div class="text-success">R$ {{ dadoseventos.pedidosValorTotal|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
                                 </ul>
                               </div>
                               <div class="col-12 col-sm-8 col-md-12 col-lg-8">
@@ -189,6 +197,13 @@
                                     <div>
                                       <h6 class="mb-0 text-nowrap">Valores Restante</h6>
                                       <div class="text-success">R$ {{ dadosvisitas.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-cart-shopping-fast"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores de Pedidos</h6>
+                                      <div class="text-success">R$ {{ dadosvisitas.pedidosValorTotal|number_format(2, ',', '.') }}</div>
                                     </div>
                                   </li>
                                 </ul>
@@ -247,10 +262,73 @@
                                       <div class="text-success">R$ {{ dadospalestras.valorRestante|number_format(2, ',', '.') }}</div>
                                     </div>
                                   </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-cart-shopping-fast"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores de Pedidos</h6>
+                                      <div class="text-success">R$ {{ dadospalestras.pedidosValorTotal|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
                                 </ul>
                               </div>
                               <div class="col-12 col-sm-8 col-md-12 col-lg-8">
                                 <div id="empenho-palestras" data-porcentagem="{{ dadospalestras.porcentagemRestante }}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {#  #}
+
+                        {# RELATORIO PATROCINIOS #}
+                        <div class="col-md-6 mb-2">
+                          <div class="card h-100">
+                            {% set currentDate = date() %}
+                            {% set endOfYear = "now"|date("Y") ~ "-12-31" %}
+                            {% set daysRemaining = (endOfYear|date_modify("+1 day")|date("U") - currentDate|date("U")) / 86400 %}
+
+                            <div class="card-header d-flex justify-content-between">
+                              <div class="card-title mb-0 d-flex justify-content-between align-items-center w-100">
+                                <div class="mb-1">Valor Padrocínios</div>
+                                <p class="m-0">{{ daysRemaining|round(0, 'floor') }} Dias Restantes</p>
+                              </div>
+                            </div>
+
+                            <div class="card-body row">
+                              <div class="col-12 col-sm-4 col-md-12 col-lg-4">
+
+                                <div class="">
+                                  <h1 class="mb-0 text-primary text-nowrap">R$ {{ dadospatrocinios.pedidosValorTotalConsumo|number_format(2, ',', '.') }}</h1>
+                                  <p class="mb-0">Valor Total Consumido</p>
+                                </div>
+
+                                <ul class="p-0 mt-2">
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-success p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Total de Padrocínios</h6>
+                                      <div class="text-success">{{ dadospatrocinios.patrocinios }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-info p-1">
+                                      <i class="fa-solid fs-4 fa-shield-check"></i>
+                                    </div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valor de Empenho</h6>
+                                      <div class="text-success">R$ {{ dadospatrocinios.valorEmpenhoPedido|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                  <li class="d-flex gap-2 align-items-center pb-1">
+                                    <div class="badge rounded bg-label-warning p-1"><i class="fa-solid fs-4 fa-clock"></i></div>
+                                    <div>
+                                      <h6 class="mb-0 text-nowrap">Valores Restante</h6>
+                                      <div class="text-success">R$ {{ dadospatrocinios.valorRestante|number_format(2, ',', '.') }}</div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-12 col-sm-8 col-md-12 col-lg-8">
+                                <div id="empenho-patrocinios" data-porcentagem="{{ dadospatrocinios.porcentagemRestante }}"></div>
                               </div>
                             </div>
                           </div>
