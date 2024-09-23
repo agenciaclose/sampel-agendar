@@ -1701,10 +1701,12 @@ img.alignright{
   left:0;
   width: 100%;
 }
+#main-menu.mobile.wbc_menu > li {
+  border-bottom: 1px solid #333333;
+}
 .sub-menu li {
   padding-left: 20px;
-  background-color: #ebebeb;
-  border-bottom: 1px solid #d5d5d5;
+  border-bottom: 1px solid #333333;
 }
 .bottom-fixed-menu .wbc_menu li ul,
 .bottom-fixed-menu .wbc_menu >li.mega-menu >ul{

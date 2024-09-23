@@ -115,39 +115,58 @@
                             <div class="modal-content">
                                 <div class="modal-body p-0">
                                     <ul id="main-menu" class="wbc_menu mobile nav justify-content-start flex-column py-2">
-                                        <li class="menu-item border-bottom {{ menu == 'home' ? 'current-menu-item' }}">
+
+                                        <li class="menu-item {{ menu == 'home' ? 'current-menu-item' }}">
                                             <a href="{{ DOMAIN }}" class="py-2"><i class="fa-light fa-house-chimney"></i> Home</a>
                                         </li>
-                                        {% if _session.sampel_user_id %}
-                                            <li class="menu-item border-bottom {{ menu == 'visitas' ? 'current-menu-item' }}">
-                                                <a href="javascript:void(0)" class="submenu py-2"><i class="fa-sharp fa-light fa-calendars"></i> Visitas <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
-                                                    <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
-                                                    <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
-                                                    <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item  border-bottom {{ menu == 'palestras' ? 'current-menu-item' }}">
-                                                <a href="javascript:void(0);" class="submenu py-2"><i class="fa-thin fa-microphone-lines"></i> Palestras  <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="{{ DOMAIN }}/palestras">Lista de Palestras</a></li>
-                                                    <li><a href="{{ DOMAIN }}/palestras/cadastro">Criar nova Palestra</a></li>
-                                                </ul>
-                                            </li>
-                                            {#}
-                                            <li class="menu-item {{ menu == 'areas' ? 'current-menu-item' }}">
-                                                <a href="{{ DOMAIN }}/agendamentos" class="py-2"><i class="fa-light fa-microphone-lines"></i> Palestras <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="{{ DOMAIN }}/agendamentos">Minhas Visitas</a></li>
-                                                    <li><a href="{{ DOMAIN }}/agendamentos/concluidas">Visitas Concluídas</a></li>
-                                                </ul>
-                                            </li> #}
+
+                                        {% if 'view' in permissions.eventos or permissions == 'all' %}
+                                        <li class="menu-item {{ menu == 'eventos' ? 'current-menu-item' }}">
+                                            <a href="{{ DOMAIN }}/eventos" class="py-2"><i class="fa-thin fa-lg fa-stars"></i> Eventos</a>
+                                        </li>
                                         {% endif %}
-                                        <li class="menu-item border-bottom {{ menu == 'equipes' ? 'current-menu-item' }}">
+
+                                        {% if 'view' in permissions.visitas or permissions == 'all' %}
+                                        <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
+                                            <a href="javascript:void(0)" class="submenu py-2"><i class="fa-sharp fa-light fa-calendars"></i> Visitas <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
+                                                <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
+                                                <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
+                                                <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
+                                            </ul>
+                                        </li>
+                                        {% endif %}
+
+                                        {% if 'view' in permissions.palestras or permissions == 'all' %}
+                                        <li class="menu-item {{ menu == 'palestras' ? 'current-menu-item' }}">
+                                            <a href="javascript:void(0);" class="submenu py-2"><i class="fa-thin fa-microphone-lines"></i> Palestras  <i class="fa-light fa-chevron-down float-end mt-1"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ DOMAIN }}/palestras">Lista de Palestras</a></li>
+                                                {% if 'add' in permissions.palestras or permissions == 'all' %}
+                                                <li><a href="{{ DOMAIN }}/palestras/cadastro">Criar nova Palestra</a></li>
+                                                <li><a href="{{ DOMAIN }}/palestras/relatorios">Relatórios Gerais</a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
+                                        {% endif %}
+
+                                        {% if 'view' in permissions.equipes or permissions == 'all' %}
+                                        <li class="menu-item {{ menu == 'equipes' ? 'current-menu-item' }}">
                                             <a href="{{ DOMAIN }}/equipes" class="py-2"><i class="fa-thin fa-users"></i> Equipes</a>
                                         </li>
-                                        <li class="menu-item border-bottom d-none">
+                                        {% endif %}
+
+                                        {% if 'view' in permissions.pedidos or permissions == 'all' %}
+                                        <li class="menu-item {{ menu == 'pedidos' ? 'current-menu-item' }}">
+                                            <a href="{{ DOMAIN }}/pedidos" class="text-success py-2"><i class="fa-thin fa-box-open-full"></i> Pedidos</a>
+                                        </li>
+                                        {% endif %}
+
+                                        <li class="menu-item {{ menu == 'equipes' ? 'current-menu-item' }}">
+                                            <a href="{{ DOMAIN }}/equipes" class="py-2"><i class="fa-thin fa-users"></i> Equipes</a>
+                                        </li>
+                                        <li class="menu-item d-none">
                                             <a href="{{ DOMAIN }}/certificados/visita" class="py-2"><i class="fa-light fa-file-certificate"></i> Certificados</a>
                                         </li>
                                         <li class="menu-item">
