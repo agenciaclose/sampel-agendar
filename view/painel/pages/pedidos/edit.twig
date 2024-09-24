@@ -20,7 +20,7 @@
 							<div class="d-flex justify-content-between flex-wrap align-items-end">
 
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
-									<label for="id_equipe" class="form-label">Retirada em nome:</label>
+									<label for="id_equipe" class="form-label d-block">Retirada em nome:</label>
 									<select class="form-control text-uppercase select2" name="id_equipe" id="id_equipe" required="required">
 										<option value="">Selecione</option>
 										{% for equipe in equipes %}
@@ -29,7 +29,7 @@
 									</select>
 								</div>
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
-									<label for="id_equipe" class="form-label">Estado de despacho:</label>
+									<label for="id_equipe" class="form-label d-block">Estado de despacho:</label>
 									<select name="estado_pedido" class="form-control text-uppercase" required="required">
 										<option value="">Selecione</option>
 										{% for estado in estados %}
@@ -39,7 +39,7 @@
 								</div>
 								
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
-									<label for="tipo_evento" class="form-label">Víncular a um Tipo de Evento</label>
+									<label for="tipo_evento" class="form-label d-block">Víncular a um Tipo de Evento</label>
 									<select class="form-control text-uppercase" name="tipo_evento" id="tipo_evento" required="required">
 										<option value="">Selecione</option>
 										<option value="visitas" {{ pedido.tipo_evento == 'visitas' ? 'selected' }}>Visitas</option>
@@ -50,7 +50,7 @@
 								</div>
 
 								<div class="mb-1 flex-fill w-md-100 me-md-1 id_evento" style="{{ pedido.tipo_evento == 'extra' ? 'display:none;' }}">
-									<label for="id_evento_select" class="form-label">Selecione o Evento</label>
+									<label for="id_evento_select" class="form-label d-block">Selecione o Evento</label>
 									<select class="form-control select2 id_evento_select text-uppercase" id="id_evento_select" name="id_evento" {{ pedido.tipo_evento != 'extra' ? 'required="required"' }}>
 										<option value="">Selecione</option>
 										{% if pedido.tipo_evento != 'extra' %}<option value="{{ pedido.id_evento }}" selected>{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}</option>{% endif %}
@@ -58,7 +58,7 @@
 								</div>
 
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
-									<label for="descricao_pedido" class="form-label">Informações sobre o Pedido</label>
+									<label for="descricao_pedido" class="form-label d-block">Informações sobre o Pedido</label>
 									<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" value="{{ pedido.descricao_pedido }}" placeholder="Descrição do Pedido">
 								</div>
 

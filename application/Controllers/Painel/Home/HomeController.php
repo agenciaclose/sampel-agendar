@@ -48,7 +48,8 @@ class HomeController extends Controller
         $dados = [];
 
         $pedido = new PedidosPainel();
-        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('extra', $this->ano)->getResult();
+        $pedidosValorTotal = $pedido->getPedidosValorTotalByTipo('', $this->ano)->getResult();
+        $pedidosValorTotalExtra = $pedido->getPedidosValorTotalByTipo('extra', $this->ano)->getResult();
         
         $empenho = new EmpenhoModel();
         $pedidos = $empenho->getPedidos($this->ano)->getResult();
@@ -79,6 +80,7 @@ class HomeController extends Controller
         $dados['pedidos'] =  count($pedidos);
         $dados['pedidosValorTotalConsumo'] = $pedidosValorTotalConsumo;
         $dados['pedidosValorTotal'] = $pedidosValorTotal[0]['valor_total_pedido'];
+        $dados['pedidosValorTotalExtra'] = $pedidosValorTotalExtra[0]['valor_total_pedido'];
         $dados['valorEmpenhoPedido'] = $valorEmpenhoPedido;
         $dados['valorRestante'] = $valorRestante;
         $dados['porcentagemRestante'] = $porcentagemRestante;

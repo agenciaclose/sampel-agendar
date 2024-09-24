@@ -68,7 +68,7 @@ class EmpenhoModel extends Model
     public function getPedidos($ano): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM pedidos WHERE tipo_evento = 'extra' AND YEAR(date_create) = :ano", "ano={$ano}");
+        $read->FullRead("SELECT * FROM pedidos WHERE YEAR(date_create) = :ano", "ano={$ano}");
         return $read;
     }
 
