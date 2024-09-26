@@ -259,7 +259,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5"><b>Lista de Equipes</b></h1>
-				{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
+				{% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
 					{% if equipevisita|length < 4 %}
 					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 4 MEMBROS PARA ENVIO</button>
 					{% elseif visita.email_equipe == 'N' %}
@@ -272,7 +272,7 @@
 			<div class="modal-body">
 				<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 			
-				{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
+				{% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
 				<div class="collapse mb-2" id="addMember">
 					<form action="javascript:void(0);" method="POST" id="form_editar_equipe">
 						
@@ -336,7 +336,7 @@
 								<div class="text-secondary"><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
 							</td>
 							<td class="text-end" width="25">
-								{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
+								{% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
 								<a href="javascript:void(0);" data-visita="{{ visita.id }}" data-membro="{{ equipe.id }}" class="text-danger remover_equipe" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remover">
 									<i class="fa-solid fa-octagon-xmark fa-lg"></i>
 								</a>
@@ -348,7 +348,7 @@
 				</table>
 
 			</div>
-			{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
+			{% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
 			<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
 				<button type="button" class="btn btn-primary"  data-bs-toggle="collapse" href="#addMember"><i class="fa-solid fa-plus"></i> ADICIONAR MEMBROS</button>
 			</div>
