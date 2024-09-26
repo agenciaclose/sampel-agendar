@@ -23,7 +23,7 @@ class EquipesController extends Controller
     public function cadastro()
     {
         $cargos = new CargosPainel();
-        $cargos = $cargos->getCargosList()->getResult();
+        $cargos = $cargos->getCargosListGerenciavel()->getResult();
         
         $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes', 'cargos' => $cargos]);
     }
@@ -84,7 +84,7 @@ class EquipesController extends Controller
         $cargos_user = $cargos_user->getCargosUser($params['id'])->getResult();
 
         $cargos = new CargosPainel();
-        $cargos = $cargos->getCargosList()->getResult();
+        $cargos = $cargos->getCargosListGerenciavel()->getResult();
 
         $this->render('pages/equipes/cadastro.twig', ['menu' => 'equipes', 'editar' => $editar, 'cargos' => $cargos, 'cargos_user' => $cargos_user]);
     }

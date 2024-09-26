@@ -16,6 +16,13 @@ class CargosPainel extends Model
         return $read;
     }
 
+    public function getCargosListGerenciavel(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM roles WHERE gerenciavel = 'S' ORDER BY `id` DESC");
+        return $read;
+    }
+
     public function getCargoID($id): Read
     {
         $read = new Read();
@@ -23,21 +30,23 @@ class CargosPainel extends Model
         return $read;
     }
 
-    public function addRoleSave($role, $permission)
+    public function addRoleSave($role, $permission, $gerenciavel)
     {
         $params['role'] = $role;
         $params['permissions'] = $permission;
+        $params['gerenciavel'] = $gerenciavel;
     
         $create = new Create();
         $create->ExeCreate('roles', $params);
         return $create->getResult();
     }
 
-    public function editRoleSave($id, $role, $permission)
+    public function editRoleSave($id, $role, $permission, $gerenciavel)
     {
         $params['role'] = $role;
         $params['permissions'] = $permission;
-    
+        $params['gerenciavel'] = $gerenciavel;
+
         $update = new Update();
         $update->ExeUpdate('roles', $params, 'WHERE id = :id', "id={$id}");
         return $update;

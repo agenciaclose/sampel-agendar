@@ -41,8 +41,15 @@ class CargosController extends Controller
     {
         $this->setParams($params);
         $permission = json_encode($params['permission']);
+
+        if(isset($params['gerenciavel'])){
+            $params['gerenciavel'] = 'S';
+        }else{
+            $params['gerenciavel'] = 'N';
+        }
+
         $save = new CargosPainel();
-        $save = $save->addRoleSave($params['role'], $permission);
+        $save = $save->addRoleSave($params['role'], $permission, $params['gerenciavel']);
         if($save){ echo '1'; }
     }
 
@@ -50,8 +57,15 @@ class CargosController extends Controller
     {
         $this->setParams($params);
         $permission = json_encode($params['permission']);
+
+        if(isset($params['gerenciavel'])){
+            $params['gerenciavel'] = 'S';
+        }else{
+            $params['gerenciavel'] = 'N';
+        }
+
         $save = new CargosPainel();
-        $save = $save->editRoleSave($params['id'], $params['role'], $permission);
+        $save = $save->editRoleSave($params['id'], $params['role'], $permission, $params['gerenciavel']);
         if($save){ echo '1'; }
     }
 

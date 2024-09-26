@@ -10,6 +10,14 @@
             <input type="text" name="role" value="{{ cargo.role }}" class="form-control" placeholder="Ex. Financeiro">
         </div>
 
+        <div class="mb-2">
+            <div><b>Cargo Gerenciável no Front</b></div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="gerenciavel" type="checkbox" id="gerenciavel" value="S" {{ cargo.gerenciavel == 'S' ? 'checked' }}>
+                <label class="form-check-label" for="gerenciavel">Gerenciável</label>
+            </div>
+        </div>
+
         <div class="separator"><b>Gerenciar Permissões</b></div>
         {% if cargo.permissions %}
             {% set permissions = cargo.permissions|json_decode %}
