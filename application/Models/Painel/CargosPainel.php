@@ -18,8 +18,14 @@ class CargosPainel extends Model
 
     public function getCargosListGerenciavel(): Read
     {
+        if($_SESSION['sampel_user_tipo'] == 1){
+            $gerenciavel = "";
+        }else{
+            $gerenciavel = "WHERE gerenciavel = 'S'";
+        }
+
         $read = new Read();
-        $read->FullRead("SELECT * FROM roles WHERE gerenciavel = 'S' ORDER BY `id` DESC");
+        $read->FullRead("SELECT * FROM roles $gerenciavel ORDER BY `id` DESC");
         return $read;
     }
 
