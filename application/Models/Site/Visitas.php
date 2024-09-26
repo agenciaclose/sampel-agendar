@@ -49,7 +49,7 @@ class Visitas extends Model
                         (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.`status_visita` <> 'Concluido' ORDER BY v.`data_visita` ASC");
+						WHERE v.`status_visita` not in ('Concluido', 'Recusado') ORDER BY v.`data_visita` ASC");
         return $read;
     }
 
