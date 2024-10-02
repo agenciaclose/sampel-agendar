@@ -3333,6 +3333,7 @@ body:after {
 
 .select2-container {
   margin: 0;
+  width: 100% !important;
   display: inline-block;
   position: relative;
   vertical-align: middle;

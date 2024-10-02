@@ -74,6 +74,27 @@ class PedidosPainelController extends Controller
         $this->render('painel/pages/pedidos/print.twig', ['menu' => 'pedidos',  'pedido' => $pedido, 'itens' => $itens, 'evento' => $evento]);
     }
 
+    public function printFaturamentoPedido($params)
+    {
+        $this->setParams($params);
+
+        $model = new PedidosPainel();
+        $pedido = $model->getPedidoID($params['id']);
+
+        if($pedido->getResult()){
+            $pedido = $pedido->getResult()[0];
+            
+            $evento = [];
+            if($pedido['tipo_evento'] != 'extra'){
+                $evento = $model->getPedidoEvento($pedido['tipo_evento'], $pedido['id_evento'])->getResult()[0];
+            }
+
+            $itens = $model->getPedidoIDItens($pedido['id'])->getResult();
+        }
+
+        $this->render('painel/pages/pedidos/print-faturamento.twig', ['menu' => 'pedidos',  'pedido' => $pedido, 'itens' => $itens, 'evento' => $evento]);
+    }
+
     public function addPedido($params)
     {
         $this->setParams($params);

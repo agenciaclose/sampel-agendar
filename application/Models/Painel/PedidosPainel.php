@@ -221,7 +221,10 @@ class PedidosPainel extends Model
             'emitente_bairrro' => $emitente_bairrro,
             'emitente_cidade' => $emitente_cidade,
             'emitente_estado' => $emitente_estado,
-            'valor_total_pedido' => $valor_total_pedido
+            'valor_total_pedido' => $valor_total_pedido,
+            'transportadora' => $params['transportadora'],
+            'expedicao' => $params['expedicao'],
+            'qtd_caixa' => $params['qtd_caixa']
         ]);
 
         //RETORNA O ID DO PEDIDO
@@ -321,7 +324,10 @@ class PedidosPainel extends Model
             'emitente_bairrro' => $emitente_bairrro,
             'emitente_cidade' => $emitente_cidade,
             'emitente_estado' => $emitente_estado,
-            'valor_total_pedido' => $valor_total_pedido
+            'valor_total_pedido' => $valor_total_pedido,
+            'transportadora' => $params['transportadora'],
+            'expedicao' => $params['expedicao'],
+            'qtd_caixa' => $params['qtd_caixa']
         ], 'WHERE id = :id', "id={$id_pedido}");
 
 
