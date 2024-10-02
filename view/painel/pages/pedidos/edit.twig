@@ -118,7 +118,16 @@
 											{{ pedido.status_pedido|pedidoStatus|raw }}
 										</div>
 										<div>
-											<a class="btn btn-info btn-lg rounded-0 fw-bolder" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/pedidos/moderate/{{ pedido.id }}" data-bs-toggle="modal-remote" data-bs-target="#moderar"><i class="fa-solid fa-shield-check"></i> MODERAR</a>
+											<a href="javascript:void(0)" class="dropdown-toggle btn btn-info btn-lg rounded-0 fw-bolder text-black" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i> GERENCIAR</a>
+											<ul class="dropdown-menu">
+												{% if pedido.status_pedido != '0' %}
+												<li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> PDF Lista</a></li>
+												<li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print-faturamento/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> PDF Faturamento</a></li>
+												<li><a class="dropdown-item" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/pedidos/moderate/{{ pedido.id }}" data-bs-toggle="modal-remote" data-bs-target="#moderar"><i class="fa-solid fa-shield-check"></i> Moderar</a></li>
+												{% else %}
+												<li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
+												{% endif %}
+											</ul>
 										</div>
 									</div>
 								</div>

@@ -3330,7 +3330,9 @@ body:after {
 *[data-usn-if] {
   display: none;
 }
-
+.dropdown-toggle::after {
+  display: none;
+}
 .select2-container {
   margin: 0;
   width: 100% !important;

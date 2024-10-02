@@ -56,7 +56,7 @@
 
 				<div class="card">
 					<div class="card-body">
-						<div class="d-flex justify-content-between mb-1">
+						<div class="d-flex justify-content-between">
 							<div><a href="{{ DOMAIN }}/painel/pedidos/edit/{{ pedido.id }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> EDITAR PEDIDO</a></div>
 							{% if pedido.emitente_nome != '' %}
 							<div class="text-center">
@@ -64,7 +64,18 @@
 								{{ pedido.emitente_cidade }}-{{ pedido.emitente_estado }}, {{ pedido.emitente_cep }}</div>
 							</div>
 							{% endif %}
-							<div><a href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank" class="btn-print btn btn-info text-black"><i class="fa-solid fa-file-pdf"></i> IMPRIMIR EM PDF</a></div>
+							<div>
+								<a href="javascript:void(0)" class="dropdown-toggle btn btn-success fw-bolder text-black" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i> GERENCIAR</a>
+								<ul class="dropdown-menu">
+									{% if pedido.status_pedido != '0' %}
+									<li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> PDF Lista</a></li>
+									<li><a class="dropdown-item text-info" href="{{ DOMAIN }}/painel/pedidos/print-faturamento/{{ pedido.id }}" target="_blank"><i class="fa-solid fa-file-pdf"></i> PDF Faturamento</a></li>
+									<li><a class="dropdown-item" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/pedidos/moderate/{{ pedido.id }}" data-bs-toggle="modal-remote" data-bs-target="#moderar"><i class="fa-solid fa-shield-check"></i> Moderar</a></li>
+									{% else %}
+									<li><a class="dropdown-item text-center" href="javascript:void(0)">Pedido recusado <br>não pode ser <br>gerenciado</a></li>
+									{% endif %}
+								</ul>
+							</div>							
 						</div>
 						<div class="table-responsive lista_produtos"> 
 							<div class="table-wrapper">
@@ -124,4 +135,11 @@
 			</div>
 		</div>
 	</div>
+
+<div class="modal fade" id="moderar" tabindex="-1" aria-labelledby="moderarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"></div>
+  </div>
+</div>
+<script src="{{ DOMAIN }}/view/painel/src/js/scripts/pages/pedidos.js"></script>
 {% endblock %}
