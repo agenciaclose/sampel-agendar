@@ -157,6 +157,13 @@ class PedidosPainel extends Model
         return $read;
     }
 
+    public function getTipopPatrocinios(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT id, nome_patrocinio AS title, data_patrocinio_inicio AS data FROM patrocinios WHERE status_patrocinio = 'Ativo' ORDER BY id DESC");
+        return $read;
+    }
+
     // CRIA NOVO PEDIDO
     public function addPedidoSave($params)
     {

@@ -153,6 +153,11 @@ class PedidosPainelController extends Controller
             $eventos = $model->getTipoEventos()->getResult();
             echo json_encode($eventos, JSON_UNESCAPED_UNICODE);
         }
+
+        if ($params['tipo'] == 'patrocinios') {
+            $eventos = $model->getTipopPatrocinios()->getResult();
+            echo json_encode($eventos, JSON_UNESCAPED_UNICODE);
+        }
     }
 
     public function addPedidoSave($params)
