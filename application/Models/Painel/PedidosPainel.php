@@ -189,15 +189,15 @@ class PedidosPainel extends Model
         $emitente_cidade = '';
         $emitente_estado = '';
         
-        if($params['transportadora'] != ''){
+        if (isset($params['transportadora'])){
             $transportadora = $params['transportadora'];
         }
 
-        if($params['expedicao'] != ''){
+        if (isset($params['expedicao'])){
             $expedicao = $params['expedicao'];
         }
 
-        if($params['qtd_caixa'] != ''){
+        if (isset($params['qtd_caixa'])){
             $qtd_caixa = $params['qtd_caixa'];
         }
 
@@ -310,15 +310,15 @@ class PedidosPainel extends Model
         $emitente_cidade = '';
         $emitente_estado = '';
         
-        if($params['transportadora'] != ''){
+        if (isset($params['transportadora'])){
             $transportadora = $params['transportadora'];
         }
 
-        if($params['expedicao'] != ''){
+        if (isset($params['expedicao'])){
             $expedicao = $params['expedicao'];
         }
 
-        if($params['qtd_caixa'] != ''){
+        if (isset($params['qtd_caixa'])){
             $qtd_caixa = $params['qtd_caixa'];
         }
         
