@@ -31,19 +31,18 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
 	// MODAL REMOTO
 	$('[data-bs-toggle="modal-remote"]').on('click', function() {
-
-		$(".modal-content").html('');
 		var url = $(this).attr('data-bs-remote');
 		var modal = $(this).attr('data-bs-target');
+		var modalContent = $(modal).find('.modal-content');
+		modalContent.html('');
 		$.ajax({
 			url: url,
 			method: 'POST',
 			success: function(response) {
-				$('.modal-content').html(response);
+				modalContent.html(response);
 			}
 		});
 		$(modal).modal('show');
-
 	});
 
 	//offcanvas remote

@@ -1,0 +1,48 @@
+<div style="background-color: #ebedf0;font-family: 'helvetica';margin: 0 auto 0 auto;padding: 0;word-spacing: normal;">
+    <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;padding: 25px;background-color: #2458a9;">
+        <tbody>
+            <tr>
+                <td>
+                    <center><br><img src="https://sampel.com.br/eventos/view/src/media/logo.png" width="200" style="margin: 0 0 15px"><br></center>
+                </td>
+            </tr>
+            <tr>
+                <table border="0" width="100%" style="width:100%;max-width:750px;margin: 0 auto;background: #FFF;padding: 50px 50px;">
+                    <tr>
+                        <td>
+                            <div style="text-align: center;"><h2>{{ evento.nome_evento }}</h2></div>
+                           	
+                           	<br>
+                           	<div><b>Responsável:</b> {{ evento.responsavel }}</div>
+                           	<div><b>Data e Horário:</b> {{ evento.data_evento_inicio|date("d") }} de {{ evento.data_evento_inicio|date("F")|monthTranslate }} de {{ evento.data_evento_inicio|date("Y") }}</div>
+                           	<div><b>Local:</b> {{ evento.local_evento }} - {{ evento.cidade_evento }}, {{ evento.estado_evento }}</div>
+                            
+                            <br>
+                           	<div>
+                           		<div><b>Cronograma:</b></div>
+								<div>{{ evento.descricao|raw }}</div>
+                           	</div>
+                           	
+                           	<br>
+
+                            <div><b>Equipe Organizadora ({{ equipes|length }} integrantes):</b></div>
+                            <ul>
+                                {% for equipe in equipes %}
+                                <li><b>{{ equipe.nome }} -</b> {{ equipe.setor }} - {{ equipe.funcao }}</li>
+                                {% if loop.last == true %}<br><i>Formada em {{ equipe.data_equipe|date("d/m/Y H:i") }}</i>{% endif %}
+                                {% endfor %}
+                            </ul>
+
+              				<br>
+                            <div>Informamos também que a notificação sobre o evento foi disseminada entre todos os membros da equipe.</div>
+
+                            <br>
+                            <div>Para quaisquer esclarecimentos adicionais, permaneço à disposição.</div>
+                            <a href="mailto:souza.marketing@sampel.com.br">souza.marketing@sampel.com.br</a>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </tbody>
+    </table>
+</div>

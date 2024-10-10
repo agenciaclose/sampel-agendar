@@ -50,4 +50,49 @@ class EventosController extends Controller
         $save = $save->editEventoSave($params);
         if($save){ echo '1'; }
     }
+
+    public function equipeGerenciar($params)
+    {
+        $this->setParams($params);
+        $model = new EventosModel();
+        $eventos = $model->listarEventosID($params['id'])->getResult();
+        if(isset($eventos)) {
+            $evento = $eventos[0];
+
+            $todasequipes = new EventosModel();
+            $todasequipes = $todasequipes->listaEquipes()->getResult();
+
+            $equipevisita = new EventosModel();
+            $equipevisita = $equipevisita->listaEquipesEvento($params['id'])->getResult();
+
+        }else{
+            $evento = [];
+        }
+        $this->render('components/equipes/eventos.twig', ['evento' => $evento, 'todasequipes' => $todasequipes, 'equipevisita' => $equipevisita]);
+    }
+
+    public function listaEquipesSave($params)
+    {
+        $this->setParams($params);
+        $save = new EventosModel();
+        $save = $save->listaEquipesSave($params);
+        if($save){
+            echo '0';
+        }else{
+            echo '1';
+        }
+    }
+
+    public function removeEquipe($params)
+    {
+        $this->setParams($params);
+        $remove = new EventosModel();
+        $remove = $remove->removeEquipe($params);
+        if($remove){
+            echo '0';
+        }else{
+            echo '1';
+        }
+    }
+
 }

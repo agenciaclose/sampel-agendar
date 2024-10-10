@@ -5,6 +5,23 @@ var copy = function (link) {
     }, "2000");
 }
 
+// MODAL REMOTO
+$('[data-bs-toggle="modal-remote"]').on('click', function() {
+
+  $(".modal-content").html('');
+  var url = $(this).attr('data-bs-remote');
+  var modal = $(this).attr('data-bs-target');
+  $.ajax({
+    url: url,
+    method: 'POST',
+    success: function(response) {
+      $('.modal-content').html(response);
+    }
+  });
+  $(modal).modal('show');
+
+});
+
 $('#share_link').click(function(){
 	var link = $(this).attr('data-link');
   	navigator.clipboard.writeText(link);

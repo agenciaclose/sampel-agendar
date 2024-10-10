@@ -9,6 +9,7 @@ use Agencia\Close\Models\Site\Feedback;
 use Agencia\Close\Adapters\EmailAdapter;
 use Agencia\Close\Models\Site\Palestras;
 use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Site\EventosModel;
 
 class HomeController extends Controller
 {
@@ -260,5 +261,47 @@ class HomeController extends Controller
 
         $email->getResult();
     }
+
+
+    //ENVIAR EMAIL PARA EQUIPE
+    public function sendEmailEquipeEventos($params)
+    {
+        $this->setParams($params);
+
+        $equipesall = new Visitas();
+        $equipesall = $equipesall->listaEquipesAll()->getResult();
+
+        $equipes = new EventosModel();
+        $equipes = $equipes->listaEquipesEvento($params['evento_id'])->getResult();
+
+        $evento = new EventosModel();
+        $evento = $evento->listarEventosID($params['evento_id'])->getResult()[0];
+        
+        $data = [
+            'equipes' => $equipes,
+            'evento' => $evento,
+        ];
+
+        $dataEvento = new \DateTime($evento['data_evento_inicio']);
+        $dataFormatada = $dataEvento->format('d/m/Y');
+
+        foreach($equipesall as $lista){
+
+            $email = new EmailAdapter();
+            $email->setSubject($evento['nome_evento'].': '. $dataFormatada);
+    
+            $email->setBody('components/email/emailEquipeEvento.twig', $data);
+            $email->addAddress($lista['email']);
+            //$email->addAddress('rl.cold.dev@gmail.com');
+            $email->send('Email enviado para a Equipe');
+
+        }
+                
+        $sendUpdate = new EventosModel();
+        $sendUpdate = $sendUpdate->sendUpdate($params['evento_id']);
+        $email->getResult();
+    }
+
+
 
 }

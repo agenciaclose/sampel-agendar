@@ -39,7 +39,10 @@
 							<a href="{{ DOMAIN }}/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
 							<div>
 								{% if 'add' in permissions.eventos or permissions == 'all' %}
-									<a href="{{ DOMAIN }}/eventos/edit/{{ evento.id }}"><small class="text-warning">Editar Evento</small></a>
+									<a class="me-2" href="{{ DOMAIN }}/eventos/edit/{{ evento.id }}"><small class="text-warning"><i class="fa-solid fa-edit"></i> Editar Evento</small></a>
+								{% endif %}
+								{% if _session.sampel_user_id == evento.id_user or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
+									<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/eventos/equipes/gerenciar/{{ evento.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarEquip"><small><i class="fa-solid fa-users"></i> Ver Equipe</small></a>
 								{% endif %}
 							</div>
 						</td>
@@ -59,5 +62,10 @@
 
 	</session>
 
+</div>
+<div class="modal fade" id="editarEquip" tabindex="-1" role="dialog" aria-labelledby="editarEquipLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content"></div>
+	</div>
 </div>
 {% endblock %}

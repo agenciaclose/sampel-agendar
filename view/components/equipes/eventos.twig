@@ -1,0 +1,95 @@
+<div class="modal-header">
+    <h1 class="modal-title fs-5"><b>Lista de Equipes</b></h1>
+    {% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and evento.status_evento != 'Concluido' %}
+        {% if equipevisita|length < 4 %}
+        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 4 MEMBROS PARA ENVIO</button>
+        {% elseif evento.email_equipe == 'N' %}
+        <button type="button" data-evento="{{ evento.id }}" class="send_email_equipe_evento btn btn-warning"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
+        {% else %}
+        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
+        {% endif %}
+    {% endif %}
+</div>
+<div class="modal-body">
+    
+    <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+    {% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and evento.status_evento != 'Concluido' %}
+    <div class="collapse mb-2" id="addMember">
+        <form action="javascript:void(0);" method="POST" id="form_equipe_evento">
+            <div class="repeater">
+                <div data-repeater-list="equipe">
+                    <div data-repeater-item>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="flex-fill">
+                                <div class="mb-2">
+                                    <select class="form-control" name="editar_equipe">
+                                        <option value="">Selecione um Membro</option>
+                                        {% for todasequipe in todasequipes %}
+                                            {% if (todasequipe.id not in equipeselecionada) %}<option class="text-capitalize" value="{{ todasequipe.id }}" >{{ todasequipe.nome }}</option>{% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mx-2 flex-fill">
+                                <div class="mb-2">
+                                    <input class="form-control" name="funcao" placeholder="Função para o Evento">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-2">
+                                    <button class="btn btn-danger btn-sm" data-repeater-delete type="button">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <button data-repeater-create type="button" class="btn btn-warning text-black"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    <input type="hidden" name="id_evento" value="{{ evento.id }}">
+                    <button type="submit" class="btn btn-success text-black"><i class="fa-solid fa-floppy-disk"></i> Salvar lista de Equipe</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="{{ PATH }}/view/painel/src/vendors/js/repeater/jquery.repeater.min.js"></script>
+    <script>$('.repeater').repeater();</script>
+    {% endif %}
+
+    <table class="table table-sm">
+        <tbody class="lista_equipe">
+            {% if equipevisita|length == 0 %}
+                <tr>
+                    <td class="text-uppercase">Nenhuma equipe até o momento.</td>
+                </tr>
+            {% endif %}
+            {% for equipe in equipevisita %}
+            <tr class="{{ evento.id }}-{{ equipe.id }}">
+                <td class="text-uppercase text-white" style="line-height:normal">
+                    {{ equipe.nome }}
+                    <div class="text-warning"><small>{{ equipe.funcao }}</small></div>
+                </td>
+                <td class="text-end" style="line-height:normal">
+                    {{ equipe.setor }}
+                    <div class="text-secondary"><small>{{ equipe.data_equipe | date("d/m/Y H:i") }}</small></div>
+                </td>
+                <td class="text-end" width="25">
+                    {% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and evento.status_evento != 'Concluido' %}
+                    <a href="javascript:void(0);" data-evento="{{ evento.id }}" data-membro="{{ equipe.id }}" class="text-danger remover_equipe" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remover">
+                        <i class="fa-solid fa-octagon-xmark fa-lg"></i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and evento.status_evento != 'Concluido' %}
+<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
+    <button type="button" class="btn btn-primary"  data-bs-toggle="collapse" href="#addMember"><i class="fa-solid fa-plus"></i> ADICIONAR MEMBROS</button>
+</div>
+{% endif %}
+
+<script src="{{ DOMAIN }}/view/src/js/services/eventos-equipes.js"></script>
