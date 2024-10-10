@@ -33,6 +33,7 @@ $(document).ready(function () {
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
         var ID = $(this).data('orcamento');
+        var tipo = $(this).data('tipo');
         var form = $(this)[0];
         var formData = new FormData(form);
 
@@ -47,7 +48,7 @@ $(document).ready(function () {
                 if (data != 0) {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.href = DOMAIN + "/painel/patrocinios/orcamento/edit/"+ID+"/"+data;
+                        window.location.href = DOMAIN + "/painel/"+tipo+"/orcamento/edit/"+ID+"/"+data;
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
@@ -97,7 +98,7 @@ $(document).ready(function () {
     
     $('#orcamento').select2({
         tags: true,
-        dropdownParent: $('form'),
+        dropdownParent: $('.orcamento_select2'),
         dropdownAutoWidth: true,
         width: '100%',
         tabindex: -1,

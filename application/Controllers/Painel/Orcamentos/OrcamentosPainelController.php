@@ -43,7 +43,7 @@ class OrcamentosPainelController extends Controller
     public function addOrcamento($params)
     {
         $this->setParams($params);
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'tipo' => $params['tipo']]);
     }
 
     public function editOrcamento($params)
@@ -64,7 +64,7 @@ class OrcamentosPainelController extends Controller
         $model = new OrcamentosPainel();
         $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();
 
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'parcelas' => $parcelas, 'arquivos' => $arquivos]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'parcelas' => $parcelas, 'arquivos' => $arquivos, 'tipo' => $params['tipo']]);
     }
 
     public function addOrcamentoSave($params)

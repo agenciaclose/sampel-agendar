@@ -11,7 +11,7 @@
 
 				<div class="offcanvas-header px-0 border-bottom">
 				    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ orcamento.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
-					<a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
+					<a href="{{ DOMAIN }}/painel/{{ tipo }}/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
 				</div>
 				
 				<div class="mt-2">
@@ -19,16 +19,18 @@
 						<div class="row">
 							
 							<div class="col-12 col-md-8">
-								<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
+								<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-tipo="{{ tipo }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
 									<div class="row">
 										<div class="col-12 col-md-6">
 											
 											<div class="card p-2">
 												<div class="mb-2">
-													<label class="control-label">Despesa</label>
-													<select class="form-control" name="orcamento" id="orcamento">
-														<option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
-													</select>
+													<div class="orcamento_select2">
+														<label class="control-label">Despesa</label>
+														<select class="form-control" name="orcamento" id="orcamento">
+															<option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
+														</select>
+													</div>
 												</div>
 
 												<div class="mb-2">
