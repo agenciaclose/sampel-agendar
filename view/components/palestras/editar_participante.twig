@@ -1,0 +1,65 @@
+<div class="p-4">
+								
+    <div class="mb-2">
+        <h3>Editar de Participantes</h3>
+        <div>Editar um partecipante preenchendo o formulário abaixo.</div>
+    </div>
+
+    <hr>
+
+    <div>
+        <form method="POST" action="javascript:void(0);" id="editar_participante">
+            {% if editar.id %}
+                <input type="hidden" name="id" value="{{ editar.id }}">
+            {% endif %}
+            <input type="hidden" name="id_palestra" value="{{ palestra.id }}">
+            <div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" name="nome" id="nome" value="{{ editar.nome }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Empresa</label>
+                <input type="text" class="form-control" name="empresa" id="empresa" value="{{ editar.empresa }}">
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label class="form-label">CPF</label>
+                    <input type="number" class="form-control cpf" name="cpf" id="cpf" value="{{ editar.cpf }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" value="{{ editar.email }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" class="form-control telefone" name="telefone" id="telefone" value="{{ editar.telefone }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">CEP</label>
+                    <input type="text" class="form-control cep" name="cep" id="cep" value="{{ editar.cep }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label class="form-label">Cidade</label>
+                    <input type="text" class="form-control" name="cidade" id="cidade" value="{{ editar.cidade }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Estado</label>
+                    <input type="text" class="form-control" maxlength="2" name="estado" id="estado" value="{{ editar.estado }}">
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="rounded-pill btn btn-lg btn-primary">
+                    <i class="fa-light fa-paper-plane"></i> SALVAR ALTERAÇÕES
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/palestras.js"></script>

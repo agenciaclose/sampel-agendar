@@ -1,11 +1,22 @@
 $(document).ready(function () {
 
-	$("#cadastrar_palestra").submit(function (c) {
+    var maskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    options = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(maskBehavior.apply({}, arguments), options);
+        }
+    };
+    
+    $('.telefone').mask(maskBehavior, options);
+
+	$("#cadastrar_palestra").submit(function (e) {
 
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
-        c.preventDefault();
+        e.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
 
@@ -29,12 +40,12 @@ $(document).ready(function () {
 
     });
 
-    $("#editar_palestra").submit(function (c) {
+    $("#editar_palestra").submit(function (e) {
 
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
-        c.preventDefault();
+        e.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
 
@@ -58,8 +69,8 @@ $(document).ready(function () {
 
     });
 
-    $(".excluir_palestra").click(function (c) {
-        c.preventDefault();
+    $(".excluir_palestra").click(function (e) {
+        e.preventDefault();
         var id = $(this).attr('data-id');
         var DOMAIN = $('body').data('domain');
 
@@ -88,16 +99,15 @@ $(document).ready(function () {
             }
         });
 
-
     });
 
 
-    $("#cadastro_participante").submit(function (c) {
+    $(document).on('submit', '#cadastro_participante', function (e) {
 
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
-        c.preventDefault();
+        e.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
 
@@ -119,12 +129,12 @@ $(document).ready(function () {
 
     });
 
-    $("#editar_participante").submit(function (c) {
+    $(document).on('submit', '#editar_participante', function (e) {
 
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
-        c.preventDefault();
+        e.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this);
 
@@ -148,8 +158,8 @@ $(document).ready(function () {
 
     });
 
-    $(".excluir_participante").click(function (c) {
-        c.preventDefault();
+    $(".excluir_participante").click(function (e) {
+        e.preventDefault();
         var id = $(this).attr('data-id');
         var DOMAIN = $('body').data('domain');
         $.ajax({

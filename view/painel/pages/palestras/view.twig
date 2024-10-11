@@ -3,7 +3,7 @@
 {% block title %}{{ palestra.title }} - {{ palestra.data_palestra | date("m-d-Y H:i") }} {% endblock %}
 
 {% block body %}
-
+<style>.dt-buttons .dt-button {margin: 0;}</style>
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -42,26 +42,51 @@
 											<input type="hidden" name="id_palestra" value="{{ palestra.id }}">
 											<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 			                                <div class="mb-1">
-			                                    <label for="title" class="form-label">Nome</label>
+			                                    <label class="form-label">Nome</label>
 			                                    <input type="text" class="form-control" name="nome" id="nome" value="{{ editar.nome }}">
 			                                </div>
-			                                <div class="mb-1">
-			                                    <label for="title" class="form-label">Email</label>
-			                                    <input type="email" class="form-control" name="email" id="email" value="{{ editar.email }}">
+											<div class="mb-1">
+			                                    <label class="form-label">Empresa</label>
+			                                    <input type="text" class="form-control" name="empresa" id="empresa" value="{{ editar.empresa }}">
 			                                </div>
-			                                <div class="mb-1">
-			                                    <label for="title" class="form-label">Telefone</label>
-			                                    <input type="text" class="form-control" name="telefone" id="telefone" value="{{ editar.telefone }}">
+			                                <div class="mb-1 row">
+												<div class="col-md-6">
+													<label class="form-label">CPF</label>
+													<input type="number" class="form-control cpf" name="cpf" id="cpf" value="{{ editar.cpf }}">
+												</div>
+												<div class="col-md-6">
+													<label class="form-label">Email</label>
+													<input type="email" class="form-control" name="email" id="email" value="{{ editar.email }}">
+												</div>
+			                                </div>
+			                                <div class="mb-1 row">
+												<div class="col-md-6">
+													<label class="form-label">Telefone</label>
+													<input type="text" class="form-control telefone" name="telefone" id="telefone" value="{{ editar.telefone }}">
+												</div>
+												<div class="col-md-6">
+													<label class="form-label">CEP</label>
+													<input type="text" class="form-control cep" name="cep" id="cep" value="{{ editar.cep }}">
+												</div>
+			                                </div>
+											<div class="mb-1 row">
+												<div class="col-md-6">
+													<label class="form-label">Cidade</label>
+													<input type="text" class="form-control" name="cidade" id="cidade" value="{{ editar.cidade }}">
+												</div>
+												<div class="col-md-6">
+													<label class="form-label">Estado</label>
+													<input type="text" class="form-control" maxlength="2" name="estado" id="estado" value="{{ editar.estado }}">
+												</div>
 			                                </div>
 			                                <div class="mb-1">
 			                                    <button type="submit" class="rounded-pill btn btn-lg btn-primary">
-			                                        <i class="fa-light fa-paper-plane"></i> INSERIR PARTICIPAÇÃO
+			                                        <i class="fa-light fa-paper-plane"></i> {{ editar.id ? 'SALVAR ALTERAÇÕES' : 'INSERIR PARTICIPAÇÃO' }}
 			                                    </button>
 			                                </div>
 										</form>
 
 									</div>
-
 
 								</div>
 

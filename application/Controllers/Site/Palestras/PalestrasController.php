@@ -2,10 +2,11 @@
 
 namespace Agencia\Close\Controllers\Site\Palestras;
 
-use Agencia\Close\Controllers\Controller;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 use Agencia\Close\Models\Site\Palestras;
 
-use Picqer\Barcode\BarcodeGeneratorPNG;
+use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Painel\PalestrasPainel;
 
 class PalestrasController extends Controller
 {
@@ -283,6 +284,19 @@ class PalestrasController extends Controller
 
         $this->render('pages/palestras/galerias.twig', ['menu' => 'palestras', 'ultimasFotosPalestras' => $ultimasFotosPalestras]);
  
+    }
+
+    public function editarInscricao($params)
+    {
+        $this->setParams($params);
+
+        $palestra = new PalestrasPainel(); 
+        $palestra = $palestra->getPalestraID($params['id'])->getResult()[0];
+
+        $editar = new PalestrasPainel(); 
+        $editar = $editar->getParticipanteID($params['inscricao'])->getResult()[0];
+
+        $this->render('components/palestras/editar_participante.twig', ['palestra' => $palestra, 'editar' => $editar]);
     }
 
 }

@@ -22,6 +22,8 @@ $router->post("/palestras/inscricao/checkCadastroCampo", "PalestrasController:ch
 
 $router->get("/palestras/etiqueta/{codigo}", "PalestrasController:printEtiqueta");
 
+$router->post("/palestras/inscricao/editar/{id}/{inscricao}", "PalestrasController:editarInscricao");
+
 //SORTEIO
 $router->post("/palestras/sortear", "PalestrasController:sortear");
 $router->get("/palestras/sorteados/{id}", "PalestrasController:sorteados");
