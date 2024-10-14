@@ -12,6 +12,15 @@ class EventosController extends Controller
         $this->setParams($params);
         $model = new EventosModel();
         $eventos = $model->listarEventos()->getResult();
+
+        $i = 0;
+        foreach($eventos as $evento){
+            $totalEquipe = new EventosModel();
+            $totalEquipe = $totalEquipe->listaEquipesEventos($evento['id'])->getResult();
+            $eventos[$i]['total_equipe'] = count($totalEquipe);
+            $i++;
+        }
+
         $this->render('pages/eventos/eventos.twig', ['menu' => 'eventos', 'eventos' => $eventos]);
     }
 

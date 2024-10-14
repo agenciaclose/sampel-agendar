@@ -14,7 +14,11 @@ class EventosModel extends Model
     public function listarEventos(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM eventos WHERE status_evento = 'Ativo' ORDER BY data_evento_inicio ASC", "");
+        $read->FullRead("SELECT * FROM eventos
+        WHERE status_evento = 'Ativo'
+        ORDER BY
+            CASE WHEN data_evento_inicio >= CURRENT_DATE() THEN 0 ELSE 1 END,
+            data_evento_inicio ASC");
         return $read;
     }
 
@@ -24,6 +28,13 @@ class EventosModel extends Model
         $read->FullRead("SELECT e.*, u.nome AS responsavel FROM eventos AS e
         JOIN usuarios AS u ON u.id = e.id_user
         WHERE e.id = :id ORDER BY e.id DESC", "id={$id}");
+        return $read;
+    }
+
+    public function listaEquipesEventos($id): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM eventos_equipes WHERE id_evento = :id", "id={$id}");
         return $read;
     }
 
