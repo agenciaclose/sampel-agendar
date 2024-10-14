@@ -14,11 +14,12 @@ class EventosModel extends Model
     public function listarEventos(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM eventos
-        WHERE status_evento = 'Ativo'
+        $read->FullRead("SELECT e.*, u.nome as responsavel FROM eventos as e
+        JOIN usuarios AS u ON u.id = e.id_user
+        WHERE e.status_evento = 'Ativo'
         ORDER BY
-            CASE WHEN data_evento_inicio >= CURRENT_DATE() THEN 0 ELSE 1 END,
-            data_evento_inicio ASC");
+        CASE WHEN e.data_evento_inicio >= CURRENT_DATE() THEN 0 ELSE 1 END,
+        e.data_evento_inicio ASC");
         return $read;
     }
 

@@ -49,7 +49,20 @@ class HomeController extends Controller
             $palestras = new Palestras();
             $palestras = $palestras->lista($params)->getResult();
 
-            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas, 'palestras' => $palestras, 'ultimas' => $ultimas, 'ultimasFotosPalestras' => $ultimasFotosPalestras]);
+
+            $evento = new EventosModel();
+            $eventos = $evento->listarEventos()->getResult();
+    
+            $i = 0;
+            foreach($eventos as $evento){
+                $totalEquipe = new EventosModel();
+                $totalEquipe = $totalEquipe->listaEquipesEventos($evento['id'])->getResult();
+                $eventos[$i]['total_equipe'] = count($totalEquipe);
+                $i++;
+            }
+    
+
+            $this->render('pages/home/home.twig', ['menu' => 'home', 'minhasvisitas' => $minhasvisitas, 'visitas' => $visitas, 'palestras' => $palestras, 'ultimas' => $ultimas, 'ultimasFotosPalestras' => $ultimasFotosPalestras, 'eventos' => $eventos]);
 
         }else{
 
