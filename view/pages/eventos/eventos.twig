@@ -27,32 +27,45 @@
 			<table id="tabela_dinamica" class="table table-hover table-striped align-middle text-white pt-4 mb-4" style="width:100%">
 		        <thead>
 		            <tr>
+		                <th>Data da Evento</th>
 		                <th>Evento</th>
 		                <th>Local</th>
-		                <th class="text-end">Data da Evento</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 		        	{% for evento in eventos %}
 					<tr>
 						<td>
+							{% set meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"] %}
+							{% set mes_numero = evento.data_evento_inicio|date('m') - 1 %}
+							{{ evento.data_evento_inicio|date('d') }} de {{ meses[mes_numero] }}. {{ evento.data_evento_inicio|date('Y') }}
+							{% set hoje = "now"|date("Y-m-d") %}
+							{% set data_evento = evento.data_evento_inicio|date("Y-m-d") %}
+							{% set diferenca = data_evento|date_modify("midnight")|date("U") - hoje|date("U") %}
+							{% set dias_faltantes = diferenca / (60 * 60 * 24) %}
+							{% if dias_faltantes > 0 %}
+							<div class="text-warning">Em {{ dias_faltantes }} dias {{ evento.data_evento_inicio|date('l')|dayTranslate }}</div>
+							{% else %}
+							<div class="text-success">Evento já realizado</div>
+							{% endif %}							
+						</td>
+						<td>
 							<a href="{{ DOMAIN }}/eventos/view/{{ evento.id }}" class="text-uppercase"><i class="fa-solid fa-thumbtack"></i> <b>{{ evento.nome_evento }}</b></a>
 							<div>
 								{% if 'add' in permissions.eventos or permissions == 'all' %}
-									<a class="me-2" href="{{ DOMAIN }}/eventos/edit/{{ evento.id }}"><small class="text-warning"><i class="fa-solid fa-edit"></i> Editar Evento</small></a>
+									<a class="mb-2 badge bg-warning text-black" href="{{ DOMAIN }}/eventos/edit/{{ evento.id }}"><i class="fa-solid fa-edit"></i> Editar Evento</a>
 								{% endif %}
 								{% if _session.sampel_user_id == evento.id_user or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
-									<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/eventos/equipes/gerenciar/{{ evento.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarEquip"><small><i class="fa-solid fa-users"></i> Ver Equipe</small></a>
+									<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/eventos/equipes/gerenciar/{{ evento.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarEquip" class="mb-2 badge bg-warning text-black">
+										Ver Equipe
+										<span class="px-1 bg-black rounded-pill text-white">0</span>
+									</a>
 								{% endif %}
 							</div>
 						</td>
 						<td class="no-mobile">
 							{{ evento.local_evento }}
 							<div class="text-white-50"><small>{{ evento.cidade_evento }}, {{ evento.estado_evento }}</small></div>
-						</td>
-						<td class="text-end">
-							<i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ evento.data_evento_inicio | date("d-m-Y") }}</span>
-							<div><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ evento.data_evento_fim | date("d-m-Y") }}</span></div>
 						</td>
 					</tr>
 					{% endfor %}
