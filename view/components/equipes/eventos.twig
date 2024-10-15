@@ -1,8 +1,8 @@
 <div class="modal-header">
     <h1 class="modal-title fs-5"><b>Lista de Equipes</b></h1>
     {% if  _session.sampel_user_tipo == 1 or _session.sampel_user_gerente_equipe == 'S' and evento.status_evento != 'Concluido' %}
-        {% if equipevisita|length < 4 %}
-        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 4 MEMBROS PARA ENVIO</button>
+        {% if equipevisita|length < 1 %}
+        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 1 MEMBRO PARA ENVIO</button>
         {% elseif evento.email_equipe == 'N' %}
         <button type="button" data-evento="{{ evento.id }}" class="send_email_equipe_evento btn btn-warning"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
         {% else %}
