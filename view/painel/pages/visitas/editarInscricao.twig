@@ -63,7 +63,6 @@
                                                         <option {{ inscricao.setor == 'Frotista' ? 'selected' }} value="Frotista">Frotista</option>
                                                         <option {{ inscricao.setor == 'Mecânico / Reparador' ? 'selected' }} value="Mecânico / Reparador">Mecânico / Reparador</option>
                                                         <option {{ inscricao.setor == 'Vendas / Telemarketing' ? 'selected' }} value="Vendas / Telemarketing">Vendas / Telemarketing</option>
-                                                        <option {% if inscricao.setor not in ['Auto Center', 'Autopeças', 'Balconista', 'Distribuidora', 'Estoquista', 'Frotista', 'Mecânico / Reparador', 'Vendas / Telemarketing'] %}selected{% endif %} value="Outros">Outros</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-1 outros" style="display: {% if inscricao.setor not in ['Auto Center', 'Autopeças', 'Balconista', 'Distribuidora', 'Estoquista', 'Frotista', 'Mecânico / Reparador', 'Vendas / Telemarketing'] %} {% else %}none{% endif %}">
