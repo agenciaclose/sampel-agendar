@@ -103,7 +103,7 @@
                                                 {% elseif pedido.tipo_evento == 'palestras' %}
                                                     {{ pedido.nome_palestra|slice(0, 35) ~ (pedido.nome_palestra|length > 35 ? '...' : '') }}
                                                 {% else %}
-                                                    <span class="opacity-50">Pedido Extra</span>
+                                                    <span class="opacity-50">Pedido Brindes</span>
                                                 {% endif %}                        
                                             </a>
                                             <div><a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" class="opacity-50"><small>{{ pedido.estado_pedido }}</small></a></div>
