@@ -298,7 +298,7 @@ class Visitas extends Model
     public function listarVisitasUserSorteados($id_visita): read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND sorteado = 'Sim'", "id_visita={$id_visita}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE id_visita = :id_visita AND (sorteado = 'Sim' OR repescagem = 'Sim')", "id_visita={$id_visita}");
         return $read;
     }
 
