@@ -159,6 +159,9 @@ class HomeController extends Controller
         $comparecimentos = new Visitas();
         $comparecimentos = $comparecimentos->listarComparecimentosTotal($params['visita_id'])->getResult()[0];
 
+        $faltas = new Visitas();
+        $faltas = $faltas->listarFaltasTotal($params['visita_id'])->getResult()[0];
+
         $perguntas = new Feedback();
         $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
 
@@ -177,6 +180,7 @@ class HomeController extends Controller
             'comparecimentos' => $comparecimentos,
             'perguntas' => $perguntas,
             'visita' => $visita,
+            'faltas' => $faltas
         ];
 
         foreach($equipesall as $lista){
