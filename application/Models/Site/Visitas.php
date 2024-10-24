@@ -241,15 +241,19 @@ class Visitas extends Model
         }
 
         if($params['tipo_visita'] != 'visita'){
-            $porEvento = "AND id_visita = '".$params['id_visita']."'";
+            //$porEvento = " AND id_visita = '".$params['id_visita']."' ";
+            $porEvento = "";
+            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) <= 365";
         }else{
             $porEvento = "";
+            $porEventoTipo = " AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo <> 'evento' ";
         }
 
         $read->FullRead("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita 
-                        WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porEvento
-                        AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo <> 'evento'
+                        WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' 
+                        $porEvento
+                        $porEventoTipo
                         ORDER BY vi.id DESC LIMIT 1");
         return $read;
 
