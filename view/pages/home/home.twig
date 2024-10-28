@@ -74,12 +74,9 @@
 											{% if 'add' in permissions.eventos or permissions == 'all' %}
 												<a class="mb-2 badge bg-warning text-black" href="{{ DOMAIN }}/eventos/edit/{{ evento.id }}"><i class="fa-solid fa-edit"></i> Editar Evento</a>
 											{% endif %}
-											{% if _session.sampel_user_id == evento.id_user or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
-												<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/eventos/equipes/gerenciar/{{ evento.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarEquip" class="mb-2 badge bg-warning text-black">
-													Ver Equipe
-													<span class="px-1 bg-black rounded-pill text-white">{{ evento.total_equipe }}</span>
-												</a>
-											{% endif %}
+											<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/eventos/equipes/gerenciar/{{ evento.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarEquip" class="mb-2 badge bg-warning text-black">
+												Ver Equipe <span class="px-1 bg-black rounded-pill text-white">{{ evento.total_equipe }}</span>
+											</a>
 										</div>
 									</td>
 									<td class="no-mobile">
