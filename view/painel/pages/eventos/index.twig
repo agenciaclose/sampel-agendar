@@ -82,6 +82,8 @@
                                                         <div>
                                                             {% if 'add' in permissions.eventos or permissions == 'all' %}
                                                                 <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/eventos/edit/{{ evento.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formEvent"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                                <span class="mx-05">|</span>
+                                                                <a href="javascript:void(0)" class="text-info"><i class="fa-solid fa-copy"></i> Duplicar</a>
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
                                                             {% if 'delete' in permissions.eventos or permissions == 'all' %}
@@ -89,6 +91,8 @@
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
                                                             <a href="{{ DOMAIN }}/painel/eventos/orcamento/{{ evento.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
+                                                            
+                                                    
                                                         </div>
                                                     </td>
                                                     <td class="bg-success text-black text-center">

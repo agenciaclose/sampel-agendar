@@ -147,7 +147,7 @@
 												</tbody>
 											</table>
 										</div>
-										{% if _session.sampel_user_gerente_equipe == 'S' and visita.status_visita != 'Concluido' %}
+										{% if 'add' in permissions.equipes or permissions == 'all' and visita.status_visita != 'Concluido' %}
 											{% if visita.equipevisita|length >= 4 %}
 											<div class="modal-footer justify-content-between w-100 d-grid gap-2 d-md-flex">
 												{% if visita.email_equipe == 'N' %}
