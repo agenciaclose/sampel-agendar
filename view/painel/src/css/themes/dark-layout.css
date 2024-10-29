@@ -1406,7 +1406,7 @@ body.dark-layout {
   border-bottom: 1px solid rgb(64 70 86) !important;
 }
 .dark-layout .swal2-popup {
-    background: #353c55;
+    background: #212121;
 }
 .dark-layout .swal2-popup .swal2-title, .dark-layout .swal2-popup .swal2-content {
     color: #ffffff;

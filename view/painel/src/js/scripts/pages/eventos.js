@@ -170,3 +170,29 @@ function statusEvent(id, status_evento) {
 		}
 	});
 }
+
+function duplicar(id_evento) {
+	Swal.fire({
+		title: "DESEJA DUPLICAR ESTE ITEM?",
+        type: "warning", 
+		showCancelButton: true,
+        confirmButtonColor: "#5cb85c", 
+		cancelButtonText: 'NÃO',
+		confirmButtonText: 'SIM'
+	}).then((result) => {
+		if (result.value === true) {
+			var DOMAIN = $('body').data('domain');
+            $.ajax({
+                type: 'POST',
+                url: DOMAIN + '/painel/eventos/duplicar',
+                data: {id_evento:id_evento},
+                success: function (response) {
+                    swal("", "DUPLICADO!", "success");
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                }
+            });
+		}
+	});
+}

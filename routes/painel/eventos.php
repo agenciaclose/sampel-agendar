@@ -8,3 +8,4 @@ $router->get("/painel/eventos/edit/{id}", "EventosPainelController:productEdit")
 $router->post("/painel/eventos/add/save", "EventosPainelController:productAddSave");
 $router->post("/painel/eventos/edit/save", "EventosPainelController:productEditSave");
 $router->post("/painel/eventos/status", "EventosPainelController:productStatus");
+$router->post("/painel/eventos/duplicar", "EventosPainelController:duplicarEvento");

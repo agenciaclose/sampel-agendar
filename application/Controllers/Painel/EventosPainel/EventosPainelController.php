@@ -77,4 +77,11 @@ class EventosPainelController extends Controller
 
     }
 
+    public function duplicarEvento($params)
+    {
+        $this->setParams($params);
+        $evento = new EventosPainel();
+        $evento = $evento->getEventoDuplicar($params['id_evento']);
+    }
+
 }
