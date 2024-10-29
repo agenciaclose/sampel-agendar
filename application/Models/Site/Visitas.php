@@ -243,7 +243,7 @@ class Visitas extends Model
         if($params['tipo_visita'] != 'visita'){
             //$porEvento = " AND id_visita = '".$params['id_visita']."' ";
             $porEvento = "";
-            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo = 'evento'";
+            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) <= 365";
         }else{
             $porEvento = "";
             $porEventoTipo = " AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo <> 'evento' ";
