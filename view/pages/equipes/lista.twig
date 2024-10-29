@@ -67,11 +67,12 @@
                                         <td class="text-end no-mobile">
                                             <div class="d-flex justify-content-end">
                                                 {% if 'add' in permissions.equipes or permissions == 'all' %}
-                                                    <a href="{{ DOMAIN }}/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm ms-1"><i class="fa-solid fa-power-off"></i></a>
-                                                {% endif %}
-                                                {% if 'delete' in permissions.equipes or permissions == 'all' %}
-                                                    <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-success btn-sm text-black"><i class="fa-solid fa-power-off"></i></a>
+                                                    {% if equipe.situacao == 'Ativo' %}
+                                                        <a href="{{ DOMAIN }}/equipe/editar/{{ equipe.id }}" class="ms-1 btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Desativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-danger btn-sm ms-1"><i class="fa-solid fa-power-off"></i></a>
+                                                    {% else %}
+                                                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ativar" onclick="statusEquipe('{{ equipe.id }}', '{{ equipe.situacao == 'Inativo' ? 'Ativo' : 'Inativo' }}')" class="btn btn-success btn-sm text-black"><i class="fa-solid fa-power-off"></i></a>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </td>
