@@ -247,6 +247,7 @@
 																		<span class="input-group-text py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
 																	</div>	
 																{% endif %}
+																{% if visita.status_visita == 'Aguardando' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 																{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 																{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 																{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
@@ -330,6 +331,7 @@
 															<span class="input-group-text py-0 border-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
 														</div>	
 													{% endif %}
+													{% if visita.status_visita == 'Aguardando' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 													{% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-dark text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 													{% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
 													{% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
