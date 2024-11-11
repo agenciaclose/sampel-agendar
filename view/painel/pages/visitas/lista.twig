@@ -78,6 +78,7 @@
                                                                     <span class="input-group-text bg-white text-black border-0 px-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
                                                                 </div>	
                                                             {% endif %}
+                                                            {% if visita.status_visita == 'Aguardando' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
