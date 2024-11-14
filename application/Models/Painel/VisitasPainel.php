@@ -16,10 +16,16 @@ class VisitasPainel extends Model
     public function getVisitasList(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id, (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
+        $read->FullRead("SELECT v.*, u.*, v.id AS visita_id,
+                        (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
                         (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id AND presenca = 'Sim') AS presencas
-                        FROM visitas AS v
-                        INNER JOIN usuarios AS u ON u.id = v.id_empresa ORDER BY v.id DESC");
+                    FROM visitas AS v
+                    INNER JOIN usuarios AS u ON u.id = v.id_empresa
+                    GROUP BY v.id
+                    ORDER BY
+                        CASE WHEN v.status_visita <> 'Concluido' THEN 0 ELSE 1 END,
+                        CASE WHEN v.status_visita <> 'Concluido' THEN ABS(DATEDIFF(v.data_visita, CURRENT_DATE)) ELSE NULL END,
+                        v.data_visita DESC");
         return $read;
     }
 
