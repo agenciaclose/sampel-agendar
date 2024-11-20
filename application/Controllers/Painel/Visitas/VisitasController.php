@@ -151,5 +151,4 @@ class VisitasController extends Controller
             echo 'Erro ao inserir registro: ' . $e->getMessage();
         }
     }
-
 }

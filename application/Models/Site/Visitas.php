@@ -236,8 +236,10 @@ class Visitas extends Model
        
         $read = new Read();
         
+        $porevento = "";
         if($params['campo'] == 'cpf'){
             $params['valor'] = $this->clearCPF($params['valor']);
+            $porevento = " OR cpf = '".$params['valor']."' AND v.id = '".$params['id_visita']."' ";
         }
 
         if($params['tipo_visita'] != 'visita'){
@@ -251,12 +253,20 @@ class Visitas extends Model
 
         $read->FullRead("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita 
-                        WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' 
+                        WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porevento
                         $porEvento
                         $porEventoTipo
                         ORDER BY vi.id DESC LIMIT 1");
         return $read;
 
+    }
+
+    public function autocomplete($cpf)
+    {
+        $cpf = $this->clearCPF($cpf);
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE cpf = :cpf", "cpf={$cpf}");
+        return $read;
     }
 
     function genCode($id_visita) { 

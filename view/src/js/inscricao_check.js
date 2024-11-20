@@ -11,6 +11,7 @@ $('#telefone').change(function() {
 $('#cpf').change(function() {
 	let valor = $(this).val();
     validarCampo ('cpf', valor);
+    inscricaoAutoComplete ('cpf', valor);
 });
 
 function validarCampo (campo, valor){
@@ -39,6 +40,40 @@ function validarCampo (campo, valor){
                 
             }
            
+        }
+    });
+}
+
+function inscricaoAutoComplete(campo, cpf) {
+    let DOMAIN = $('body').data('domain');
+    
+    $.ajax({
+        type: "POST",
+        url: DOMAIN + '/visita/inscricao/inscricaoAutocomplete',
+        data: { 'cpf': cpf },
+        dataType: 'json',
+        success: function(data) {
+            if (data != '') {
+                // Preencher os campos do formulário
+                $("#empresa").val(data.empresa);
+                $("#nome").val(data.nome);
+                $("#email").val(data.email);
+                $("#cidade").val(data.cidade);
+                $("#estado").val(data.estado);
+                $("#cep").val(data.cep);
+                $("#telefone").val(data.telefone);
+                $("#setor").val(data.setor);
+            } else {
+                // Limpar e habilitar os campos
+                $('#nome').val('');
+                $('#empresa').val('');
+                $('#email').val('');
+                $('#setor').val('');
+                $('#cep').val('');
+                $('#cidade').val('');
+                $('#estado').val('');
+                $('#telefone').val('');
+            }
         }
     });
 }

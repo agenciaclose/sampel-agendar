@@ -468,4 +468,15 @@ class VisitasController extends Controller
  
     }
 
+    public function inscricaoAutocomplete($params)
+    {
+        $this->setParams($params);
+        $autocomplete = new Visitas();
+        $autocomplete = $autocomplete->autocomplete($params['cpf'])->getResult();
+        if($autocomplete){
+            $json = json_encode($autocomplete[0]);
+            echo $json;
+        }
+    }
+
 }
