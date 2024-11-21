@@ -155,9 +155,9 @@
 												<td>{% if produto.PDV == 'S' %}<span class="badge bg-success text-black">PDV</span>{% endif %} {{ produto.nome }}</td>
 												<td>{{ produto.codigo }}</td>
 												{% set qtd_produto = (produto.qtd_produto + produto.qtd_escolhida) %}
-												<td class="text-center">{{ produto.embalagem }} / {{ qtd_produto }}</td>
-												<td class="text-center">{{ produto.unidades }}</td>
-												<td class="text-center {{ 'manager' in permissions.pedidos or permissions == 'all' ? '' : 'd-none' }}">
+												<td class="text-center">{{ produto.embalagem }} / <span class="qtd-base-estoque-{{ produto.id }}">{{ qtd_produto }}</span></td>
+												<td class="text-center qtd-base-unidade-{{ produto.id }}">{{ produto.unidades }}</td>
+												<td class="text-center">
 													R$ {{ produto.preco|number_format(2, ',', '.') }}
 													<input type="hidden" name="valor_unid[]" value="{{ produto.preco|number_format(2, ',', '.') }}">
 												</td>
@@ -180,10 +180,10 @@
 													{% endif %}
 												</td>
 												<td class="text-center" width="50">
-													<span class="text-warning" id="qtd-total-{{ produto.id }}">{{ produto.qt_total ? produto.qt_total : 0 }}</span>
+													<span class="text-success" id="qtd-total-{{ produto.id }}">{{ produto.qt_total ? produto.qt_total : 0 }}</span>
 													<input type="hidden" name="qt_total[]" value="{{ produto.qt_total ? produto.qt_total : 0 }}" id="qtd-total-value-{{ produto.id }}">
 												</td>
-												<td class="text-center text-warning">
+												<td class="text-center text-success">
 													R$ <span id="itemTotal-{{ produto.id }}" class="valorItemTotal">{{ produto.valor_total ? produto.valor_total|number_format(2, ',', '.') : '0,00' }}</span>
 													<input type="hidden" name="valor_total[]" value="{{ produto.valor_total ? produto.valor_total|number_format(2, ',', '.') : '0.00' }}" id="valor-itemTotal-{{ produto.id }}">
 												</td>
