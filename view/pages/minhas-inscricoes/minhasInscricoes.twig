@@ -70,7 +70,7 @@
 								{% endif %}
 							{% endif %}
 
-							{% if visita.origem == 'palestras' %}
+							{% if visita.origem == 'palestras' and visita.feedbackConfirmado == 'Sim' %}
 								<a href="{{ DOMAIN }}/certificados/pdf/{{ visita.origem }}.php?codigo={{ visita.codigo }}" class="btn btn-success btn-sm text-black fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> CERTIFICADO</a>
 							{% endif %}
 
