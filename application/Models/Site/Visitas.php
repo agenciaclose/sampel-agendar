@@ -86,7 +86,7 @@ class Visitas extends Model
             if($_GET['feedback'] == "Sim"){
                 $feedback = "AND f.user_codigo is not null";
             }else{
-                $feedback = "AND f.user_codigo  is null";
+                $feedback = "AND vi.presenca = 'Sim' AND f.user_codigo is null";
             }
         }else{
             $feedback = "";
