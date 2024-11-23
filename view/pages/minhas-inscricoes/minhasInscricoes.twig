@@ -63,7 +63,7 @@
 						<td class="text-end no-mobile" width="175">
 
 							{% if visita.origem == 'visita' %}
-								{% if visita.presenca == 'Sim' %}
+								{% if visita.presenca == 'Sim' and visita.feedbackConfirmado == 'Sim' %}
 									<a href="{{ DOMAIN }}/certificados/pdf/{{ visita.origem }}.php?codigo={{ visita.codigo }}" class="btn btn-success btn-sm text-black fw-bold" target="_blank"><i class="fa-solid fa-file-certificate"></i> CERTIFICADO</a>
 								{% else %}
 									<a href="{{ DOMAIN }}/{{ visita.origem }}/feedback/{{ visita.cpf }}/{{ visita.id_evento }}" class="btn btn-warning btn-sm fw-bold" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Necessário preencher o Feedback para ter acesso ao Certificado"><i class="fa-solid fa-file-certificate"></i> FEEDBACK</a>
