@@ -15,8 +15,11 @@
 					<h3>Faça sua inscrição para essa visita</h3>
 					<div>Faça sua inscrição abaixo e guarde os dados exibidos após sua inscrição.</div>
 				</div>
-				<div>
+				<div class="text-end">
 					<h3 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total de inscrições"><span class="badge text-bg-warning"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</span></h3>
+					{% if _session.sampel_user_tipo == 1 %}
+						<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visita/inscricao/link-inscricao?visita={{ visita.id }}" data-bs-toggle="modal-remote" data-bs-target="#linkinscricao" class="btn btn-warning btn-sm fw-bold">CRIAR LINK DE INSCRIÇÃO</a>
+					{% endif %}
 				</div>
 			</div>
 
@@ -111,26 +114,21 @@
 										<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
 									</div>
 								</div>
-
-							{% elseif ( (now|date('Y-m-d') >= visita.data_close) and (_get.a != 'qr') ) %}
-
-								<div class="form_inscricao">
-									<div class="alert alert-danger text-center py-5" role="alert">
-										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
-										<h4 class="text-black">Inscrições encerradas</h4> 
-										<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
-									</div>
-								</div>
-							
 							
 							{% endif %}
 
 						{% endif %}
+
 					{% endif %}
 
 					{% if (visita.status_visita != 'Aguardando') %}
 
-						{% if (visita.status_visita != 'Concluido') and (visita.status_visita != 'Recusado') and (_get.a == 'qr') or (visita.status_visita != 'Recusado') and (now|date('Y-m-d') < visita.data_close) or (_session.sampel_user_id != '' and visita.status_visita != 'Concluido') %}
+						{% if
+							(visita.status_visita != 'Concluido' and visita.status_visita != 'Recusado' and _get.a == 'qr') or
+							(visita.status_visita != 'Recusado' and now|date('Y-m-d') < visita.data_close) or
+							(_session.sampel_user_id != '' and visita.status_visita != 'Concluido') or
+							(visita.status_visita != 'Concluido' and visita.status_visita != 'Recusado' and now|date('Y-m-d') > visita.data_close and link_codigo != '' and link_codigo.qtd_usos > link_codigo.qtd_usado)
+						%}
 							
 							{% if _get.action == '' %}
 								<div class="form_inscricao">
@@ -234,6 +232,7 @@
 													<label class="form-label"></label>
 													<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
 													<input type="hidden" name="tipo_visita" id="tipo_visita" value="{{ visita.tipo }}">
+													{% if link_codigo != '' %}<input type="hidden" name="link_inscricao" value="{{ link_codigo.codigo }}">{% endif %}
 													<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
 												</div>
 											</div>
@@ -245,6 +244,16 @@
 								</div>
 							{% endif %}
 
+						{% else %}
+
+								<div class="form_inscricao">
+									<div class="alert alert-danger text-center py-5" role="alert">
+										<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+										<h4 class="text-black">Inscrições encerradas</h4> 
+										<div>Olá, agradecemos pelo seu interesse. No entanto, lamentamos informar que nosso link de agendamento expirou, não sendo mais possível realizar inscrições para o evento Sampel.</div>
+									</div>
+								</div>							
+							
 						{% endif %}
 
 					{% else %}
@@ -373,6 +382,44 @@
 			</div>
 		</div>
   	</div>
+</div>
+
+{% if agora >= datavisita %}
+<div class="modal fade" id="sorteio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">Digite a Quantidade de Sorteados</span>
+			</div>
+			<div class="modal-body">
+				<form id="sorteioForm">
+
+					<div class="form-group mt-2 mb-4">
+						<input type="number" name="quantidade" class="form-control form-control-lg text-center" min="1" value="1" id="quantidade" required>
+						<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
+					</div>
+
+					<a class="btn btn-sm btn-primary rounded-0 w-100" data-bs-toggle="collapse" href="#repescagem" role="button" aria-expanded="false" aria-controls="repescagem">Repescagem?</a>
+					<div class="collapse" id="repescagem">
+						<input type="number" name="repescagem" id="repescagem_input" class="form-control form-control-lg text-center" min="0" value="0">
+					</div>
+
+					<div id="timer" class="my-4 text-center"></div>
+					<button type="submit" class="btn btn-warning btn-lg w-100">REALIZAR SORTEIO</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{{ PATH }}/view/src/js/services/sorteio.js"></script>
+{% endif %}
+
+<div class="modal fade" id="linkinscricao" tabindex="-1" role="dialog" aria-labelledby="linkinscricaoLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-body"></div>
+		</div>
+	</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>

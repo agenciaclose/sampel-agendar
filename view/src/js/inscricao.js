@@ -63,7 +63,7 @@ $(document).ready(function () {
         });
 
     });
-
+    
 });
 
 function qrcodeGen(id_visita, user_email, cpf, last) {

@@ -178,6 +178,12 @@ class Visitas extends Model
         unset($params['setor_outros']);
         unset($params['tipo_visita']);
 
+
+        if(isset($params['link_inscricao'])){
+            $this->updateLinkInscricao($params['link_inscricao']);
+            unset($params['link_inscricao']);
+        }
+
         if(!empty($_SESSION['sampel_user_id'])){
             $params['id_cadastrou'] = $_SESSION['sampel_user_id'];
         }
@@ -449,5 +455,23 @@ class Visitas extends Model
         $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN (SELECT vi1.id_visita, vi1.imagem FROM visitas_imagens vi1 WHERE vi1.id = (SELECT vi2.id FROM visitas_imagens vi2 WHERE vi2.id_visita = vi1.id_visita ORDER BY vi2.`order` ASC, vi2.id DESC LIMIT 1)) AS vi ON vi.id_visita = v.id WHERE v.data_visita <= CURRENT_DATE GROUP BY v.id ORDER BY v.data_visita DESC");
         return $read;
     }
+
+    public function getLinkInscricao($id_evento, $codigo): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM visitas_links_inscricoes WHERE id_evento = :id_evento AND codigo = :codigo", "id_evento={$id_evento}&codigo={$codigo}");
+        return $read;
+    }
+
+    public function saveLinkInscricao($params){
+        $create = new Create();
+        $create->ExeCreate('visitas_links_inscricoes', $params);
+        return $create;
+    }
+
+    public function updateLinkInscricao($codigo){
+        $read = new Read();
+        $read->FullRead("UPDATE `visitas_links_inscricoes` SET `qtd_usado` = `qtd_usado` + 1 WHERE `codigo` = :codigo", "codigo={$codigo}");
+    }   
 
 }

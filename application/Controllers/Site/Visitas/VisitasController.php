@@ -185,6 +185,18 @@ class VisitasController extends Controller
         $configuracoes = new Visitas();
         $configuracoes = $configuracoes->getConfiguracoes()->getResult()[0];
 
+        if(isset($_GET['link_inscricao'])){
+            $link_codigo = new Visitas();
+            $link_codigo = $link_codigo->getLinkInscricao($params['id'], $_GET['link_inscricao']);
+            if($link_codigo->getResult()){
+                $link_codigo = $link_codigo->getResult()[0];
+            }else{
+                $link_codigo = [];
+            }
+        }else{
+            $link_codigo = [];
+        }
+
         if(isset($inscricao['codigo'])) {
             $generator = new BarcodeGeneratorPNG();
             $barcode = base64_encode($generator->getBarcode($inscricao['codigo'], $generator::TYPE_CODE_128));
@@ -192,7 +204,7 @@ class VisitasController extends Controller
             $barcode = '';
         }
 
-        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes, 'barcode' => $barcode]);
+        $this->render('pages/visitas/inscricao.twig', ['menu' => 'visitas', 'visita' => $visita, 'inscricao' => $inscricao, 'config' => $configuracoes, 'barcode' => $barcode, 'link_codigo' => $link_codigo]);
     }
 
     public function checkCadastroCampo($params)
@@ -477,6 +489,47 @@ class VisitasController extends Controller
             $json = json_encode($autocomplete[0]);
             echo $json;
         }
+    }
+
+    public function linkIncricao($params)
+    {
+        $this->setParams($params);
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($_GET['visita']);
+        if($visita->getResult()){
+            $visita = $visita->getResult()[0];
+        }
+        $this->render('components/inscricao/link_inscricao.twig', ['visita' => $visita]);
+    }
+
+    public function linkIncricaoSave($params)
+    {
+        $this->setParams($params);
+        $visita = new Visitas();
+        $codigo = $this->genCode();
+
+        $params['id_user'] = $_SESSION['sampel_user_id'];
+        $params['codigo'] = $codigo;
+
+        $visita->saveLinkInscricao($params);
+        echo $codigo;
+    }
+
+    function genCode() { 
+
+        $chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789";
+
+        $i = 0;
+        $pass = '';
+
+        while ($i <= 5) {
+            $num = rand() % 33;
+            $tmp = substr($chars, $num, 1);
+            $pass = $pass . $tmp;
+            $i++;
+        }
+
+        return $pass;
     }
 
 }

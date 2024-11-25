@@ -1433,7 +1433,7 @@ img.alignright{
   position: absolute;
 }
 .header-bar{
-  z-index: 9;
+  z-index: 8;
   position: relative;
   width: 100%;
   background-color: #212121;

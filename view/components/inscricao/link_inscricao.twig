@@ -1,0 +1,73 @@
+<div class="p-4">
+    <div class="text-center"><h6 class="mb-0">GERAR LINK DE INSCRIÇÕES</h6></div>
+    <hr>
+    <div class="formulario">
+        <form action="javascript:void(0);" method="POST" id="gerarlink">
+            <div class="d-flex justify-content-between">
+                <input type="number" class="form-control" name="qtd_usos" placeholder="Qtd. de Usos">
+                <input type="hidden" name="id_evento" value="{{ _get.visita }}">
+                <button type="submit" class="btn btn-warning fw-bold">GERAR</button>
+            </div>
+        </form>
+    </div>
+    <div class="link-gerado" style="display:none;">
+        <div class="text-center">
+            <div class="p-3 border rounded mb-2" id="link_gerado">LINK GERADO COM SUCESSO</div>
+            <button class="btn btn-warning" type="button" id="copiar_link" title="Copiar"><i class="fa-solid fa-copy"></i> Copiar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $(document).on('submit', '#gerarlink', function (c) {
+        $('button[type="submit"]').prop("disabled", true);
+        c.preventDefault();
+        var DOMAIN = $('body').data('domain');
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            data: $(this).serialize(),
+            url: DOMAIN + '/visita/inscricao/link-inscricao/save',
+            success: function (codigo) {
+                var link_gerado = "https://sampel.com.br/eventos/visita/inscricao/{{ _get.visita }}?link_inscricao=" + codigo;
+                $('#link_gerado').text(link_gerado);
+                $('.formulario').hide();
+                $('.link-gerado').show();
+                $('button[type="submit"]').prop("disabled", false);
+            }
+        });
+    });
+
+    // Função para copiar o conteúdo do textarea
+    $(document).on('click', '#copiar_link', function () {
+        var copyText = $('#link_gerado').text();
+
+        // Verifica se o navegador suporta o Clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(copyText).then(function () {
+                alert('LINK COPIADO COM SUCCESO!');
+            }, function (err) {
+                console.error('ERRO AO COPIAR O LINK: ', err);
+            });
+        } else {
+            // Método de fallback para navegadores que não suportam o Clipboard API
+            var textArea = document.createElement("textarea");
+            textArea.value = copyText;
+            // Evita que o textarea apareça na tela
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                var successful = document.execCommand('copy');
+                alert('LINK COPIADO COM SUCCESO!');
+            } catch (err) {
+                console.error('ERRO AO COPIAR O LINK: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    });
+});
+</script>
