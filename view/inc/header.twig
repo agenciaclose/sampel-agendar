@@ -73,13 +73,12 @@
                     <nav class="">
                         
                         <ul id="main-menu" class="wbc_menu d-flex d-flex justify-content-end align-items-center m-0">
-                            <li class="d-inline-block d-sm-none">
-                                <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#navbarContent" aria-controls="navbarContent">
-                                    <i class="fa-solid fa-bars fa-lg"></i>
-                                </button>
-                            </li>
                             {% if _session.sampel_user_id %}
-
+                                <li class="d-inline-block d-sm-none">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#navbarContent" aria-controls="navbarContent">
+                                        <i class="fa-solid fa-bars fa-lg"></i>
+                                    </button>
+                                </li>
                                 <li class="menu-item">
                                     <a class="nav-link dropdown-toggle dropdown-user-link d-flex align-items-center" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="d-flex justify-content-end align-items-center">
@@ -97,7 +96,6 @@
                                         {% endif %}
                                     </div>
                                 </li>
-
                             {% else %}
                                 <li>
                                     <a href="{{ DOMAIN }}/login"><i class="fa-solid fa-unlock-alt me-2"></i>Entrar</a>
