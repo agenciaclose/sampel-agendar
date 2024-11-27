@@ -1411,6 +1411,7 @@ img.alignright{
 }
 .modal-backdrop {
   --bs-backdrop-zindex: 1 !important;
+  display: none !important;
 }
 .menu-bar-wrapper.is-sticky{
   -webkit-backface-visibility: hidden;
