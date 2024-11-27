@@ -141,7 +141,7 @@
 						<th class="no-mobile">Setor</th>
 						<th class="no-mobile">Endereço</th>
 						<th class="text-end no-mobile">Inscrição</th>
-						{% if 'add' in permissions.palestras or permissions == 'all' %}<th class="text-end no-mobile">Editar</th>{% endif %}
+						{% if _get.q == '' %}{% if 'add' in permissions.palestras or permissions == 'all' %}<th class="text-end no-mobile">Editar</th>{% endif %}{% endif %}
 					</tr>
 		        </thead>
 		        <tbody>
@@ -172,14 +172,14 @@
 							<td class="text-end no-mobile">
 								{% if _get.q == '' %}{% if 'add' in permissions.palestras or permissions == 'all' %}<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>{% endif %}{% endif %}								<div class="text-nowarp">{{ lista.data|date("d/m/Y H:i") }}</div>
 							</td>
-							{% if 'add' in permissions.palestras or permissions == 'all' %}
+							{% if _get.q == '' %}{% if 'add' in permissions.palestras or permissions == 'all' %}
 							<td class="ps-0 no-mobile text-end">
 								<a class="badge bg-warning text-black" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/palestras/inscricao/editar/{{ palestra.id }}/{{ lista.id }}" data-bs-toggle="modal-remote" data-bs-target="#editarParticipante">
 									<i class="fa-regular fa-pen-to-square fs-6"></i>
 									<div class="mt-1">EDITAR</div>
 								</a>
 							</td>
-							{% endif %}
+							{% endif %}{% endif %}
 						</tr>
 					{% endfor %}
 		        </tbody>
