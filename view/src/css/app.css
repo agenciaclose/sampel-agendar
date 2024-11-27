@@ -1410,7 +1410,7 @@ img.alignright{
   transition: all 0.30s linear 0s;
 }
 .modal-backdrop {
-  --bs-backdrop-zindex: 8 !important;
+  --bs-backdrop-zindex: 1 !important;
 }
 .menu-bar-wrapper.is-sticky{
   -webkit-backface-visibility: hidden;
