@@ -4,8 +4,13 @@
     <div class="formulario">
         <form action="javascript:void(0);" method="POST" id="gerarlink">
             <div class="d-flex justify-content-between">
-                <input type="number" class="form-control" name="qtd_usos" placeholder="Qtd. de Usos">
-                <input type="hidden" name="id_evento" value="{{ _get.visita }}">
+                <div class="form-check position-relative">
+                    <input type="number" class="form-control" name="qtd_usos" placeholder="Qtd. de Usos">
+                    <div class="form-check position-absolute" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CADASTRO SEM RESTRIÇÕES." style="top: 7px;right: 8px;">
+                        <input type="checkbox" name="restricao" class="form-check-input p-2" value="N">
+                    </div>
+                    <input type="hidden" name="id_evento" value="{{ _get.visita }}">
+                </div>
                 <button type="submit" class="btn btn-warning fw-bold">GERAR</button>
             </div>
         </form>
@@ -20,6 +25,9 @@
 
 <script>
 $(document).ready(function () {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
     $(document).on('submit', '#gerarlink', function (c) {
         $('button[type="submit"]').prop("disabled", true);
         c.preventDefault();
