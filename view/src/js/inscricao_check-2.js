@@ -24,10 +24,10 @@ function validarCampo (campo, valor){
         success: function(data) {
             if(data == 0){
                 $('#'+campo).removeClass('is-invalid');
-                $('button[type="submit"]').prop("disabled", false);
+               // $('button[type="submit"]').prop("disabled", false);
             }else{
                 $('#'+campo).addClass('is-invalid');
-                $('button[type="submit"]').prop("disabled", true);
+                //$('button[type="submit"]').prop("disabled", true);
            
                 var data = new Date(data);
                 var dia = data.getDate().toString().padStart(2, '0');
