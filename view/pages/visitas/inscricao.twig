@@ -424,5 +424,5 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="{{ PATH }}/view/src/js/inscricao.js"></script>
-{# {% if link_codigo.restricao == 'S' or link_codigo is empty %}<script src="{{ PATH }}/view/src/js/inscricao_check.js"></script>{% endif %} #}
+{% if link_codigo.restricao == 'S' or link_codigo is empty %}<script src="{{ PATH }}/view/src/js/inscricao_check.js"></script>{% endif %}
 {% endblock %}
