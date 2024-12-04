@@ -35,9 +35,11 @@ function load_arquivos(){
 					'</div>',
 			item: 	'<li class="fileuploader-item file-has-popup">' +
 						'<div class="columns">' +
-							'<div class="column-thumbnail"><span class="fileuploader-action-popup" data-item="${size}"></span></div>' +
-							'<div class="pdf-info d-flex justify-content-start align-items-center p-0 px-2 flex-wrap text-center">' +
-								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}"><div class="me-1"><i class="fas fa-file-pdf"></i></div> <div class="align-self-center item-name item-${size}" title="${size}">${name}</div></div>' +
+							'<div class="pdf-info border border-2 d-flex justify-content-start align-items-center p-0 px-2 flex-wrap">' +
+								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}">' +
+									'<div><a href="${file}" target="_black" class="btn btn-sm btn-primary px-1 me-1"><i class="fa-solid fa-link"></i></a></div>' +
+									'<div class="align-self-center item-name item-${size}" title="${size}">${name}</div>' +
+								'</div>' +
 							'</div>' +
 							'<div class="column-actions">' +
 								'<a class="fileuploader-action fileuploader-action-sort" title="Ordenar"><i class="fal fa-arrows-alt"></i></a>' +
@@ -47,9 +49,11 @@ function load_arquivos(){
 					'</li>',
 			item2: 	'<li class="fileuploader-item file-has-popup">' +
 						'<div class="columns">' +
-							'<div class="column-thumbnail"><span class="fileuploader-action-popup" data-item="${size}"></span></div>' +
-							'<div class="pdf-info d-flex justify-content-start align-items-center p-0 px-2 flex-wrap text-center">' +
-								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}"><div class="me-1"><i class="fas fa-file-pdf"></i></div> <div class="align-self-center item-name item-${size}" title="${size}">${name}</div></div>' +
+							'<div class="pdf-info border border-2 d-flex justify-content-start align-items-center p-0 px-2 flex-wrap">' +
+								'<div class="align-self-center d-flex justify-content-start align-items-center" title="${name}">' +
+									'<div><a href="${file}" target="_black" class="btn btn-sm btn-primary px-1 me-1"><i class="fa-solid fa-link"></i></a></div>' +
+									'<div class="align-self-center item-name item-${size}" title="${size}">${name}</div>' +
+								'</div>' +
 							'</div>' +
 							'<div class="column-actions">' +
 								'<a class="fileuploader-action fileuploader-action-sort" title="Ordenar"><i class="fal fa-arrows-alt"></i></a>' +
