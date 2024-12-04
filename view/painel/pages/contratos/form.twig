@@ -1,0 +1,57 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ contrato.id == '' ? 'Criar Novo Contratos' : 'Editar Contratos' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" id="{{ contrato.id == '' ? 'add_contrato' : 'edit_contrato' }}" method="post">
+        <div class="mb-1">
+            <label for="nome_contrato" class="form-label">Nome do Contratos:</label>
+            <input type="text" class="form-control" id="nome_contrato" name="nome_contrato" value="{{ contrato.nome_contrato }}">
+        </div>
+        <div class="mb-1">
+            <label for="pais_contrato" class="form-label">País:</label>
+            <select name="pais_contrato" id="pais_contrato" class="form-control">
+                {% for pais in paises %}
+                    <option value="{{ pais }}" {{ contrato.pais_contrato == pais ? 'selected' }}>{{ pais }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-1 cep_contrato">
+            <label for="cep_contrato" class="form-label">CEP:</label>
+            <input type="text" class="form-control cep" id="cep_contrato" name="cep_contrato" value="{{ contrato.cep_contrato }}">
+        </div>
+        <div class="mb-1">
+            <label for="local_contrato" class="form-label">Local:</label>
+            <input type="text" class="form-control" id="local_contrato" name="local_contrato" value="{{ contrato.local_contrato }}">
+        </div>
+        <div class="row cidade_estado">
+            <div class="mb-1 col-md-6">
+                <label for="cidade_contrato" class="form-label">Cidade:</label>
+                <input type="text" class="form-control" id="cidade_contrato" name="cidade_contrato" value="{{ contrato.cidade_contrato }}">
+            </div>
+            <div class="mb-1 col-md-6 estado_contrato">
+                <label for="estado_contrato" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado_contrato" name="estado_contrato" maxlength="2" value="{{ contrato.estado_contrato }}">
+            </div>
+        </div>
+        <div class="mb-1">
+            <label for="data_contrato_inicio" class="form-label">Data de Início:</label>
+            <input type="date" class="form-control" id="data_contrato_inicio" name="data_contrato_inicio" value="{{ contrato.data_contrato_inicio }}">
+        </div>
+        <div class="mb-1">
+            <label for="data_contrato_fim" class="form-label">Data de Encerramento:</label>
+            <input type="date" class="form-control" id="data_contrato_fim" name="data_contrato_fim" value="{{ contrato.data_contrato_fim }}">
+        </div>
+        <div class="mb-1">
+            <textarea id="descricao" class="form-control" name="descricao">{{ contrato.descricao }}</textarea>
+        </div>
+        {% if contrato.id != '' %} <input type="hidden" name="id" value="{{ contrato.id }}"> {% endif %}
+        <button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ contrato.id == '' ? 'SALVAR CONTRATO' : 'SALVAR ALTERAÇÕES' }}</button>
+    </form>
+</div>
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
+<script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/contratos.js"></script>
