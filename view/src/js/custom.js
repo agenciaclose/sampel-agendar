@@ -71,6 +71,9 @@ $(document).ready(function() {
   $('.select2-tag').select2({
     tags: true
   });
+  if ($('.select2').length){
+		$('.select2').select2();
+	}
 });
 
 

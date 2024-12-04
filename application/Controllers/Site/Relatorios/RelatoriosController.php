@@ -13,38 +13,32 @@ class RelatoriosController extends Controller
     {
         $this->setParams($params);
 
-        $visitas = new Relatorios();
-        $visitas = $visitas->getAllVisitas()->getResult();
+        $model = new Relatorios();
+        
+        $ano = '';
+        if(isset($_GET['ano'])){
+            $ano = $_GET['ano'];
+        }
 
-        $numeros = new Relatorios();
-        $numeros = $numeros->getAllNumeros()->getResult();
+        $anos = $model->getAnosVisitas()->getResult();
+        $visitas = $model->getAllVisitas($ano)->getResult();
+        $numeros = $model->getAllNumeros($ano)->getResult();
         $total = $this->tratarNumeros($numeros);
-
-        $total_setor = new Relatorios();
-        $total_setor = $total_setor->getTotalSetor()->getResult();
-
-        $total_setor_equipe = new Relatorios();
-        $total_setor_equipe = $total_setor_equipe->getTotalSetorEquipe()->getResult();
-
-        $total_cidade = new Relatorios();
-        $total_cidade = $total_cidade->getTotalCidade()->getResult();
-
-        $total_equipe = new Relatorios();
-        $total_equipe = $total_equipe->getTotalEquipeByVisita()->getResult();
-
-        $perguntas = new Relatorios();
-        $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
+        $total_setor = $model->getTotalSetor($ano)->getResult();
+        $total_setor_equipe = $model->getTotalSetorEquipe($ano)->getResult();
+        $total_cidade = $model->getTotalCidade($ano)->getResult();
+        $total_equipe = $model->getTotalEquipeByVisita($ano)->getResult();
+        $perguntas = $model->getFeedbacksPerguntas()->getResult();
 
         $i = 0;
         foreach ($perguntas as $pergunta) {
 
-            $feedbacks = new Relatorios();
-            $perguntas[$i]['estatisticas'] = $feedbacks->getFeedbacksList($pergunta['pergunta'])->getResult();
+            $perguntas[$i]['estatisticas'] = $model->getFeedbacksList($pergunta['pergunta'], $ano)->getResult();
             
             if($pergunta['tipo'] == 'Texto'){
                 $x = 0;
                 foreach ($perguntas[$i]['estatisticas'] as $estatisticas){
-                    $perguntas[$i]['estatisticas'][$x]['pessoas'] = $feedbacks->getFeedbacksListPessoas($estatisticas['resposta'])->getResult();
+                    $perguntas[$i]['estatisticas'][$x]['pessoas'] = $model->getFeedbacksListPessoas($estatisticas['resposta'], $ano)->getResult();
                     $x++;
                 }
             }
@@ -61,7 +55,8 @@ class RelatoriosController extends Controller
             'total_setor_equipe' => $total_setor_equipe,
             'total_cidade' => $total_cidade,
             'total_equipe' => $total_equipe,
-            'perguntas' => $perguntas
+            'perguntas' => $perguntas,
+            'anos' => $anos,
         ]);
     }
 

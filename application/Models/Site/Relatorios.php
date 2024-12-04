@@ -10,63 +10,88 @@ use Agencia\Close\Models\Model;
 class Relatorios extends Model
 {
 
-    public function getAllVisitas(): Read
+    public function getAnosVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita not in ('Pendente','Recusado')");
+        $read->FullRead("SELECT YEAR(data_visita) AS ano FROM visitas WHERE status_visita NOT IN ('Pendente', 'Recusado') GROUP BY ano ORDER BY ano DESC");
         return $read;
     }
 
-    public function getAllNumeros(): Read
+    public function getAllVisitas($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(data_visita) = '".$ano."' ";
+        }
+        $read = new Read();
+        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita not in ('Pendente','Recusado') $ano");
+        return $read;
+    }
+
+    public function getAllNumeros($ano): Read
+    {
+        if($ano != ''){
+            $ano = " WHERE YEAR(data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id) AS total_inscritos,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'Sim') AS total_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'No') AS total_no_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND certificado = 'Sim') AS total_certificados
-        FROM visitas");
+        FROM visitas $ano");
         return $read;
     }
 
-    public function getTotalSetor(): Read
+    public function getTotalSetor($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE  vi.setor <> ''
+                        WHERE  vi.setor <> '' $ano
                         GROUP BY vi.setor ORDER BY total DESC LIMIT 10");
         return $read;
     }
 
-    public function getTotalSetorEquipe(): Read
+    public function getTotalSetorEquipe($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT u.setor, COUNT(u.setor) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE ve.id_user not in ('26') AND u.tipo = '4'
+                        WHERE ve.id_user not in ('26') AND u.tipo = '4' $ano
                         GROUP BY u.setor ORDER BY total DESC");
         return $read;
     }
 
-    public function getTotalCidade(): Read
+    public function getTotalCidade($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE vi.cidade <> ''
+                        WHERE vi.cidade <> '' $ano
                         GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }
 
-    public function getTotalEquipeByVisita(): Read
+    public function getTotalEquipeByVisita($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT u.nome, COUNT(id_user) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE ve.id_user not in ('26')
+                        WHERE ve.id_user not in ('26') $ano
                         GROUP BY ve.id_user ORDER BY total DESC");
         return $read;
     }
@@ -78,19 +103,26 @@ class Relatorios extends Model
         return $read;
     }
 
-    public function getFeedbacksList($pergunta): Read
+    public function getFeedbacksList($pergunta, $ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
-        $read->FullRead("SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC", "pergunta={$pergunta}");
+        $read->FullRead("SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback INNER JOIN visitas AS v ON v.id = feedback.id_visita WHERE `pergunta` = :pergunta $ano GROUP BY resposta ORDER BY qtd DESC", "pergunta={$pergunta}");
         return $read;
     }
 
-    public function getFeedbacksListPessoas($resposta): Read
+    public function getFeedbacksListPessoas($resposta, $ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_visita) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT vi.nome, vi.email, vi.telefone FROM feedback AS f
                         INNER JOIN visitas_inscricoes AS vi ON vi.cpf = f.user_cpf
-                        WHERE f.`resposta` = :resposta", "resposta={$resposta}");
+                        INNER JOIN visitas AS v ON v.id = feedback.id_visita
+                        WHERE f.`resposta` = :resposta $ano", "resposta={$resposta}");
         return $read;
     }
 
