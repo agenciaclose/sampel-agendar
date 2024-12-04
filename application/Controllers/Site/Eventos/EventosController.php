@@ -21,12 +21,21 @@ class EventosController extends Controller
             $i++;
         }
 
-        $this->render('pages/eventos/eventos.twig', ['menu' => 'eventos', 'eventos' => $eventos]);
+        if(!empty($_SESSION['sampel_user_id'])){
+            $this->render('pages/eventos/eventos.twig', ['menu' => 'eventos', 'eventos' => $eventos]);
+        }else{
+            $this->render('pages/login/login.twig', []);
+        }
+        
     }
 
     public function addEvento()
     {
-        $this->render('pages/eventos/form.twig', ['menu' => 'eventos']);
+        if(!empty($_SESSION['sampel_user_id'])){
+            $this->render('pages/eventos/form.twig', ['menu' => 'eventos']);
+        }else{
+            $this->render('pages/login/login.twig', []);
+        }        
     }
 
     public function editEvento($params)
@@ -35,13 +44,18 @@ class EventosController extends Controller
 
         $model = new EventosModel();
         $eventos = $model->listarEventosID($params['id'])->getResult();
+
         if(isset($eventos)) {
             $evento = $eventos[0];
         }else{
             $evento = [];
         }
 
-        $this->render('pages/eventos/form.twig', ['menu' => 'eventos', 'evento' => $evento]);
+        if(!empty($_SESSION['sampel_user_id'])){
+            $this->render('pages/eventos/form.twig', ['menu' => 'eventos', 'evento' => $evento]);
+        }else{
+            $this->render('pages/login/login.twig', []);
+        }        
     }
 
     public function addEventoSave($params)

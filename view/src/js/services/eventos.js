@@ -76,7 +76,7 @@ $(document).ready(function () {
                 if (data != "0") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.href = DOMAIN + '/eventos/view/'+data;
+                        window.location.href = DOMAIN + '/eventos';
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
