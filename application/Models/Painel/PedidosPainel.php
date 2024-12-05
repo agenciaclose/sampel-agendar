@@ -132,6 +132,10 @@ class PedidosPainel extends Model
         if($tipo_evento == 'eventos'){
             $read->FullRead("SELECT *, data_evento_inicio as data_evento FROM eventos WHERE id = :id_evento", "id_evento={$id_evento}");
         }
+
+        if($tipo_evento == 'patrocinios'){
+            $read->FullRead("SELECT *, nome_patrocinio as nome_evento FROM patrocinios WHERE id = :id_evento", "id_evento={$id_evento}");
+        }
         
         return $read;
     }

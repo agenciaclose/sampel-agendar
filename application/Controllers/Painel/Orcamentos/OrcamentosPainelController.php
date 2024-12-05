@@ -12,14 +12,34 @@ class OrcamentosPainelController extends Controller
     public function lista($params)
     {
         $this->setParams($params);
-       
+
         $model = new PedidosPainel();
+
+        $tipo = '';
+        if($params['tipo'] == 'visitas'){
+            $tipo = 'Visita: ';
+        }
+
+        if($params['tipo'] == 'palestras'){
+            $tipo = 'Palestra: ';
+        }
+
+        if($params['tipo'] == 'eventos'){
+            $tipo = 'Evento: ';
+        }
+
+        if($params['tipo'] == 'patrocinios'){
+            $tipo = 'Patrocínio: ';
+        }
+
+        $evento = $model->getPedidoEvento($params['tipo'], $params['id'])->getResult()[0];
+
         $brindes = $model->getPedidoOrcamentoID($params['id'], $params['tipo'])->getResult();
 
         $model = new OrcamentosPainel();
         $orcamentos = $model->getOrcamentosByEvento($params['id'], $params['tipo'])->getResult();
             
-        $this->render('painel/pages/orcamentos/lista.twig', ['menu' => $params['tipo'], 'dados' => $params, 'brindes' => $brindes, 'orcamentos' => $orcamentos]);
+        $this->render('painel/pages/orcamentos/lista.twig', ['menu' => $params['tipo'], 'dados' => $params, 'tipo' => $tipo, 'evento' => $evento, 'brindes' => $brindes, 'orcamentos' => $orcamentos]);
     }
 
     public function getTerms($params)
@@ -37,7 +57,6 @@ class OrcamentosPainelController extends Controller
             $json[] = array('id' => '0', 'text' => 'Nenhum item encontrado');
         }
         echo json_encode($json);
-        
     }
 
     public function addOrcamento($params)
