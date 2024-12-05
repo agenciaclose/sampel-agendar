@@ -8,3 +8,4 @@ $router->get("/painel/{tipo}/orcamento/edit/{id}/{id_edit}", "OrcamentosPainelCo
 $router->post("/painel/orcamento/add/save", "OrcamentosPainelController:addOrcamentoSave");
 $router->post("/painel/orcamento/edit/save", "OrcamentosPainelController:editOrcamentoSave");
 $router->post("/painel/orcamento/remove/{id}", "OrcamentosPainelController:removeOrcamento");
+$router->post("/painel/orcamento/tipo_contrato", "OrcamentosPainelController:tipoContrato");

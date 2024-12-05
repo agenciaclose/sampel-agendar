@@ -204,3 +204,18 @@ function removeOrcamento(id){
     });
     
 }
+
+function orcamentoChangeType(id, tipo_contrato){
+    var DOMAIN = $('body').data('domain');
+
+    $.ajax({
+        type: "POST", 
+        async: true,
+        data: { 'id': id, 'tipo_contrato': tipo_contrato },
+        url: DOMAIN + '/painel/orcamento/tipo_contrato',
+        success: function () {
+            window.location.reload();
+        }
+    });
+    
+}

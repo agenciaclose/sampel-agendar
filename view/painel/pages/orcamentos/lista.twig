@@ -18,7 +18,7 @@
         <div class="card-header w-100">
             <div class="d-flex justify-content-between align-items-center flex-wrap w-100">
                 <h5 class="card-title">
-                {{ tipo }}{{ evento.nome_evento }}
+                {{ tipo }}<span class="text-success">{{ evento.nome_evento }}</span>
                 </h5>
                 <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento|number_format(2, ',', '.') }}</span></h5>
                 <a href="{{ DOMAIN }}/painel/{{ dados.tipo }}/orcamento/add/{{ dados.id }}" class="btn btn-primary fw-bolder"><i class="fa-solid fa-plus"></i> Adicionar Novo</a>
@@ -39,7 +39,17 @@
                 <tbody>
                     {% for orcamento in orcamentos %}
                         <tr>
-                            <td class="text-success fw-bolder">{{ orcamento.tipo_contrato }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="text-uppercase text-white badge bg-{{ orcamento.tipo_contrato == 'Serviço' ? 'primary' : 'success' }} dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ orcamento.tipo_contrato }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" onclick="orcamentoChangeType('{{ orcamento.id }}', 'Serviço');" href="#">Serviço</a></li>
+                                        <li><a class="dropdown-item" onclick="orcamentoChangeType('{{ orcamento.id }}', 'Contrato');" href="#">Contrato</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                             <td class="text-uppercase">{{ orcamento.orcamento }}</td>
                             <td class="text-success fw-bolder">R$ {{ orcamento.valor_orcamento|number_format(2, ',', '.') }}</td>
                             <td class="text-end" width="250">{{ orcamento.date_create|date("d-m-Y H:i") }}</td>

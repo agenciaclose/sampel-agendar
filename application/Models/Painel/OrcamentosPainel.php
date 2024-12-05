@@ -137,4 +137,14 @@ class OrcamentosPainel extends Model
         return $read;
     }
 
+    public function tipoContrato($params)
+    {
+        $id = $params['id'];
+        unset($params['id']);
+        
+        $update = new Update();
+        $update->ExeUpdate('orcamentos', $params, 'WHERE id = :id', "id={$id}");
+        return $update;
+    }
+
 }

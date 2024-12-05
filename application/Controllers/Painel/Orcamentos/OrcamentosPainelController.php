@@ -102,6 +102,14 @@ class OrcamentosPainelController extends Controller
         if($save){ echo '1'; }
     }
 
+    public function tipoContrato($params)
+    {
+        $this->setParams($params);
+        $update = new OrcamentosPainel();
+        $update = $update->tipoContrato($params);
+        if($update){ echo '1'; }
+    }
+
     public function removeOrcamento($params)
     {
         $this->setParams($params);
