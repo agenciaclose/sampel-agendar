@@ -33,7 +33,7 @@
                                     <div class="col-md-2 col-sm-6 col-12">
                                         {% set valor_total_orcamento_all = 0 %}
                                         {% for item in contratos %}
-                                            {% set valor_total_orcamento_all = valor_total_orcamento_all + item.total_gastos %}
+                                            {% set valor_total_orcamento_all = valor_total_orcamento_all + item.valor_orcamento %}
                                         {% endfor %}
                                         <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento_all|number_format(2, ',', '.') }}</span></h5>
                                     </div>
@@ -67,9 +67,9 @@
                                         <table class="table dataTable_list">
                                             <thead>
                                                 <tr>
-                                                    <th>Contratos</th>
-                                                    <th class="text-center">Orçamento</th>
-                                                    <th>Local</th>
+                                                    <th width="300">Contratos</th>
+                                                    <th>Evento Relacionado</th>
+                                                    <th width="200">Valor</th>
                                                     <th class="text-end">Data da Contratos</th>
                                                 </tr>
                                             </thead>
@@ -77,33 +77,22 @@
                                                 {% for item in contratos %}
                                                 <tr>
                                                     <td>
-                                                        <a  data-bs-remote="{{ DOMAIN }}/painel/contratos/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formContrato" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.nome_contrato }}</b></a>
+                                                        <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.orcamento }}</b></a>
                                                         <div>
                                                             {% if 'add' in permissions.contratos or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formContrato"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                                <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                                             {% endif %}
-                                                            <span class="mx-05">|</span>
-                                                            {% if 'delete' in permissions.contratos or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_contrato == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
-                                                            {% endif %}
-                                                            <span class="mx-05">|</span>
-                                                            <a href="{{ DOMAIN }}/painel/contratos/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
                                                         </div>
                                                     </td>
-                                                    <td class="bg-success text-black text-center">
-                                                        R$ {{ item.total_gastos|number_format(2, ',', '.') }}
+                                                    <td class="text-uppercase">
+                                                        {{ item.nome_evento }}
                                                     </td>
-                                                    <td class="no-mobile">
-                                                        {{ item.local_contrato }}
-                                                        {% if item.cidade_contrato != '' %}
-                                                            <div class="text-white-50"><small>{{ item.cidade_contrato }}, {{ item.estado_contrato }} - {{ item.pais_contrato }}</small></div>
-                                                        {% else %}
-                                                            <div class="text-white-50"><small>{{ item.pais_contrato }}</small></div>
-                                                        {% endif %}
+                                                    <td class="bg-success text-black text-center">
+                                                        R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                     </td>
                                                     <td class="text-end">
-                                                        <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_contrato_inicio | date("d-m-Y") }}</span>
-                                                        <div><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_contrato_fim | date("d-m-Y") }}</span></div>
+                                                        <div class="text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela | date("d-m-Y") }}</span></div>
+                                                        <div class="text-danger"><i class="fa-solid fa-shield-xmark"></i> <span class="fw-bold">{{ item.ultima_data_parcela | date("d-m-Y") }}</span></div>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}

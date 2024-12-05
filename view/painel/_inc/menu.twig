@@ -57,16 +57,17 @@
                         <li><a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/pedidos/add"><i data-feather="circle"></i><span class="menu-item">Criar Novo</span></a></li>
                     </ul>
                 </li>
+             
+                <li class=" navigation-header"><span>Contratos</span></li>
+                <li class="{{ (menu == 'contratos') ? 'active' }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/contratos"><i class="fa-light fa-handshake-angle"></i><span class="menu-title text-truncate">Lista de Contratos</span></a>
+                </li>
 
                 <li class=" navigation-header"><span>Patrocínios</span></li>
                 <li class="{{ (menu == 'patrocinios') ? 'active' }} nav-item">
                     <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/patrocinios"><i class="fa-light fa-handshake-angle"></i><span class="menu-title text-truncate">Lista de Patrocínios</span></a>
                 </li>
 
-                <li class=" navigation-header"><span>Contratos</span></li>
-                <li class="{{ (menu == 'contratos') ? 'active' }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ DOMAIN }}/painel/contratos"><i class="fa-light fa-handshake-angle"></i><span class="menu-title text-truncate">Lista de Contratos</span></a>
-                </li>
 
                 <li class=" navigation-header"><span>Feiras e Eventos</span></li>
                 <li class="{{ (menu == 'eventos') ? 'active' }} nav-item">

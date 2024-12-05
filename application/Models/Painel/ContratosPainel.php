@@ -14,69 +14,31 @@ class ContratosPainel extends Model
         $where = '';
 
         if(!empty($_GET['ano_contrato'])){
-            $where .= " AND data_contrato_inicio like '%".$_GET['ano_contrato']."%'";
+            $where .= " AND o.date_create like '%".$_GET['ano_contrato']."%'";
         }
 
         $read = new Read();
-        $read->FullRead("SELECT *,
-        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = contratos.id AND tipo_evento = 'contratos') AS total_orcamento,
-        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = contratos.id AND tipo_evento = 'contratos') AS total_pedido,
-        (
-        IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = contratos.id AND tipo_evento = 'contratos'), 0) +
-        IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = contratos.id AND tipo_evento = 'contratos'), 0)
-        ) AS total_gastos
-        FROM contratos
-        WHERE status_contrato = 'Ativo' $where
-        ORDER BY nome_contrato ASC");
+        $read->FullRead("SELECT o.*,
+                        CASE 
+                            WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
+                            WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
+                            WHEN o.tipo_evento = 'patrocinios' THEN (SELECT pt.nome_patrocinio FROM patrocinios pt WHERE pt.id = o.id_evento)
+                            WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
+                            ELSE NULL
+                        END AS nome_evento,
+                        -- Subconsulta para a primeira data da parcela
+                        (SELECT MIN(op.data_parcela) 
+                        FROM orcamentos_parcelas op 
+                        WHERE op.id_orcamento = o.id) AS primeira_data_parcela,
+                        
+                        -- Subconsulta para a última data da parcela
+                        (SELECT MAX(op.data_parcela) 
+                        FROM orcamentos_parcelas op 
+                        WHERE op.id_orcamento = o.id) AS ultima_data_parcela
+                    FROM orcamentos AS o
+                    WHERE o.tipo_contrato = 'Contrato' $where
+                    ORDER BY o.date_create DESC");
         return $read;
-    }
-
-    public function getContratoID($id): Read
-    {
-        $read = new Read();
-        $read->FullRead("SELECT * FROM contratos WHERE id = :id", "id={$id}");
-        return $read;
-    }
-
-    public function addProductSave($params)
-    {   
-        $create = new Create();
-        $create->ExeCreate('contratos', $params);
-        return $create;
-    }
-
-    public function editProductSave($params)
-    {
-        $id = $params['id'];
-        unset($params['id']);
-    
-        $update = new Update();
-        $update->ExeUpdate('contratos', $params, 'WHERE id = :id', "id={$id}");
-        return $update;
-    }
-
-    public function getContratoStatus($params)
-    {
-        $read = new Read();
-        $read->FullRead("UPDATE `contratos` SET `status_contrato` = :status_contrato WHERE id = :id", "status_contrato={$params['status_contrato']}&id={$params['id']}");
-        return $read;
-    }
-
-    public function addContratoSave($params)
-    {
-        $create = new Create();
-        $params['id_user'] = $_SESSION['sampel_user_id'];
-        $create->ExeCreate('contratos', $params);
-        return $create->getResult();
-    }
-
-    public function editContratoSave($params)
-    {
-        $id = $params['id'];
-        unset($params['id']);
-        $update = new Update();
-        $update->ExeUpdate('contratos', $params, 'WHERE id = :id', "id={$id}");
-        return $update;
     }
 
 }
