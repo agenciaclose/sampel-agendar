@@ -9,7 +9,7 @@
         <div class="chart mb-4">
             {% for pagamentos in pagamentosMes %}                
                 <div class="coluna">
-                    <div class="barra" 
+                    <div class="barra {{ "now"|date("n")  == pagamentos.mes ? 'active' }}" 
                         style="height:{{ pagamentos.porcentagem + 50 }}%;" 
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top" 
