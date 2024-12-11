@@ -72,7 +72,7 @@ class DashboardPedidosController extends Controller
         $curvaABC = $pedidos->getCurvaABCProdutos()->getResult();
 
         $this->render('painel/pages/home/dashboard-pedidos.twig', [
-            'menu' => 'dashboard-pedidos', 
+            'menu' => 'dashboard', 
             'loop' => $backgroundColors,
             'produtosEstoqueBaixo' => $produtosEstoqueBaixo,
             'produtosSemPDV' => $produtosSemPDV,

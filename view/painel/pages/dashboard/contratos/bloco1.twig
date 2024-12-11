@@ -1,0 +1,80 @@
+<div class="row g-6 mb-2">
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-info h-100">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-info">
+                            <i class="fa-regular fs-5 fa-cart-circle-plus"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ contratos.TotalContratos }}</h2>
+                </div>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/pedidos">Total de Contratos</a></h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-{{ contratos.TotalContratos >= 0 ? 'success' : 'danger' }} me-2"><i class="fa-sharp fa-solid {{ contratos.TotalContratos >= 0 ? 'fa-square-plus' : 'fa-square-minus' }}"></i> {{ contratos.TotalContratos }}% em relação ao ano anterior</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-success h-100">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-success">
+                            <i class="fa-regular fs-5 fa-money-bill-trend-up"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ contratos.total_valor_contratos|number_format(2, ',', '.') }}</h2>
+                </div>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos">Valor Total dos Contratos</a></h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-{{ contratos.TotalContratos  >= 0 ? 'success' : 'danger' }} me-2"><i class="fa-sharp fa-solid {{ contratos.TotalContratos  >= 0 ? 'fa-square-plus' : 'fa-square-minus' }}"></i> {{ contratos.TotalContratos  }}% em relação ao ano anterior</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-warning h-100">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-warning">
+                            <i class="ti ti-clock ti-28px"></i>
+                            <i class="fa-regular fs-5 fa-cash-register"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ valorPago.total_pago|number_format(2, ',', '.') }}</h2>
+                </div>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos?tipo=estoque">Valores Pagos</a></h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-{{ contratos.TotalContratos >= 0 ? 'success' : 'danger' }} me-2"><i class="fa-sharp fa-solid {{ contratos.TotalContratos >= 0 ? 'fa-square-plus' : 'fa-square-minus' }}"></i> {{ contratos.TotalContratos }}% em relação ao ano anterior</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-danger h-100">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="avatar me-1">
+                        <span class="avatar-initial rounded bg-label-danger">
+                            <i class="fa-solid fs-5 fa-xmark-to-slot"></i>
+                        </span>
+                    </div>
+                    <h2 class="mb-0">{{ valorNaoPago.total_nao_pago|number_format(2, ',', '.') }}</h2>
+                </div>
+                <h4 class="mb-1"><a href="{{ DOMAIN }}/painel/produtos?tipo=PDV">Valores a Pagar</a></h4>
+                <p class="mb-0">
+                    <span class="text-heading fw-bolder text-{{ contratos.TotalContratos >= 0 ? 'success' : 'danger' }} me-2"><i class="fa-sharp fa-solid {{ contratos.TotalContratos >= 0 ? 'fa-square-plus' : 'fa-square-minus' }}"></i> {{ contratos.TotalContratos }}% em relação ao ano anterior</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

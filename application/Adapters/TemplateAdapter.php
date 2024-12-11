@@ -13,6 +13,7 @@ use Agencia\Close\Adapters\Twig\PriceCheck;
 use Agencia\Close\Adapters\Twig\UserType;
 use Agencia\Close\Adapters\Twig\UserStatus;
 use Agencia\Close\Adapters\Twig\UserCPF;
+use Agencia\Close\Adapters\Twig\MesAbreviado;
 use Agencia\Close\Helpers\String\Strings;
 use Agencia\Close\Adapters\Twig\JsonDecode;
 use Twig\Environment;
@@ -40,6 +41,7 @@ class TemplateAdapter
         $this->twig->addExtension(new UserType());
         $this->twig->addExtension(new UserStatus());
         $this->twig->addExtension(new UserCPF());
+        $this->twig->addExtension(new MesAbreviado());
         $this->twig->addExtension(new AbreviarNome());
         $this->twig->addExtension(new DataGoogle());
         $this->twig->addExtension(new JsonDecode());

@@ -1,0 +1,66 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %} Dashboard - Contratos {% endblock %}
+
+{% block body %}
+
+    <div class="app-content content ">
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                <div class="card">
+                    <div class="card-body py-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>Lista de Contratos: <span class="badge bg-primary">{{ _get.ano_inicial ? _get.ano_inicial ~ ' - ' ~ _get.ano_final :  "now"|date("Y") }}</span> </div>
+                            <form action="" method="GET">
+                                <div class="row g-1 align-items-center">
+                                    <div class="col-auto">
+                                        <select class="form-control" name="ano_inicial" id="ano_inicial">
+                                            <option selected disabled>Ano Inicial</option>
+                                            {% set current_year = "now"|date("Y") %}
+                                            {% for year in range(current_year + 1, 2024) %}                                                    
+                                                <option value="{{ year }}" {{ _get.ano_inicial == year ? 'selected' }}>{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select class="form-control" name="ano_final" id="ano_final">
+                                            <option selected disabled>Ano Final</option>
+                                            {% set current_year = "now"|date("Y") %}
+                                            {% for year in range(current_year + 1, 2024) %}                                                    
+                                                <option value="{{ year }}" {{ _get.ano_final == year ? 'selected' }}>{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" type="submit">Filtrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {# AREA DE PEDIDOS #}
+                <section id="estatisticas-contratos">
+
+                    {{ include('painel/pages/dashboard/contratos/bloco1.twig') }}
+   
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ include('painel/pages/dashboard/contratos/bloco2.twig') }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ include('painel/pages/dashboard/contratos/bloco3.twig') }}
+                        </div>
+                    </div>
+                </section>
+                {#  #}
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/dashboard/contratos.js"></script>
+
+{% endblock %}

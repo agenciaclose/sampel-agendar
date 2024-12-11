@@ -14,11 +14,14 @@ class ContratosPainel extends Model
         $where = '';
 
         if(!empty($_GET['ano_contrato'])){
-            $where .= " AND o.date_create like '%".$_GET['ano_contrato']."%'";
+            $where .= " AND (SELECT MIN(op.data_parcela)
+                            FROM orcamentos_parcelas op 
+                            WHERE op.id_orcamento = o.id) LIKE '%".$_GET['ano_contrato']."%'";
         }
 
         $read = new Read();
-        $read->FullRead("SELECT o.*,
+        $read->FullRead("SELECT 
+                        o.*,
                         CASE 
                             WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
                             WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
@@ -26,18 +29,112 @@ class ContratosPainel extends Model
                             WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
                             ELSE NULL
                         END AS nome_evento,
-                        -- Subconsulta para a primeira data da parcela
                         (SELECT MIN(op.data_parcela) 
                         FROM orcamentos_parcelas op 
                         WHERE op.id_orcamento = o.id) AS primeira_data_parcela,
-                        
-                        -- Subconsulta para a última data da parcela
                         (SELECT MAX(op.data_parcela) 
                         FROM orcamentos_parcelas op 
                         WHERE op.id_orcamento = o.id) AS ultima_data_parcela
                     FROM orcamentos AS o
-                    WHERE o.tipo_contrato = 'Contrato' $where
+                    WHERE o.tipo_contrato = 'Contrato' $where                       
                     ORDER BY o.date_create DESC");
+        return $read;
+    }
+
+    public function getContratosTotal(): Read
+    {
+        $where = ""; 
+
+        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
+        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        
+        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
+            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        }
+
+        $read = new Read();
+        $read->FullRead("SELECT COUNT(id) AS TotalContratos, SUM(valor_orcamento) AS total_valor_contratos
+            FROM orcamentos
+            WHERE tipo_contrato = 'Contrato' $where ORDER BY date_create DESC");
+        return $read;
+    }
+
+    // ISSO LISTA TODOS OS ORCAMENTOS E SEUS VALORES PAGOS
+    //SELECT  o.id AS orcamento_id, o.orcamento AS nome_orcamento, SUM(op.valor_parcela) AS total_pago
+    //FROM orcamentos o
+    //INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
+    //WHERE op.data_parcela < CURDATE()
+    //GROUP BY o.id, o.orcamento
+
+    public function getContratosValorPago(): Read
+    {
+        $where = ""; 
+
+        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
+        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        
+        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
+            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        }
+
+        $read = new Read();
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_pago FROM orcamentos o
+        INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
+        WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela < CURDATE() $where");
+        return $read;
+    }
+
+    public function getContratosValorNaoPago(): Read
+    {
+        $where = ""; 
+
+        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
+        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        
+        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
+            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        }
+
+        $read = new Read();
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_nao_pago FROM orcamentos o
+            INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
+            WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela >= CURDATE() 
+            $where
+        ");
+        return $read;
+    }
+
+    public function getPagamentosPorMes(): Read
+    {
+        $ano = ""; 
+        if (isset($_GET['ano_inicial'])) {
+            $ano = $_GET['ano_inicial'];
+        }else{
+            $ano = date('Y');
+        }
+
+        $read = new Read();
+        $read->FullRead("SELECT 
+                MONTH(op.data_parcela) AS mes,
+                COUNT(*) AS qtd_pagamentos,
+                SUM(op.valor_parcela) AS total_valor,
+                (
+                    SUM(op.valor_parcela) / (
+                        SELECT SUM(valor_parcela) 
+                        FROM orcamentos_parcelas 
+                        WHERE YEAR(data_parcela) = $ano
+                    )
+                ) * 100 AS porcentagem_valor,
+                (
+                    COUNT(*) * 100.0 / (
+                        SELECT COUNT(*)
+                        FROM orcamentos_parcelas 
+                        WHERE YEAR(data_parcela) = $ano
+                    )
+                ) AS porcentagem
+            FROM orcamentos_parcelas op
+            WHERE YEAR(op.data_parcela) = $ano
+            GROUP BY MONTH(op.data_parcela)");
         return $read;
     }
 

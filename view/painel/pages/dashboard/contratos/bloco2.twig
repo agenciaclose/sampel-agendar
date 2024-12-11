@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-column mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">Quantidade de pagamentos por Mês</h2>
+                <small class="text-body">Referente ao ano de 2024.</small>
+            </div>
+        </div>
+        <div class="chart mb-4">
+            {% for pagamentos in pagamentosMes %}                
+                <div class="coluna">
+                    <div class="barra" 
+                        style="height:{{ pagamentos.porcentagem + 50 }}%;" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        data-bs-title="R$ {{ pagamentos.total_valor|number_format(2, ',', '.') }}">
+                    {{ pagamentos.qtd_pagamentos }}
+                    </div>{{ pagamentos.mes|MesAbreviado }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

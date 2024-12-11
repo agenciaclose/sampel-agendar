@@ -94,7 +94,6 @@
                                                         R$ {{ item.total_gastos|number_format(2, ',', '.') }}
                                                     </td>
                                                     <td class="no-mobile">
-                                                        {{ item.local_patrocinio }}
                                                         {% if item.cidade_patrocinio != '' %}
                                                             <div class="text-white-50"><small>{{ item.cidade_patrocinio }}, {{ item.estado_patrocinio }} - {{ item.pais_patrocinio }}</small></div>
                                                         {% else %}
