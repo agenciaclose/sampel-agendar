@@ -10,49 +10,19 @@
 
   $(document).ready(function() {
 
-    $('#curva_abc').DataTable({
+    $('#pedidos_mes').DataTable({
         "paging": true,
         "searching": false,
         "lengthChange": false,
         "info": false,
         "ordering": false,
-        "pageLength": 6,
+        "pageLength": 7,
         "language": {
             "paginate": {
                 "next": '',
                 "previous": ''
             }
         }
-    });
-
-    $('#pedidos_equipe').DataTable({
-      "paging": true,
-      "searching": false,
-      "lengthChange": false,
-      "info": false,
-      "ordering": false,
-      "pageLength": 8,
-      "language": {
-          "paginate": {
-              "next": '',
-              "previous": ''
-          }
-      }
-    });
-
-    $('#pedidos_estados').DataTable({
-      "paging": true,
-      "searching": false,
-      "lengthChange": false,
-      "info": false,
-      "ordering": false,
-      "pageLength": 5,
-      "language": {
-          "paginate": {
-              "next": '',
-              "previous": ''
-          }
-      }
     });
 
     $('.lista-mes-contratos').click(function() {

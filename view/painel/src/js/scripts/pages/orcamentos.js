@@ -150,6 +150,7 @@ $(document).ready(function () {
                     <div class="col-sm-6">
                         <label class="control-label">Data de Pagamento</label>
                         <input type="date" name="data_parcela[]" class="form-control">
+                        <input type="hidden" name="numero_parcela[]" value="${(i + 1)}">
                     </div>
                 </div>
             `;

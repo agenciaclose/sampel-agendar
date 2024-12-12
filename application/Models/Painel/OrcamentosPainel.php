@@ -75,14 +75,16 @@ class OrcamentosPainel extends Model
 
         $valor_parcela = $params['valor_parcela'];
         $data_parcela = $params['data_parcela'];
+        $numero_parcela = $params['numero_parcela'];
         unset($params['valor_parcela']);
         unset($params['data_parcela']);
+        unset($params['numero_parcela']);
         
         $create = new Create();
         $create->ExeCreate('orcamentos', $params);
 
         if($valor_parcela){
-            $this->atualizarParcelas($create->getResult(), $valor_parcela, $data_parcela);
+            $this->atualizarParcelas($create->getResult(), $valor_parcela, $data_parcela, $numero_parcela);
         }
         
         return $create->getResult();
@@ -98,11 +100,13 @@ class OrcamentosPainel extends Model
 
         $valor_parcela = $params['valor_parcela'];
         $data_parcela = $params['data_parcela'];
+        $numero_parcela = $params['numero_parcela'];
         unset($params['valor_parcela']);
         unset($params['data_parcela']);
+        unset($params['numero_parcela']);
 
         if($valor_parcela){
-            $this->atualizarParcelas($id, $valor_parcela, $data_parcela);
+            $this->atualizarParcelas($id, $valor_parcela, $data_parcela, $numero_parcela);
         }
         
         $update = new Update();
@@ -110,7 +114,7 @@ class OrcamentosPainel extends Model
         return $update;
     }
 
-    public function atualizarParcelas($id_orcamento, $valor_parcela, $data_parcela)
+    public function atualizarParcelas($id_orcamento, $valor_parcela, $data_parcela, $numero_parcela)
     {
         $clear = new Read();
         $clear->FullRead("DELETE FROM `orcamentos_parcelas` WHERE `id_orcamento`= :id_orcamento", "id_orcamento={$id_orcamento}");
@@ -122,6 +126,7 @@ class OrcamentosPainel extends Model
             $dados['id_orcamento'] = $id_orcamento;
             $dados['valor_parcela'] = $valor;
             $dados['data_parcela'] = $data_parcela[$i];
+            $dados['numero_parcela'] = $numero_parcela[$i];
             
             $create = new Create();
             $create->ExeCreate('orcamentos_parcelas', $dados);

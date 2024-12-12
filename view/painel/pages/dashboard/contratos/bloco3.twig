@@ -1,5 +1,35 @@
 <div class="card">
     <div class="card-body">
-        dsfsdf
+        <div id="relatorio-mes">
+            <div class="table-responsive">
+                <table class="table table-striped list-unstyled mb-0" id="pedidos_mes">
+                    <thead class="d-none">
+                        <tr>
+                            <th>Orçamento</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th class="text-end">Parcela</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in lista_orcamentos %}
+                        <tr>
+                            <td>
+                                <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" target="_blank" class="text-uppercase">
+                                    {{ item.orcamento }}
+                                </a>
+                                <div class="text-uppercase"><small>{{ item.nome_evento }}</small></div>
+                            </td>
+                            <td class="text-end">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
+                            <td class="text-end">{{ item.data_parcela | date("d/m/Y") }}</td>
+                            <td class="text-end">
+                               <span class="badge bg-primary"> {{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

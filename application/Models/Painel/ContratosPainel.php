@@ -21,22 +21,26 @@ class ContratosPainel extends Model
 
         $read = new Read();
         $read->FullRead("SELECT 
-                        o.*,
-                        CASE 
-                            WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
-                            WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
-                            WHEN o.tipo_evento = 'patrocinios' THEN (SELECT pt.nome_patrocinio FROM patrocinios pt WHERE pt.id = o.id_evento)
-                            WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
-                            ELSE NULL
-                        END AS nome_evento,
-                        (SELECT MIN(op.data_parcela) 
-                        FROM orcamentos_parcelas op 
-                        WHERE op.id_orcamento = o.id) AS primeira_data_parcela,
-                        (SELECT MAX(op.data_parcela) 
-                        FROM orcamentos_parcelas op 
-                        WHERE op.id_orcamento = o.id) AS ultima_data_parcela
+                    o.*,
+                    CASE 
+                        WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
+                        WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
+                        WHEN o.tipo_evento = 'patrocinios' THEN (SELECT pt.nome_patrocinio FROM patrocinios pt WHERE pt.id = o.id_evento)
+                        WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
+                        ELSE NULL
+                    END AS nome_evento,
+                    op.primeira_data_parcela,
+                    op.ultima_data_parcela
                     FROM orcamentos AS o
-                    WHERE o.tipo_contrato = 'Contrato' $where                       
+                    INNER JOIN (
+                    SELECT 
+                        id_orcamento, 
+                        MIN(data_parcela) AS primeira_data_parcela, 
+                        MAX(data_parcela) AS ultima_data_parcela
+                    FROM orcamentos_parcelas
+                    GROUP BY id_orcamento
+                    ) AS op ON o.id = op.id_orcamento
+                    WHERE o.tipo_contrato = 'Contrato' $where
                     ORDER BY o.date_create DESC");
         return $read;
     }
@@ -131,6 +135,36 @@ class ContratosPainel extends Model
             FROM orcamentos_parcelas op
             WHERE YEAR(op.data_parcela) = $ano
             GROUP BY MONTH(op.data_parcela)");
+        return $read;
+    }
+
+
+    public function getListaOrcamentoPorMes($primeiro_dia, $ultimo_dia): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT 
+                o.*, 
+                CASE 
+                    WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
+                    WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
+                    WHEN o.tipo_evento = 'patrocinios' THEN (SELECT pt.nome_patrocinio FROM patrocinios pt WHERE pt.id = o.id_evento)
+                    WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
+                    ELSE NULL
+                END AS nome_evento,
+                op.numero_parcela,
+                op.data_parcela,
+                op.valor_parcela
+            FROM 
+                orcamentos AS o
+            INNER JOIN 
+                orcamentos_parcelas AS op 
+                ON o.id = op.id_orcamento
+            WHERE 
+                o.tipo_contrato = 'Contrato'
+                AND op.data_parcela BETWEEN '".$primeiro_dia."' AND '".$ultimo_dia."'
+            ORDER BY 
+                op.data_parcela ASC
+            ");
         return $read;
     }
 

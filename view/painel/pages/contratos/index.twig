@@ -56,11 +56,6 @@
                             <div class="card card-company-table">
                                 <div class="card-header">
                                     <h5 class="card-title">Lista de Contratos</h5>
-                                    <div class="heading-elements">
-                                        {% if 'add' in permissions.contratos or permissions == 'all' %}
-                                            <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/add" data-bs-toggle="offcanvas" data-bs-target="#formContrato" aria-controls="formContrato"><i class="fa-regular fa-plus"></i> Add Nova</a>
-                                        {% endif %}
-                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -108,12 +103,6 @@
                 </section>
 
             </div>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-end" id="formContrato" aria-labelledby="formContratoLabel">
-        <div class="offcanvas-body">
-            Carregando...
         </div>
     </div>
     
