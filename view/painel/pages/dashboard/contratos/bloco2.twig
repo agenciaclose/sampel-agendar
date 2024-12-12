@@ -8,7 +8,7 @@
         </div>
         <div class="chart mb-4">
             {% for pagamentos in pagamentosMes %}                
-                <div class="coluna">
+                <div class="coluna lista-mes-contratos">
                     <div class="barra">
                         <div class="barra-valores {{ "now"|date("n")  == pagamentos.mes ? 'active' }}" style="height:{{ min(pagamentos.porcentagem_valor * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="R$ {{ pagamentos.total_valor|number_format(2, ',', '.') }}"></div>
                         <div class="barra-parcelas {{ "now"|date("n")  == pagamentos.mes ? 'active' }}" style="height:{{ min(pagamentos.porcentagem * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ pagamentos.qtd_pagamentos }}"></div>

@@ -13,10 +13,10 @@ class ContratosPainel extends Model
     {
         $where = '';
 
-        if(!empty($_GET['ano_contrato'])){
+        if(!empty($_GET['ano'])){
             $where .= " AND (SELECT MIN(op.data_parcela)
                             FROM orcamentos_parcelas op 
-                            WHERE op.id_orcamento = o.id) LIKE '%".$_GET['ano_contrato']."%'";
+                            WHERE op.id_orcamento = o.id) LIKE '%".$_GET['ano']."%'";
         }
 
         $read = new Read();
@@ -45,11 +45,10 @@ class ContratosPainel extends Model
     {
         $where = ""; 
 
-        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
-        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
         
-        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
-            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        if (isset($_GET['ano'])) {
+            $where .= " AND YEAR(date_create) = $ano ";
         }
 
         $read = new Read();
@@ -69,12 +68,10 @@ class ContratosPainel extends Model
     public function getContratosValorPago(): Read
     {
         $where = ""; 
-
-        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
-        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
         
-        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
-            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        if (isset($_GET['ano'])) {
+            $where .= " AND YEAR(o.date_create) = $ano ";
         }
 
         $read = new Read();
@@ -88,11 +85,10 @@ class ContratosPainel extends Model
     {
         $where = ""; 
 
-        $ano_inicial = !empty($_GET['ano_inicial']) ? $_GET['ano_inicial'] : date('Y');
-        $ano_final = !empty($_GET['ano_final']) ? $_GET['ano_final'] : (date('Y') + 1);
+        $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
         
-        if (isset($_GET['ano_inicial']) || isset($_GET['ano_final'])) {
-            $where .= " AND YEAR(o.date_create) BETWEEN $ano_inicial AND $ano_final ";
+        if (isset($_GET['ano'])) {
+            $where .= " AND YEAR(o.date_create) = $ano ";
         }
 
         $read = new Read();

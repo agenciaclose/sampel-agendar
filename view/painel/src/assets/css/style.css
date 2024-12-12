@@ -394,8 +394,8 @@ span.ck-file-dialog-button {
     text-align: center;
     color: #FFF;
 }
-.barra.active {
-    background: #24b263;
+.barra-valores.active, .barra-parcelas.active {
+    border: 2px solid #FFF;
 }
 @media print {
     html, body{
