@@ -13,9 +13,9 @@
             <tr>
                 <td>
                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" target="_blank" class="text-uppercase">
-                        {{ item.orcamento }}
+                        {{ item.nome_evento }}
                     </a>
-                    <div class="text-uppercase"><small>{{ item.nome_evento }}</small></div>
+                    <div class="text-uppercase"><small>{{ item.orcamento }}</small></div>
                 </td>
                 <td class="text-end">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                 <td class="text-end {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
