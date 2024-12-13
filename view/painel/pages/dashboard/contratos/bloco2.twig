@@ -6,7 +6,7 @@
                 <small class="text-body">Referente ao ano de {{ _get.ano ? _get.ano:  "now"|date("Y") }}.</small>
             </div>
         </div>
-        <div class="chart mb-4">
+        <div class="chart mb-5">
             {% for pagamentos in pagamentosMes %}                
                 <div class="coluna lista-mes-contratos">
                     <div class="barra" data-periodo="{{ pagamentos.periodo.primeiro_dia }}/{{ pagamentos.periodo.ultimo_dia }}">
@@ -19,6 +19,23 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-start">
+                <div class="avatar-initial rounded bg-label-warning p-1 me-1"><i class="fa-regular fs-1 fa-cash-register"></i></div>
+                <div>
+                    <div><h4>Valores Pagos</h4></div>
+                    <div>R$ <span id="mes-pago">{{ valorPagoMes|number_format(2, ',', '.') }}</span></div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <div class="avatar-initial rounded bg-label-danger p-1 me-1"><i class="fa-solid fs-1 fa-xmark-to-slot"></i></div>
+                <div>
+                    <div><h4>Valores não Pagos</h4></div>
+                    <div>R$ <span id="mes-nao-pago">{{ valorNaoPagoMes|number_format(2, ',', '.') }}</span></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

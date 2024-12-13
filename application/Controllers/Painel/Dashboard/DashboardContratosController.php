@@ -38,6 +38,9 @@ class DashboardContratosController extends Controller
 
         $lista_orcamentos = $model->getListaOrcamentoPorMes($data['primeiro_dia'], $data['ultimo_dia'])->getResult();
 
+        $valorPagoMes = $model->getValoresPagosMes($data['primeiro_dia'], $data['ultimo_dia'])->getResultSingle();
+        $valorNaoPagoMes = $model->getValoresNaoPagosMes($data['primeiro_dia'], $data['ultimo_dia'])->getResultSingle();
+
         $this->render('painel/pages/dashboard/contratos.twig', [
             'menu' => 'dashboard', 
             'submenu' => 'contratos', 
@@ -45,6 +48,8 @@ class DashboardContratosController extends Controller
             'valorPago' => $valorPago,
             'valorNaoPago' => $valorNaoPago,
             'pagamentosMes' => $pagamentosMes,
+            'valorPagoMes' => $valorPagoMes['valor_total_pago'],
+            'valorNaoPagoMes' => $valorNaoPagoMes['valor_nao_total_pago'],
             'lista_orcamentos' => $lista_orcamentos
          ]);
     }
@@ -56,6 +61,17 @@ class DashboardContratosController extends Controller
         $lista_orcamentos = $model->getListaOrcamentoPorMes($params['primeiro_dia'], $params['ultimo_dia'])->getResult();
 
         $this->render('components/dashboard/contratos/relatorioMes.twig', ['lista_orcamentos' => $lista_orcamentos]);
+    }
+
+    public function getListaValorTotalPorMes($params){
+
+        $this->setParams($params);
+        $model = new ContratosPainel;
+
+        $valorPagoMes = $model->getValoresPagosMes($params['primeiro_dia'], $params['ultimo_dia'])->getResultSingle();
+        $valorNaoPagoMes = $model->getValoresNaoPagosMes($params['primeiro_dia'], $params['ultimo_dia'])->getResultSingle();
+        
+        echo $valorPagoMes['valor_total_pago'].'/'.$valorNaoPagoMes['valor_nao_total_pago'];
     }
 
     function obterPrimeiroEultimoDiaDoMesAtual($ano = null, $mes = null) {

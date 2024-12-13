@@ -115,26 +115,30 @@ class ContratosPainel extends Model
 
         $read = new Read();
         $read->FullRead("SELECT 
-                MONTH(op.data_parcela) AS mes,
-                COUNT(*) AS qtd_pagamentos,
-                SUM(op.valor_parcela) AS total_valor,
-                (
+                    MONTH(op.data_parcela) AS mes,
+                    COUNT(*) AS qtd_pagamentos,
+                    SUM(op.valor_parcela) AS total_valor,
+                    (
                     SUM(op.valor_parcela) / (
                         SELECT SUM(valor_parcela) 
                         FROM orcamentos_parcelas 
-                        WHERE YEAR(data_parcela) = $ano
+                        INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
+                            WHERE o.tipo_contrato = 'Contrato' AND YEAR(data_parcela) = $ano
                     )
-                ) * 100 AS porcentagem_valor,
-                (
+                    ) * 100 AS porcentagem_valor,
+                    (
                     COUNT(*) * 100.0 / (
                         SELECT COUNT(*)
                         FROM orcamentos_parcelas 
-                        WHERE YEAR(data_parcela) = $ano
+                        INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
+                            WHERE o.tipo_contrato = 'Contrato' AND YEAR(data_parcela) = $ano
                     )
-                ) AS porcentagem
-            FROM orcamentos_parcelas op
-            WHERE YEAR(op.data_parcela) = $ano
-            GROUP BY MONTH(op.data_parcela)");
+                    ) AS porcentagem
+                    FROM orcamentos_parcelas op
+                    INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
+                    WHERE o.tipo_contrato = 'Contrato' AND YEAR(op.data_parcela) = $ano
+                    GROUP BY MONTH(op.data_parcela)
+                ");
         return $read;
     }
 
@@ -142,8 +146,7 @@ class ContratosPainel extends Model
     public function getListaOrcamentoPorMes($primeiro_dia, $ultimo_dia): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT 
-                o.*, 
+        $read->FullRead("SELECT o.*, 
                 CASE 
                     WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
                     WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
@@ -154,17 +157,37 @@ class ContratosPainel extends Model
                 op.numero_parcela,
                 op.data_parcela,
                 op.valor_parcela
-            FROM 
-                orcamentos AS o
-            INNER JOIN 
-                orcamentos_parcelas AS op 
-                ON o.id = op.id_orcamento
-            WHERE 
-                o.tipo_contrato = 'Contrato'
-                AND op.data_parcela BETWEEN '".$primeiro_dia."' AND '".$ultimo_dia."'
-            ORDER BY 
-                op.data_parcela ASC
-            ");
+            FROM  orcamentos AS o
+            INNER JOIN  orcamentos_parcelas AS op ON o.id = op.id_orcamento
+            WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela BETWEEN '".$primeiro_dia."' AND '".$ultimo_dia."'
+            ORDER BY op.data_parcela ASC
+        ");
+        return $read;
+    }
+
+    public function getValoresPagosMes($primeiro_dia, $ultimo_dia): Read
+    {
+        
+        $read = new Read();
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS valor_total_pago
+                FROM  orcamentos AS o
+                INNER JOIN  orcamentos_parcelas AS op ON o.id = op.id_orcamento
+                WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela BETWEEN '".$primeiro_dia."' AND '".$ultimo_dia."' 
+                AND op.data_parcela <= CURDATE()
+                ORDER BY op.data_parcela ASC");
+        return $read;
+    }
+
+    public function getValoresNaoPagosMes($primeiro_dia, $ultimo_dia): Read
+    {
+        
+        $read = new Read();
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS valor_nao_total_pago
+                FROM  orcamentos AS o
+                INNER JOIN  orcamentos_parcelas AS op ON o.id = op.id_orcamento
+                WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela BETWEEN '".$primeiro_dia."' AND '".$ultimo_dia."' 
+                AND op.data_parcela > CURDATE()
+                ORDER BY op.data_parcela ASC");
         return $read;
     }
 
