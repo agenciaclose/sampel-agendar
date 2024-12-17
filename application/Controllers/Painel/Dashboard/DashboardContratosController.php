@@ -13,18 +13,21 @@ class DashboardContratosController extends Controller
     {
         $this->setParams($params);
 
+        $model = new ContratosPainel;
+        $total_geral = $model->getContratosTotalGeral()->getResultSingle();
+        $total_geral_ativos = $model->getContratosTotalGeralAtivos()->getResult();
+        $total_geral_a_vencer = $model->getContratosTotalGeralAVencer()->getResult();
+        $total_geral_vencidos = $model->getContratosTotalGeralVencidos()->getResult();
+
+        // ESTATISTICAS POR ANO
         $ano = date('Y');
         if(isset($_GET['ano'])){
             $ano = $_GET['ano'];
         }
-
         $datasMes = $this->inicioFimCadaMes($ano);
-
         $data = $this->obterPrimeiroEultimoDiaDoMesAtual($ano);
-        
         $model = new ContratosPainel;
         $contratos = $model->getContratosTotal()->getResultSingle();
-
         $valorPago = $model->getContratosValorPago()->getResultSingle();
         $valorNaoPago = $model->getContratosValorNaoPago()->getResultSingle();
         $pagamentosMes = $model->getPagamentosPorMes()->getResult();
@@ -35,15 +38,18 @@ class DashboardContratosController extends Controller
         }
         unset($pagamento);
 
-
         $lista_orcamentos = $model->getListaOrcamentoPorMes($data['primeiro_dia'], $data['ultimo_dia'])->getResult();
-
         $valorPagoMes = $model->getValoresPagosMes($data['primeiro_dia'], $data['ultimo_dia'])->getResultSingle();
         $valorNaoPagoMes = $model->getValoresNaoPagosMes($data['primeiro_dia'], $data['ultimo_dia'])->getResultSingle();
+        // 
 
         $this->render('painel/pages/dashboard/contratos.twig', [
             'menu' => 'dashboard', 
-            'submenu' => 'contratos', 
+            'submenu' => 'contratos',
+            'totalGeral' => $total_geral,
+            'totalGeralAtivos' => $total_geral_ativos,
+            'totalGeralAtivosAVencer' => $total_geral_a_vencer,
+            'totalGeralAtivosVencidos' => $total_geral_vencidos,
             'contratos' => $contratos,
             'valorPago' => $valorPago,
             'valorNaoPago' => $valorNaoPago,

@@ -17,7 +17,7 @@
                     </a>
                     <div class="text-uppercase"><small>{{ item.orcamento }}</small></div>
                 </td>
-                <td class="text-end">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
+                <td class="text-end text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                 <td class="text-end {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
                 <td class="text-end">
                     <span class="badge bg-primary"> {{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>

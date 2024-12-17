@@ -9,8 +9,60 @@ use Agencia\Close\Models\Model;
 
 class ContratosPainel extends Model
 {
-    public function getContratos(): Read
+
+    public function getContratosTotalGeral(): Read
     {
+        $read = new Read();
+        $read->FullRead("SELECT COUNT(id) AS total_contratos, SUM(valor_orcamento) AS valor_total FROM orcamentos WHERE tipo_contrato = 'Contrato'");
+        return $read;
+    }
+
+    public function getContratosTotalGeralAtivos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT o.id, o.valor_orcamento, MAX(op.data_parcela) AS ultima_parcela
+        FROM orcamentos AS o
+        JOIN orcamentos_parcelas AS op ON op.id_orcamento = o.id
+        WHERE o.tipo_contrato = 'Contrato'
+        GROUP BY o.id
+        HAVING MAX(op.data_parcela) >= CURDATE()");
+        return $read;
+    }
+
+    public function getContratosTotalGeralAVencer(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT o.id, o.valor_orcamento
+        FROM orcamentos AS o
+        JOIN orcamentos_parcelas AS op ON op.id_orcamento = o.id
+        WHERE o.tipo_contrato = 'Contrato'
+        GROUP BY o.id
+        HAVING MAX(op.data_parcela) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 2 MONTH)");
+        return $read;
+    }
+
+    public function getContratosTotalGeralVencidos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT o.id, o.valor_orcamento
+        FROM orcamentos AS o
+        JOIN orcamentos_parcelas AS op ON op.id_orcamento = o.id
+        WHERE o.tipo_contrato = 'Contrato'
+        GROUP BY o.id
+        HAVING MAX(op.data_parcela) < CURDATE()");
+        return $read;
+    }
+
+
+    //VENCIDOS
+
+    public function getContratos($params): Read
+    {
+        $ids = '';
+        if(isset($params['ids'])){
+            $ids = "AND o.id in (".$params['ids'].")";
+        }
+
         $where = '';
 
         if(!empty($_GET['ano'])){
@@ -40,7 +92,7 @@ class ContratosPainel extends Model
                     FROM orcamentos_parcelas
                     GROUP BY id_orcamento
                     ) AS op ON o.id = op.id_orcamento
-                    WHERE o.tipo_contrato = 'Contrato' $where
+                    WHERE o.tipo_contrato = 'Contrato' $where $ids
                     ORDER BY o.date_create DESC");
         return $read;
     }
@@ -61,13 +113,6 @@ class ContratosPainel extends Model
             WHERE tipo_contrato = 'Contrato' $where ORDER BY date_create DESC");
         return $read;
     }
-
-    // ISSO LISTA TODOS OS ORCAMENTOS E SEUS VALORES PAGOS
-    //SELECT  o.id AS orcamento_id, o.orcamento AS nome_orcamento, SUM(op.valor_parcela) AS total_pago
-    //FROM orcamentos o
-    //INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
-    //WHERE op.data_parcela < CURDATE()
-    //GROUP BY o.id, o.orcamento
 
     public function getContratosValorPago(): Read
     {

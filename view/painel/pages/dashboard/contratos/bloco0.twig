@@ -1,0 +1,107 @@
+<div class="row g-6 mb-1">
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-info h-100">
+            <div class="card-body pb-0">
+                <a href="{{ DOMAIN }}/painel/contratos">
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="avatar me-1">
+                            <span class="avatar-initial rounded bg-label-info">
+                                <i class="fa-solid fs-5 fa-file-signature"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-0">{{ totalGeral.total_contratos }}</h2>
+                    </div>
+                    <h4 class="mb-0">Total de Contratos</h4>
+                    <p class="mb-0">
+                        <span class="text-heading fw-bolder text-success me-2">
+                            <span class="text-nowrap">R$ {{ totalGeral.valor_total|number_format(2, ',', '.') }}</span>
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-success h-100">
+            <div class="card-body pb-0">
+                <a href="javascript:void(0)" class="goFiltroContratos" data-ids="{% for ativos in totalGeralAtivos %}{{ ativos.id }},{% endfor %}">
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="avatar me-1">
+                            <span class="avatar-initial rounded bg-label-success">
+                                <i class="fa-solid fs-5 fa-shield-check"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-0">{{ totalGeralAtivos|length }}</h2>
+                    </div>
+                    <h4 class="mb-0">Contratos ativos</h4>
+                    <p class="mb-0">
+                        <span class="text-heading fw-bolder text-success me-2">
+                            {% set valor_total_ativos = 0 %}
+                            {% for ativos in totalGeralAtivos %}
+                                {% set valor_total_ativos = valor_total_ativos + ativos.valor_orcamento %}
+                            {% endfor %}
+                            <span class="text-nowrap">R$ {{ valor_total_ativos|number_format(2, ',', '.') }}</span>
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-warning h-100">
+            <div class="card-body pb-0">
+                <a href="javascript:void(0)" class="goFiltroContratos" data-ids="{% for ativos in totalGeralAtivosAVencer %}{{ ativos.id }},{% endfor %}">
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="avatar me-1">
+                            <span class="avatar-initial rounded bg-label-warning">
+                                <i class="fa-solid fs-5 fa-shield-exclamation"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-0">{{ totalGeralAtivosAVencer|length }}</h2>
+                    </div>
+                    <h4 class="mb-0">Contratos a vencer</h4>
+                    <p class="mb-0">
+                        <span class="text-heading fw-bolder text-success me-2">
+                            {% set valor_total_a_vencer = 0 %}
+                            {% for vencer in totalGeralAtivosAVencer %}
+                                {% set valor_total_a_vencer = valor_total_a_vencer + vencer.valor_orcamento %}
+                            {% endfor %}
+                            <span class="text-nowrap">R$ {{ valor_total_a_vencer|number_format(2, ',', '.') }}</span>
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-border-shadow-danger h-100">
+            <div class="card-body pb-0">
+                <a href="javascript:void(0)" class="goFiltroContratos" data-ids="{% for ativos in totalGeralAtivosVencidos %}{{ ativos.id }},{% endfor %}">
+                    <div class="d-flex align-items-center mb-1">
+                        <div class="avatar me-1">
+                            <span class="avatar-initial rounded bg-label-danger">
+                                <i class="fa-solid fs-5 fa-shield-xmark"></i>
+                            </span>
+                        </div>
+                        <h2 class="mb-0">{{ totalGeralAtivosVencidos|length }}</h2>
+                    </div>
+                    <h4 class="mb-0">Contratos vencidos</h4>
+                    <p class="mb-0">
+                        <span class="text-heading fw-bolder text-success me-2">
+                            {% set valor_total_vencidos = 0 %}
+                            {% for vencidos in totalGeralAtivosVencidos %}
+                                {% set valor_total_vencidos = valor_total_vencidos + vencidos.valor_orcamento %}
+                            {% endfor %}
+                            <span class="text-nowrap">R$ {{ valor_total_vencidos|number_format(2, ',', '.') }}</span>
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

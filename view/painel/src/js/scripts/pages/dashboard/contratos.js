@@ -92,3 +92,21 @@ function numberFormat(number, decimals, decPoint, thousandsSep) {
       ? integerPart + decPoint + decimalPart 
       : integerPart;
 }
+
+$(document).on('click', '.goFiltroContratos', function(e) {
+  e.preventDefault();
+  var ids = $(this).attr('data-ids').replace(/,$/, '');
+  var DOMAIN = $('body').data('domain');
+
+  var form = $('<form>', {
+      action: DOMAIN + '/painel/contratos/filtro',
+      method: 'POST'
+  }).append($('<input>', {
+      type: 'hidden',
+      name: 'ids',
+      value: ids
+  }));
+
+  $('body').append(form);
+  form.submit();
+});

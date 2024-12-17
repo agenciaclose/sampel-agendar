@@ -14,7 +14,7 @@ class ContratosPainelController extends Controller
         $this->permissions('contratos', '"view"');
 
         $model = new ContratosPainel();
-        $contratos = $model->getContratos()->getResult();
+        $contratos = $model->getContratos($params)->getResult();
 
         $this->render('painel/pages/contratos/index.twig', ['menu' => 'contratos', 'contratos' => $contratos]);
     }
