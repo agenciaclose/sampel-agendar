@@ -14,6 +14,9 @@ class DashboardContratosController extends Controller
         $this->setParams($params);
 
         $model = new ContratosPainel;
+
+        $anos = $model->getAnosContratos()->getResult();
+
         $total_geral = $model->getContratosTotalGeral()->getResultSingle();
         $total_geral_ativos = $model->getContratosTotalGeralAtivos()->getResult();
         $total_geral_a_vencer = $model->getContratosTotalGeralAVencer()->getResult();
@@ -24,6 +27,7 @@ class DashboardContratosController extends Controller
         if(isset($_GET['ano'])){
             $ano = $_GET['ano'];
         }
+
         $datasMes = $this->inicioFimCadaMes($ano);
         $data = $this->obterPrimeiroEultimoDiaDoMesAtual($ano);
         $model = new ContratosPainel;
@@ -46,6 +50,7 @@ class DashboardContratosController extends Controller
         $this->render('painel/pages/dashboard/contratos.twig', [
             'menu' => 'dashboard', 
             'submenu' => 'contratos',
+            'anos' => $anos,
             'totalGeral' => $total_geral,
             'totalGeralAtivos' => $total_geral_ativos,
             'totalGeralAtivosAVencer' => $total_geral_a_vencer,

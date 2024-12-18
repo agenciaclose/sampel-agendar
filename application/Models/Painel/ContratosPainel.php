@@ -10,6 +10,13 @@ use Agencia\Close\Models\Model;
 class ContratosPainel extends Model
 {
 
+    public function getAnosContratos(): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT YEAR(data_parcela) AS ano FROM orcamentos_parcelas GROUP BY YEAR(data_parcela) ORDER BY ano ASC");
+        return $read;
+    }
+
     public function getContratosTotalGeral(): Read
     {
         $read = new Read();
@@ -99,53 +106,37 @@ class ContratosPainel extends Model
 
     public function getContratosTotal(): Read
     {
-        $where = ""; 
-
         $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
         
-        if (isset($_GET['ano'])) {
-            $where .= " AND YEAR(date_create) = $ano ";
-        }
-
         $read = new Read();
-        $read->FullRead("SELECT COUNT(id) AS TotalContratos, SUM(valor_orcamento) AS total_valor_contratos
-            FROM orcamentos
-            WHERE tipo_contrato = 'Contrato' $where ORDER BY date_create DESC");
+        $read->FullRead("SELECT COUNT(DISTINCT o.id) AS TotalContratos, SUM(op.valor_parcela) AS total_valor_contratos
+        FROM orcamentos_parcelas AS op
+        INNER JOIN orcamentos o ON o.id = op.id_orcamento
+        WHERE o.tipo_contrato = 'Contrato' AND YEAR(op.data_parcela) = '".$ano."'");
         return $read;
     }
 
     public function getContratosValorPago(): Read
     {
-        $where = ""; 
         $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
-        
-        if (isset($_GET['ano'])) {
-            $where .= " AND YEAR(o.date_create) = $ano ";
-        }
 
         $read = new Read();
-        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_pago FROM orcamentos o
-        INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
-        WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela < CURDATE() $where");
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_pago FROM 
+        orcamentos_parcelas AS op 
+        INNER JOIN orcamentos o ON o.id = op.id_orcamento 
+        WHERE o.tipo_contrato = 'Contrato' AND YEAR(op.data_parcela) = '".$ano."' AND op.data_parcela < CURDATE()");
         return $read;
     }
 
     public function getContratosValorNaoPago(): Read
     {
-        $where = ""; 
-
         $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
-        
-        if (isset($_GET['ano'])) {
-            $where .= " AND YEAR(o.date_create) = $ano ";
-        }
 
         $read = new Read();
-        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_nao_pago FROM orcamentos o
-            INNER JOIN orcamentos_parcelas op ON o.id = op.id_orcamento
-            WHERE o.tipo_contrato = 'Contrato' AND op.data_parcela >= CURDATE() 
-            $where
-        ");
+        $read->FullRead("SELECT SUM(op.valor_parcela) AS total_nao_pago FROM 
+        orcamentos_parcelas AS op 
+        INNER JOIN orcamentos o ON o.id = op.id_orcamento 
+        WHERE o.tipo_contrato = 'Contrato' AND YEAR(op.data_parcela) = '".$ano."' AND op.data_parcela >= CURDATE()");
         return $read;
     }
 

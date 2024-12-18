@@ -19,9 +19,8 @@
                                     <div class="col-auto">
                                         <select class="form-control" name="ano" id="ano">
                                             <option selected disabled>Ano dos Contratos</option>
-                                            {% set current_year = "now"|date("Y") %}
-                                            {% for year in range(current_year + 1, 2024) %}                                                    
-                                                <option value="{{ year }}" {{ _get.ano == year ? 'selected' }}>{{ year }}</option>
+                                            {% for ano in anos %}                                                    
+                                                <option value="{{ ano.ano }}" {{ _get.ano == ano.ano ? 'selected' }}>{{ ano.ano }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
