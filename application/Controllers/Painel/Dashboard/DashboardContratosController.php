@@ -86,12 +86,15 @@ class DashboardContratosController extends Controller
     }
 
     function obterPrimeiroEultimoDiaDoMesAtual($ano = null, $mes = null) {
-        if (!$ano) {
+
+        if (!$ano || $ano == date('Y')) {
             $ano = date('Y');
-        }
-        if (!$mes) {
             $mes = date('m');
         }
+        if ($ano && $ano != date('Y')) {
+            $mes = 1;
+        }
+
         $mes = str_pad($mes, 2, '0', STR_PAD_LEFT);
         $primeiroDia = "$ano-$mes-01";
         $ultimoDia = date("Y-m-t", strtotime($primeiroDia));

@@ -7,11 +7,26 @@
             </div>
         </div>
         <div class="chart mb-5">
-            {% for pagamentos in pagamentosMes %}                
+            {% set anoAtual = "now"|date("Y") %}
+            {% set anoSelecionado = _get.ano is defined ? _get.ano : anoAtual %}
+
+            {% for pagamentos in pagamentosMes %}
+            
+                {% set ativo = '' %}
+                {% if anoSelecionado == anoAtual %}
+                    {% if "now"|date("n") == pagamentos.mes %}
+                        {% set ativo = 'active' %}
+                    {% endif %}
+                {% else %}
+                    {% if loop.first %}
+                        {% set ativo = 'active' %}
+                    {% endif %}
+                {% endif %}
+
                 <div class="coluna lista-mes-contratos">
                     <div class="barra" data-periodo="{{ pagamentos.periodo.primeiro_dia }}/{{ pagamentos.periodo.ultimo_dia }}">
-                        <div class="barra-valores {{ "now"|date("n")  == pagamentos.mes ? 'active' }}" style="height:{{ min(pagamentos.porcentagem_valor * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="R$ {{ pagamentos.total_valor|number_format(2, ',', '.') }}"></div>
-                        <div class="barra-parcelas {{ "now"|date("n")  == pagamentos.mes ? 'active' }}" style="height:{{ min(pagamentos.porcentagem * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ pagamentos.qtd_pagamentos }}"></div>
+                        <div class="barra-valores {{ ativo }}" style="height:{{ min(pagamentos.porcentagem_valor * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="R$ {{ pagamentos.total_valor|number_format(2, ',', '.') }}"></div>
+                        <div class="barra-parcelas {{ ativo }}" style="height:{{ min(pagamentos.porcentagem * 5, 100) }}%;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ pagamentos.qtd_pagamentos }}"></div>
                     </div>
                     <div class="w-100 text-center">
                         <div>{{ pagamentos.mes|MesAbreviado }}</div>
@@ -19,6 +34,7 @@
                     </div>
                 </div>
             {% endfor %}
+
         </div>
         <hr>
         <div class="d-flex justify-content-between">

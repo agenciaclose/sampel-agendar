@@ -142,39 +142,45 @@ class ContratosPainel extends Model
 
     public function getPagamentosPorMes(): Read
     {
-        $ano = ""; 
-        if (isset($_GET['ano_inicial'])) {
-            $ano = $_GET['ano_inicial'];
-        }else{
-            $ano = date('Y');
-        }
+        $ano = !empty($_GET['ano']) ? $_GET['ano'] : date('Y');
 
         $read = new Read();
         $read->FullRead("SELECT 
-                    MONTH(op.data_parcela) AS mes,
-                    COUNT(*) AS qtd_pagamentos,
-                    SUM(op.valor_parcela) AS total_valor,
-                    (
-                    SUM(op.valor_parcela) / (
-                        SELECT SUM(valor_parcela) 
-                        FROM orcamentos_parcelas 
-                        INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
-                            WHERE o.tipo_contrato = 'Contrato' AND YEAR(data_parcela) = $ano
-                    )
-                    ) * 100 AS porcentagem_valor,
-                    (
-                    COUNT(*) * 100.0 / (
-                        SELECT COUNT(*)
-                        FROM orcamentos_parcelas 
-                        INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
-                            WHERE o.tipo_contrato = 'Contrato' AND YEAR(data_parcela) = $ano
-                    )
-                    ) AS porcentagem
-                    FROM orcamentos_parcelas op
-                    INNER JOIN  orcamentos AS o ON o.id = op.id_orcamento
-                    WHERE o.tipo_contrato = 'Contrato' AND YEAR(op.data_parcela) = $ano
-                    GROUP BY MONTH(op.data_parcela)
-                ");
+            m.mes, 
+            COALESCE(q.qtd_pagamentos, 0) AS qtd_pagamentos,
+            COALESCE(q.total_valor, 0) AS total_valor,
+            COALESCE(q.porcentagem_valor, 0) AS porcentagem_valor,
+            COALESCE(q.porcentagem, 0) AS porcentagem
+        FROM (
+            SELECT 1 AS mes UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
+            UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 
+            UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12
+        ) AS m
+        LEFT JOIN (
+            SELECT 
+                MONTH(op.data_parcela) AS mes, 
+                COUNT(*) AS qtd_pagamentos, 
+                SUM(op.valor_parcela) AS total_valor, 
+                ( SUM(op.valor_parcela) / (
+                    SELECT SUM(valor_parcela) 
+                    FROM orcamentos_parcelas 
+                    INNER JOIN orcamentos AS oo ON oo.id = orcamentos_parcelas.id_orcamento 
+                    WHERE oo.tipo_contrato = 'Contrato' 
+                    AND YEAR(data_parcela) = $ano
+                )) * 100 AS porcentagem_valor, 
+                ( COUNT(*) * 100.0 / (
+                    SELECT COUNT(*) 
+                    FROM orcamentos_parcelas 
+                    INNER JOIN orcamentos AS oo ON oo.id = orcamentos_parcelas.id_orcamento 
+                    WHERE oo.tipo_contrato = 'Contrato' 
+                    AND YEAR(data_parcela) = $ano
+                )) AS porcentagem 
+            FROM orcamentos_parcelas op 
+            INNER JOIN orcamentos AS o ON o.id = op.id_orcamento 
+            WHERE o.tipo_contrato = 'Contrato' 
+            AND YEAR(op.data_parcela) = $ano 
+            GROUP BY MONTH(op.data_parcela)
+        ) q ON q.mes = m.mes");
         return $read;
     }
 
