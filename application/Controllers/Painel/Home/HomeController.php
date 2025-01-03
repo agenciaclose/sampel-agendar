@@ -27,8 +27,13 @@ class HomeController extends Controller
         $dadoseventos = $this->getDadosEmpenhoEventos();
         $dadospatrocinios = $this->getDadosEmpenhoPadrocinios();
 
-        $total_empenho = $dadospedidos['valorEmpenhoPedido'] + $dadosvisitas['valorEmpenhoPedido'] + $dadospalestras['valorEmpenhoPedido'] + $dadoseventos['valorEmpenhoPedido'] + $dadospatrocinios['valorEmpenhoPedido'];
-        $total_consumo = $dadospedidos['pedidosValorTotalConsumo'] + $dadosvisitas['pedidosValorTotalConsumo'] + $dadospalestras['pedidosValorTotalConsumo'] + $dadoseventos['pedidosValorTotalConsumo'] + $dadospatrocinios['pedidosValorTotalConsumo'];
+        if(!empty($dadospedidos["pedidosValorTotalConsumo"])){
+            $total_empenho = $dadospedidos['valorEmpenhoPedido'] + $dadosvisitas['valorEmpenhoPedido'] + $dadospalestras['valorEmpenhoPedido'] + $dadoseventos['valorEmpenhoPedido'] + $dadospatrocinios['valorEmpenhoPedido'];
+            $total_consumo = $dadospedidos['pedidosValorTotalConsumo'] + $dadosvisitas['pedidosValorTotalConsumo'] + $dadospalestras['pedidosValorTotalConsumo'] + $dadoseventos['pedidosValorTotalConsumo'] + $dadospatrocinios['pedidosValorTotalConsumo'];
+        }else{
+            $total_empenho = 0;
+            $total_consumo = 0;
+        }
 
         $this->render('painel/pages/home/home.twig', [
             'menu' => 'home', 
@@ -73,8 +78,13 @@ class HomeController extends Controller
         }
         
         // Calcular a porcentagem restante
-        $valorRestante = $valorEmpenhoPedido - $pedidosValorTotalConsumo;
-        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        if(!empty($valorEmpenhoPedido)){
+            $valorRestante = $valorEmpenhoPedido - $pedidosValorTotalConsumo;
+            $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        }else{
+            $valorRestante = 0;
+            $porcentagemRestante = 0;
+        }
 
         // Adicionando os valores no array $dados
         $dados['pedidos'] =  count($pedidos);
@@ -105,6 +115,7 @@ class HomeController extends Controller
         $empenho = new EmpenhoModel();
         $empenhoPedidos = $empenho->getEmpenho('Visitas', $this->ano)->getResult();
 
+        $valorTotalOrcamento = 0;
         if($empenhoPedidos){
             if($orcamentosValorTotal){
                 $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
@@ -129,9 +140,15 @@ class HomeController extends Controller
         }
         
         // Calcular a porcentagem restante
-        $totalConsumo = $valorTotalOrcamento;
-        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
-        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        if(!empty($valorEmpenhoPedido)){
+            $totalConsumo = $valorTotalOrcamento;
+            $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+            $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        }else{
+            $totalConsumo = 0;
+            $valorRestante = 0;
+            $porcentagemRestante = 0; 
+        }
 
         // Adicionando os valores no array $dados
         $dados['visitas'] =  count($visitas);
@@ -161,6 +178,7 @@ class HomeController extends Controller
         $empenho = new EmpenhoModel();
         $empenhoPedidos = $empenho->getEmpenho('Palestras', $this->ano)->getResult();
 
+        $valorTotalOrcamento = 0;
         if($empenhoPedidos){
             if($orcamentosValorTotal){
                 $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
@@ -185,9 +203,15 @@ class HomeController extends Controller
         }
         
         // Calcular a porcentagem restante
-        $totalConsumo = $valorTotalOrcamento;
-        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
-        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        if(!empty($valorEmpenhoPedido)){
+            $totalConsumo = $valorTotalOrcamento;
+            $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+            $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        }else{
+            $totalConsumo = 0;
+            $valorRestante = 0;
+            $porcentagemRestante = 0;
+        }
 
         // Adicionando os valores no array $dados
         $dados['palestras'] =  count($palestras);
@@ -217,6 +241,7 @@ class HomeController extends Controller
         $empenho = new EmpenhoModel();
         $empenhoPedidos = $empenho->getEmpenho('Feiras e Eventos', $this->ano)->getResult();
 
+        $valorTotalOrcamento = 0;
         if($empenhoPedidos){
             if($orcamentosValorTotal){
                 $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
@@ -241,9 +266,15 @@ class HomeController extends Controller
         }
         
         // Calcular a porcentagem restante
-        $totalConsumo = $valorTotalOrcamento;
-        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
-        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        if(!empty($valorEmpenhoPedido)){
+            $totalConsumo = $valorTotalOrcamento;
+            $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+            $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        }else{
+            $totalConsumo = 0;
+            $valorRestante = 0;
+            $porcentagemRestante = 0;
+        }
 
         // Adicionando os valores no array $dados
         $dados['eventos'] =  count($eventos);
@@ -273,6 +304,7 @@ class HomeController extends Controller
         $empenho = new EmpenhoModel();
         $empenhoPedidos = $empenho->getEmpenho('Patrocinios', $this->ano)->getResult();
 
+        $valorTotalOrcamento = 0;
         if($empenhoPedidos){
             if($orcamentosValorTotal){
                 $valorTotalOrcamento = $orcamentosValorTotal[0]['valor_total_orcamento'];
@@ -297,9 +329,15 @@ class HomeController extends Controller
         }
         
         // Calcular a porcentagem restante
-        $totalConsumo = $valorTotalOrcamento;
-        $valorRestante = $valorEmpenhoPedido - $totalConsumo;
-        $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        if(!empty($valorEmpenhoPedido)){
+            $totalConsumo = $valorTotalOrcamento;
+            $valorRestante = $valorEmpenhoPedido - $totalConsumo;
+            $porcentagemRestante = round(($valorRestante / $valorEmpenhoPedido) * 100, 0);
+        }else{
+            $totalConsumo = 0;
+            $valorRestante = 0;
+            $porcentagemRestante = 0;
+        }
 
         // Adicionando os valores no array $dados
         $dados['patrocinios'] =  count($patrocinios);
