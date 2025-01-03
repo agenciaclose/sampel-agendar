@@ -18,9 +18,19 @@
                                     <div>Total Geral de Consumo: <span class="text-primary">R$ {{ total_consumo|number_format(2, ',', '.') }}</span></div>
                                     <div>Total Geral de Restante: <span class="text-danger">R$ {{ (total_empenho - total_consumo)|number_format(2, ',', '.') }}</span></div>
                                     <div>
-                                      <select name="ano" class="form-control">
-                                        <option value="{{ now|date('Y') }}">{{ now|date('Y') }}</option>
-                                      </select>
+                                      <form action="" method="GET">
+                                        <div class="row g-3 align-items-center">
+                                          <div class="col-auto pe-1">
+                                            <select name="ano" class="form-control">
+                                              <option value="{{ now|date('Y') }}" {{ _get.ano == now|date('Y') ? 'selected' }}>{{ now|date('Y') }}</option>
+                                              <option value="2024" {{ _get.ano == '2024' ? 'selected' }}>2024</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-auto ps-0">
+                                            <button class="btn btn-primary" type="submit">OK</button>
+                                          </div>
+                                        </div>
+                                      </form>
                                     </div>
                                 </div>
                             </div>
