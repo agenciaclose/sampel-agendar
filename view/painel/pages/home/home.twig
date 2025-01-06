@@ -4,6 +4,12 @@
 
 {% block body %}
 
+    {% if _get.ano %}
+      {% set ano = _get.ano %}
+    {% else %}
+      {% set ano = "now"|date("Y")%}
+    {% endif %}
+
     <div class="app-content content ">
         <div class="content-wrapper">
             <div class="content-body">
@@ -144,8 +150,10 @@
                                   <li class="d-flex gap-2 align-items-center pb-1">
                                     <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
                                     <div>
-                                      <h6 class="mb-0 text-nowrap">Total de Eventos</h6>
-                                      <div class="text-info">{{ dadoseventos.eventos }}</div>
+                                      <a href="{{ DOMAIN }}/painel/eventos?ano_evento={{ ano }}">
+                                        <h6 class="mb-0 text-nowrap">Total de Eventos</h6>
+                                        <div class="text-info">{{ dadoseventos.eventos }}</div>
+                                      </a>
                                     </div>
                                   </li>
                                   <li class="d-flex gap-2 align-items-center pb-1">
@@ -207,8 +215,10 @@
                                   <li class="d-flex gap-2 align-items-center pb-1">
                                     <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
                                     <div>
-                                      <h6 class="mb-0 text-nowrap">Total de Visitas</h6>
-                                      <div class="text-info">{{ dadosvisitas.visitas }}</div>
+                                      <a href="{{ DOMAIN }}/painel/visitas?ano_visitas={{ ano }}">
+                                        <h6 class="mb-0 text-nowrap">Total de Visitas</h6>
+                                        <div class="text-info">{{ dadosvisitas.visitas }}</div>
+                                      </a>
                                     </div>
                                   </li>
                                   <li class="d-flex gap-2 align-items-center pb-1">
@@ -270,8 +280,10 @@
                                   <li class="d-flex gap-2 align-items-center pb-1">
                                     <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
                                     <div>
-                                      <h6 class="mb-0 text-nowrap">Total de Palestras</h6>
-                                      <div class="text-info">{{ dadospalestras.palestras }}</div>
+                                      <a href="{{ DOMAIN }}/painel/palestras?ano_palestras={{ ano }}">
+                                        <h6 class="mb-0 text-nowrap">Total de Palestras</h6>
+                                        <div class="text-info">{{ dadospalestras.palestras }}</div>
+                                      </a>
                                     </div>
                                   </li>
                                   <li class="d-flex gap-2 align-items-center pb-1">
@@ -333,8 +345,10 @@
                                   <li class="d-flex gap-2 align-items-center pb-1">
                                     <div class="badge rounded bg-label-info p-1"><i class="fa-solid fs-4 fa-ticket"></i></div>
                                     <div>
-                                      <h6 class="mb-0 text-nowrap">Total de Patrocínios</h6>
-                                      <div class="text-info">{{ dadospatrocinios.patrocinios }}</div>
+                                      <a href="{{ DOMAIN }}/painel/patrocinios?ano_patrocinio={{ ano }}">
+                                        <h6 class="mb-0 text-nowrap">Total de Patrocínios</h6>
+                                        <div class="text-info">{{ dadospatrocinios.patrocinios }}</div>
+                                      </a>
                                     </div>
                                   </li>
                                   <li class="d-flex gap-2 align-items-center pb-1">

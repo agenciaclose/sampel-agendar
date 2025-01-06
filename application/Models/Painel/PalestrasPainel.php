@@ -14,8 +14,13 @@ class PalestrasPainel extends Model
 {
     public function getPalestrasList(): Read
     {
+        $filtro_ano = '';
+        if(isset($_GET['ano_palestras'])){
+            $filtro_ano = "WHERE YEAR(data_palestra) = '".$_GET['ano_palestras']."'";
+        }
+
         $read = new Read();
-        $read->FullRead("SELECT p.*, (SELECT COUNT(id) FROM palestras_participantes WHERE id_palestra = p.id) AS inscricoes FROM palestras AS p ORDER BY p.id DESC");
+        $read->FullRead("SELECT p.*, (SELECT COUNT(id) FROM palestras_participantes WHERE id_palestra = p.id) AS inscricoes FROM palestras AS p $filtro_ano ORDER BY p.id DESC");
         return $read;
     }
 

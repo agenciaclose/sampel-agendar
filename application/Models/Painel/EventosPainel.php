@@ -19,16 +19,47 @@ class EventosPainel extends Model
         }
 
         $read = new Read();
-        $read->FullRead("SELECT *,
-        (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id AND tipo_evento = 'eventos') AS total_orcamento,
-        (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id AND tipo_evento = 'eventos') AS total_pedido,
-        (
-            IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = eventos.id AND tipo_evento = 'eventos'), 0) +
-            IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = eventos.id AND tipo_evento = 'eventos'), 0)
-        ) AS total_gastos
-        FROM eventos
-        WHERE status_evento = 'Ativo' $where
-        ORDER BY data_evento_inicio ASC");
+        $read->FullRead("SELECT 
+                eventos.*,
+                IFNULL(orcamentos.total_orcamento, 0) AS total_orcamento,
+                IFNULL(pedidos.total_pedido, 0) AS total_pedido,
+                IFNULL(orcamentos.total_orcamento, 0) + IFNULL(pedidos.total_pedido, 0) AS total_gastos
+            FROM 
+                eventos
+            LEFT JOIN (
+                SELECT 
+                    id_evento, 
+                    SUM(valor_orcamento) AS total_orcamento
+                FROM 
+                    orcamentos
+                WHERE 
+                    tipo_evento = 'eventos'
+                GROUP BY 
+                    id_evento
+            ) orcamentos ON eventos.id = orcamentos.id_evento
+            LEFT JOIN (
+                SELECT 
+                    id_evento, 
+                    SUM(valor_total_pedido) AS total_pedido
+                FROM 
+                    pedidos
+                WHERE 
+                    tipo_evento = 'eventos'
+                GROUP BY 
+                    id_evento
+            ) pedidos ON eventos.id = pedidos.id_evento
+            WHERE 
+                eventos.status_evento = 'Ativo' $where
+            ORDER BY
+                (eventos.data_evento_inicio >= CURDATE()) DESC,
+                CASE 
+                    WHEN eventos.data_evento_inicio >= CURDATE() THEN eventos.data_evento_inicio 
+                    ELSE NULL 
+                END ASC,
+                CASE 
+                    WHEN eventos.data_evento_inicio < CURDATE() THEN eventos.data_evento_inicio 
+                    ELSE NULL 
+                END DESC");
         return $read;
     }
 
