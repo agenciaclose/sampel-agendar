@@ -13,18 +13,23 @@ class RelatoriosPalestrasController extends Controller
     {
         $this->setParams($params);
 
+        $ano = '';
+        if(isset($_GET['ano'])){
+            $ano = $_GET['ano'];
+        }
+
         $visitas = new RelatoriosPalestras();
-        $visitas = $visitas->getAllVisitas()->getResult();
+        $visitas = $visitas->getAllVisitas($ano)->getResult();
 
         $numeros = new RelatoriosPalestras();
-        $numeros = $numeros->getAllNumeros()->getResult();
+        $numeros = $numeros->getAllNumeros($ano)->getResult();
         $total = $this->tratarNumeros($numeros);
 
         $total_setor = new RelatoriosPalestras();
-        $total_setor = $total_setor->getTotalSetor()->getResult();
+        $total_setor = $total_setor->getTotalSetor($ano)->getResult();
 
         $total_cidade = new RelatoriosPalestras();
-        $total_cidade = $total_cidade->getTotalCidade()->getResult();
+        $total_cidade = $total_cidade->getTotalCidade($ano)->getResult();
 
         $perguntas = new RelatoriosPalestras();
         $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
@@ -45,6 +50,9 @@ class RelatoriosPalestrasController extends Controller
 
             $i++;
         }
+        
+        $model = new RelatoriosPalestras();
+        $anos = $model->getAnosPaletras()->getResult();
     
         $this->render('pages/relatorios_palestras/palestras.twig', [
             'menu' => 'relatorios',
@@ -53,7 +61,8 @@ class RelatoriosPalestrasController extends Controller
             'total' => $total,
             'total_setor' => $total_setor,
             'total_cidade' => $total_cidade,
-            'perguntas' => $perguntas
+            'perguntas' => $perguntas,
+            'anos' => $anos
         ]);
     }
 

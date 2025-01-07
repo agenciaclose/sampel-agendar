@@ -10,41 +10,60 @@ use Agencia\Close\Models\Model;
 class RelatoriosPalestras extends Model
 {
 
-    public function getAllVisitas(): Read
+    public function getAnosPaletras(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM `palestras` WHERE status_palestra <> 'Recusado'");
+        $read->FullRead("SELECT YEAR(data_palestra) AS ano FROM palestras WHERE status_palestra NOT IN ('Recusado') GROUP BY ano ORDER BY ano DESC");
         return $read;
     }
 
-    public function getAllNumeros(): Read
+    public function getAllVisitas($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(data_palestra) = '".$ano."' ";
+        }
+        $read = new Read();
+        $read->FullRead("SELECT * FROM `palestras` WHERE status_palestra <> 'Recusado' $ano");
+        return $read;
+    }
+
+    public function getAllNumeros($ano): Read
+    {
+        if($ano != ''){
+            $ano = " AND YEAR(data_palestra) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT
         (SELECT COUNT(id) AS total FROM palestras_participantes WHERE id_palestra = palestras.id) AS total_inscritos,
         (SELECT COUNT(id) AS total FROM palestras_participantes WHERE id_palestra = palestras.id AND presenca = 'Sim') AS total_confirmados,
         (SELECT COUNT(id) AS total FROM palestras_participantes WHERE id_palestra = palestras.id AND presenca = 'No') AS total_no_confirmados,
         (SELECT COUNT(id) AS total FROM palestras_participantes WHERE id_palestra = palestras.id AND certificado = 'Sim') AS total_certificados
-        FROM palestras WHERE status_palestra <> 'Recusado'");
+        FROM palestras WHERE status_palestra <> 'Recusado' $ano");
         return $read;
     }
 
-    public function getTotalSetor(): Read
+    public function getTotalSetor($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_palestra) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `palestras_participantes` AS vi
                         INNER JOIN palestras AS v ON v.id = vi.id_palestra
-                        WHERE v.status_palestra <> 'Recusado' AND  vi.setor <> '' AND vi.codigo <> ''
+                        WHERE v.status_palestra <> 'Recusado' AND  vi.setor <> '' AND vi.codigo <> '' $ano
                         GROUP BY vi.setor ORDER BY total DESC LIMIT 10");
         return $read;
     }
 
-    public function getTotalCidade(): Read
+    public function getTotalCidade($ano): Read
     {
+        if($ano != ''){
+            $ano = " AND YEAR(v.data_palestra) = '".$ano."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `palestras_participantes` AS vi
                         INNER JOIN palestras AS v ON v.id = vi.id_palestra
-                        WHERE v.status_palestra <> 'Recusado' AND vi.cidade <> '' AND vi.codigo <> ''
+                        WHERE v.status_palestra <> 'Recusado' AND vi.cidade <> '' AND vi.codigo <> '' $ano
                         GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }

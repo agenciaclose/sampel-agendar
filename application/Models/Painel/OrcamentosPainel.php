@@ -36,30 +36,23 @@ class OrcamentosPainel extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT 
-                            SUM(o.valor_orcamento) AS valor_total_orcamento
-                        FROM 
-                            orcamentos AS o
-                        LEFT JOIN 
-                            visitas AS v ON v.id = o.id_evento AND o.tipo_evento = 'visitas'
-                        LEFT JOIN 
-                            palestras AS p ON p.id = o.id_evento AND o.tipo_evento = 'palestras'
-                        LEFT JOIN 
-                            patrocinios AS pt ON pt.id = o.id_evento AND o.tipo_evento = 'patrocinios'
-                        LEFT JOIN 
-                            eventos AS e ON e.id = o.id_evento AND o.tipo_evento = 'eventos'
-                        WHERE 
-                            YEAR(
-                                CASE 
-                                    WHEN o.tipo_evento = 'visitas' THEN v.data_visita
-                                    WHEN o.tipo_evento = 'palestras' THEN p.data_palestra
-                                    WHEN o.tipo_evento = 'patrocinios' THEN pt.data_patrocinio_inicio
-                                    WHEN o.tipo_evento = 'eventos' THEN e.data_evento_inicio
-                                    ELSE NULL
-                                END
-                            ) = :ano
-                            AND o.tipo_evento = :tipo_evento
-                        GROUP BY 
-                            o.tipo_evento", "tipo_evento={$tipo_evento}&ano={$ano}");
+                SUM(op.valor_parcela) AS valor_total_orcamento
+            FROM 
+                orcamentos AS o
+            INNER JOIN orcamentos_parcelas AS op ON op.id_orcamento = o.id
+            LEFT JOIN 
+                visitas AS v ON v.id = o.id_evento AND o.tipo_evento = 'visitas'
+            LEFT JOIN 
+                palestras AS p ON p.id = o.id_evento AND o.tipo_evento = 'palestras'
+            LEFT JOIN 
+                patrocinios AS pt ON pt.id = o.id_evento AND o.tipo_evento = 'patrocinios'
+            LEFT JOIN 
+                eventos AS e ON e.id = o.id_evento AND o.tipo_evento = 'eventos'
+            WHERE 
+                YEAR(op.data_parcela) = :ano
+                AND o.tipo_evento = :tipo_evento
+            GROUP BY 
+                o.tipo_evento", "tipo_evento={$tipo_evento}&ano={$ano}");
         return $read;
     }
 

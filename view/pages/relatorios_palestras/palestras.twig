@@ -17,10 +17,25 @@
 
 		<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
 			<div>
-				<h3>Relatórios Gerais sobre Visitas</h3>
-				<div>Números de visitas, quantidades inscrições, presenças, certificados e muito mais.</div>
+				<h3>Relatórios Gerais sobre Palestras</h3>
+				<div>Números de palestras, quantidades inscrições, presenças, certificados e muito mais.</div>
 			</div>
-			<div></div>
+			<div>
+				<form class="row g-3 align-items-end" action="" method="GET">
+					<div class="col-auto">
+						<label>Filtrar por Ano</label>
+						<select class="form-control select2" name="ano">
+							<option value="">Selecione o Ano</option>
+							{% for ano in anos %}
+							<option value="{{ ano.ano }}" {{_get.ano == ano.ano ? 'selected' }}>{{ ano.ano }}</option>								
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-primary">FILTRAR</button>
+					</div>
+				</form>
+			</div>
 		</div>
 
 		<hr>
