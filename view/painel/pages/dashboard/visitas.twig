@@ -1,0 +1,82 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %} Dashboard - Visitas {% endblock %}
+
+{% block body %}
+
+    <div class="app-content content ">
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                <div class="row">
+                    <div class="col-xl-12 col-xxl-8">
+                        <div class="card">
+                            <div class="card-body py-1 position-relative vh-90">
+
+                                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+                                <div id="map"></div>
+                                <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+                                <script>
+                                    const cityData = [
+                                        {% for cidade in cidades %}
+                                            { city: '{{ cidade.cidade }}', state: '{{ cidade.estado }}', qtd: {{ cidade.qtd }} },
+                                        {% endfor %}
+                                    ];
+
+                                    const map = L.map('map').setView([-14.235004, -51.92528], 5); // Central do Brasil
+
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        attribution: '© OpenStreetMap contributors'
+                                    }).addTo(map);
+
+                                    const geocodeCity = async (city, state) => {
+                                        const response = await fetch(`https://nominatim.openstreetmap.org/search?city=${city}&state=${state}&country=Brazil&format=json`);
+                                        const data = await response.json();
+                                        if (data.length > 0) {
+                                            return {
+                                                lat: parseFloat(data[0].lat),
+                                                lon: parseFloat(data[0].lon)
+                                            };
+                                        }
+                                        return null;
+                                    };
+
+                                    const loadHeatmapData = async () => {
+                                        for (const item of cityData) {
+                                            const position = await geocodeCity(item.city, item.state);
+                                            if (position) {
+                                                // Adiciona o círculo
+                                                L.circle([position.lat, position.lon], {
+                                                    radius: item.qtd * 100, // Ajusta o tamanho do círculo com base na quantidade
+                                                }).addTo(map);
+
+                                                // Adiciona o texto dentro do círculo
+                                                const marker = L.divIcon({
+                                                    className: 'custom-marker',
+                                                    html: `<div class="circle-label">${item.qtd}</div>`,
+                                                    iconSize: [30, 30], // Tamanho do marcador
+                                                    iconAnchor: [15, 15] // Centraliza o marcador
+                                                });
+
+                                                L.marker([position.lat, position.lon], { icon: marker }).addTo(map);
+                                            } else {
+                                                console.warn(`Não foi possível localizar ${item.city}, ${item.state}`);
+                                            }
+                                        }
+                                    };
+
+                                    loadHeatmapData();
+                                </script>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {# <script src="{{ PATH }}/view/painel/src/js/scripts/pages/dashboard/visitas.js"></script> #}
+
+{% endblock %}

@@ -11,6 +11,33 @@
   --bs-cyan: #0dcaf0;
   --bs-gray: #6c757d;
 }
+.vh-90 {
+  height: 90vh;
+}
+#map {
+  height: 100%; /* O mapa preencherá a altura do contêiner */
+  width: 100%; /* Garante que ocupe toda a largura */
+}
+.custom-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: rgba(17,148,220, 0.8);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  color: white;
+  border: 1px solid #1194dc;
+}
+
+.circle-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
 .bg-blue{
   background-color: var(--bs-blue) !important;
   box-shadow: inset 0 0 0 9999px var(--bs-blue) !important;

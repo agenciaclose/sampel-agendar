@@ -124,5 +124,12 @@ class VisitasPainel extends Model
         $palavra = str_replace(" ","",$palavra);
         return($palavra);
     }
+
+    public function listaDeCidades(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT cidade, estado, COUNT(*) AS qtd FROM visitas_inscricoes WHERE cidade <> '' GROUP BY cidade ORDER BY qtd DESC");
+        return $read;
+    }
    
 }

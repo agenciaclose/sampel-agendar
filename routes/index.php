@@ -22,6 +22,7 @@ require  __DIR__ . '/painel/patrocinios.php';
 require  __DIR__ . '/painel/empenho.php';
 require  __DIR__ . '/painel/contratos.php';
 require  __DIR__ . '/painel/dashboard/contratos.php';
+require  __DIR__ . '/painel/dashboard/visitas.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
