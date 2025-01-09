@@ -18,25 +18,26 @@
   height: 100%; /* O mapa preencherá a altura do contêiner */
   width: 100%; /* Garante que ocupe toda a largura */
 }
-.custom-marker {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: bold;
-  background-color: rgba(17,148,220, 0.8);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  color: white;
-  border: 1px solid #1194dc;
-}
-
 .circle-label {
+  background-color: white;
+  border: 1px solid #1194dc;
+  border-radius: 50%;
+  color: #1194dc;
   font-size: 14px;
   font-weight: bold;
+  padding: 4px 6px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.cluster-label {
+  background-color: #1194dc;
   color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 6px 12px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 .bg-blue{
   background-color: var(--bs-blue) !important;

@@ -40,6 +40,9 @@
 
 		<hr>
 		
+		<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visitas/relatorios/mapa" data-bs-toggle="modal-remote" data-bs-target="#relatorioMapa" class="mb-2 badge bg-warning text-black">
+			Ver Mapa de Visitas
+		</a>
 		{# DADOS BLOCO 1 #}
 		{{ include('pages/relatorios/dados.twig') }}
 
@@ -75,5 +78,11 @@
 
 	</session>
 
+</div>
+
+<div class="modal fade" id="relatorioMapa" tabindex="-1" role="dialog" aria-labelledby="relatorioMapaLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content"></div>
+	</div>
 </div>
 {% endblock %}

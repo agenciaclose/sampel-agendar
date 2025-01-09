@@ -16,10 +16,13 @@ class DashboardVisitasController extends Controller
         $model = new VisitasPainel();
         $cidades = $model->listaDeCidades()->getResult();
 
+        $time = time();
+
         $this->render('painel/pages/dashboard/visitas.twig', [
             'menu' => 'dashboard', 
             'submenu' => 'visitas',
-            'cidades' => $cidades
+            'cidades' => $cidades,
+            'time' => $time
         ]);
     }
 }

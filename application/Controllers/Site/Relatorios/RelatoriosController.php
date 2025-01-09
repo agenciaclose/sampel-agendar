@@ -4,6 +4,7 @@ namespace Agencia\Close\Controllers\Site\Relatorios;
 
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Relatorios;
+use Agencia\Close\Models\Painel\VisitasPainel;
 
 
 class RelatoriosController extends Controller
@@ -78,6 +79,16 @@ class RelatoriosController extends Controller
         }
     
         return $totais;
+    }
+
+    public function mapa ()
+    {
+        $model = new VisitasPainel();
+        $cidades = $model->listaDeCidades()->getResult();
+        
+        $this->render('components/visitas/map.twig', [
+            'cidades' => $cidades
+        ]);
     }
 
 }

@@ -128,7 +128,7 @@ class VisitasPainel extends Model
     public function listaDeCidades(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT cidade, estado, COUNT(*) AS qtd FROM visitas_inscricoes WHERE cidade <> '' GROUP BY cidade ORDER BY qtd DESC");
+        $read->FullRead("SELECT cidade, estado FROM visitas_inscricoes WHERE cidade <> ''");
         return $read;
     }
    

@@ -4495,8 +4495,8 @@ img.fancybox__image {
   transition: all .2s ease-in-out;
   z-index: -1;
 }
-.highcharts-background {
-  fill: #171717;
+.highcharts-background, .highcharts-contextbutton {
+  fill: #212121 !important;
 }
 .card.card-border-shadow-primary::after {
   border-bottom-color: #249038;
