@@ -82,11 +82,16 @@ class RelatoriosController extends Controller
     }
 
     public function mapa ()
+    {        
+        $this->render('components/visitas/mapa.twig', []);
+    }
+
+    public function mapaIframe ()
     {
         $model = new VisitasPainel();
         $cidades = $model->listaDeCidades()->getResult();
         
-        $this->render('components/visitas/map.twig', [
+        $this->render('pages/relatorios/visitas-mapa.twig', [
             'cidades' => $cidades
         ]);
     }

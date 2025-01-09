@@ -5068,3 +5068,6 @@ span.fr-counter {
   background-color: rgb(47 48 48) !important;
   color: #ffffff !important;
 }
+#map {
+  height: 100vh;
+}

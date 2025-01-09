@@ -1,6 +1,0 @@
-<div id="map"></div>
-<script>const cityData = [{% for cidade in cidades %}{ city: '{{ cidade.cidade }}', state: '{{ cidade.estado }}' },{% endfor %}];</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxUAz-IsI0xqf7RDkD6urB3ArwZ-2quac&libraries=visualization"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer.js"></script>
-<script src="{{ PATH }}/view/painel/src/js/scripts/pages/dashboard/visitas.js?{{ time }}"></script>

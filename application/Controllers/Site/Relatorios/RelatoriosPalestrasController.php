@@ -86,4 +86,19 @@ class RelatoriosPalestrasController extends Controller
         return $totais;
     }
 
+    public function mapa ()
+    {        
+        $this->render('components/palestras/mapa.twig', []);
+    }
+
+    public function mapaIframe ()
+    {
+        $model = new RelatoriosPalestras();
+        $cidades = $model->listaDeCidades()->getResult();
+        
+        $this->render('pages/relatorios_palestras/palestras-mapa.twig', [
+            'cidades' => $cidades
+        ]);
+    }
+
 }

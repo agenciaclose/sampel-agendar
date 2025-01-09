@@ -92,4 +92,11 @@ class RelatoriosPalestras extends Model
         return $read;
     }
 
+    public function listaDeCidades(): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT cidade, estado FROM palestras_participantes WHERE cidade <> ''");
+        return $read;
+    }
+
 }
