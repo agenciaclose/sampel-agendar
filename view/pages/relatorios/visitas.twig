@@ -20,7 +20,7 @@
 				<h3>Relatórios Gerais sobre Visitas</h3>
 				<div>Números de visitas, quantidades inscrições, presenças, certificados e muito mais.</div>
 			</div>
-			<div>
+			<div class="d-flex justify-content-end align-items-end">
 				<form class="row g-3 align-items-end" action="" method="GET">
 					<div class="col-auto">
 						<label>Filtrar por Ano</label>
@@ -35,14 +35,14 @@
 						<button type="submit" class="btn btn-primary">FILTRAR</button>
 					</div>
 				</form>
+				<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visitas/relatorios/mapa{{_get.ano ? '?ano=' ~ _get.ano }}" data-bs-toggle="modal-remote" data-bs-target="#relatorioMapa" class="btn btn-warning ms-3">
+					<i class="fa-solid fa-map-location-dot"></i> Ver Mapa de Visitas
+				</a>
 			</div>
 		</div>
 
 		<hr>
 		
-		<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visitas/relatorios/mapa" data-bs-toggle="modal-remote" data-bs-target="#relatorioMapa" class="mb-2 badge bg-warning text-black">
-			Ver Mapa de Visitas
-		</a>
 		
 		{# DADOS BLOCO 1 #}
 		{{ include('pages/relatorios/dados.twig') }}

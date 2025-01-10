@@ -126,9 +126,13 @@ class VisitasPainel extends Model
     }
 
     public function listaDeCidades(): read
-    {
+    {   
+        $ano = '';
+        if(isset($_GET['ano'])){
+            $ano = " AND YEAR(data) = '".$_GET['ano']."' ";
+        }
         $read = new Read();
-        $read->FullRead("SELECT cidade, estado FROM visitas_inscricoes WHERE cidade <> ''");
+        $read->FullRead("SELECT cidade, estado FROM visitas_inscricoes WHERE cidade <> '' $ano");
         return $read;
     }
    

@@ -90,7 +90,6 @@ class RelatoriosController extends Controller
     {
         $model = new VisitasPainel();
         $cidades = $model->listaDeCidades()->getResult();
-        
         $this->render('pages/relatorios/visitas-mapa.twig', [
             'cidades' => $cidades
         ]);

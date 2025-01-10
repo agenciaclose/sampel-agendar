@@ -94,8 +94,12 @@ class RelatoriosPalestras extends Model
 
     public function listaDeCidades(): read
     {
+        $ano = '';
+        if(isset($_GET['ano'])){
+            $ano = " AND YEAR(data) = '".$_GET['ano']."' ";
+        }
         $read = new Read();
-        $read->FullRead("SELECT cidade, estado FROM palestras_participantes WHERE cidade <> ''");
+        $read->FullRead("SELECT cidade, estado FROM palestras_participantes WHERE cidade <> '' $ano");
         return $read;
     }
 
