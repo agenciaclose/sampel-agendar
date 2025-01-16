@@ -95,7 +95,7 @@ class RelatoriosPalestras extends Model
     public function listaDeCidades(): read
     {
         $ano = '';
-        if(isset($_GET['ano'])){
+        if(isset($_GET['ano']) && $_GET['ano'] != ''){
             $ano = " AND YEAR(p.data_palestra) = '".$_GET['ano']."' ";
         }
         
@@ -107,15 +107,19 @@ class RelatoriosPalestras extends Model
     }
 
     public function getParticipantesAno(): read
-    {        
+    {   
+        $ano = '';
+        if(isset($_GET['ano']) && $_GET['ano'] != ''){
+            $ano = "WHERE YEAR(p.data_palestra) = '".$_GET['ano']."' ";
+        }
         $read = new Read();
         $read->FullRead("SELECT 
-            YEAR(STR_TO_DATE(p.data_palestra, '%Y-%m-%dT%H:%i')) AS ano,
-            COUNT(pp.id) AS participantes
-            FROM palestras p
-            JOIN palestras_participantes pp ON pp.id_palestra = p.id
-        GROUP BY ano
-        ORDER BY ano");
+                        YEAR(STR_TO_DATE(p.data_palestra, '%Y-%m-%dT%H:%i')) AS ano,
+                        COUNT(pp.id) AS participantes
+                        FROM palestras p
+                        JOIN palestras_participantes pp ON pp.id_palestra = p.id $ano
+                    GROUP BY ano
+                    ORDER BY ano");
         return $read;
     }
 }
