@@ -63,7 +63,7 @@ class RelatoriosPalestras extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `palestras_participantes` AS vi
                         INNER JOIN palestras AS v ON v.id = vi.id_palestra
-                        WHERE v.status_palestra <> 'Recusado' AND vi.cidade <> '' AND vi.codigo <> '' $ano
+                        WHERE v.status_palestra <> 'Recusado' AND vi.cidade <> '' $ano
                         GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }
@@ -96,11 +96,26 @@ class RelatoriosPalestras extends Model
     {
         $ano = '';
         if(isset($_GET['ano'])){
-            $ano = " AND YEAR(data) = '".$_GET['ano']."' ";
+            $ano = " AND YEAR(p.data_palestra) = '".$_GET['ano']."' ";
         }
+        
         $read = new Read();
-        $read->FullRead("SELECT cidade, estado FROM palestras_participantes WHERE cidade <> '' $ano");
+        $read->FullRead("SELECT pp.cidade, pp.estado FROM palestras_participantes AS pp
+        INNER JOIN palestras AS p ON p.id = pp.id_palestra
+        WHERE pp.cidade <> '' $ano");
         return $read;
     }
 
+    public function getParticipantesAno(): read
+    {        
+        $read = new Read();
+        $read->FullRead("SELECT 
+            YEAR(STR_TO_DATE(p.data_palestra, '%Y-%m-%dT%H:%i')) AS ano,
+            COUNT(pp.id) AS participantes
+            FROM palestras p
+            JOIN palestras_participantes pp ON pp.id_palestra = p.id
+        GROUP BY ano
+        ORDER BY ano");
+        return $read;
+    }
 }

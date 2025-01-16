@@ -1,0 +1,30 @@
+{# BLOCOS DE DADOS 3 #}
+<div class="col-md-12 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-center w-100">
+                <div id="empenho_anual" class="highcharts-dashboards-dark"></div>
+
+                <script type="text/javascript">
+                    Highcharts.chart('empenho_anual', {
+                        chart: { type: 'column' },
+                        title: { text: 'Participantes por Ano' },
+                        xAxis: { type: 'category' },
+                        yAxis: { title: { text: 'Total' } },
+                        series: [{
+                            name: 'Anos',
+                            colorByPoint: true,
+                            data: [
+                                {% for item in participantes_ano %}
+                                    {name: '{{ item.ano }}', y: {{ item.participantes }}},
+                                {% endfor %}
+                            ]
+                        }]
+                    });
+                </script>
+
+            </div>
+        </div>
+    </div>
+</div>
+{#  #}

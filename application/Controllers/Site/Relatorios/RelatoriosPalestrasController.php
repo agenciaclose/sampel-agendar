@@ -34,6 +34,9 @@ class RelatoriosPalestrasController extends Controller
         $perguntas = new RelatoriosPalestras();
         $perguntas = $perguntas->getFeedbacksPerguntas()->getResult();
 
+        $participantes_ano = new RelatoriosPalestras();
+        $participantes_ano = $participantes_ano->getParticipantesAno()->getResult();
+
         $i = 0;
         foreach ($perguntas as $pergunta) {
 
@@ -62,6 +65,7 @@ class RelatoriosPalestrasController extends Controller
             'total_setor' => $total_setor,
             'total_cidade' => $total_cidade,
             'perguntas' => $perguntas,
+            'participantes_ano' => $participantes_ano,
             'anos' => $anos
         ]);
     }

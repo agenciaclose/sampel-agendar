@@ -1,0 +1,49 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Importar{% endblock %}
+
+{% block body %}
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="text-center">
+                                    <h2>ATUALIZAR PALESTRAS</h2>
+                                    <div><small>Formato válido .xlsx salvo do modelo padrão disponível para download ao lado.</small></div>
+                                    <div><small>Deve fazer upload abaixo do arquivo .xlsx e depois clicar no botão de importar.</small></div>
+                                    <div><small>Aguarde o período de importação e a mensagem de concluído.</small></div>
+                                </div>
+                                <form action="javascript:void(0);" id="importar_palestras" method="POST" enctype="multipart/form-data">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput" style="width: 100%;">
+                                        <div class="fileinput-preview thumbnail my-2" data-trigger="fileinput"><i class="fa-solid fa-file-excel fa-5x"></i></div>
+                                        <div class="text-center">
+                                            <span class="btn btn-primary btn-file">
+                                            <span class="fileinput-new">
+                                                <input type="file" name="informacoes_arquivo" id="informacoes_arquivo" accept=".xlsx">
+                                            </span>
+                                    </div>
+                                    <div class="progress mt-2" id="informacoes_progress" style="border-radius:0;">
+                                        <div class="progress-bar informacoes_progress progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                    </div>
+                                    <div id="result"></div>
+                                    <button class="btn btn-full btn-lg btn-primary" type="submit" id="informacoes_uploadFile"><i class="fa fa-upload" aria-hidden="true"></i> IMPORTAR</button>
+                                </form>
+
+                            </div>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ PATH }}/view/painel/src/js/scripts/pages/importar.js"></script>
+
+{% endblock %} 
