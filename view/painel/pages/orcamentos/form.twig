@@ -37,11 +37,16 @@
 											<div class="card p-2">
 
 												<div class="mb-2">
-													<div class="orcamento_select2">
-														<label class="control-label">Fornecedor</label>
-														<select class="form-control" name="id_fornecedor" id="id_fornecedor" required>
-															<option value="{{ fornecedor.id == '' ? '' : fornecedor.id }}">{{ fornecedor.empresa_fantasia }}</option>
-														</select>
+													<label class="control-label">Fornecedor</label>
+													<div class="d-flex">
+														<div class="flex-grow-1">
+															<select class="form-control" name="id_fornecedor" id="id_fornecedor" required>
+																<option value="{{ fornecedor.id == '' ? '' : fornecedor.id }}">{{ fornecedor.empresa_fantasia }}</option>
+															</select>
+														</div>
+														{% if 'add' in permissions.fornecedores or permissions == 'all' %}
+															<a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/add" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" aria-controls="formPadrocinio"><i class="fa-solid fa-user-plus"></i></a>
+														{% endif %}
 													</div>
 												</div>
 
@@ -156,6 +161,12 @@
 
         </div>
     </div>
+</div>
+
+<div class="offcanvas offcanvas-end" id="formPadrocinio" aria-labelledby="formPadrocinioLabel">
+	<div class="offcanvas-body">
+		Carregando...
+	</div>
 </div>
 
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
