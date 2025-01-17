@@ -3361,9 +3361,11 @@ body:after {
 .dropdown-toggle::after {
   display: none;
 }
+.orcamento_select2 {
+  position: relative;
+}
 .select2-container {
   margin: 0;
-  width: 100% !important;
   display: inline-block;
   position: relative;
   vertical-align: middle;

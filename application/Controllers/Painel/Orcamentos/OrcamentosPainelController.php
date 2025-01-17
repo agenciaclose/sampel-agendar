@@ -5,6 +5,7 @@ namespace Agencia\Close\Controllers\Painel\Orcamentos;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\OrcamentosPainel;
+use Agencia\Close\Models\Painel\FornecedoresPainel;
 
 class OrcamentosPainelController extends Controller
 {
@@ -72,6 +73,7 @@ class OrcamentosPainelController extends Controller
         $model = new OrcamentosPainel();
         $orcamentos = $model->getOrcamentosID($params['id'], $params['tipo'], $params['id_edit']);
 
+        
         if($orcamentos->getResult()){
             $orcamento = $orcamentos->getResult()[0];
             $parcelas = $model->getOrcamentoParcelas($orcamento['id'])->getResult();
@@ -80,10 +82,13 @@ class OrcamentosPainelController extends Controller
             $orcamento = [];
         }
 
+        $fornecedor = new FornecedoresPainel();
+        $fornecedor = $fornecedor->getFornecedorID($orcamento['id_fornecedor'])->getResultSingle();
+
         $model = new OrcamentosPainel();
         $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();
 
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'parcelas' => $parcelas, 'arquivos' => $arquivos, 'tipo' => $params['tipo']]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'fornecedor' => $fornecedor, 'parcelas' => $parcelas, 'arquivos' => $arquivos, 'tipo' => $params['tipo']]);
     }
 
     public function addOrcamentoSave($params)

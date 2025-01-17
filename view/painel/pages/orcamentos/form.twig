@@ -40,9 +40,7 @@
 													<div class="orcamento_select2">
 														<label class="control-label">Fornecedor</label>
 														<select class="form-control" name="id_fornecedor" id="id_fornecedor" required>
-															<option value="">Selecione</option>
-															<option value="1" {{ orcamento.tipo_contrato == 'Serviço' ? 'selected' }}>Serviço</option>
-															<option value="2" {{ orcamento.tipo_contrato == 'Contrato' ? 'selected' }}>Contrato</option>
+															<option value="{{ fornecedor.id == '' ? '' : fornecedor.id }}">{{ fornecedor.empresa_fantasia }}</option>
 														</select>
 													</div>
 												</div>
@@ -56,8 +54,7 @@
 															<option value="Contrato" {{ orcamento.tipo_contrato == 'Contrato' ? 'selected' }}>Contrato</option>
 														</select>
 													</div>
-												</div>
-												
+												</div>											
 
 												<div class="mb-2">
 													<div class="orcamento_select2">
@@ -66,11 +63,6 @@
 															<option value="{{ orcamento.id == '' ? '' : orcamento.orcamento }}">{{ orcamento.orcamento }}</option>
 														</select>
 													</div>
-												</div>
-
-												<div class="mb-2">
-													<label class="control-label">Valor Total Gasto</label>
-													<input type="text" name="valor_orcamento" class="form-control money" value="{{ orcamento.valor_orcamento }}">
 												</div>
 
 												<div class="mb-2">
@@ -93,6 +85,12 @@
 
 										<div class="col-12 col-md-6">
 											<div class="card p-2 parcelas-content">
+
+												<div class="mb-2">
+													<label class="control-label text-success">Valor Total Gasto</label>
+													<input type="text" name="valor_orcamento" class="form-control text-success money" value="{{ orcamento.valor_orcamento }}">
+												</div>
+
 												<div class="mb-2">
 													<label class="control-label">Quantidade de Parcelas</label>
 													<div class="input-group">

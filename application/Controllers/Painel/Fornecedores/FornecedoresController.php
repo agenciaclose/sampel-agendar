@@ -68,4 +68,21 @@ class FornecedoresController extends Controller
         $retorno = json_decode($retorno); //Ajuda a ser lido mais rapidamente
         echo json_encode($retorno, JSON_PRETTY_PRINT);
     }
+
+    public function getTerms($params)
+    {
+        $this->setParams($params);
+        $model = new FornecedoresPainel();
+        $terms = $model->getTerms();
+  
+        $json = [];
+        if(count($terms->getResult()) > 0){
+            foreach ($terms->getResult() as $key => $value) {
+                $json[] = ['id'=>$value['id'], 'text'=>$value['empresa_fantasia']];
+            }
+        } else {
+            $json[] = array('id' => '0', 'text' => 'Nenhum item encontrado');
+        }
+        echo json_encode($json);
+    }
 }

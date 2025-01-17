@@ -15,6 +15,18 @@ class FornecedoresPainel extends Model
         return $read;
     }
 
+    public function getTerms(): Read
+    {
+        if(!empty($_GET["q"])){
+            $term = "WHERE orcamento like '%".$_GET["q"]."%'";
+        }else{
+            $term = "";
+        }
+        $read = new Read();
+        $read->FullRead("SELECT * FROM fornecedores $term ORDER BY id ASC");
+        return $read;
+    }
+
     public function getFornecedorID($id): Read
     {
         $read = new Read();
