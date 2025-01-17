@@ -1,0 +1,94 @@
+<div class="offcanvas-header px-0 border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ fornecedor.id == '' ? 'Criar Novo Fornecedor' : 'Editar Fornecedor' }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="mt-2">
+
+    <form action="javascript:void(0)" id="{{ fornecedor.id == '' ? 'add_fornecedor' : 'edit_fornecedor' }}" method="post">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-1 empresa_cnpj">
+                    <label for="empresa_cnpj" class="form-label">CNPJ:</label>
+                    <input type="text" class="form-control" id="empresa_cnpj" name="empresa_cnpj" onfocusout="cnpj_preenche()" value="{{ fornecedor.empresa_cnpj }}">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="mb-1 empresa_nome">
+                    <label for="empresa_nome" class="form-label">Nome:</label>
+                    <input type="text" class="form-control" id="empresa_nome" name="empresa_nome" value="{{ fornecedor.empresa_nome }}">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="mb-1 empresa_fantasia">
+                    <label for="empresa_fantasia" class="form-label">Fantasia:</label>
+                    <input type="text" class="form-control" id="empresa_fantasia" name="empresa_fantasia" value="{{ fornecedor.empresa_fantasia }}">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="mb-1 empresa_email">
+                    <label for="empresa_email" class="form-label">E-mail:</label>
+                    <input type="email" class="form-control" id="empresa_email" name="empresa_email" value="{{ fornecedor.empresa_email }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-1 empresa_atividade">
+                    <label for="empresa_atividade" class="form-label">Atividade:</label>
+                    <input type="text" class="form-control" id="empresa_atividade" name="empresa_atividade" value="{{ fornecedor.empresa_atividade }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-1 empresa_telefone">
+                    <label for="empresa_telefone" class="form-label">Telefone:</label>
+                    <input type="text" class="form-control" id="empresa_telefone" name="empresa_telefone" value="{{ fornecedor.empresa_telefone }}">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="mb-1 empresa_logradouro">
+                    <label for="empresa_logradouro" class="form-label">Logradouro:</label>
+                    <input type="text" class="form-control" id="empresa_logradouro" name="empresa_logradouro" value="{{ fornecedor.empresa_logradouro }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_complemento">
+                    <label for="empresa_complemento" class="form-label">Complemento:</label>
+                    <input type="text" class="form-control" id="empresa_complemento" name="empresa_complemento" value="{{ fornecedor.empresa_complemento }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_bairro">
+                    <label for="empresa_bairro" class="form-label">Bairro:</label>
+                    <input type="text" class="form-control" id="empresa_bairro" name="empresa_bairro" value="{{ fornecedor.empresa_bairro }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_cidade">
+                    <label for="empresa_cidade" class="form-label">Cidade:</label>
+                    <input type="text" class="form-control" id="empresa_cidade" name="empresa_cidade" value="{{ fornecedor.empresa_cidade }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_uf">
+                    <label for="empresa_uf" class="form-label">UF:</label>
+                    <input type="text" class="form-control" id="empresa_uf" name="empresa_uf" maxlength="2" value="{{ fornecedor.empresa_uf }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_cep">
+                    <label for="empresa_cep" class="form-label">CEP:</label>
+                    <input type="text" class="form-control" id="empresa_cep" name="empresa_cep" value="{{ fornecedor.empresa_cep }}">
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="mb-1 empresa_numero">
+                    <label for="empresa_numero" class="form-label">Número:</label>
+                    <input type="text" class="form-control" id="empresa_numero" name="empresa_numero" value="{{ fornecedor.empresa_numero }}">
+                </div>
+            </div>
+        </div>
+
+        {% if fornecedor.id != '' %} <input type="hidden" name="id" value="{{ fornecedor.id }}"> {% endif %}
+        <button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ fornecedor.id == '' ? 'SALVAR FORNECEDOR' : 'SALVAR ALTERAÇÕES' }}</button>
+    </form>
+</div>
+<script src="{{ PATH }}/view/painel/src/js/scripts/pages/fornecedors.js"></script>

@@ -38,6 +38,17 @@
 
 												<div class="mb-2">
 													<div class="orcamento_select2">
+														<label class="control-label">Fornecedor</label>
+														<select class="form-control" name="id_fornecedor" id="id_fornecedor" required>
+															<option value="">Selecione</option>
+															<option value="1" {{ orcamento.tipo_contrato == 'Serviço' ? 'selected' }}>Serviço</option>
+															<option value="2" {{ orcamento.tipo_contrato == 'Contrato' ? 'selected' }}>Contrato</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="mb-2">
+													<div class="orcamento_select2">
 														<label class="control-label">Tipo</label>
 														<select class="form-control" name="tipo_contrato" id="tipo_contrato" required>
 															<option value="">Selecione</option>
@@ -45,7 +56,9 @@
 															<option value="Contrato" {{ orcamento.tipo_contrato == 'Contrato' ? 'selected' }}>Contrato</option>
 														</select>
 													</div>
-												</div> 
+												</div>
+												
+
 												<div class="mb-2">
 													<div class="orcamento_select2">
 														<label class="control-label">Despesa</label>
