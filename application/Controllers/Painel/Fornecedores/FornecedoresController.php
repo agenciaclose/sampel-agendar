@@ -85,4 +85,10 @@ class FornecedoresController extends Controller
         }
         echo json_encode($json);
     }
+
+    public function orcamentos($params)
+    {
+        $this->setParams($params);
+        $this->render('painel/pages/fornecedores/orcamentos.twig', ['menu' => 'fornecedores']);
+    }
 }
