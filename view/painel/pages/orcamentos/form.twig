@@ -40,8 +40,11 @@
 													<label class="control-label">Fornecedor</label>
 													<div class="d-flex">
 														<div class="flex-grow-1">
-															<select class="form-control" name="id_fornecedor" id="id_fornecedor" required>
-																<option value="{{ fornecedor.id == '' ? '' : fornecedor.id }}">{{ fornecedor.empresa_fantasia }}</option>
+															<select class="form-control" name="id_fornecedor" id="id_fornecedor">
+																<option value="0">Selecione</option>
+																{% if fornecedor.id != '0' and fornecedor.id is not empty %}
+																	<option value="{{ fornecedor.id }}" selected>{{ fornecedor.empresa_fantasia }}</option>
+																{% endif %}
 															</select>
 														</div>
 														{% if 'add' in permissions.fornecedores or permissions == 'all' %}

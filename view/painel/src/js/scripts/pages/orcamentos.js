@@ -97,7 +97,6 @@ $(document).ready(function () {
     });
 
     $('#id_fornecedor').select2({
-        tags: true,
         dropdownAutoWidth: true,
         width: '100%',
         tabindex: -1,

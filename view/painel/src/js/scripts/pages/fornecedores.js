@@ -60,7 +60,6 @@ $(document).ready(function () {
 
     });
 
-    $('#empresa_cnpj').mask('00.000.000/0000-00', {reverse: true, clearIfNotMatch: true});
     $('#empresa_cep').mask('00000-000', {reverse: true, clearIfNotMatch: true});
 
     var maskBehavior = function (val) {
@@ -98,3 +97,29 @@ window.cnpj_preenche = function (){
         }
     });
 }
+
+$(document).ready(function () {
+    function updateMaskAndLabel() {
+        const tipo = $('input[name="empresa_tipo"]:checked').val();
+        const $input = $('#empresa_cnpj');
+        const $label = $('#label_cnpj_cpf');
+        
+        if (tipo === 'juridica') {
+            // Ajusta para CNPJ
+            $label.text('CNPJ:');
+            $input.mask('00.000.000/0000-00', { reverse: true, clearIfNotMatch: true });
+        } else {
+            // Ajusta para CPF
+            $label.text('CPF:');
+            $input.mask('000.000.000-00', { reverse: true, clearIfNotMatch: true });
+        }
+    }
+
+    // Atualiza máscara e label ao carregar a página
+    updateMaskAndLabel();
+
+    // Atualiza máscara e label ao trocar o tipo de empresa
+    $('input[name="empresa_tipo"]').on('change', function () {
+        updateMaskAndLabel();
+    });
+});

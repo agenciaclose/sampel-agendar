@@ -63,6 +63,7 @@
                                             <thead>
                                                 <tr>
                                                     <th width="300">Contratos</th>
+                                                    <th>Responsável</th>
                                                     <th>Evento Relacionado</th>
                                                     <th width="200">Valor</th>
                                                     <th class="text-end">Data da Contratos</th>
@@ -78,6 +79,10 @@
                                                                 <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-warning"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                                             {% endif %}
                                                         </div>
+                                                    </td>
+                                                    <td class="text-uppercase">
+                                                        <div><b>{{ item.empresa_fantasia }}</b></div>
+                                                        <div>{{ item.empresa_cnpj }}</div>
                                                     </td>
                                                     <td class="text-uppercase">
                                                         {{ item.nome_evento }}

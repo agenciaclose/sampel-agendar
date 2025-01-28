@@ -18,12 +18,13 @@ class FornecedoresPainel extends Model
     public function getTerms(): Read
     {
         if(!empty($_GET["q"])){
-            $term = "WHERE orcamento like '%".$_GET["q"]."%'";
+            $term = "WHERE empresa_fantasia like '%".$_GET["q"]."%'";
         }else{
             $term = "";
         }
+
         $read = new Read();
-        $read->FullRead("SELECT * FROM fornecedores $term ORDER BY id ASC");
+        $read->FullRead("SELECT * FROM fornecedores $term ORDER BY empresa_fantasia ASC");
         return $read;
     }
 

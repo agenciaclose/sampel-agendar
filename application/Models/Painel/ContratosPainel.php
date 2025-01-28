@@ -79,25 +79,23 @@ class ContratosPainel extends Model
         }
 
         $read = new Read();
-        $read->FullRead("SELECT 
-                    o.*,
+        $read->FullRead("SELECT o.*,
                     CASE 
                         WHEN o.tipo_evento = 'visitas' THEN (SELECT v.title FROM visitas v WHERE v.id = o.id_evento)
                         WHEN o.tipo_evento = 'palestras' THEN (SELECT p.title FROM palestras p WHERE p.id = o.id_evento)
                         WHEN o.tipo_evento = 'patrocinios' THEN (SELECT pt.nome_patrocinio FROM patrocinios pt WHERE pt.id = o.id_evento)
                         WHEN o.tipo_evento = 'eventos' THEN (SELECT e.nome_evento FROM eventos e WHERE e.id = o.id_evento)
                         ELSE NULL
-                    END AS nome_evento,
-                    op.primeira_data_parcela,
-                    op.ultima_data_parcela
+                    END AS nome_evento, op.primeira_data_parcela, op.ultima_data_parcela, f.empresa_fantasia, f.empresa_cnpj
                     FROM orcamentos AS o
+                    LEFT JOIN fornecedores AS f ON f.id = o.id_fornecedor
                     INNER JOIN (
-                    SELECT 
-                        id_orcamento, 
-                        MIN(data_parcela) AS primeira_data_parcela, 
-                        MAX(data_parcela) AS ultima_data_parcela
-                    FROM orcamentos_parcelas
-                    GROUP BY id_orcamento
+                        SELECT 
+                            id_orcamento, 
+                            MIN(data_parcela) AS primeira_data_parcela, 
+                            MAX(data_parcela) AS ultima_data_parcela
+                        FROM orcamentos_parcelas
+                        GROUP BY id_orcamento
                     ) AS op ON o.id = op.id_orcamento
                     WHERE o.tipo_contrato = 'Contrato' $where $ids
                     ORDER BY o.date_create DESC");
