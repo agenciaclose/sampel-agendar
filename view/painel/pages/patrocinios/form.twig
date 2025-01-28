@@ -5,10 +5,29 @@
 <div class="mt-2">
 
     <form action="javascript:void(0)" id="{{ patrocinio.id == '' ? 'add_patrocinio' : 'edit_patrocinio' }}" method="post">
+        
+        <div class="mb-1">
+            <label class="control-label">Fornecedor</label>
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    <select class="form-control" name="id_fornecedor" id="id_fornecedor">
+                        <option value="0">Selecione</option>
+                        {% if fornecedor.id != '0' and fornecedor.id is not empty %}
+                            <option value="{{ fornecedor.id }}" selected>{{ fornecedor.empresa_fantasia }}</option>
+                        {% endif %}
+                    </select>
+                </div>
+                {% if 'add' in permissions.fornecedores or permissions == 'all' %}
+                    <a class="btn btn-primary" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/add" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" aria-controls="formFornecedor"><i class="fa-solid fa-user-plus"></i></a>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="mb-1">
             <label for="nome_patrocinio" class="form-label">Nome do Patrocínios:</label>
             <input type="text" class="form-control" id="nome_patrocinio" name="nome_patrocinio" value="{{ patrocinio.nome_patrocinio }}">
         </div>
+
         <div class="mb-1">
             <label for="pais_patrocinio" class="form-label">País:</label>
             <select name="pais_patrocinio" id="pais_patrocinio" class="form-control">
@@ -50,6 +69,7 @@
         <button type="submit" class="rounded-pill btn btn-lg btn-warning fw-bold"><i class="fa-regular fa-floppy-disk"></i> {{ patrocinio.id == '' ? 'SALVAR PATROCÍNIOS' : 'SALVAR ALTERAÇÕES' }}</button>
     </form>
 </div>
+
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
 <script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>

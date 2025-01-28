@@ -3,7 +3,7 @@
 //PAINEL FORNECEDORES
 $router->namespace("Agencia\Close\Controllers\Painel\Fornecedores");
 $router->get("/painel/contratos/fornecedores", "FornecedoresController:index");
-$router->get("/painel/contratos/fornecedores/orcamentos", "FornecedoresController:orcamentos");
+$router->get("/painel/contratos/fornecedores/orcamento/{id}", "FornecedoresController:orcamentos");
 $router->get("/painel/contratos/fornecedores/get/terms", "FornecedoresController:getTerms");
 $router->get("/painel/contratos/fornecedores/add", "FornecedoresController:itemAdd");
 $router->get("/painel/contratos/fornecedores/edit/{id}", "FornecedoresController:itemEdit");

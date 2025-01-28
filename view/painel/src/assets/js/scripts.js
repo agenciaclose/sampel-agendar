@@ -47,15 +47,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
 	//offcanvas remote
 	$('[data-bs-toggle="offcanvas"]').on('click', function() {
-		$('.offcanvas-body').html('');
-		var url = $(this).attr('data-bs-remote');
 		var offcanvas = $(this).attr('data-bs-target');
+		$(offcanvas+' .offcanvas-body').html('');
+		var url = $(this).attr('data-bs-remote');
 		$.ajax({
-		url: url,
-		method: 'GET',
-		success: function(response) {
-			$('.offcanvas-body').html(response);
-		}
+			url: url,
+			method: 'GET',
+			success: function(response) {
+				$(offcanvas+' .offcanvas-body').html(response);
+			}
 		});
 	});
 

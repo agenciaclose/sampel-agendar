@@ -3,8 +3,9 @@
 namespace Agencia\Close\Controllers\Painel\PatrociniosPainel;
 
 use Agencia\Close\Controllers\Controller;
-use Agencia\Close\Models\Painel\PatrociniosPainel;
 use Agencia\Close\Models\Painel\PedidosPainel;
+use Agencia\Close\Models\Painel\PatrociniosPainel;
+use Agencia\Close\Models\Painel\FornecedoresPainel;
 
 class PatrociniosPainelController extends Controller
 {
@@ -34,8 +35,17 @@ class PatrociniosPainelController extends Controller
         $patrocinio = $patrocinio->getPatrocinioID($params['id'])->getResult();
 
         $paises = $this->nomesPaises();
+
+        if($patrocinio){
+            $patrocinio = $patrocinio[0];
+        }else{
+            $patrocinio = [];
+        }
+
+        $fornecedor = new FornecedoresPainel();
+        $fornecedor = $fornecedor->getFornecedorID($patrocinio['id_fornecedor'])->getResultSingle();
         
-        $this->render('painel/pages/patrocinios/form.twig', ['patrocinio' => $patrocinio[0], 'paises' => $paises]);
+        $this->render('painel/pages/patrocinios/form.twig', ['patrocinio' => $patrocinio, 'paises' => $paises, 'fornecedor' => $fornecedor]);
     }
 
     public function nomesPaises()
