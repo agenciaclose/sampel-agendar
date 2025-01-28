@@ -63,7 +63,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Fornecedor</th>
-                                                    <th class="text-center">CNPJ</th>
+                                                    <th class="text-center">CPF / CNPJ</th>
                                                     <th>Endereço</th>
                                                     <th class="text-end">Data</th>
                                                 </tr>
@@ -74,17 +74,15 @@
                                                     <td>
                                                         <a  data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.empresa_fantasia }}</b></a>
                                                         <div>
-                                                            <small>
-                                                                {% if 'add' in permissions.fornecedores or permissions == 'all' %}
-                                                                    <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
-                                                                {% endif %}
-                                                                <span class="mx-05">|</span>
-                                                                {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
-                                                                    <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
-                                                                {% endif %}
-                                                                <span class="mx-05">|</span>
-                                                                <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Ver Orçamentos</a>
-                                                            </small>
+                                                            {% if 'add' in permissions.fornecedores or permissions == 'all' %}
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                            {% endif %}
+                                                            <span class="mx-05">|</span>
+                                                            {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
+                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
+                                                            {% endif %}
+                                                            <span class="mx-05">|</span>
+                                                            <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Ver Orçamentos</a>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
