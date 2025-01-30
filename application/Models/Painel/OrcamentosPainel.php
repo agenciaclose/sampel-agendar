@@ -99,38 +99,40 @@ class OrcamentosPainel extends Model
         
         $create = new Create();
         $create->ExeCreate('orcamentos', $params);
-
+        
         if($valor_parcela){
             $this->atualizarParcelas($create->getResult(), $valor_parcela, $data_parcela, $numero_parcela);
         }
         
         return $create->getResult();
     }
-
+    
     public function editOrcamentoSave($params)
     {
         $id = $params['id'];
         unset($params['id']);
-
+        
         $params['id_user'] = $_SESSION['sampel_user_id'];
         $params['valor_orcamento'] = str_replace(',', '.', str_replace('.', '', $params['valor_orcamento']));
-
+        
         $valor_parcela = $params['valor_parcela'];
         $data_parcela = $params['data_parcela'];
         $numero_parcela = $params['numero_parcela'];
         unset($params['valor_parcela']);
         unset($params['data_parcela']);
         unset($params['numero_parcela']);
-
+        unset($params["fileuploader-list-files"]);
+        
         if($valor_parcela){
             $this->atualizarParcelas($id, $valor_parcela, $data_parcela, $numero_parcela);
         }
         
+        
         $update = new Update();
-        $update->ExeUpdate('orcamentos', $params, 'WHERE id = :id', "id={$id}");
+        $update->ExeUpdate("orcamentos", $params, "WHERE id = :id", "id={$id}");
         return $update;
     }
-
+    
     public function atualizarParcelas($id_orcamento, $valor_parcela, $data_parcela, $numero_parcela)
     {
         $clear = new Read();

@@ -89,6 +89,12 @@ class FornecedoresController extends Controller
     public function orcamentos($params)
     {
         $this->setParams($params);
-        $this->render('painel/pages/fornecedores/orcamentos.twig', ['menu' => 'fornecedores']);
+
+        $model = new FornecedoresPainel();
+
+        $this->render('painel/pages/fornecedores/orcamentos.twig', 
+        [
+            'menu' => 'fornecedores'
+        ]);
     }
 }

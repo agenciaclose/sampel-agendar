@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    $(".tags").tagsinput()
+
     var DOMAIN = $('body').data('domain');
 
     if ($('#descricao').length){    
@@ -247,6 +250,5 @@ function orcamentoChangeType(id, tipo_contrato){
         success: function () {
             window.location.reload();
         }
-    });
-    
+    }); 
 }

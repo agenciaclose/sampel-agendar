@@ -7,30 +7,45 @@
     <div class="content-wrapper">
         <div class="content-body">
 
-			<div class="card">
-                <div class="card-body py-1">
-					<div class="d-flex flex-column">
-						<div class="d-flex justify-content-between align-items-center">
-							<h4 class="mb-0 text-uppercase text-warning">{{ orcamento.nome_evento }}: {{ orcamento.orcamento }}</h4>
-							<h4 class="mb-0 text-uppercase text-white badge bg-primary">{{ orcamento.tipo_evento }}</h4>
-						</div>
+			<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-tipo="{{ tipo }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
+				
+				<div class="offcanvas-header px-0">
+					<h5 class="offcanvas-title" id="offcanvasRightLabel">{{ orcamento.id == '' ? 'CRIAR ORÇAMENTO' : 'EDITAR ORÇAMENTO' }}</h5>
+					<div>
+						<a href="{{ DOMAIN }}/painel/{{ tipo }}/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
 					</div>
 				</div>
-			</div>
-        
-            <section id="addOrcamento">
+			
+				<section id="addOrcamento">
 
-				<div class="offcanvas-header px-0 border-bottom">
-				    <h5 class="offcanvas-title" id="offcanvasRightLabel">{{ orcamento.id == '' ? 'Criar Orçamento' : 'Editar Orçamento' }}</h5>
-					<a href="{{ DOMAIN }}/painel/{{ tipo }}/orcamento/{{ dados.id }}" class="text-warning"><i class="fa-regular fa-chevrons-left"></i> Retornar a lista do Orçamento</a>
-				</div>
-				
-				<div class="mt-2">
+					<div class="card">
+						<div class="card-body py-1">
+							<div class="d-flex flex-column">
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="d-flex justify-content-start align-items-center flex-grow-1">
+										<h4 class="mb-0 text-uppercase text-warning">{{ orcamento.orcamento }}</h4>
+										<div class="ms-2 d-flex justify-content-start align-items-center flex-grow-1">
+											<input type="text" name="tag_orcamento" class="tags form-control w-100" value="{{ orcamento.tag_orcamento }}"  placeholder="Digite suas tags aqui...">
+										</div>
+									</div>
+									<div>
+										<input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
+										<input type="hidden" name="id_evento" value="{{ dados.id }}">
+										{% if orcamento.id != '' %}
+											<input type="hidden" name="id" value="{{ orcamento.id }}">
+										{% endif %}            
+										<button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mt-2">
 
-						<div class="row">
-							
-							<div class="col-12 col-md-8">
-								<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-tipo="{{ tipo }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
+							<div class="row">
+								
+								<div class="col-12 col-md-8">
 									<div class="row">
 										<div class="col-12 col-md-6">
 											
@@ -77,15 +92,6 @@
 													<label class="control-label">Descrição</label>
 													<textarea id="descricao" name="descricao_orcamento" class="form-control">{{ orcamento.descricao_orcamento }}</textarea>
 												</div>
-											</div>
-
-											<div class="mb-2">
-												<input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
-												<input type="hidden" name="id_evento" value="{{ dados.id }}">
-												{% if orcamento.id != '' %}
-													<input type="hidden" name="id" value="{{ orcamento.id }}">
-												{% endif %}            
-												<button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
 											</div>
 
 										</div>
@@ -139,30 +145,30 @@
 											</div>
 										</div>
 									</div>
-								</form>
-							</div>
-
-							<div class="col-12 col-md-4">
-								<div class="card p-2">
-									<div>Lista de Arquivos</div>
-									<hr>
-									{% if orcamento.id != '' %}
-										{{ include('painel/pages/orcamentos/arquivos.twig') }}
-									{% else %}
-										<div class="alert alert-warning p-2" role="alert">
-											Arquivos só podem ser adicionados na Edição desse Orçamento.
-										</div>
-									{% endif %}
 								</div>
-							</div>		       
 
-						</div>
-					
-				        
-				</div>
-            </section>
+								<div class="col-12 col-md-4">
+									<div class="card p-2">
+										<div>Lista de Arquivos</div>
+										<hr>
+										{% if orcamento.id != '' %}
+											{{ include('painel/pages/orcamentos/arquivos.twig') }}
+										{% else %}
+											<div class="alert alert-warning p-2" role="alert">
+												Arquivos só podem ser adicionados na Edição desse Orçamento.
+											</div>
+										{% endif %}
+									</div>
+								</div>		       
 
+							</div>
+						
+					</div>
+				</section>
+
+			</form>
         </div>
+
     </div>
 </div>
 
@@ -172,8 +178,10 @@
 	</div>
 </div>
 
+<link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/bootstrap-tagsinput/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/froala_editor.min.css">
 <link rel="stylesheet" href="{{ DOMAIN }}/view/painel/src/vendors/froala/css/themes/dark.css">
+<script src="{{ DOMAIN }}/view/painel/src/vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
 <script src="{{ DOMAIN }}/view/painel/src/vendors/froala/js/froala_editor.pkgd.min.js"></script>
 <script src='{{ DOMAIN }}/view/painel/src/vendors/froala/js/languages/pt_br.js'></script>
 <script src="{{ PATH }}/view/painel/src/js/scripts/pages/orcamentos.js"></script>

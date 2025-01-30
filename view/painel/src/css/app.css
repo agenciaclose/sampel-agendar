@@ -4450,3 +4450,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100% !important;
   height: 100% !important;
 }
+.popover.bs-popover-bottom .popover-arrow:after {
+  border-bottom-color: #212121;
+}
+.dark-layout .popover .popover-body {
+  background-color: #212121;
+  color: #fff;
+  border-color: #3c4153 !important;
+  border-radius: 0;
+}
