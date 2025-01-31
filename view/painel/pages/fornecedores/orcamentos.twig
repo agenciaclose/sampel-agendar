@@ -159,7 +159,7 @@
                                         </thead>
                                         <tbody>
                                             {% for item in parcelas_pagas %}
-                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.orcamento }}">
+                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.orcamento }}">
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
@@ -199,7 +199,7 @@
                                         </thead>
                                         <tbody>
                                             {% for item in parcelas_nao_pagas %}
-                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.orcamento }}">
+                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.orcamento }}">
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">

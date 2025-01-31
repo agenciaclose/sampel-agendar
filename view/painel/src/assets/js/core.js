@@ -38,3 +38,10 @@ window.config = {
     },
     enableMenuLocalStorage: true
 };
+
+$(document).ready(function() {
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    $.fn.dataTable.tables({ visible: true, api: true }).on('draw', function() {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+});
