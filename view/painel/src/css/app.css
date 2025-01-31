@@ -3619,7 +3619,7 @@ body:after {
     max-width: 360px;
 }
 .dark-layout .select2-container .select2-selection, .dark-layout .select2-container .select2-search__field, .dark-layout .select2-container .select2-selection__placeholder {
-  background: #212121;
+  background: #222529;
   border-color: #3b4253;
   color: #b4b7bd;
 }
@@ -3629,7 +3629,7 @@ body:after {
 }
 
 .dark-layout .select2-container .select2-dropdown {
-  background-color: #212121;
+  background-color: #222529;
   border-color: #3b4253;
 }
 
@@ -4479,7 +4479,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 100% !important;
 }
 .popover.bs-popover-bottom .popover-arrow:after {
-  border-bottom-color: #212121;
+  border-bottom-color: #222529;
 }
 .dark-layout .popover .popover-body {
   background-color: #212121;

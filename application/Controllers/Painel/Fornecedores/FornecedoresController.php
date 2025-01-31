@@ -95,11 +95,19 @@ class FornecedoresController extends Controller
         $fornecedor = $model->getFornecedorID($params['id'])->getResultSingle();
         $orcamentos = $model->getOrcamentos($params['id'])->getResult();
 
+        $parcelas_pagas = $model->getParcelasPagas($params['id'])->getResult();
+        $parcelas_nao_pagas = $model->getParcelasNaoPagas($params['id'])->getResult();
+
+        $total_valor_contratos = $model->getValorContratos($params['id'])->getResultSingle();
+
         $this->render('painel/pages/fornecedores/orcamentos.twig', 
         [
             'menu' => 'fornecedores',
             'fornecedor' => $fornecedor,
             'orcamentos' => $orcamentos,
+            'parcelas_pagas' => $parcelas_pagas,
+            'parcelas_nao_pagas' => $parcelas_nao_pagas,
+            'total_valor_contratos' => $total_valor_contratos,
         ]);
     }
 }

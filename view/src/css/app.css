@@ -127,7 +127,7 @@ input[type="date"]::-webkit-calendar-picker-indicator, input[type="datetime-loca
   filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }
 .dropdown-menu {
-  background-color: #212121;
+  background-color: #222529;
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.24);
 }
 .dropdown-menu .dropdown-item {
@@ -1437,7 +1437,7 @@ img.alignright{
   z-index: 9;
   position: relative;
   width: 100%;
-  background-color: #212121;
+  background-color: #222529;
 }
 .standard-menu{
   position: relative;
@@ -2986,7 +2986,7 @@ label, .form-label {
   color: #FFFFFF !important;
   text-decoration: none;
   padding: 15px 25px;
-  border-bottom: 1px solid #3b3b3b;
+  border-bottom: 1px solid #2b3035;
   font-weight: normal;
 }
 
@@ -4159,7 +4159,7 @@ footer .special-heading-2:before {
   display: none;
 }
 .card-dark {
-  background-color: #212121;
+  background-color: #222529;
   color: #FFFFFF;
 }
 .dataTables_wrapper .dataTables_length select, .dataTables_wrapper .dataTables_filter input {
@@ -4447,9 +4447,9 @@ img.fancybox__image {
   --bs-card-title-color: #cfd3ec;
   --bs-card-subtitle-color: ;
   --bs-card-border-width: 0;
-  --bs-card-border-color: #212121;
+  --bs-card-border-color: #222529;
   --bs-card-border-radius: var(--bs-border-radius);
-  --bs-card-box-shadow: 0 0.25rem 1.25rem #212121;
+  --bs-card-box-shadow: 0 0.25rem 1.25rem #222529;
   --bs-card-inner-border-radius: 0.375rem;
   --bs-card-cap-padding-y: 1.5rem;
   --bs-card-cap-padding-x: 1.5rem;
@@ -4457,7 +4457,7 @@ img.fancybox__image {
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: #212121;
+  --bs-card-bg: #222529;
   --bs-card-img-overlay-padding: 1.5rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -4496,7 +4496,7 @@ img.fancybox__image {
   z-index: -1;
 }
 .highcharts-background, .highcharts-contextbutton {
-  fill: #212121 !important;
+  fill: #222529 !important;
 }
 .card.card-border-shadow-primary::after {
   border-bottom-color: #249038;
@@ -4838,7 +4838,7 @@ img.fancybox__image {
   color: var(--bs-btn-active-color) !important;
 }
 .body-palestras {
-  background-color: #212121 !important;
+  background-color: #222529 !important;
 }
 .dropdown-menu.show {
   min-width: 200px;
@@ -5028,7 +5028,7 @@ span.fr-counter {
 }
 .card {
   margin-bottom: 2rem;
-  background-color: #212121;
+  background-color: #222529;
   box-shadow: 0 4px 4px 0 rgb(0 0 0 / 1%);
 }
 .card-body {
@@ -5045,12 +5045,12 @@ span.fr-counter {
 .select2-container--default .select2-selection--single,
 .form-control,
 .input-group-text {
-  background-color: #212121 !important;
+  background-color: #222529 !important;
   border-color: #3b4253 !important;
   color: #b4b7bd !important;
 }
 .select2-container .select2-dropdown {
-  background-color: #212121;
+  background-color: #222529;
   border-color: #3b4253;
 }
 .select2-container--default .select2-results__option--selected {

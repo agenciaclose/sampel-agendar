@@ -17,7 +17,7 @@
   --bs-cyan: #0dcaf0;
   --bs-white: #fff;
   --bs-gray: #b8c2cc;
-  --bs-gray-dark: #1e1e1e;
+  --bs-gray-dark: #1a1d20;
   --bs-gray-100: #babfc7;
   --bs-gray-200: #ededed;
   --bs-gray-300: #dae1e7;
@@ -25,7 +25,7 @@
   --bs-gray-500: #adb5bd;
   --bs-gray-600: #b8c2cc;
   --bs-gray-700: #4e5154;
-  --bs-gray-800: #1e1e1e;
+  --bs-gray-800: #1a1d20;
   --bs-gray-900: #2a2e30;
   --bs-primary: #1194dc;
   --bs-secondary: #82868b;
@@ -3146,7 +3146,7 @@ fieldset:disabled .btn {
 
 .dropdown-menu-dark {
   color: #dae1e7;
-  background-color: #1e1e1e;
+  background-color: #1a1d20;
   border-color: rgba(34, 41, 47, 0.05); }
 
 .dropdown-menu-dark .dropdown-item {

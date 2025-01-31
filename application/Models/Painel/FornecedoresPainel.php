@@ -62,4 +62,45 @@ class FornecedoresPainel extends Model
         return $read;
     }
 
+    public function getParcelasPagas($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT op.*, o.*,
+        (SELECT COUNT(*) 
+        FROM orcamentos_parcelas AS op2 
+        INNER JOIN orcamentos AS o2 ON o2.id = op2.id_orcamento
+        WHERE op2.id_orcamento = op.id_orcamento
+        AND o2.id_fornecedor = 57) AS qtd_parcelas
+        FROM orcamentos_parcelas AS op
+        INNER JOIN orcamentos AS o ON o.id = op.id_orcamento
+        WHERE o.id_fornecedor = :id
+        AND op.data_parcela <= CURDATE()
+        ORDER BY op.data_parcela DESC", "id={$id}");
+        return $read;
+    }
+
+    public function getParcelasNaoPagas($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT op.*, o.*,
+        (SELECT COUNT(*) 
+        FROM orcamentos_parcelas AS op2 
+        INNER JOIN orcamentos AS o2 ON o2.id = op2.id_orcamento
+        WHERE op2.id_orcamento = op.id_orcamento
+        AND o2.id_fornecedor = 57) AS qtd_parcelas
+        FROM orcamentos_parcelas AS op
+        INNER JOIN orcamentos AS o ON o.id = op.id_orcamento
+        WHERE o.id_fornecedor = :id
+        AND op.data_parcela > CURDATE()
+        ORDER BY op.data_parcela ASC", "id={$id}");
+        return $read;
+    }
+
+    public function getValorContratos($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT SUM(valor_orcamento) AS valor FROM orcamentos WHERE id_fornecedor = :id", "id={$id}");
+        return $read;
+    }
+
 }

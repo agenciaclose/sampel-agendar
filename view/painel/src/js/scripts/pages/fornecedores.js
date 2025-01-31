@@ -122,4 +122,20 @@ $(document).ready(function () {
     $('input[name="empresa_tipo"]').on('change', function () {
         updateMaskAndLabel();
     });
+
+
+    $('#tabela-parcelas').DataTable({
+        "paging": true,
+        "searching": false,
+        "lengthChange": false,
+        "info": false,
+        "ordering": false,
+        "pageLength": 10,
+        "language": {
+            "paginate": {
+                "next": '',
+                "previous": ''
+            }
+        }
+    });
 });

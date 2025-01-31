@@ -16,12 +16,96 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row g-6 mb-2">
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-border-shadow-info h-100">
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="avatar me-1">
+                                        <span class="avatar-initial rounded bg-label-info">
+                                            <i class="fa-solid fs-5 fa-file-signature"></i>
+                                        </span>
+                                    </div>
+                                    <h2 class="mb-0">{{ orcamentos|length }}</h2>
+                                </div>
+                                <h4 class="mb-0">Total de Contratos</h4>
+                                <p class="mb-0 d-none">
+                                    <span class="text-heading fw-bolder text-success me-2">
+                                        {{ orcamentos|length }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-border-shadow-success h-100">
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="avatar me-1">
+                                        <span class="avatar-initial rounded bg-label-success">
+                                            <i class="fa-regular fs-5 fa-money-bill-trend-up"></i>
+                                        </span>
+                                    </div>
+                                    <h2 class="mb-0 text-nowrap">R$ {{ total_valor_contratos.valor|number_format(2, ',', '.') }}</h2>
+                                </div>
+                                <h4 class="mb-0">Valor Total dos Contratos</h4>
+                                <p class="mb-0 d-none">
+                                    <span class="text-heading fw-bolder text-{{ contratos.TotalContratos  >= 0 ? 'success' : 'danger' }} me-2"><i class="fa-sharp fa-solid {{ contratos.TotalContratos  >= 0 ? 'fa-square-plus' : 'fa-square-minus' }}"></i> {{ contratos.TotalContratos  }}% em relação ao ano anterior</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        {% set total_pago = 0 %}
+                        {% for item in parcelas_pagas %}
+                            {% set total_pago = total_pago + item.valor_parcela %}
+                        {% endfor %}
+                        <div class="card card-border-shadow-warning h-100">
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="avatar me-1">
+                                        <span class="avatar-initial rounded bg-label-warning">
+                                            <i class="fa-regular fs-5 fa-cash-register"></i>
+                                        </span>
+                                    </div>
+                                    <h2 class="mb-0 text-nowrap">R$ {{ total_pago|number_format(2, ',', '.') }}</h2>
+                                </div>
+                                <h4 class="mb-0">Valores Pagos</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        {% set total_nao_pago = 0 %}
+                        {% for item in parcelas_nao_pagas %}
+                            {% set total_nao_pago = total_nao_pago + item.valor_parcela %}
+                        {% endfor %}
+                        <div class="card card-border-shadow-danger h-100">
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="avatar me-1">
+                                        <span class="avatar-initial rounded bg-label-danger">
+                                            <i class="fa-solid fs-5 fa-xmark-to-slot"></i>
+                                        </span>
+                                    </div>
+                                    <h2 class="mb-0 text-nowrap">R$ {{ total_nao_pago|number_format(2, ',', '.') }}</h2>
+                                </div>
+                                <h4 class="mb-0">Valores a Pagar</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             
                 <div class="row">
 
                     <div class="col-lg-6 col-12">
                         <div class="card">
-                            <div class="card-header">Lista de Orçamentos</div>
+                            <div class="card-header py-1 text-uppercase text-white">Lista de Orçamentos</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table dataTable_list">
@@ -38,13 +122,13 @@
                                                 <td class="ps-0">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
-                                                        <i class="fa-solid fa-thumbtack"></i> <b>{{ item.orcamento }}</b>
+                                                        <i class="fa-solid fa-edit"></i> <b>{{ item.orcamento }}</b>
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.orcamento }}</b></span>
+                                                        <span class="text-uppercase text-white"><b>{{ item.orcamento }}</b></span>
                                                     {% endif %}
                                                 </td>
-                                                <td class="bg-success text-black text-center">
+                                                <td class="text-success text-center">
                                                     R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                 </td>
                                                 <td class="pe-0 text-end">
@@ -61,14 +145,80 @@
 
                     <div class="col-lg-3 col-12">
                         <div class="card">
+                            <div class="card-header py-1 text-uppercase text-white">Parcelas Quitadas</div>
                             <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped list-unstyled mb-0" id="tabela-parcelas">
+                                        <thead class="d-none">
+                                            <tr>
+                                                <th>Orçamento</th>
+                                                <th>Valor</th>
+                                                <th>Data</th>
+                                                <th class="text-end">Parcela</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in parcelas_pagas %}
+                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.orcamento }}">
+                                                <td class="p-1">
+                                                    {% if 'add' in permissions.contratos or permissions == 'all' %}
+                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
+                                                        <i class="fa-solid fa-file-check"></i>
+                                                    </a>
+                                                    {% else %}
+                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-file-check"></i></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
+                                                <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
+                                                <td class="text-end p-1">
+                                                <span class="badge bg-primary">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-12">
                         <div class="card">
+                            <div class="card-header py-1 text-uppercase text-white">Parcelas em Aberto</div>
                             <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped list-unstyled mb-0" id="tabela-parcelas">
+                                        <thead class="d-none">
+                                            <tr>
+                                                <th>Orçamento</th>
+                                                <th>Valor</th>
+                                                <th>Data</th>
+                                                <th class="text-end">Parcela</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in parcelas_nao_pagas %}
+                                            <tr data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.orcamento }}">
+                                                <td class="p-1">
+                                                    {% if 'add' in permissions.contratos or permissions == 'all' %}
+                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
+                                                        <i class="fa-solid fa-file-excel"></i>
+                                                    </a>
+                                                    {% else %}
+                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-file-excel"></i></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
+                                                <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
+                                                <td class="text-end p-1">
+                                                    <span class="badge bg-primary">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
