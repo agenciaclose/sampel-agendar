@@ -99,6 +99,39 @@ $(document).ready(function () {
 
     });
 
+    $('#tag_orcamento').select2({
+        tags: true,
+        dropdownAutoWidth: true,
+        width: '100%',
+        tabindex: -1,
+        placeholder: "Selecione ou digite uma tag", 
+        ajax: {
+            url: DOMAIN + '/painel/orcamento/tags/get/terms',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function(obj) {
+                        return { id: obj.id, text: obj.text };
+                    })
+                };
+            },
+        },
+        matcher: function(params, data) {
+            if ($.trim(params.term) === '') {return data;}
+            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {return data;}
+            return null;
+        },
+        createTag: function(params) {
+            var term = $.trim(params.term);
+            if(term === "") { return null; }
+            setTimeout(function() {
+                $(".select2-results li:first-child").addClass("new");
+            }, 100);
+            return {id: term, text: term};
+        }
+    });
+
     $('#id_fornecedor').select2({
         dropdownAutoWidth: true,
         width: '100%',

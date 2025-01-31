@@ -4,28 +4,69 @@
 
 {% block body %}
 
-    <!-- BEGIN: Content-->
-    <div class="app-content content ">
+    <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-body">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="text-primary fw-bold text-uppercase">{{ fornecedor.empresa_fantasia }}</div>
+                            <div class="text-warning fw-bold text-uppercase">{{ fornecedor.empresa_cnpj }}</div>
+                        </div>
+                    </div>
+                </div>
             
                 <div class="row">
 
-                    <div class="col-lg-4 col-12">
+                    <div class="col-lg-6 col-12">
+                        <div class="card">
+                            <div class="card-header">Lista de Orçamentos</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table dataTable_list">
+                                        <thead>
+                                            <tr>
+                                                <th class="ps-1" width="300">Orçamento</th>
+                                                <th class="text-center" width="200">Valor</th>
+                                                <th class="pe-1 text-end">Data</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in orcamentos %}
+                                            <tr>
+                                                <td class="ps-0">
+                                                    {% if 'add' in permissions.contratos or permissions == 'all' %}
+                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
+                                                        <i class="fa-solid fa-thumbtack"></i> <b>{{ item.orcamento }}</b>
+                                                    </a>
+                                                    {% else %}
+                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.orcamento }}</b></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="bg-success text-black text-center">
+                                                    R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
+                                                </td>
+                                                <td class="pe-0 text-end">
+                                                    <div class="text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela | date("d-m-Y") }}</span></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12">
                         <div class="card">
                             <div class="card-body">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-12">
+                    <div class="col-lg-3 col-12">
                         <div class="card">
                             <div class="card-body">
                             </div>

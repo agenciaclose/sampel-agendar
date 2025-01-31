@@ -31,7 +31,7 @@ class FornecedoresPainel extends Model
     public function getFornecedorID($id): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM fornecedores WHERE id= :id ORDER BY id DESC", "id={$id}");
+        $read->FullRead("SELECT * FROM fornecedores WHERE id = :id ORDER BY id DESC", "id={$id}");
         return $read;
     }
 
@@ -53,6 +53,13 @@ class FornecedoresPainel extends Model
         $update = new Update();
         $update->ExeUpdate('fornecedores', $params, 'WHERE id = :id', "id={$id}");
         return $update;
+    }
+
+    public function getOrcamentos($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM orcamentos WHERE id_fornecedor = :id ORDER BY id DESC", "id={$id}");
+        return $read;
     }
 
 }

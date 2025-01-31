@@ -24,8 +24,19 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="d-flex justify-content-start align-items-center flex-grow-1">
 										<h4 class="mb-0 text-uppercase text-warning">{{ orcamento.orcamento }}</h4>
-										<div class="ms-2 d-flex justify-content-start align-items-center flex-grow-1">
-											<input type="text" name="tag_orcamento" class="tags form-control w-100" value="{{ orcamento.tag_orcamento }}"  placeholder="Digite suas tags aqui...">
+										<div class="mx-3 d-flex justify-content-start align-items-center flex-grow-1">
+											<select class="form-control" id="tag_orcamento" name="tag_orcamento[]" multiple="multiple">
+												<option value="0">Selecione</option>
+												{% if orcamento.tag_orcamento is not empty %}
+													{% set tags = orcamento.tag_orcamento|split(',') %}
+													{% for tag in tags %}
+														{% set tag = tag|trim %}
+														{% if tag is not empty %}
+															<option value="{{ tag }}" selected>{{ tag }}</option>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</select>
 										</div>
 									</div>
 									<div>

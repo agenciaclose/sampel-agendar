@@ -92,9 +92,14 @@ class FornecedoresController extends Controller
 
         $model = new FornecedoresPainel();
 
+        $fornecedor = $model->getFornecedorID($params['id'])->getResultSingle();
+        $orcamentos = $model->getOrcamentos($params['id'])->getResult();
+
         $this->render('painel/pages/fornecedores/orcamentos.twig', 
         [
-            'menu' => 'fornecedores'
+            'menu' => 'fornecedores',
+            'fornecedor' => $fornecedor,
+            'orcamentos' => $orcamentos,
         ]);
     }
 }

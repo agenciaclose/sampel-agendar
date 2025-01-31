@@ -123,4 +123,32 @@ class OrcamentosPainelController extends Controller
         if($remove){ echo '1'; }
     }
 
+    public function getTermsTags($params)
+    {
+        $this->setParams($params);
+        $model = new OrcamentosPainel();
+        $terms = $model->getTermsTags();
+
+        $json = [];
+        if (count($terms->getResult()) > 0) {
+            foreach ($terms->getResult() as $key => $value) {
+                // Verifica se $value['tag_orcamento'] não é null ou vazio
+                if (!empty($value['tag_orcamento'])) {
+                    // Split the tag_orcamento by comma
+                    $tags = explode(',', $value['tag_orcamento']);
+                    
+                    // Loop through each tag and add it to the $json array
+                    foreach ($tags as $tag) {
+                        $tag = trim($tag); // Remove espaços em branco
+                        if (!empty($tag)) { // Ignora valores vazios
+                            $json[] = ['id' => $tag, 'text' => $tag];
+                        }
+                    }
+                }
+            }
+        }
+        
+        echo json_encode($json);
+    }
+
 }

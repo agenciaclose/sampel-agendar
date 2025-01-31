@@ -32,6 +32,18 @@ class OrcamentosPainel extends Model
         return $read;
     }
 
+    public function getTermsTags(): Read
+    {
+        if(!empty($_GET["q"])){
+            $term = "WHERE tag_orcamento like '%".$_GET["q"]."%'";
+        }else{
+            $term = "";
+        }
+        $read = new Read();
+        $read->FullRead("SELECT tag_orcamento FROM orcamentos $term GROUP BY tag_orcamento ORDER BY tag_orcamento ASC");
+        return $read;
+    }
+
     public function getOrcamentosByTipo($tipo_evento, $ano): Read
     {
         $read = new Read();
@@ -86,6 +98,16 @@ class OrcamentosPainel extends Model
 
     public function addOrcamentoSave($params)
     {   
+
+        $params['tags'] = '';
+        if (isset($params['tag_orcamento']) && is_array($params['tag_orcamento'])) {
+            $tags = array_filter($params['tag_orcamento'], function($value) {
+                return !empty($value) && $value != '0';
+            });
+            $params['tags'] = implode(',', $tags);
+        }
+        $params['tag_orcamento'] = $params['tags'];
+
         $params['valor_orcamento'] = str_replace(',', '.', str_replace('.', '', $params['valor_orcamento']));
 
         $params['id_user'] = $_SESSION['sampel_user_id'];
@@ -93,6 +115,7 @@ class OrcamentosPainel extends Model
         $valor_parcela = $params['valor_parcela'];
         $data_parcela = $params['data_parcela'];
         $numero_parcela = $params['numero_parcela'];
+        unset($params['tags']);
         unset($params['valor_parcela']);
         unset($params['data_parcela']);
         unset($params['numero_parcela']);
@@ -114,10 +137,20 @@ class OrcamentosPainel extends Model
         
         $params['id_user'] = $_SESSION['sampel_user_id'];
         $params['valor_orcamento'] = str_replace(',', '.', str_replace('.', '', $params['valor_orcamento']));
+
+        $params['tags'] = '';
+        if (isset($params['tag_orcamento']) && is_array($params['tag_orcamento'])) {
+            $tags = array_filter($params['tag_orcamento'], function($value) {
+                return !empty($value) && $value != '0';
+            });
+            $params['tags'] = implode(',', $tags);
+        }
+        $params['tag_orcamento'] = $params['tags'];
         
         $valor_parcela = $params['valor_parcela'];
         $data_parcela = $params['data_parcela'];
         $numero_parcela = $params['numero_parcela'];
+        unset($params['tags']);
         unset($params['valor_parcela']);
         unset($params['data_parcela']);
         unset($params['numero_parcela']);
@@ -126,7 +159,6 @@ class OrcamentosPainel extends Model
         if($valor_parcela){
             $this->atualizarParcelas($id, $valor_parcela, $data_parcela, $numero_parcela);
         }
-        
         
         $update = new Update();
         $update->ExeUpdate("orcamentos", $params, "WHERE id = :id", "id={$id}");
