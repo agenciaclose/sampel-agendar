@@ -125,11 +125,11 @@
                                                 </td>
                                                 <td class="ps-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
-                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
+                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white text-nowrap">
                                                         <i class="fa-solid fa-edit"></i> <b>{{ item.orcamento }}</b>
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white"><b>{{ item.orcamento }}</b></span>
+                                                        <span class="text-uppercase text-white text-nowrap"><b>{{ item.orcamento }}</b></span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-success text-nowrap text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
