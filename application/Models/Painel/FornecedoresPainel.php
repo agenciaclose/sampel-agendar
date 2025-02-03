@@ -58,7 +58,20 @@ class FornecedoresPainel extends Model
     public function getOrcamentos($id): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM orcamentos WHERE id_fornecedor = :id ORDER BY id DESC", "id={$id}");
+
+        $read->FullRead("SELECT o.*, op.primeira_data_parcela, op.ultima_data_parcela, f.empresa_fantasia, f.empresa_cnpj
+                    FROM orcamentos AS o
+                    LEFT JOIN fornecedores AS f ON f.id = o.id_fornecedor
+                    INNER JOIN (
+                        SELECT 
+                            id_orcamento, 
+                            MIN(data_parcela) AS primeira_data_parcela, 
+                            MAX(data_parcela) AS ultima_data_parcela
+                        FROM orcamentos_parcelas
+                        GROUP BY id_orcamento
+                    ) AS op ON o.id = op.id_orcamento
+                    WHERE o.id_fornecedor = :id
+                    ORDER BY o.date_create DESC", "id={$id}");
         return $read;
     }
 

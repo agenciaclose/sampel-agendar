@@ -111,15 +111,19 @@
                                     <table class="table dataTable_list">
                                         <thead>
                                             <tr>
+                                                <th class="ps-1 text-nowrap">Data</th>
                                                 <th class="ps-1" width="300">Orçamento</th>
                                                 <th class="text-center" width="200">Valor</th>
-                                                <th class="pe-1 text-end">Data</th>
+                                                <th class="pe-1 text-nowrap text-end">Última Parcela</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for item in orcamentos %}
                                             <tr>
                                                 <td class="ps-0">
+                                                    <div class="text-nowrap text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela|date("d-m-Y") }}</span></div>
+                                                </td>
+                                                <td class="ps-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
                                                         <i class="fa-solid fa-edit"></i> <b>{{ item.orcamento }}</b>
@@ -132,7 +136,7 @@
                                                     R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                 </td>
                                                 <td class="pe-0 text-end">
-                                                    <div class="text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela | date("d-m-Y") }}</span></div>
+                                                    <div class="text-nowrap text-danger"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.ultima_data_parcela|date("d-m-Y") }}</span></div>
                                                 </td>
                                             </tr>
                                             {% endfor %}
@@ -170,7 +174,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
-                                                <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
+                                                <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela|date("d/m/Y") }}</td>
                                                 <td class="text-end p-1">
                                                 <span class="badge bg-primary">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
                                                 </td>
