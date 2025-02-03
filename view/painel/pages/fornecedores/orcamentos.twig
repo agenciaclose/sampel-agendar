@@ -113,7 +113,7 @@
                                             <tr>
                                                 <th class="ps-1 text-nowrap">Data</th>
                                                 <th class="ps-1" width="300">Orçamento</th>
-                                                <th class="text-center" width="200">Valor</th>
+                                                <th class="text-center text-nowrap" width="200">Valor</th>
                                                 <th class="pe-1 text-nowrap text-end">Última Parcela</th>
                                             </tr>
                                         </thead>
@@ -132,8 +132,8 @@
                                                         <span class="text-uppercase text-white"><b>{{ item.orcamento }}</b></span>
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-success text-center">
-                                                    R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}<span class="text-white"> / </span><span class="badge bg-primary">{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}</span>
+                                                <td class="text-success text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
+                                                    R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                 </td>
                                                 <td class="pe-0 text-end">
                                                     <div class="text-nowrap text-danger"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.ultima_data_parcela|date("d/m/Y") }}</span></div>
