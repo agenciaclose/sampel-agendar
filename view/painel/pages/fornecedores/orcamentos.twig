@@ -132,7 +132,7 @@
                                                         <span class="text-uppercase text-white"><b>{{ item.orcamento }}</b></span>
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-success text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
+                                                <td class="text-success text-nowrap text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
                                                     R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                 </td>
                                                 <td class="pe-0 text-end">
