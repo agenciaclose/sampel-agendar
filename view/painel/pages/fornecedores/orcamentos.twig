@@ -121,12 +121,15 @@
                                             {% for item in orcamentos %}
                                             <tr>
                                                 <td class="ps-0">
-                                                    <div class="text-nowrap text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela|date("d/m/Y") }}</span></div>
+                                                    <div class="text-nowrap text-success">
+                                                        <i class="fa-solid fa-shield-check"></i> 
+                                                        <span class="fw-bold">{{ item.primeira_data_parcela|date("d/m/Y") }}</span>
+                                                    </div>
                                                 </td>
                                                 <td class="ps-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white text-nowrap">
-                                                        <i class="fa-solid fa-edit"></i> <b>{{ item.orcamento }}</b>
+                                                        {{ item.id }} / <b>{{ item.orcamento }}</b>
                                                     </a>
                                                     {% else %}
                                                         <span class="text-uppercase text-white text-nowrap"><b>{{ item.orcamento }}</b></span>
@@ -167,10 +170,10 @@
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
-                                                        <i class="fa-solid fa-file-check"></i>
+                                                        {{ item.id }}
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-file-check"></i></span>
+                                                        <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
@@ -207,10 +210,10 @@
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
-                                                        <i class="fa-solid fa-file-excel"></i>
+                                                        {{ item.id }}
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white"><i class="fa-solid fa-file-excel"></i></span>
+                                                        <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>

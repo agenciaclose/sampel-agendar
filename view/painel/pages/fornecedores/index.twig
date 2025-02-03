@@ -72,24 +72,23 @@
                                                 {% for item in fornecedores %}
                                                 <tr>
                                                     <td>
-                                                        <a  data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.empresa_fantasia }}</b></a>
+                                                        <a data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.empresa_fantasia }}</b></a>
                                                         <div>
                                                             {% if 'add' in permissions.fornecedores or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor"><i class="fa-solid fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Editar"></i></a>
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
                                                             {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
+                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Desativar"></i></a>
                                                             {% endif %}
                                                             <span class="mx-05">|</span>
-                                                            <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Ver Orçamentos</a>
+                                                            <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Ver Orçamentos"></i></a>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
                                                         {{ item.empresa_cnpj }}
                                                     </td>
                                                     <td class="no-mobile">
-                                                        <div class="text-white-50"><small>{{ item.empresa_logradouro }}, {{ item.empresa_numero }}, {{ item.empresa_bairro }}</small></div>
                                                         <div class="text-white-50">{{ item.empresa_cidade }} - {{ item.empresa_uf }}</div>
                                                     </td>
                                                     <td class="text-end">
