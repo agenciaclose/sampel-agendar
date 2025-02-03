@@ -121,7 +121,7 @@
                                             {% for item in orcamentos %}
                                             <tr>
                                                 <td class="ps-0">
-                                                    <div class="text-nowrap text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela|date("d-m-Y") }}</span></div>
+                                                    <div class="text-nowrap text-success"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.primeira_data_parcela|date("d/m/Y") }}</span></div>
                                                 </td>
                                                 <td class="ps-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
@@ -133,10 +133,10 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-success text-center">
-                                                    R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
+                                                    R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}<span class="text-white"> / </span><span class="badge bg-primary">{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}</span>
                                                 </td>
                                                 <td class="pe-0 text-end">
-                                                    <div class="text-nowrap text-danger"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.ultima_data_parcela|date("d-m-Y") }}</span></div>
+                                                    <div class="text-nowrap text-danger"><i class="fa-solid fa-shield-check"></i> <span class="fw-bold">{{ item.ultima_data_parcela|date("d/m/Y") }}</span></div>
                                                 </td>
                                             </tr>
                                             {% endfor %}
