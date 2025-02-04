@@ -71,19 +71,13 @@
                                             <tbody>
                                                 {% for item in fornecedores %}
                                                 <tr>
-                                                    <td>
-                                                        <a data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.empresa_fantasia }}</b></a>
-                                                        <span class="ms-2">
-                                                            {% if 'add' in permissions.fornecedores or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor"><i class="fa-solid fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Editar"></i></a>
-                                                            {% endif %}
+                                                    <td class="ps-1">
+                                                        <span class="me-2">
+                                                            <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-folder-open"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Ver Orçamentos"></i></a>
                                                             <span class="mx-05">|</span>
-                                                            {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Desativar"></i></a>
-                                                            {% endif %}
-                                                            <span class="mx-05">|</span>
-                                                            <a href="{{ DOMAIN }}/painel/contratos/fornecedores/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Ver Orçamentos"></i></a>
+                                                            <a href="{{ DOMAIN }}/painel/eventos/orcamento/add/39" class="text-primary"><i class="fa-solid fa-folder-plus"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Criar Orçamentos"></i></a>
                                                         </span>
+                                                        <a data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" class="text-uppercase text-white"><b>{{ item.empresa_fantasia }}</b></a>
                                                     </td>
                                                     <td class="text-center">
                                                         {{ item.empresa_cnpj }}
@@ -93,6 +87,11 @@
                                                     </td>
                                                     <td class="text-end">
                                                         <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.date_create | date("d-m-Y") }}</span>
+                                                        <span class="ms-2">
+                                                            {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
+                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Desativar"></i></a>
+                                                            {% endif %}
+                                                        </span>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}

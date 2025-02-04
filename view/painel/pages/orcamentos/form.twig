@@ -24,7 +24,7 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="d-flex justify-content-start align-items-center flex-grow-1">
 										<h4 class="mb-0 text-uppercase text-warning">{{ orcamento.orcamento }}</h4>
-										<div class="mx-3 d-flex justify-content-start align-items-center flex-grow-1">
+										<div class="{{ orcamento.orcamento != '' ? 'mx-3' : 'me-3' }} d-flex justify-content-start align-items-center flex-grow-1">
 											<select class="form-control" id="tag_orcamento" name="tag_orcamento[]" multiple="multiple">
 												<option value="0">Selecione</option>
 												{% if orcamento.tag_orcamento is not empty %}
