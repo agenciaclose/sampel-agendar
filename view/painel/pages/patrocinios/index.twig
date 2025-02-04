@@ -76,19 +76,11 @@
                                             <tbody>
                                                 {% for item in patrocinios %}
                                                 <tr>
-                                                    <td>
-                                                        <a  data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><i class="fa-solid fa-thumbtack"></i> <b>{{ item.nome_patrocinio }}</b></a>
-                                                        <div>
-                                                            {% if 'add' in permissions.patrocinios or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" class="text-warning" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
-                                                            {% endif %}
-                                                            <span class="mx-05">|</span>
-                                                            {% if 'delete' in permissions.patrocinios or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_patrocinio == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i> Desativar</a>
-                                                            {% endif %}
-                                                            <span class="mx-05">|</span>
-                                                            <a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-coins"></i> Orçamento</a>
-                                                        </div>
+                                                    <td class="ps-1">
+                                                        <span class="me-1">
+                                                            <a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-folder-open" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="" data-bs-original-title="Ver Orçamentos" aria-label="Ver Orçamentos"></i></a>
+                                                        </span>
+                                                        <a  data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><b>{{ item.nome_patrocinio }}</b></a>
                                                     </td>
                                                     <td class="bg-success text-black text-center">
                                                         R$ {{ item.total_gastos|number_format(2, ',', '.') }}
@@ -102,7 +94,10 @@
                                                     </td>
                                                     <td class="text-end">
                                                         <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_inicio | date("d-m-Y") }}</span>
-                                                        <div><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_fim | date("d-m-Y") }}</span></div>
+                                                        <span class="mx-2"><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_fim | date("d-m-Y") }}</span></span>
+                                                        {% if 'delete' in permissions.patrocinios or permissions == 'all' %}
+                                                            <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_patrocinio == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i></a>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
