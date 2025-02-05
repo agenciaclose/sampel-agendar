@@ -155,7 +155,7 @@
 										</thead>
 										<tbody>
 											{% for produto in produtos %}
-												<tr class="{{ produto.estoque <= 0 ? 'd-none' }}">
+												<tr class="{{ produto.estoque <= 0 ? 'opacity-100' }}">
 													<td class="p-0">
 														<input type="hidden" name="id_produto[]" value="{{ produto.id }}">
 														{% if produto.imagem != '' %}
