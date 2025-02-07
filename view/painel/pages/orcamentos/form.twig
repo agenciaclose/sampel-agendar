@@ -3,6 +3,8 @@
 {% block title %}Add Orçamento{% endblock %}
 
 {% block body %}
+
+
 <div class="app-content content ">
     <div class="content-wrapper">
         <div class="content-body">
@@ -40,7 +42,7 @@
 										</div>
 									</div>
 									<div>
-										<input type="hidden" name="tipo_evento" value="{{ dados.tipo }}">
+										<input type="hidden" id="tipo_evento" name="tipo_evento" value="{{ dados.tipo }}">
 										<input type="hidden" name="id_evento" value="{{ dados.id }}">
 										{% if orcamento.id != '' %}
 											<input type="hidden" name="id" value="{{ orcamento.id }}">

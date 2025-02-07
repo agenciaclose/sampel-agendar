@@ -62,8 +62,17 @@ class OrcamentosPainelController extends Controller
 
     public function addOrcamento($params)
     {
+        $fornecedor = [];
+
+        if(isset($params['fornecedor'])){
+            if($params['tipo'] == 'fornecedor'){
+                $fornecedor = new FornecedoresPainel();
+                $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
+            }
+        }
+
         $this->setParams($params);
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'tipo' => $params['tipo']]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'tipo' => $params['tipo'], 'fornecedor' => $fornecedor]);
     }
 
     public function editOrcamento($params)
@@ -82,8 +91,13 @@ class OrcamentosPainelController extends Controller
             $orcamento = [];
         }
 
-        $fornecedor = new FornecedoresPainel();
-        $fornecedor = $fornecedor->getFornecedorID($orcamento['id_fornecedor'])->getResultSingle();
+        if($params['tipo'] == 'fornecedor'){
+            $fornecedor = new FornecedoresPainel();
+            $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
+        }else{
+            $fornecedor = new FornecedoresPainel();
+            $fornecedor = $fornecedor->getFornecedorID($orcamento['id_fornecedor'])->getResultSingle();
+        }
 
         $model = new OrcamentosPainel();
         $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();

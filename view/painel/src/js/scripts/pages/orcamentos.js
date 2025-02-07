@@ -40,6 +40,11 @@ $(document).ready(function () {
         var form = $(this)[0];
         var formData = new FormData(form);
 
+        var fornecedor = '';
+        if(tipo == 'fornecedor'){
+            fornecedor = '/'+$('#id_fornecedor').val();
+        }
+
         $.ajax({
             type: "POST",
             processData: false,
@@ -51,7 +56,7 @@ $(document).ready(function () {
                 if (data != 0) {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.href = DOMAIN + "/painel/"+tipo+"/orcamento/edit/"+ID+"/"+data;
+                        window.location.href = DOMAIN + "/painel/"+tipo+"/orcamento/edit/"+ID+"/"+data+fornecedor;
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
