@@ -11,7 +11,8 @@ class FornecedoresPainel extends Model
     public function lista(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM fornecedores ORDER BY id DESC");
+        $read->FullRead("SELECT *, (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_fornecedor = fornecedores.id) AS total_valor
+                        FROM fornecedores WHERE `status_fornecedor` = 'Ativo' ORDER BY id DESC");
         return $read;
     }
 

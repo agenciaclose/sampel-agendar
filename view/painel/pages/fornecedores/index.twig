@@ -63,8 +63,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Fornecedor</th>
+                                                    <th class="no-mobile">Valor Total</th>
                                                     <th class="text-center">CPF / CNPJ</th>
-                                                    <th>Endereço</th>
+                                                    <th class="no-mobile">Endereço</th>
                                                     <th class="text-end">Data</th>
                                                 </tr>
                                             </thead>
@@ -78,6 +79,9 @@
                                                             <a href="{{ DOMAIN }}/painel/fornecedor/orcamento/add/{{ item.id }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Criar Orçamentos"><i class="fa-solid fa-folder-plus fa-lg" ></i></a>
                                                         </span>
                                                         <a data-bs-remote="{{ DOMAIN }}/painel/contratos/fornecedores/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formFornecedor" class="text-uppercase text-white"><b>{{ item.empresa_fantasia }}</b></a>
+                                                    </td>
+                                                    <td class="no-mobile text-success">
+                                                        R$ {{ item.total_valor|number_format(2, ',', '.') }}
                                                     </td>
                                                     <td class="text-center">
                                                         {{ item.empresa_cnpj }}
