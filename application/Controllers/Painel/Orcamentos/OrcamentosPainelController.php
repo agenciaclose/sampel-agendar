@@ -83,20 +83,22 @@ class OrcamentosPainelController extends Controller
         $orcamentos = $model->getOrcamentosID($params['id'], $params['tipo'], $params['id_edit']);
 
         
+        $parcelas = [];
+        $orcamento = [];
         if($orcamentos->getResult()){
             $orcamento = $orcamentos->getResult()[0];
             $parcelas = $model->getOrcamentoParcelas($orcamento['id'])->getResult();
-        }else{
-            $parcelas = [];
-            $orcamento = [];
         }
-
-        if($params['tipo'] == 'fornecedor'){
-            $fornecedor = new FornecedoresPainel();
-            $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
-        }else{
-            $fornecedor = new FornecedoresPainel();
-            $fornecedor = $fornecedor->getFornecedorID($orcamento['id_fornecedor'])->getResultSingle();
+        
+        $fornecedor = [];
+        if((isset($params['fornecedor'])) || (isset($orcamento['id_fornecedor']))){
+            if($params['tipo'] == 'fornecedor'){
+                $fornecedor = new FornecedoresPainel();
+                $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
+            }else{
+                $fornecedor = new FornecedoresPainel();
+                $fornecedor = $fornecedor->getFornecedorID($orcamento['id_fornecedor'])->getResultSingle();
+            }
         }
 
         $model = new OrcamentosPainel();
