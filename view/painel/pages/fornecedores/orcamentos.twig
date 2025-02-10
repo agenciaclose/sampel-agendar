@@ -129,7 +129,7 @@
                                                 </td>
                                                 <td class="ps-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
-                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white text-nowrap">
+                                                    <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}/{{ item.id_fornecedor }}" class="text-uppercase text-white text-nowrap">
                                                         {{ item.id }} / <b>{{ item.orcamento }}</b>
                                                     </a>
                                                     {% else %}

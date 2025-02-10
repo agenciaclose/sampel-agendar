@@ -3,7 +3,10 @@
 namespace Agencia\Close\Controllers\Painel\Orcamentos;
 
 use Agencia\Close\Controllers\Controller;
+use Agencia\Close\Models\Painel\EventosPainel;
 use Agencia\Close\Models\Painel\PedidosPainel;
+use Agencia\Close\Models\Painel\VisitasPainel;
+use Agencia\Close\Models\Painel\PalestrasPainel;
 use Agencia\Close\Models\Painel\OrcamentosPainel;
 use Agencia\Close\Models\Painel\FornecedoresPainel;
 
@@ -70,7 +73,7 @@ class OrcamentosPainelController extends Controller
                 $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
             }
         }
-
+        
         $this->setParams($params);
         $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'tipo' => $params['tipo'], 'fornecedor' => $fornecedor]);
     }
@@ -81,7 +84,6 @@ class OrcamentosPainelController extends Controller
 
         $model = new OrcamentosPainel();
         $orcamentos = $model->getOrcamentosID($params['id'], $params['tipo'], $params['id_edit']);
-
         
         $parcelas = [];
         $orcamento = [];
@@ -101,10 +103,27 @@ class OrcamentosPainelController extends Controller
             }
         }
 
+        $eventos = [];
+        if($params['tipo'] == 'eventos'){
+            $eventos = new EventosPainel();
+            $eventos = $eventos->getEventos()->getResult();
+        }
+        // if($orcamento['id_evento'] != 0){
+        //    if($params['tipo'] == 'visitas'){
+        //         $eventos = new VisitasPainel();
+        //         $eventos = $eventos->getVisitasList()->getResult();
+        //     }
+
+        //     if($params['tipo'] == 'palestras'){
+        //         $eventos = new PalestrasPainel();
+        //         $eventos = $eventos->getPalestrasList()->getResult();
+        //     }
+        // }
+
         $model = new OrcamentosPainel();
         $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();
 
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'orcamento' => $orcamento, 'fornecedor' => $fornecedor, 'parcelas' => $parcelas, 'arquivos' => $arquivos, 'tipo' => $params['tipo']]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'eventos' => $eventos, 'orcamento' => $orcamento, 'fornecedor' => $fornecedor, 'parcelas' => $parcelas, 'arquivos' => $arquivos, 'tipo' => $params['tipo']]);
     }
 
     public function addOrcamentoSave($params)
@@ -164,6 +183,23 @@ class OrcamentosPainelController extends Controller
             }
         }
         
+        echo json_encode($json);
+    }
+
+    public function getTermsEventos($params)
+    {
+        $this->setParams($params);
+        $model = new EventosPainel();
+        $terms = $model->getEventos();
+  
+        $json = [];
+        if(count($terms->getResult()) > 0){
+            foreach ($terms->getResult() as $key => $value) {
+                $json[] = ['id'=>$value['id'], 'text'=>$value['nome_evento']];
+            }
+        } else {
+            $json[] = array('id' => '0', 'text' => 'Nenhum item encontrado');
+        }
         echo json_encode($json);
     }
 

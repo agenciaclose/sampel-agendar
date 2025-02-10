@@ -42,10 +42,8 @@
 										</div>
 									</div>
 									<div>
-										<input type="hidden" id="tipo_evento" name="tipo_evento" value="{{ dados.tipo }}">
-										<input type="hidden" name="id_evento" value="{{ dados.id }}">
 										{% if orcamento.id != '' %}
-											<input type="hidden" name="id" value="{{ orcamento.id }}">
+											<input type="hidden" id="id_orcamento" name="id" value="{{ orcamento.id }}">
 										{% endif %}            
 										<button class="btn btn-primary w-100" type="submit">SALVAR ORÇAMENTO</button>
 									</div>
@@ -64,7 +62,7 @@
 											
 											<div class="card p-2">
 
-												<div class="mb-2">
+												<div class="mb-1">
 													<label class="control-label">Fornecedor</label>
 													<div class="d-flex">
 														<div class="flex-grow-1">
@@ -81,7 +79,28 @@
 													</div>
 												</div>
 
-												<div class="mb-2">
+												<div class="mb-1">
+													<label class="control-label">Tipo de Evento</label>
+													<select class="form-control" name="tipo_evento" id="tipo_evento">
+														<option value="fornecedor" {{ orcamento.tipo_evento == 'fornecedor' ? 'selected' }}>Fornecedor</option>
+														<option value="eventos" {{ orcamento.tipo_evento == 'eventos' ? 'selected' }}>Feiras e Eventos</option>
+														{# <option value="patrocinios">Patrocínios</option>
+														<option value="visitas">Visitas</option>
+														<option value="palestras">Palestras</option> #}
+													</select>
+												</div>
+
+												<div class="mb-1">
+													<label class="control-label">Evento</label>
+													<select class="form-control" name="id_evento" id="id_evento" data-tipo="eventos">
+														<option value="0">Selecione</option>
+														{% for evento in eventos %}
+															<option value="{{ evento.id }}" selected>{{ evento.title != null ? evento.title : evento.nome_evento }}</option>
+														{% endfor %}
+													</select>
+												</div>
+
+												<div class="mb-1">
 													<div class="orcamento_select2">
 														<label class="control-label">Tipo</label>
 														<select class="form-control" name="tipo_contrato" id="tipo_contrato" required>
@@ -92,7 +111,7 @@
 													</div>
 												</div>											
 
-												<div class="mb-2">
+												<div class="mb-1">
 													<div class="orcamento_select2">
 														<label class="control-label">Despesa</label>
 														<select class="form-control" name="orcamento" id="orcamento">
@@ -101,7 +120,7 @@
 													</div>
 												</div>
 
-												<div class="mb-2">
+												<div class="mb-1">
 													<label class="control-label">Descrição</label>
 													<textarea id="descricao" name="descricao_orcamento" class="form-control">{{ orcamento.descricao_orcamento }}</textarea>
 												</div>

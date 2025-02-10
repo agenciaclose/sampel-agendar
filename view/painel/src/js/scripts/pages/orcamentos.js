@@ -35,13 +35,13 @@ $(document).ready(function () {
 
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
-        var ID = $(this).data('orcamento');
-        var tipo = $(this).data('tipo');
+        var ID = $('#id_evento').val();
+        var tipo = $('#tipo_evento').val();
         var form = $(this)[0];
         var formData = new FormData(form);
 
         var fornecedor = '';
-        if(tipo == 'fornecedor'){
+        if($('#id_fornecedor').val() != 0){
             fornecedor = '/'+$(this).data('fornecedor');
         }
 
@@ -75,6 +75,15 @@ $(document).ready(function () {
         $('.form-load').addClass('show');
         $('button[type="submit"]').prop("disabled", true);
 
+        var tipo = $('#tipo_evento').val();
+        var ID = $('#id_evento').val();
+        var id_orcamento = $('#id_orcamento').val();
+
+        var fornecedor = '';
+        if($('#id_fornecedor').val() != 0){
+            fornecedor = '/'+$('#id_fornecedor').val();
+        }
+
         c.preventDefault();
         var DOMAIN = $('body').data('domain');
         var form = $(this)[0];
@@ -90,7 +99,7 @@ $(document).ready(function () {
                 if (data == "1") {
                     swal({type: 'success', title: 'Editado com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                        window.location.reload();
+                        window.location.href = DOMAIN + "/painel/"+tipo+"/orcamento/edit/"+ID+"/"+id_orcamento+fornecedor;
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
@@ -198,7 +207,37 @@ $(document).ready(function () {
             }, 100);
             return {id: term, text: term};
         }
-    });
+    }); 
+
+    $('#id_evento').select2({
+        dropdownAutoWidth: true,
+        width: '100%',
+        tabindex: -1,
+        ajax: {
+            transport: function (params, success, failure) {
+                var tipo = $('#id_evento').data('tipo');
+                params.url = DOMAIN + '/painel/contratos/'+tipo+'/get/terms';
+                var request = $.ajax(params);
+                request.then(success);
+                request.fail(failure);
+                return request;
+            },
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function(obj) {
+                        return { id: obj.id, text: obj.text };
+                    })
+                };
+            }
+        },
+        matcher: function(params, data) {
+            if ($.trim(params.term) === '') return data;
+            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) return data;
+            return null;
+        }
+    });      
     
     $('.money').mask("#.##0,00", {reverse: true});
 
