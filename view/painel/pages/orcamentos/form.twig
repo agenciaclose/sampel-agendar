@@ -9,7 +9,7 @@
     <div class="content-wrapper">
         <div class="content-body">
 
-			<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-tipo="{{ tipo }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}">
+			<form action="javascript:void(0)" class="form_orcamento" method="POST" id="{{ orcamento.id == '' ? 'add_orcamento' : 'edit_orcamento' }}" data-tipo="{{ tipo }}" data-orcamento="{{ dados.id }}" data-item="{{ dados.id_edit }}" data-fornecedor="{{ fornecedor.id }}">
 				
 				<div class="offcanvas-header px-0">
 					<h5 class="offcanvas-title" id="offcanvasRightLabel">{{ orcamento.id == '' ? 'CRIAR ORÇAMENTO' : 'EDITAR ORÇAMENTO' }}</h5>

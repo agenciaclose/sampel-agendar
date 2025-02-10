@@ -42,7 +42,7 @@ $(document).ready(function () {
 
         var fornecedor = '';
         if(tipo == 'fornecedor'){
-            fornecedor = '/'+$('#id_fornecedor').val();
+            fornecedor = '/'+$(this).data('fornecedor');
         }
 
         $.ajax({
