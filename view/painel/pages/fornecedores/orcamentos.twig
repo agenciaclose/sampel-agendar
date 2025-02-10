@@ -113,7 +113,8 @@
                                             <tr>
                                                 <th class="ps-1 text-nowrap">Data</th>
                                                 <th class="ps-1">Orçamento</th>
-                                                <th class="ps-1" width="300">tags</th>
+                                                <th class="ps-1" width="300">Tipo</th>
+                                                <th class="ps-1" width="300">Tags</th>
                                                 <th class="text-center text-nowrap" width="200">Valor</th>
                                                 <th class="pe-1 text-nowrap text-end">Última Parcela</th>
                                             </tr>
@@ -135,6 +136,9 @@
                                                     {% else %}
                                                         <span class="text-uppercase text-white text-nowrap"><b>{{ item.orcamento }}</b></span>
                                                     {% endif %}
+                                                </td>
+                                                <td class="ps-1 text-uppercase">
+                                                    <span class="badge bg-primary"><b>{{ item.tipo_evento }}</b></span>
                                                 </td>
                                                 <td><span class="badge bg-primary">{{ item.tag_orcamento }}</span></td>
                                                 <td class="text-success text-nowrap text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">

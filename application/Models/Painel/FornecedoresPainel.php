@@ -79,10 +79,8 @@ class FornecedoresPainel extends Model
                     id_orcamento, 
                     MIN(data_parcela) AS primeira_data_parcela, 
                     MAX(data_parcela) AS ultima_data_parcela 
-                FROM 
-                    orcamentos_parcelas 
-                GROUP BY 
-                    id_orcamento) AS op 
+                FROM orcamentos_parcelas 
+                GROUP BY id_orcamento) AS op 
             ON 
                 o.id = op.id_orcamento 
             WHERE 
