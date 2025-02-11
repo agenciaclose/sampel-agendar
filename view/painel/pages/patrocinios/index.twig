@@ -68,6 +68,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Patrocínios</th>
+                                                    <th>Fornecedor</th>
                                                     <th class="text-center">Orçamento</th>
                                                     <th>Local</th>
                                                     <th class="text-end">Data da Patrocínios</th>
@@ -82,6 +83,7 @@
                                                         </span>
                                                         <a  data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><b>{{ item.nome_patrocinio }}</b></a>
                                                     </td>
+                                                    <td>{{ item.empresa_fantasia }}</td>
                                                     <td class="bg-success text-black text-center">
                                                         R$ {{ item.total_gastos|number_format(2, ',', '.') }}
                                                     </td>

@@ -8,6 +8,7 @@ use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Models\Painel\PalestrasPainel;
 use Agencia\Close\Models\Painel\OrcamentosPainel;
+use Agencia\Close\Models\Painel\PatrociniosPainel;
 use Agencia\Close\Models\Painel\FornecedoresPainel;
 
 class OrcamentosPainelController extends Controller
@@ -68,14 +69,30 @@ class OrcamentosPainelController extends Controller
         $fornecedor = [];
 
         if(isset($params['fornecedor'])){
-            if($params['tipo'] == 'fornecedor'){
-                $fornecedor = new FornecedoresPainel();
-                $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();
-            }
+            $fornecedor = new FornecedoresPainel();
+            $fornecedor = $fornecedor->getFornecedorID($params['fornecedor'])->getResultSingle();      
         }
-        
+
+        $eventos = [];
+        if($params['tipo'] == 'eventos'){
+            $eventos = new EventosPainel();
+            $eventos = $eventos->getEventos()->getResult();
+        }        
+        if($params['tipo'] == 'visitas'){
+            $eventos = new VisitasPainel();
+            $eventos = $eventos->getVisitasList()->getResult();
+        }
+        if($params['tipo'] == 'palestras'){
+            $eventos = new PalestrasPainel();
+            $eventos = $eventos->getPalestrasList()->getResult();
+        }
+        if($params['tipo'] == 'patrocinios'){
+            $eventos = new PatrociniosPainel();
+            $eventos = $eventos->getPatrocinios($fornecedor['id'])->getResult();
+        }
+
         $this->setParams($params);
-        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'tipo' => $params['tipo'], 'fornecedor' => $fornecedor]);
+        $this->render('painel/pages/orcamentos/form.twig', ['dados' => $params, 'eventos' => $eventos, 'tipo' => $params['tipo'], 'fornecedor' => $fornecedor]);
     }
 
     public function editOrcamento($params)
@@ -107,18 +124,19 @@ class OrcamentosPainelController extends Controller
         if($params['tipo'] == 'eventos'){
             $eventos = new EventosPainel();
             $eventos = $eventos->getEventos()->getResult();
+        }        
+        if($params['tipo'] == 'visitas'){
+            $eventos = new VisitasPainel();
+            $eventos = $eventos->getVisitasList()->getResult();
         }
-        // if($orcamento['id_evento'] != 0){
-        //    if($params['tipo'] == 'visitas'){
-        //         $eventos = new VisitasPainel();
-        //         $eventos = $eventos->getVisitasList()->getResult();
-        //     }
-
-        //     if($params['tipo'] == 'palestras'){
-        //         $eventos = new PalestrasPainel();
-        //         $eventos = $eventos->getPalestrasList()->getResult();
-        //     }
-        // }
+        if($params['tipo'] == 'palestras'){
+            $eventos = new PalestrasPainel();
+            $eventos = $eventos->getPalestrasList()->getResult();
+        }
+        if($params['tipo'] == 'patrocinios'){
+            $eventos = new PatrociniosPainel();
+            $eventos = $eventos->getPatrocinios($fornecedor['id'])->getResult();
+        }
 
         $model = new OrcamentosPainel();
         $arquivos = $model->getOrcamentosArquivos($params['id'], $params['id_edit'])->getResult();

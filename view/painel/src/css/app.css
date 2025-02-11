@@ -3675,6 +3675,9 @@ body:after {
   align-content: center;
   align-items: center;
 }
+.select2-results__option {
+  text-transform: uppercase;
+}
 .select2-container--default .select2-selection--multiple {
   padding-bottom: 0 !important;
   padding-right: 0 !important;

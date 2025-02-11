@@ -212,32 +212,19 @@ $(document).ready(function () {
     $('#id_evento').select2({
         dropdownAutoWidth: true,
         width: '100%',
-        tabindex: -1,
-        ajax: {
-            transport: function (params, success, failure) {
-                var tipo = $('#id_evento').data('tipo');
-                params.url = DOMAIN + '/painel/contratos/'+tipo+'/get/terms';
-                var request = $.ajax(params);
-                request.then(success);
-                request.fail(failure);
-                return request;
-            },
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function(obj) {
-                        return { id: obj.id, text: obj.text };
-                    })
-                };
-            }
-        },
-        matcher: function(params, data) {
-            if ($.trim(params.term) === '') return data;
-            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) return data;
-            return null;
+        tabindex: -1
+    });
+
+    $('#tipo_evento').on('change', function(){
+        var novoTipo = $(this).val();
+        var partes = window.location.href.split('/');
+        var indicePainel = partes.indexOf('painel');
+        if(indicePainel !== -1 && partes.length > indicePainel+1){
+          partes[indicePainel+1] = novoTipo;
+          window.location.href = partes.join('/');
         }
-    });      
+    });
+
     
     $('.money').mask("#.##0,00", {reverse: true});
 

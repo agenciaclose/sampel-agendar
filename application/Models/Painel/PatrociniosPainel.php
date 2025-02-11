@@ -9,12 +9,16 @@ use Agencia\Close\Models\Model;
 
 class PatrociniosPainel extends Model
 {
-    public function getPatrocinios(): Read
+    public function getPatrocinios($id_fornecedor = ''): Read
     {
         $where = '';
 
         if(!empty($_GET['ano_patrocinio'])){
             $where .= " AND data_patrocinio_inicio like '%".$_GET['ano_patrocinio']."%'";
+        }
+
+        if($id_fornecedor != ''){
+            $where .= " AND fornecedores.id = '".$id_fornecedor."'";
         }
 
         $read = new Read();
@@ -24,8 +28,11 @@ class PatrociniosPainel extends Model
         (
         IFNULL((SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios'), 0) +
         IFNULL((SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios'), 0)
-        ) AS total_gastos
+        ) AS total_gastos,
+        fornecedores.empresa_fantasia,
+        patrocinios.nome_patrocinio AS title
         FROM patrocinios
+        LEFT JOIN fornecedores ON fornecedores.id = patrocinios.id_fornecedor
         WHERE status_patrocinio = 'Ativo' $where
         ORDER BY nome_patrocinio ASC");
         return $read;

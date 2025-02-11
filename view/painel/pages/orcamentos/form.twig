@@ -82,15 +82,15 @@
 												<div class="mb-1">
 													<label class="control-label">Tipo de Evento</label>
 													<select class="form-control" name="tipo_evento" id="tipo_evento">
-														<option value="fornecedor" {{ orcamento.tipo_evento == 'fornecedor' ? 'selected' }}>Fornecedor</option>
-														<option value="eventos" {{ orcamento.tipo_evento == 'eventos' ? 'selected' }}>Feiras e Eventos</option>
-														{# <option value="patrocinios">Patrocínios</option>
-														<option value="visitas">Visitas</option>
-														<option value="palestras">Palestras</option> #}
+														<option value="fornecedor" {{ tipo == 'fornecedor' ? 'selected' }}>Fornecedor</option>
+														<option value="eventos" {{ tipo == 'eventos' ? 'selected' }}>Feiras e Eventos</option>
+														<option value="patrocinios" {{ tipo == 'patrocinios' ? 'selected' }}>Patrocínios</option>
+														<option value="visitas" {{ tipo == 'visitas' ? 'selected' }}>Visitas</option>
+														<option value="palestras" {{ tipo == 'palestras' ? 'selected' }}>Palestras</option>
 													</select>
 												</div>
 
-												<div class="mb-1">
+												<div class="mb-1 {{ tipo == 'fornecedor' ? 'd-none' }}">
 													<label class="control-label">Evento</label>
 													<select class="form-control" name="id_evento" id="id_evento" data-tipo="eventos">
 														<option value="0">Selecione</option>
