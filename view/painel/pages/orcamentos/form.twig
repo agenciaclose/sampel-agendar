@@ -95,7 +95,7 @@
 													<select class="form-control" name="id_evento" id="id_evento" data-tipo="eventos">
 														<option value="0">Selecione</option>
 														{% for evento in eventos %}
-															<option value="{{ evento.id }}" {{ orcamento.id_evento == evento.id ? 'selected' }}>{{ evento.title != null ? evento.title : evento.nome_evento }}</option>
+															<option value="{{ evento.id }}" {{ orcamento.id_evento == evento.id or dados.id == evento.id ? 'selected' }}>{{ evento.title != null ? evento.title : evento.nome_evento }}</option>
 														{% endfor %}
 													</select>
 												</div>

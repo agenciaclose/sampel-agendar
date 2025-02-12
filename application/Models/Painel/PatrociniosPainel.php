@@ -22,7 +22,7 @@ class PatrociniosPainel extends Model
         }
 
         $read = new Read();
-        $read->FullRead("SELECT *,
+        $read->FullRead("SELECT patrocinios.*,
         (SELECT SUM(valor_orcamento) FROM orcamentos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios') AS total_orcamento,
         (SELECT SUM(valor_total_pedido) FROM pedidos WHERE id_evento = patrocinios.id AND tipo_evento = 'patrocinios') AS total_pedido,
         (
