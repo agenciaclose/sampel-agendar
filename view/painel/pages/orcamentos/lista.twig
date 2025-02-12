@@ -21,7 +21,9 @@
                 {{ tipo }}<span class="text-success">{{ evento.nome_evento }}</span>
                 </h5>
                 <h5 class="card-title">Valor Total: <span class="text-success">R$ {{ valor_total_orcamento|number_format(2, ',', '.') }}</span></h5>
+                {% if dados.tipo == 'patrocinios' %}
                 <a href="{{ DOMAIN }}/painel/{{ dados.tipo }}/orcamento/add/{{ dados.id }}/{{ evento.id_fornecedor }}" class="btn btn-primary fw-bolder"><i class="fa-solid fa-plus"></i> Adicionar Novo</a>
+                {% endif %}
             </div>
         </div>
         <div class="card-body px-1">

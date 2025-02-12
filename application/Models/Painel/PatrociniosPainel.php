@@ -34,7 +34,7 @@ class PatrociniosPainel extends Model
         FROM patrocinios
         LEFT JOIN fornecedores ON fornecedores.id = patrocinios.id_fornecedor
         WHERE status_patrocinio = 'Ativo' $where
-        ORDER BY nome_patrocinio ASC");
+        ORDER BY data_patrocinio_inicio DESC");
         return $read;
     }
 

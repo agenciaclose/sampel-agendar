@@ -27,33 +27,7 @@
             <label for="nome_patrocinio" class="form-label">Nome do Patrocínios:</label>
             <input type="text" class="form-control" id="nome_patrocinio" name="nome_patrocinio" value="{{ patrocinio.nome_patrocinio }}">
         </div>
-
-        <div class="mb-1">
-            <label for="pais_patrocinio" class="form-label">País:</label>
-            <select name="pais_patrocinio" id="pais_patrocinio" class="form-control">
-                {% for pais in paises %}
-                    <option value="{{ pais }}" {{ patrocinio.pais_patrocinio == pais ? 'selected' }}>{{ pais }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="mb-1 cep_patrocinio">
-            <label for="cep_patrocinio" class="form-label">CEP:</label>
-            <input type="text" class="form-control cep" id="cep_patrocinio" name="cep_patrocinio" value="{{ patrocinio.cep_patrocinio }}">
-        </div>
-        <div class="mb-1">
-            <label for="local_patrocinio" class="form-label">Local:</label>
-            <input type="text" class="form-control" id="local_patrocinio" name="local_patrocinio" value="{{ patrocinio.local_patrocinio }}">
-        </div>
-        <div class="row cidade_estado">
-            <div class="mb-1 col-md-6">
-                <label for="cidade_patrocinio" class="form-label">Cidade:</label>
-                <input type="text" class="form-control" id="cidade_patrocinio" name="cidade_patrocinio" value="{{ patrocinio.cidade_patrocinio }}">
-            </div>
-            <div class="mb-1 col-md-6 estado_patrocinio">
-                <label for="estado_patrocinio" class="form-label">Estado:</label>
-                <input type="text" class="form-control" id="estado_patrocinio" name="estado_patrocinio" maxlength="2" value="{{ patrocinio.estado_patrocinio }}">
-            </div>
-        </div>
+        
         <div class="mb-1">
             <label for="data_patrocinio_inicio" class="form-label">Data de Início:</label>
             <input type="date" class="form-control" id="data_patrocinio_inicio" name="data_patrocinio_inicio" value="{{ patrocinio.data_patrocinio_inicio }}">

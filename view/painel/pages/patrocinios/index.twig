@@ -67,23 +67,27 @@
                                         <table class="table dataTable_list">
                                             <thead>
                                                 <tr>
+                                                    <th width="99">Início</th>
                                                     <th>Patrocínios</th>
                                                     <th>Fornecedor</th>
                                                     <th class="text-center">Orçamento</th>
                                                     <th>Local</th>
-                                                    <th class="text-end">Data da Patrocínios</th>
+                                                    <th class="text-end">Data</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for item in patrocinios %}
                                                 <tr>
+                                                    <td class="text-nowrap">
+                                                        <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_inicio | date("d/m/Y") }}</span>
+                                                    </td>
                                                     <td class="ps-1">
                                                         <span class="me-1">
                                                             <a href="{{ DOMAIN }}/painel/patrocinios/orcamento/{{ item.id }}" class="text-success"><i class="fa-solid fa-folder-open" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="" data-bs-original-title="Ver Orçamentos" aria-label="Ver Orçamentos"></i></a>
                                                         </span>
-                                                        <a  data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><b>{{ item.nome_patrocinio }}</b></a>
+                                                        <a data-bs-remote="{{ DOMAIN }}/painel/patrocinios/edit/{{ item.id }}" data-bs-toggle="offcanvas" data-bs-target="#formPadrocinio" class="text-uppercase text-white"><b>{{ item.empresa_fantasia }}</b></a>
                                                     </td>
-                                                    <td>{{ item.empresa_fantasia }}</td>
+                                                    <td class="text-uppercase">{{ item.nome_patrocinio }}</td>
                                                     <td class="bg-success text-black text-center">
                                                         R$ {{ item.total_gastos|number_format(2, ',', '.') }}
                                                     </td>
@@ -95,8 +99,7 @@
                                                         {% endif %}
                                                     </td>
                                                     <td class="text-end">
-                                                        <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_inicio | date("d-m-Y") }}</span>
-                                                        <span class="mx-2"><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_fim | date("d-m-Y") }}</span></span>
+                                                        <span class="mx-2"><i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.data_patrocinio_fim | date("d/m/Y") }}</span></span>
                                                         {% if 'delete' in permissions.patrocinios or permissions == 'all' %}
                                                             <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_patrocinio == 'Ativo' ? 'Inativo' : 'Ativo' }}');"><i class="fa-solid fa-power-off"></i></a>
                                                         {% endif %}
