@@ -210,7 +210,8 @@ class OrcamentosPainel extends Model
         return $update;
     }
 
-    public function getOrcamentosRecorrentes() {
+    public function getOrcamentosRecorrentes()
+    {
         $read = new Read();
         $read->FullRead("SELECT * FROM orcamentos WHERE tipo_pagamento = 'Recorrente'");
         return $read->getResult();
@@ -223,7 +224,15 @@ class OrcamentosPainel extends Model
         return !empty($result) ? $result[0] : null;
     }
 
-    public function inserirNovaParcela($id_orcamento, $numero_parcela, $valor_parcela, $data_parcela) {
+    public function updateDateEventoEnd($id_patrocinio, $novaData)
+    { 
+        $dados_update['data_patrocinio_fim'] = $novaData;
+        $update = new Update();
+        $update->ExeUpdate("patrocinios", $dados_update, "WHERE id = :id_patrocinio", "id_patrocinio={$id_patrocinio}");
+    }
+
+    public function inserirNovaParcela($id_orcamento, $numero_parcela, $valor_parcela, $data_parcela)
+    {
         $create = new Create();
         $dados = [
             'id_orcamento'   => $id_orcamento,

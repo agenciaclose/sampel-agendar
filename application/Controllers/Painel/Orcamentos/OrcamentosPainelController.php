@@ -241,6 +241,10 @@ class OrcamentosPainelController extends Controller
                 $novaData = $this->calcularNovaData($dataParcela);
                 $novoNumero = $ultimaParcela['numero_parcela'] + 1;
                 $valorParcela = $ultimaParcela['valor_parcela']; // ou recalcular se necessário
+
+                if($orcamento['tipo_evento'] == 'patrocinios') {
+                    $model->updateDateEventoEnd($orcamento['id'], $novaData);
+                }
     
                 // Insere nova parcela na tabela orcamentos_parcelas
                 $model->inserirNovaParcela($orcamento['id'], $novoNumero, $valorParcela, $novaData);
