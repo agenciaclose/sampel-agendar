@@ -129,9 +129,18 @@
 										<div class="col-12 col-md-6">
 											<div class="card p-2 parcelas-content">
 
-												<div class="mb-2">
-													<label class="control-label text-success">Valor Total Gasto</label>
-													<input type="text" name="valor_orcamento" class="form-control text-success money" value="{{ orcamento.valor_orcamento }}">
+												<div class="row mb-2">
+													<div class="col-md-6 cold-sm-12">
+														<label class="control-label text-success">Valor Total Gasto</label>
+														<input type="text" name="valor_orcamento" class="form-control text-success money" value="{{ orcamento.valor_orcamento }}">
+													</div>
+													<div class="col-md-6 cold-sm-12">
+														<label class="control-label">Tipo de Pagamento</label>
+														<select class="form-control" name="tipo_pagamento" id="tipo_pagamento">
+															<option value="Fechado">Fechado</option>
+															<option value="Recorrente">Recorrente</option>
+														</select>
+													</div>
 												</div>
 
 												<div class="mb-2">
