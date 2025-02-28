@@ -232,6 +232,11 @@ class OrcamentosPainel extends Model
             'data_parcela'   => $data_parcela
         ];
         $create->ExeCreate("orcamentos_parcelas", $dados);
+
+        // Atualiza a coluna qtd_parcelas com o novo total de parcelas
+        $dados_update['qtd_parcelas'] = $numero_parcela;
+        $update = new Update();
+        $update->ExeUpdate("orcamentos", $dados_update, "WHERE id = :id_orcamento", "id_orcamento={$id_orcamento}");
     }
 
 }
