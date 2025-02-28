@@ -14,3 +14,4 @@ $router->post("/painel/orcamento/remove/{id}", "OrcamentosPainelController:remov
 $router->post("/painel/orcamento/tipo_contrato", "OrcamentosPainelController:tipoContrato");
 
 $router->get("/painel/contratos/eventos/get/terms", "OrcamentosPainelController:getTermsEventos");
+$router->get("/painel/orcamentos/pagamentos/recorrentes/update", "OrcamentosPainelController:verificarPagamentosRecorrentes");

@@ -210,4 +210,28 @@ class OrcamentosPainel extends Model
         return $update;
     }
 
+    public function getOrcamentosRecorrentes() {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM orcamentos WHERE tipo_pagamento = 'Recorrente'");
+        return $read->getResult();
+    }
+
+    public function getUltimaParcela($id_orcamento) {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM orcamentos_parcelas WHERE id_orcamento = :id_orcamento ORDER BY numero_parcela DESC LIMIT 1", "id_orcamento={$id_orcamento}");
+        $result = $read->getResult();
+        return !empty($result) ? $result[0] : null;
+    }
+
+    public function inserirNovaParcela($id_orcamento, $numero_parcela, $valor_parcela, $data_parcela) {
+        $create = new Create();
+        $dados = [
+            'id_orcamento'   => $id_orcamento,
+            'numero_parcela' => $numero_parcela,
+            'valor_parcela'  => $valor_parcela,
+            'data_parcela'   => $data_parcela
+        ];
+        $create->ExeCreate("orcamentos_parcelas", $dados);
+    }
+
 }

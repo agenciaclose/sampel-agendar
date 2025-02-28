@@ -221,4 +221,47 @@ class OrcamentosPainelController extends Controller
         echo json_encode($json);
     }
 
+
+    public function verificarPagamentosRecorrentes() {
+        $model = new OrcamentosPainel();
+        // Busca todos os orçamentos recorrentes
+        $orcamentos = $model->getOrcamentosRecorrentes(); 
+        $hoje = new \DateTime('today');
+    
+        foreach ($orcamentos as $orcamento) {
+            // Busca a última parcela do orçamento
+            $ultimaParcela = $model->getUltimaParcela($orcamento['id']);
+            if (!$ultimaParcela) {
+                continue;
+            }
+    
+            $dataParcela = new \DateTime($ultimaParcela['data_parcela']);
+            if ($dataParcela->format('Y-m-d') === $hoje->format('Y-m-d')) {
+                // Calcula nova data para 1 mês depois (mantendo o mesmo dia se possível)
+                $novaData = $this->calcularNovaData($dataParcela);
+                $novoNumero = $ultimaParcela['numero_parcela'] + 1;
+                $valorParcela = $ultimaParcela['valor_parcela']; // ou recalcular se necessário
+    
+                // Insere nova parcela na tabela orcamentos_parcelas
+                $model->inserirNovaParcela($orcamento['id'], $novoNumero, $valorParcela, $novaData);
+            }
+        }
+    }
+    
+    private function calcularNovaData(\DateTime $dataAtual) {
+        $dia = (int)$dataAtual->format('d');
+        $mes = (int)$dataAtual->format('m') + 1;
+        $ano = (int)$dataAtual->format('Y');
+        if ($mes > 12) {
+            $mes = 1;
+            $ano++;
+        }
+        // Ajusta para meses com menos dias (ex.: fevereiro ou meses sem 31 dias)
+        $ultimoDiaMes = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
+        if ($dia > $ultimoDiaMes) {
+            $dia = $ultimoDiaMes;
+        }
+        return sprintf('%04d-%02d-%02d', $ano, $mes, $dia);
+    }
+
 }
