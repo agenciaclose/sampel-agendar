@@ -108,7 +108,7 @@
                             <div class="card-header py-1 text-uppercase text-white">
                                 <div class="d-flex justify-content-between align-items-center w-100">
                                     <div>Lista de Orçamentos</div>
-                                    <div><a href="{{ DOMAIN }}/painel/fornecedor/orcamento/add/0/{{ fornecedor.id }}" class="btn btn-primary btn-sm">Add Novo</a></div>
+                                    <div><a href="{{ DOMAIN }}/painel/fornecedor/orcamento/add/0/{{ fornecedor.id }}" class="btn btn-primary btn-sm text-black">Add Novo</a></div>
                                 </div>
                             </div>
 
@@ -144,10 +144,14 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="ps-1 text-uppercase">
-                                                    <span class="badge bg-primary"><b>{{ item.tipo_evento }}</b></span>
+                                                    <span class="badge {{ item.ultima_data_parcela|date("Y-m-d") < "now"|date("Y-m-d") ? 'bg-success' : 'bg-primary' }} text-black" 
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top" 
+                                                    data-bs-custom-class="primary-tooltip" 
+                                                    title="{{ item.ultima_data_parcela|date("Y-m-d") < "now"|date("Y-m-d") ? 'Concluído' : 'Em andamento' }}"><b>{{ item.tipo_evento }}</b></span>
                                                 </td>
-                                                <td><span class="badge bg-primary">{{ item.tag_orcamento }}</span></td>
-                                                <td class="text-success text-nowrap text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
+                                                <td><span class="badge bg-warning text-uppercase">{{ item.tag_orcamento }}</span></td>
+                                                <td class="text-success text-nowrap text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.parcelas_pagas }} / {{ item.qtd_parcelas }}">
                                                     R$ {{ item.valor_orcamento|number_format(2, ',', '.') }}
                                                 </td>
                                                 <td class="pe-0 text-end">
@@ -183,17 +187,17 @@
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
-                                                        {{ item.id }} / {{ item.orcamento }}
+                                                        {{ item.id }}
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white">{{ item.id }} / {{ item.orcamento }}</span>
+                                                        <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
-                                                <td><span class="badge bg-primary">{{ item.tag_orcamento }}</span></td>
+                                                <td><span class="badge bg-primary text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                                                 <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela|date("d/m/Y") }}</td>
                                                 <td class="text-end p-1">
-                                                <span class="badge bg-primary">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
+                                                <span class="badge bg-primary text-black">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
                                                 </td>
                                             </tr>
                                             {% endfor %}
@@ -225,17 +229,17 @@
                                                 <td class="p-1">
                                                     {% if 'add' in permissions.contratos or permissions == 'all' %}
                                                     <a href="{{ DOMAIN }}/painel/{{ item.tipo_evento }}/orcamento/edit/{{ item.id_evento }}/{{ item.id }}" class="text-uppercase text-white">
-                                                        {{ item.id }} / {{ item.orcamento }}
+                                                        {{ item.id }}
                                                     </a>
                                                     {% else %}
-                                                        <span class="text-uppercase text-white">{{ item.id }} / {{ item.orcamento }}</span>
+                                                        <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
-                                                <td><span class="badge bg-primary">{{ item.tag_orcamento }}</span></td>
+                                                <td><span class="badge bg-primary text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                                                 <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
                                                 <td class="text-end p-1">
-                                                    <span class="badge bg-primary">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
+                                                    <span class="badge bg-primary text-black">{{ item.numero_parcela }} / {{ item.qtd_parcelas }}</span>
                                                 </td>
                                             </tr>
                                             {% endfor %}
