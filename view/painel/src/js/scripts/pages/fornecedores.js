@@ -75,6 +75,34 @@ $(document).ready(function () {
     
 });
 
+window.deleteFornecedor = function (fornecedor) {
+	Swal.fire({
+		title: "Desativar esse Fornecedor?",
+		text: "Ele será removido dos relatórios.",
+		showCancelButton: true,
+		cancelButtonText: 'Não',
+		confirmButtonText: 'Sim',
+		dangerMode: true,
+	}).then((result) => {
+		if (result.value === true) {
+			var DOMAIN = $('body').data('domain');
+            $.ajax({
+                type: "POST", 
+                async: true,
+                data: {fornecedor: fornecedor},
+                url: DOMAIN + '/painel/contratos/fornecedores/delete',
+                success: function (data) {
+                    if (data == "success") {
+                        window.location.reload();
+                    }else{
+                        alert('ERRO AO ATUALIZADO');
+                    }
+                }
+            });
+		}
+	});
+}
+
 
 window.cnpj_preenche = function (){
     let domain = $('body').data('domain');

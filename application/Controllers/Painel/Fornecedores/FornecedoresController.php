@@ -110,4 +110,12 @@ class FornecedoresController extends Controller
             'total_valor_contratos' => $total_valor_contratos,
         ]);
     }
+
+    public function itemDelete($params)
+    {
+        $this->setParams($params);
+        $delete = new FornecedoresPainel();
+        $delete->deleteFornecedor($params['fornecedor']);
+        echo 'success';
+    }
 }

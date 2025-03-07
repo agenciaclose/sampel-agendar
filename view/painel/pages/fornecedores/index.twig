@@ -93,7 +93,7 @@
                                                         <i class="fa-solid fa-calendar-days"></i> <span class="fw-bold">{{ item.date_create | date("d-m-Y") }}</span>
                                                         <span class="ms-2">
                                                             {% if 'delete' in permissions.fornecedores or permissions == 'all' %}
-                                                                <a href="javascript:void(0)" class="text-danger" onclick="statusEvent('{{ item.id }}', '{{ item.status_fornecedor == 'Ativo' ? 'Inativo' : 'Ativo' }}');"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Desativar"><i class="fa-solid fa-power-off fa-lg"></i></a>
+                                                                <a href="javascript:void(0)" class="text-danger" onclick="deleteFornecedor('{{ item.id }}');"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="primary-tooltip" title="Desativar"><i class="fa-solid fa-power-off fa-lg"></i></a>
                                                             {% endif %}
                                                         </span>
                                                     </td>

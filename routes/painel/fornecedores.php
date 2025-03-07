@@ -9,6 +9,6 @@ $router->get("/painel/contratos/fornecedores/add", "FornecedoresController:itemA
 $router->get("/painel/contratos/fornecedores/edit/{id}", "FornecedoresController:itemEdit");
 $router->post("/painel/contratos/fornecedores/add/save", "FornecedoresController:itemAddSave");
 $router->post("/painel/contratos/fornecedores/edit/save", "FornecedoresController:itemEditave");
-$router->post("/painel/contratos/fornecedores/status", "FornecedoresController:itemStatus");
+$router->post("/painel/contratos/fornecedores/delete", "FornecedoresController:itemDelete");
 
 $router->get("/painel/contratos/fornecedores/find-cnpj", "FornecedoresController:findCNPJ");

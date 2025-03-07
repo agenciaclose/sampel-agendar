@@ -19,20 +19,20 @@ class FornecedoresPainel extends Model
     public function getTerms(): Read
     {
         if(!empty($_GET["q"])){
-            $term = "WHERE empresa_fantasia like '%".$_GET["q"]."%'";
+            $term = " AND empresa_fantasia like '%".$_GET["q"]."%' ";
         }else{
             $term = "";
         }
 
         $read = new Read();
-        $read->FullRead("SELECT * FROM fornecedores $term ORDER BY empresa_fantasia ASC");
+        $read->FullRead("SELECT * FROM fornecedores WHERE `status_fornecedor` = 'Ativo' $term ORDER BY empresa_fantasia ASC");
         return $read;
     }
 
     public function getFornecedorID($id): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM fornecedores WHERE id = :id ORDER BY id DESC", "id={$id}");
+        $read->FullRead("SELECT * FROM fornecedores WHERE id = :id AND `status_fornecedor` = 'Ativo' ORDER BY id DESC", "id={$id}");
         return $read;
     }
 
@@ -84,7 +84,7 @@ class FornecedoresPainel extends Model
             ON 
                 o.id = op.id_orcamento 
             WHERE 
-                o.id_fornecedor = :id 
+                o.id_fornecedor = :id
             ORDER BY 
                 o.date_create DESC", "id={$id}");
                     return $read;
@@ -128,6 +128,13 @@ class FornecedoresPainel extends Model
     {
         $read = new Read();
         $read->FullRead("SELECT SUM(valor_orcamento) AS valor FROM orcamentos WHERE id_fornecedor = :id", "id={$id}");
+        return $read;
+    }
+
+    public function deleteFornecedor($fornecedor): Read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE fornecedores SET `status_fornecedor` = 'Inativo' WHERE id = :id", "id={$fornecedor}");
         return $read;
     }
 
