@@ -11,6 +11,10 @@
   --bs-cyan: #0dcaf0;
   --bs-gray: #6c757d;
 }
+.text-danger {
+  --bs-text-opacity: 1;
+  color: rgb(255 0 24) !important;
+}
 .vh-90 {
   height: 90vh;
 }
