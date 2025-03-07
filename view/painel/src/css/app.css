@@ -3462,6 +3462,7 @@ body:after {
   border-color: #1194dc !important;
   color: #fff;
   padding: 2px 5px;
+  text-transform: uppercase;
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__rendered, .select2-container--default .select2-selection--multiple .select2-selection__rendered {
@@ -3642,7 +3643,6 @@ body:after {
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   background-color: transparent;
-  text-transform: uppercase;
   border: none;
   border-right: none !important;
   border-top-left-radius: 4px;
@@ -3666,6 +3666,7 @@ body:after {
   border: 1px solid #4091de !important;
   padding: 0px 5px 2px 15px !important;
   margin: 0 0px 0 5px !important;
+  text-transform: uppercase;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   top: 2px !important;
