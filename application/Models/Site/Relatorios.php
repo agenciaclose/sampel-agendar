@@ -10,10 +10,19 @@ use Agencia\Close\Models\Model;
 class Relatorios extends Model
 {
 
+    public function getTipoLocal() 
+    {
+        $filtro_tipo = " AND tipo_local = 'Interna' ";
+        if(isset($_GET['t']) && ($_GET['t'] == 'e')){
+            $filtro_tipo = " AND tipo_local = 'Externa' ";
+        }
+        return $filtro_tipo;
+    }
+    
     public function getAnosVisitas(): Read
     {
         $read = new Read();
-        $read->FullRead("SELECT YEAR(data_visita) AS ano FROM visitas WHERE status_visita NOT IN ('Pendente', 'Recusado') GROUP BY ano ORDER BY ano DESC");
+        $read->FullRead("SELECT YEAR(data_visita) AS ano FROM visitas WHERE status_visita NOT IN ('Pendente', 'Recusado') ".$this->getTipoLocal()." GROUP BY ano ORDER BY ano DESC");
         return $read;
     }
 
@@ -23,22 +32,23 @@ class Relatorios extends Model
             $ano = " AND YEAR(data_visita) = '".$ano."' ";
         }
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita not in ('Pendente','Recusado') $ano");
+        $read->FullRead("SELECT * FROM `visitas` WHERE status_visita not in ('Pendente','Recusado') ".$this->getTipoLocal()." $ano");
         return $read;
     }
 
     public function getAllNumeros($ano): Read
     {
         if($ano != ''){
-            $ano = " WHERE YEAR(data_visita) = '".$ano."' ";
+            $ano = " AND YEAR(data_visita) = '".$ano."' ";
         }
+
         $read = new Read();
         $read->FullRead("SELECT
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id) AS total_inscritos,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'Sim') AS total_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND presenca = 'No') AS total_no_confirmados,
         (SELECT COUNT(id) AS total FROM visitas_inscricoes WHERE id_visita = visitas.id AND certificado = 'Sim') AS total_certificados
-        FROM visitas $ano");
+        FROM visitas WHERE status_visita NOT IN ('Pendente', 'Recusado') ".$this->getTipoLocal()." $ano");
         return $read;
     }
 
@@ -50,7 +60,7 @@ class Relatorios extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.setor, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE  vi.setor <> '' $ano
+                        WHERE  vi.setor <> '' ".$this->getTipoLocal()." $ano
                         GROUP BY vi.setor ORDER BY total DESC LIMIT 10");
         return $read;
     }
@@ -64,7 +74,7 @@ class Relatorios extends Model
         $read->FullRead("SELECT u.setor, COUNT(u.setor) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE ve.id_user not in ('26') AND u.tipo = '4' $ano
+                        WHERE ve.id_user not in ('26') AND u.tipo = '4' ".$this->getTipoLocal()." $ano
                         GROUP BY u.setor ORDER BY total DESC");
         return $read;
     }
@@ -77,7 +87,7 @@ class Relatorios extends Model
         $read = new Read();
         $read->FullRead("SELECT vi.id, vi.cidade, vi.estado, COUNT(vi.id) AS total FROM `visitas_inscricoes` AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita
-                        WHERE vi.cidade <> '' $ano
+                        WHERE vi.cidade <> '' ".$this->getTipoLocal()." $ano
                         GROUP BY vi.cidade ORDER BY total DESC");
         return $read;
     }
@@ -91,7 +101,7 @@ class Relatorios extends Model
         $read->FullRead("SELECT u.nome, COUNT(id_user) AS total FROM visitas_equipes AS ve
                         INNER JOIN usuarios AS u ON u.id = ve.id_user
                         INNER JOIN visitas AS v ON v.id = ve.id_visita
-                        WHERE ve.id_user not in ('26') $ano
+                        WHERE ve.id_user not in ('26') ".$this->getTipoLocal()." $ano
                         GROUP BY ve.id_user ORDER BY total DESC");
         return $read;
     }

@@ -28,7 +28,7 @@
 				<div class="card-body">
 
 					<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap">
-						<div>
+						<div class="me-auto">
 							<h5 class="text-warning mb-0"><b>Próximas - Feiras & Eventos</b></h5>
 							<div><b>Aqui você ver e gerencia os Eventos mais recentes.</b></div>
 						</div>
@@ -36,6 +36,9 @@
 						<div>
 							<a href="{{ DOMAIN }}/eventos/add" class="btn btn-warning fw-bold"><i class="fa-solid fa-plus"></i> CRIAR NOVO EVENTO</a>
 						</div>
+						{% endif %}
+						{% if 'view' in permissions.eventos or permissions == 'all' %}
+							<a class="btn btn-primary fw-bold ms-2" href="{{ DOMAIN }}/eventos"><i class="fa-thin fa-lg fa-stars"></i> VER TODOS</a>
 						{% endif %}
 					</div>
 

@@ -11,8 +11,18 @@ use Agencia\Close\Models\Model;
 class Visitas extends Model
 {
 
+    public function getTipoLocal() 
+    {
+        $filtro_tipo = " AND v.tipo_local = 'Interna' ";
+        if(isset($_GET['t']) && ($_GET['t'] == 'e')){
+            $filtro_tipo = " AND v.tipo_local = 'Externa' ";
+        }
+        return $filtro_tipo;
+    }
+
     public function listarVisitas($limit = '999999999'): read
     {
+
         $read = new Read();
         $read->FullRead("SELECT v.*, u.nome, v.id AS visita_id, 
                         (SELECT COUNT(id) FROM visitas_inscricoes WHERE id_visita = v.id) AS total_inscricao,
@@ -21,7 +31,7 @@ class Visitas extends Model
                         (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.id_empresa = :user_id  AND v.`status_visita` <> 'Concluido' ORDER BY v.`data_visita` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
+						WHERE v.id_empresa = :user_id  AND v.`status_visita` <> 'Concluido' ".$this->getTipoLocal()." ORDER BY v.`data_visita` DESC LIMIT $limit", "user_id={$_SESSION['sampel_user_id']}");
         return $read;
     }
 
@@ -35,7 +45,7 @@ class Visitas extends Model
                         (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.`status_visita` = 'Concluido' ORDER BY v.`data_visita` DESC");
+						WHERE v.`status_visita` = 'Concluido' ".$this->getTipoLocal()." ORDER BY v.`data_visita` DESC");
         return $read;
     }
 
@@ -49,7 +59,7 @@ class Visitas extends Model
                         (SELECT p.status_pedido FROM pedidos p WHERE p.tipo_evento = 'visitas' AND p.id_evento = v.id LIMIT 1) AS status_pedido
 						FROM visitas AS v
 						INNER JOIN usuarios AS u ON u.id = v.id_empresa
-						WHERE v.`status_visita` not in ('Concluido', 'Recusado') ORDER BY v.`data_visita` ASC");
+						WHERE v.`status_visita` not in ('Concluido', 'Recusado') ".$this->getTipoLocal()." ORDER BY v.`data_visita` ASC");
         return $read;
     }
 
@@ -394,7 +404,6 @@ class Visitas extends Model
         return $read;
     }
 
-
     public function getFeedbacksPerguntas(): Read
     {
         $read = new Read();
@@ -405,7 +414,10 @@ class Visitas extends Model
     public function getFeedbacksList($pergunta): Read
     {
         $read = new Read();
-        $read->FullRead(" SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback WHERE `pergunta` = :pergunta GROUP BY resposta ORDER BY qtd DESC ", "pergunta={$pergunta}");
+        $read->FullRead("SELECT pergunta, resposta, COUNT(resposta) AS qtd FROM feedback 
+        INNER JOIN visitas AS v ON v.id = feedback.id_visita
+        WHERE `pergunta` = :pergunta ".$this->getTipoLocal()."
+        GROUP BY resposta ORDER BY qtd DESC ", "pergunta={$pergunta}");
         return $read;
     }
 
@@ -452,7 +464,10 @@ class Visitas extends Model
     public function listarGalerias(): read
     {
         $read = new Read();
-        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v INNER JOIN (SELECT vi1.id_visita, vi1.imagem FROM visitas_imagens vi1 WHERE vi1.id = (SELECT vi2.id FROM visitas_imagens vi2 WHERE vi2.id_visita = vi1.id_visita ORDER BY vi2.`order` ASC, vi2.id DESC LIMIT 1)) AS vi ON vi.id_visita = v.id WHERE v.data_visita <= CURRENT_DATE GROUP BY v.id ORDER BY v.data_visita DESC");
+        $read->FullRead("SELECT v.id, v.title, vi.imagem, v.data_visita FROM visitas AS v 
+        INNER JOIN (SELECT vi1.id_visita, vi1.imagem FROM visitas_imagens vi1 WHERE vi1.id = (SELECT vi2.id FROM visitas_imagens vi2 WHERE vi2.id_visita = vi1.id_visita ORDER BY vi2.`order` ASC, vi2.id DESC LIMIT 1)) AS vi ON vi.id_visita = v.id 
+        WHERE v.data_visita <= CURRENT_DATE ".$this->getTipoLocal()."
+        GROUP BY v.id ORDER BY v.data_visita DESC");
         return $read;
     }
 

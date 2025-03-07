@@ -18,21 +18,26 @@
                             </li>
                             
                             {% if _session.sampel_user_id %}
-
-                                {% if 'view' in permissions.eventos or permissions == 'all' %}
-                                <li class="menu-item {{ menu == 'eventos' ? 'current-menu-item' }}">
-                                    <a href="{{ DOMAIN }}/eventos"><i class="fa-thin fa-lg fa-stars"></i> Eventos</a>
+                                {% if 'view' in permissions.visitas or permissions == 'all' %}
+                                <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
+                                    <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas Fabrica</a>
+                                    <ul>
+                                        <li><a href="{{ DOMAIN }}/visitas?t=i">Minhas Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/outras?t=i">Outras Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/concluidas?t=i">Visitas Concluídas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/relatorios?t=i">Relatórios Gerais</a></li>
+                                    </ul>
                                 </li>
                                 {% endif %}
 
                                 {% if 'view' in permissions.visitas or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
-                                    <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas</a>
+                                    <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas Clientes</a>
                                     <ul>
-                                        <li><a href="{{ DOMAIN }}/visitas">Minhas Visitas</a></li>
-                                        <li><a href="{{ DOMAIN }}/visitas/outras">Outras Visitas</a></li>
-                                        <li><a href="{{ DOMAIN }}/visitas/concluidas">Visitas Concluídas</a></li>
-                                        <li><a href="{{ DOMAIN }}/visitas/relatorios">Relatórios Gerais</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas?t=e">Minhas Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/outras?t=e">Outras Visitas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/concluidas?t=e">Visitas Concluídas</a></li>
+                                        <li><a href="{{ DOMAIN }}/visitas/relatorios?t=e">Relatórios Gerais</a></li>
                                     </ul>
                                 </li>
                                 {% endif %}
@@ -63,10 +68,12 @@
                                 {% endif %}
 
                             {% endif %}
-
+                            {% if _session.sampel_user_id == '' %}
                             <li class="menu-item">
                                 <a href="{{ DOMAIN }}/minhas-inscricoes"><i class="fa-light fa-file-certificate"></i> Minhas inscrições</a>
                             </li>
+                            {% endif %}
+
                         </ul>
                     </nav>
 
@@ -86,6 +93,11 @@
                                         </div>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end user-menu" aria-labelledby="dropdown-user">
+                                        {% if _session.sampel_user_id %}
+                                            {% if 'view' in permissions.eventos or permissions == 'all' %}
+                                                <a class="dropdown-item" href="{{ DOMAIN }}/eventos"><i class="fa-thin fa-lg fa-stars"></i> Eventos</a>
+                                            {% endif %}
+                                        {% endif %}
                                         {% if (_session.sampel_user_tipo != 1) %}
                                         <a class="dropdown-item" href="{{ DOMAIN }}/minha-conta"><i class="fa-light fa-user me-1"></i> Minha Conta</a>
                                         <a class="dropdown-item" href="{{ DOMAIN }}/logout"><i class="fa-light fa-right-from-bracket me-1"></i> Sair</a>
