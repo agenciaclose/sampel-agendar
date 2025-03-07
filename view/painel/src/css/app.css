@@ -3642,6 +3642,7 @@ body:after {
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   background-color: transparent;
+  text-transform: uppercase;
   border: none;
   border-right: none !important;
   border-top-left-radius: 4px;

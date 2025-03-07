@@ -197,7 +197,7 @@
                                                         <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
-                                                <td><span class="badge bg-primary text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
+                                                <td><span class="badge bg-warning text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                                                 <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela|date("d/m/Y") }}</td>
                                                 <td class="text-end p-1">
@@ -239,7 +239,7 @@
                                                         <span class="text-uppercase text-white">{{ item.id }}</span>
                                                     {% endif %}
                                                 </td>
-                                                <td><span class="badge bg-primary text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
+                                                <td><span class="badge bg-warning text-black text-uppercase">{{ item.tag_orcamento }}</span></td>
                                                 <td class="text-end p-1 text-nowrap">R$ {{ item.valor_parcela|number_format(2, ',', '.') }}</td>
                                                 <td class="text-end p-1 {{ item.data_parcela < "now"|date("Y-m-d") ? 'text-success' : 'text-danger' }}">{{ item.data_parcela | date("d/m/Y") }}</td>
                                                 <td class="text-end p-1">
