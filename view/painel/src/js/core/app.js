@@ -16,6 +16,7 @@
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
   }
+  
 
   // to remove sm control classes from datatables
   if ($.fn.dataTable) {

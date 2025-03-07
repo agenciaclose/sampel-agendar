@@ -19,7 +19,6 @@ $('[data-bs-toggle="modal-remote"]').on('click', function() {
     }
   });
   $(modal).modal('show');
-
 });
 
 $('#share_link').click(function(){

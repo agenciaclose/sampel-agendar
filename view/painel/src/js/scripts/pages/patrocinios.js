@@ -75,6 +75,7 @@ $(document).ready(function () {
     //offcanvas remote
 	$('[data-bs-toggle="offcanvas"]').on('click', function() {
 		var offcanvas = $(this).attr('data-bs-target');
+        
 		$(offcanvas+' .offcanvas-body').html('');
 		var url = $(this).attr('data-bs-remote');
 		$.ajax({
@@ -90,6 +91,7 @@ $(document).ready(function () {
         dropdownAutoWidth: true,
         width: '100%',
         tabindex: -1,
+        dropdownParent: $('#formPadrocinio'),
         ajax: {
             url: DOMAIN + '/painel/contratos/fornecedores/get/terms',
             dataType: 'json',
