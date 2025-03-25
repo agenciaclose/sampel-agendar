@@ -104,7 +104,7 @@ class PedidosPainel extends Model
         $read = new Read();
         $read->FullRead("SELECT *, ppi.quantidade as qtd_escolhida FROM pedidos_itens AS ppi
                         INNER JOIN produtos AS p ON p.id = ppi.id_produto
-                        WHERE ppi.id_pedido = :id_pedido AND ppi.status_itens = 'S' ORDER BY ppi.`date_create` ASC", "id_pedido={$id_pedido}");
+                        WHERE ppi.id_pedido = :id_pedido AND ppi.status_itens = 'S' ORDER BY p.`nome` ASC", "id_pedido={$id_pedido}");
         return $read;
     }
 
