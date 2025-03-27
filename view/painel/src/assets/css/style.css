@@ -298,12 +298,15 @@ span.ck-file-dialog-button {
 .dt-buttons, .dataTables_length {
     float: left;
 }
+.dt-bootstrap5.no-footer {
+    margin: 0 !important;
+}
 .dt-buttons .dt-button {
     display: inline-block;
     font-weight: 400;
     line-height: 1;
     color: #6e6b7b;
-    margin: 15px 10px 0 0px;
+    margin: 0 10px 0 0px;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;

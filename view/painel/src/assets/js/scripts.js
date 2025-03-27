@@ -101,46 +101,78 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 		  	});
 		}
 
-		if($('.dataTable_list_export').length){
-
-			var pageLength = localStorage.getItem('dataTables_length') ? parseInt(localStorage.getItem('dataTables_length')) : 25;
+		if ($('.dataTable_list_export').length) {
+			var pageLength = localStorage.getItem('dataTables_length') 
+							 ? parseInt(localStorage.getItem('dataTables_length')) 
+							 : 25;
 			$('.dataTable_list').on('length.dt', function(e, settings, len) {
-				localStorage.setItem('dataTables_length', len);
-			});	
-
-		    //DATA TABLES
-		    var table = $('.dataTable_list_export').DataTable({
-		    	"dom": 'Blfrtip',
-		        "buttons": ['excel'],
-				"ordering": false,
-				"bPaginate": true,
-				"lengthMenu": [ [25, 50, 100, 200], [25, 50, 100, 200] ],
-				"pageLength": pageLength,
-				"language": {
-					"sEmptyTable": "Nenhum registro encontrado",
-					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-					"sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-					"sInfoFiltered": "(Filtrados de _MAX_ registros)",
-					"sInfoPostFix": "",
-					"sInfoThousands": ".",
-					"searchPlaceholder": "Pesquisar..",
-					"sLengthMenu": "_MENU_",
-					"sLoadingRecords": "Carregando...",
-					"sProcessing": "Processando...",
-					"sZeroRecords": "Nenhum registro encontrado",
-					"sSearch": "",
-					"oPaginate": {
-						"sNext": "",
-						"sPrevious": "",
-						"sFirst": "Primeiro",
-						"sLast": "Último"
-					},
-			      	"oAria": {
-			        	"sSortAscending": ": Ordenar colunas de forma ascendente",
-			        	"sSortDescending": ": Ordenar colunas de forma descendente"
-			      	}
-			    }
-		  	});
+			  localStorage.setItem('dataTables_length', len);
+			});
+		  
+			$('.dataTable_list_export').DataTable({
+			  dom: 'Blfrtip',
+			  buttons: [
+				'excel',
+				{
+				extend: 'pdfHtml5',
+				text: 'PDF',
+				customize: function (doc) {
+					// Ajusta a largura de todas as colunas
+					const colCount = doc.content[1].table.body[0].length;
+					const widths = [];
+					for (let i = 0; i < colCount; i++) {
+					  widths.push('*');
+					}
+					doc.content[1].table.widths = widths;
+				
+					// Centraliza texto a partir da 3ª coluna
+					doc.content[1].table.body.forEach((row) => {
+					  row.forEach((cell, idx) => {
+						if (idx != 1) {
+						  cell.alignment = 'center';
+						}
+					  });
+					});
+				},
+				exportOptions: {
+					columns: ':visible:not(:last-child)',
+						format: {
+							body: function(data, row, col, node) {
+							$(node).find('ul.dropdown-menu').remove();
+							// Remove múltiplos espaços e quebras de linha
+							return $(node).text().replace(/\s+/g, ' ').trim();
+							}
+						}
+					}
+				}
+			  ],
+			  bPaginate: true,
+			  order: [],
+			  lengthMenu: [[25,50,100,200],[25,50,100,200]],
+			  pageLength: pageLength,
+			  language: {
+				sEmptyTable: "Nenhum registro encontrado",
+				sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+				sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+				sInfoFiltered: "(Filtrados de _MAX_ registros)",
+				searchPlaceholder: "Pesquisar..",
+				sLengthMenu: "_MENU_",
+				sLoadingRecords: "Carregando...",
+				sProcessing: "Processando...",
+				sZeroRecords: "Nenhum registro encontrado",
+				sSearch: "",
+				oPaginate: {
+				  sNext: "",
+				  sPrevious: "",
+				  sFirst: "Primeiro",
+				  sLast: "Último"
+				},
+				oAria: {
+				  sSortAscending: ": Ordenar colunas de forma ascendente",
+				  sSortDescending: ": Ordenar colunas de forma descendente"
+				}
+			  }
+			});
 		}
 		
 	});

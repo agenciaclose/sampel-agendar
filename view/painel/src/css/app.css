@@ -3734,7 +3734,7 @@ table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before
   color: #6e6b7b;
   width: 14px;
   height: 14px;
-  content: 'round';
+  content: '';
   right: 0.3rem;
   top: 0.5rem;
 }
@@ -3747,7 +3747,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
   color: #6e6b7b;
   width: 14px;
   height: 14px;
-  content: 'feather feather-chevron-down';
+  content: '';
   right: 0.3rem;
   top: 1.3rem;
 }
