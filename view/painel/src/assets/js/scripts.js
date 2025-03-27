@@ -133,6 +133,19 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 						}
 					  });
 					});
+
+					doc.pageMargins = [25, 25, 25, 25];
+
+					doc.content[0].margin = [0, 0, 0, 25]; // distância de 25px após o título
+
+					const nameEvent  = $('.name-event').text().trim();
+					const valorTotal = $('.valor-total').text().trim();
+				  
+					doc.content[0].text = [
+					  { text: doc.content[0].text + '\n\n', fontSize: 14 },
+					  { text: `${nameEvent} - ${valorTotal}`, fontSize: 10 }
+					];
+					doc.content[0].margin = [0, 0, 0, 10];
 				},
 				exportOptions: {
 					columns: ':visible:not(:last-child)',
