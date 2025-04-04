@@ -249,18 +249,14 @@ class PedidosPainelController extends Controller
         $password = 'integracao';
     
         $ch = curl_init();
-    
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    
+        curl_setopt($ch, CURLOPT_URL, 'http://187.92.201.2:8180/api/intranet/v1/emitente/3');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, 'integracao:integracao');
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+            echo 'Erro: ' . curl_error($ch);
         }
         curl_close($ch);
-    
         echo $result;
     }
     
