@@ -245,8 +245,8 @@ class PedidosPainelController extends Controller
         $emitenteNome = urlencode($params['emitenteNome']);
         $url = "http://187.92.201.2:8180/api/intranet/v1/emitente/$emitenteNome";
     
-        $username = 'super';
-        $password = 'sampel@sampel';
+        $username = 'integracao';
+        $password = 'integracao';
     
         $ch = curl_init();
     
