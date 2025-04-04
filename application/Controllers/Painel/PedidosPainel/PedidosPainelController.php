@@ -247,29 +247,20 @@ class PedidosPainelController extends Controller
     
         $username = 'integracao';
         $password = 'integracao';
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'User-Agent: insomnia/10.3.1',
-                'Content-Type: application/json',
-                'Authorization: aW50ZWdyYWNhbzppbnRlZ3JhY2Fv',
-                'Cookie: JSESSIONID=01D9498F70F6AE26461444C15C3F57D7'
-            ),
-        ));
-
-        $result = curl_exec($curl);
-
-        curl_close($curl);    
+    
+        $ch = curl_init();
+    
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+    
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+    
         echo $result;
     }
     
