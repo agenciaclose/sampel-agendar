@@ -244,14 +244,26 @@ class PedidosPainelController extends Controller
     {
         $emitenteNome = urlencode($params['emitenteNome']);
         $url = "http://187.92.201.2:8080/api/intranet/v1/emitente/$emitenteNome";
-    
-        $username = 'integracao';
-        $password = 'integracao';
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
+        curl_setopt($ch, CURLOPT_ENCODING, '');
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'User-Agent: insomnia/10.3.1',
+            'Content-Type: application/json',
+            // 'Authorization: Basic aW50ZWdyYWNhbzppbnRlZ3JhY2Fv' // Se for Basic Auth
+            // 'Authorization: Bearer SEU_TOKEN' // Se for Bearer Token
+        ]);
+
+        // Se for Basic Auth, pode usar também:
+        curl_setopt($ch, CURLOPT_USERPWD, 'integracao:integracao');
+
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
             echo 'Erro: ' . curl_error($ch);
