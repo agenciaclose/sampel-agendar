@@ -20,7 +20,7 @@
                             {% if _session.sampel_user_id %}
                                 {% if 'view' in permissions.visitas or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
-                                    <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas Fabrica</a>
+                                    <a href="javascript:void(0);"><i class="fa-thin fa-industry-windows"></i> Fabrica</a>
                                     <ul>
                                         <li><a href="{{ DOMAIN }}/visitas?t=i">Minhas Visitas</a></li>
                                         <li><a href="{{ DOMAIN }}/visitas/outras?t=i">Outras Visitas</a></li>
@@ -32,13 +32,19 @@
 
                                 {% if 'view' in permissions.visitas or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'visitas' ? 'current-menu-item' }}">
-                                    <a href="javascript:void(0);"><i class="fa-sharp fa-thin fa-calendars"></i> Visitas Clientes</a>
+                                    <a href="javascript:void(0);"><i class="fa-thin fa-user-tie"></i> Clientes</a>
                                     <ul>
                                         <li><a href="{{ DOMAIN }}/visitas?t=e">Minhas Visitas</a></li>
                                         <li><a href="{{ DOMAIN }}/visitas/outras?t=e">Outras Visitas</a></li>
                                         <li><a href="{{ DOMAIN }}/visitas/concluidas?t=e">Visitas Concluídas</a></li>
                                         <li><a href="{{ DOMAIN }}/visitas/relatorios?t=e">Relatórios Gerais</a></li>
                                     </ul>
+                                </li>
+                                {% endif %}
+
+                                {% if 'view' in permissions.visitas or permissions == 'all' %}
+                                <li class="menu-item">
+                                    <a href="javascript:void(0);"><i class="fa-thin fa-users-medical"></i> Visitas</a>
                                 </li>
                                 {% endif %}
 
@@ -57,7 +63,7 @@
 
                                 {% if 'view' in permissions.equipes or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'equipes' ? 'current-menu-item' }}">
-                                    <a href="{{ DOMAIN }}/equipes"><i class="fa-thin fa-users"></i> Equipes</a>
+                                    <a href="{{ DOMAIN }}/equipes"><i class="fa-thin fa-people-group"></i> Equipes</a>
                                 </li>
                                 {% endif %}
 
