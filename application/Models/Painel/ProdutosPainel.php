@@ -5,6 +5,7 @@ use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Create;
 use Agencia\Close\Conn\Update;
+use Agencia\Close\Conn\Delete;
 use Agencia\Close\Models\Model;
 
 class ProdutosPainel extends Model
@@ -27,12 +28,9 @@ class ProdutosPainel extends Model
         return $where;
     }
 
-
-
     public function getProdutos(): Read
     {
         $where = $this->getFilter();
-
         $read = new Read();
         $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' $where ORDER BY `nome` ASC");
         return $read;
@@ -89,6 +87,28 @@ class ProdutosPainel extends Model
         return $read;
     }
 
+    public function getVisibilidades()
+    {
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos_visibilidade ORDER BY nome ASC");
+        return $read;
+    }
+
+    public function saveVisibilidadesProduto($id_produto, $visibilidades)
+    {
+        $delete = new Delete();
+        $delete->ExeDelete('produtos_visibilidades', 'WHERE id_produto = :id_produto', "id_produto={$id_produto}");
+        if (!empty($visibilidades)) {
+            $create = new Create();
+            foreach ($visibilidades as $id_visibilidade) {
+                $create->ExeCreate('produtos_visibilidades', [
+                    'id_produto' => $id_produto,
+                    'id_visibilidade' => $id_visibilidade
+                ]);
+            }
+        }
+    }
+
     public function addProductSave($params)
     {   
         if(isset($params['product_imagem'])) {
@@ -99,9 +119,17 @@ class ProdutosPainel extends Model
         }
 
         $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
-
+        if(empty($params['visibilidade_id'])) {
+            $params['visibilidade_id'] = null;
+        }
+        $visibilidades = isset($params['visibilidades']) ? $params['visibilidades'] : [];
+        unset($params['visibilidades']);
         $create = new Create();
         $create->ExeCreate('produtos', $params);
+        $id_produto = $create->getResult();
+        if (!empty($visibilidades)) {
+            $this->saveVisibilidadesProduto($id_produto, $visibilidades);
+        }
         return $create;
     }
 
@@ -118,9 +146,16 @@ class ProdutosPainel extends Model
         unset($params['id']);
 
         $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
-    
+        if(empty($params['visibilidade_id'])) {
+            $params['visibilidade_id'] = null;
+        }
+        $visibilidades = isset($params['visibilidades']) ? $params['visibilidades'] : [];
+        unset($params['visibilidades']);
         $update = new Update();
         $update->ExeUpdate('produtos', $params, 'WHERE id = :id', "id={$id}");
+        if (!empty($visibilidades)) {
+            $this->saveVisibilidadesProduto($id, $visibilidades);
+        }
         return $update;
     }
 
@@ -150,6 +185,22 @@ class ProdutosPainel extends Model
             ORDER BY 
                 total_quantidade DESC", "id_produto={$id_produto}");
         return $itens;
+    }
+
+    public function getProdutosComVisibilidades(): array
+    {
+        $where = $this->getFilter();
+        $read = new Read();
+        $read->FullRead("SELECT * FROM produtos WHERE `status` = 'Ativo' $where ORDER BY `nome` ASC");
+        $produtos = $read->getResult();
+        if ($produtos) {
+            foreach ($produtos as &$produto) {
+                $visRead = new Read();
+                $visRead->FullRead("SELECT v.id, v.nome, v.cor FROM produtos_visibilidades pv JOIN visibilidades v ON v.id = pv.id_visibilidade WHERE pv.id_produto = :id_produto", "id_produto={$produto['id']}");
+                $produto['visibilidades'] = $visRead->getResult() ?: [];
+            }
+        }
+        return $produtos;
     }
 
 }

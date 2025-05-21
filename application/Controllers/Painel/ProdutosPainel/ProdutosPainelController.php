@@ -5,6 +5,7 @@ namespace Agencia\Close\Controllers\Painel\ProdutosPainel;
 use Agencia\Close\Helpers\Upload;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\ProdutosPainel;
+use Agencia\Close\Models\Painel\ProdutosVisibilidade;
 
 class ProdutosPainelController extends Controller
 {
@@ -14,7 +15,19 @@ class ProdutosPainelController extends Controller
         $this->permissions('produtos', '"view"');
 
         $model = new ProdutosPainel();
-        $produtos = $model->getProdutos()->getResult();
+        $produtos = $model->getProdutosComVisibilidades();
+
+        $visibilidade = $_GET['visibilidade'] ?? '';
+        if ($visibilidade) {
+            $produtos = array_filter($produtos, function($produto) use ($visibilidade) {
+                foreach ($produto['visibilidades'] as $v) {
+                    if ($v['nome'] === $visibilidade) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
 
         $valorTotalEstoque = $model->valorTotalEstoqueSemPDV()->getResult()[0];
         $valorTotalEstoquePDV = $model->valorTotalEstoquePDV()->getResult()[0];
@@ -25,16 +38,23 @@ class ProdutosPainelController extends Controller
     public function productAdd($params)
     {
         $this->setParams($params);
-        $this->render('painel/pages/produtos/form.twig', []);
+        $visibilidadeModel = new ProdutosVisibilidade();
+        $visibilidades = $visibilidadeModel->getAll()->getResult();
+        $this->render('painel/pages/produtos/form.twig', ['visibilidades' => $visibilidades, 'product' => ['visibilidades' => []]]);
     }
 
     public function productEdit($params)
     {
         $this->setParams($params);
-
         $produto = new ProdutosPainel();
-        $produto = $produto->getProdutoID($params['id'])->getResult();
-        $this->render('painel/pages/produtos/form.twig', ['product' => $produto[0]]);
+        $product = $produto->getProdutoID($params['id'])->getResult();
+        $visibilidadeModel = new ProdutosVisibilidade();
+        $visibilidades = $visibilidadeModel->getAll()->getResult();
+        // Buscar visibilidades vinculadas
+        $read = new \Agencia\Close\Conn\Read();
+        $read->FullRead("SELECT id_visibilidade FROM produtos_visibilidades WHERE id_produto = :id_produto", "id_produto={$params['id']}");
+        $product[0]['visibilidades'] = array_map(function($v){ return $v['id_visibilidade']; }, $read->getResult() ?: []);
+        $this->render('painel/pages/produtos/form.twig', ['product' => $product[0], 'visibilidades' => $visibilidades]);
     }
 
     public function productAddSave($params)

@@ -1,0 +1,81 @@
+{% extends 'layout/layoutPanel.twig' %}
+{% block title %}Lista de Produtos{% endblock %}
+
+{% block body %}
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h3 class="content-title card-title mb-0">Visibilidades</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form action="{{ DOMAIN }}/painel/produtos/visibilidade/store" method="POST">
+                                    <div class="mb-2">
+                                        <label for="nome" class="form-label"><b>Nome da Visibilidade</b></label>
+                                        <input type="text" name="nome" id="nome" class="form-control" required placeholder="Ex: Público, Privado, Restrito">
+                                        <small class="form-text text-muted">Defina um nome claro para identificar a visibilidade do produto, como 'Público', 'Privado', 'Restrito', etc.</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="cor" class="form-label"><b>Cor de Identificação</b></label>
+                                        <input type="color" name="cor" id="cor" class="form-control w-100" value="#000000" required style="width: 80px; height: 40px;">
+                                        <small class="form-text text-muted">Escolha uma cor para facilitar a visualização e diferenciação desta visibilidade nos produtos.</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary text-black">SALVAR VISIBILIDADE</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header"><b>Visibilidades Cadastradas</b></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="datatable_visibilidades">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Cor</th>
+                                                <th width="150">Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for v in visibilidades %}
+                                            <tr>
+                                                <td>{{ v.nome }}</td>
+                                                <td><span style="background:{{ v.cor }};padding:5px 15px;border-radius:4px;color:#fff">{{ v.cor }}</span></td>
+                                                <td>
+                                                    <a href="{{ DOMAIN }}/painel/produtos/visibilidade/edit/{{ v.id }}" class="btn btn-sm btn-warning">Editar</a>
+                                                    <a href="{{ DOMAIN }}/painel/produtos/visibilidade/delete/{{ v.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                            <tr><td colspan="3">Nenhuma visibilidade cadastrada.</td></tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#datatable_visibilidades').DataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        }
+    });
+});
+</script>
+{% endblock %} 
