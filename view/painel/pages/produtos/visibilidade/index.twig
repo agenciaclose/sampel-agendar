@@ -23,8 +23,18 @@
                                         <small class="form-text text-muted">Defina um nome claro para identificar a visibilidade do produto, como 'Público', 'Privado', 'Restrito', etc.</small>
                                     </div>
                                     <div class="mb-2">
+                                        <label for="cargo" class="form-label"><b>Associar ao Cargo</b></label>
+                                        <select name="cargo" id="cargo" class="form-control">
+                                            <option value="0">Todos os Cargos</option>
+                                            {% for c in cargos %}
+                                                <option value="{{ c.id }}" {% if c.id in editar.cargo %}selected{% endif %}>{{ c.role }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <small class="form-text text-muted">Selecione o cargo que deseja associar a esta visibilidade.</small>
+                                    </div>
+                                    <div class="mb-2">
                                         <label for="cor" class="form-label"><b>Cor de Identificação</b></label>
-                                        <input type="color" name="cor" id="cor" class="form-control w-100" value="#000000" required style="width: 80px; height: 40px;">
+                                        <input type="color" name="cor" id="cor" class="form-control w-100 p-0" value="#000000" required style="width: 80px; height: 40px;">
                                         <small class="form-text text-muted">Escolha uma cor para facilitar a visualização e diferenciação desta visibilidade nos produtos.</small>
                                     </div>
                                     <button type="submit" class="btn btn-primary text-black">SALVAR VISIBILIDADE</button>
@@ -42,6 +52,7 @@
                                             <tr>
                                                 <th>Nome</th>
                                                 <th>Cor</th>
+                                                <th>Cargo</th>
                                                 <th width="150">Ação</th>
                                             </tr>
                                         </thead>
@@ -50,6 +61,13 @@
                                             <tr>
                                                 <td>{{ v.nome }}</td>
                                                 <td><span style="background:{{ v.cor }};padding:5px 15px;border-radius:4px;color:#fff">{{ v.cor }}</span></td>
+                                                <td>
+                                                    {% if v.cargo == 0 %}
+                                                        Todos os Cargos
+                                                    {% else %}
+                                                        {{ v.role }}
+                                                    {% endif %}
+                                                </td>
                                                 <td>
                                                     <a href="{{ DOMAIN }}/painel/produtos/visibilidade/edit/{{ v.id }}" class="btn btn-sm btn-warning">Editar</a>
                                                     <a href="{{ DOMAIN }}/painel/produtos/visibilidade/delete/{{ v.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>

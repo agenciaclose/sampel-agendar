@@ -32,7 +32,16 @@ class ProdutosPainelController extends Controller
         $valorTotalEstoque = $model->valorTotalEstoqueSemPDV()->getResult()[0];
         $valorTotalEstoquePDV = $model->valorTotalEstoquePDV()->getResult()[0];
 
-        $this->render('painel/pages/produtos/index.twig', ['menu' => 'produtos', 'produtos' => $produtos, 'valorTotalEstoque' => $valorTotalEstoque, 'valorTotalEstoquePDV' => $valorTotalEstoquePDV]);
+        $visibilidadeModel = new ProdutosVisibilidade();
+        $todasVisibilidades = $visibilidadeModel->getAll()->getResult();
+
+        $this->render('painel/pages/produtos/index.twig', [
+            'menu' => 'produtos',
+            'produtos' => $produtos,
+            'valorTotalEstoque' => $valorTotalEstoque,
+            'valorTotalEstoquePDV' => $valorTotalEstoquePDV,
+            'todasVisibilidades' => $todasVisibilidades
+        ]);
     }
 
     public function productAdd($params)

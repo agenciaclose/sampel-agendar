@@ -25,6 +25,20 @@ class ProdutosPainel extends Model
             }
 
         }
+
+        // Filtro por visibilidade da role se não for admin
+        $user_tipo = $_SESSION['sampel_user_tipo'] ?? null;
+        $user_id = $_SESSION['sampel_user_tipo'] ?? null;
+        if ($user_tipo != 1 && $user_id) {
+            $where .= " AND produtos.id IN (
+                SELECT pv.id_produto
+                FROM produtos_visibilidades pv
+                JOIN visibilidades v ON v.id = pv.id_visibilidade
+                JOIN usuario_roles ur ON ur.id_role = v.cargo
+                WHERE ur.id_user = {$user_id}
+            )";
+        }
+
         return $where;
     }
 

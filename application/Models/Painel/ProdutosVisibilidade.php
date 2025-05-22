@@ -12,7 +12,9 @@ class ProdutosVisibilidade extends Model
     public function getAll()
     {
         $read = new Read();
-        $read->FullRead("SELECT * FROM visibilidades ORDER BY nome ASC");
+        $read->FullRead("SELECT visibilidades.*, roles.role FROM visibilidades
+        LEFT JOIN roles ON roles.id = visibilidades.cargo
+        ORDER BY nome ASC");
         return $read;
     }
 

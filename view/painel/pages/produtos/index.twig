@@ -28,14 +28,8 @@
                                         <form method="get" id="filtroVisibilidadeForm" class="d-inline">
                                             <select name="visibilidade" class="form-select form-select-sm d-inline w-auto px-2" onchange="this.form.submit()">
                                                 <option value="">Todas as Visibilidades</option>
-                                                {% set visSet = [] %}
-                                                {% for produto in produtos %}
-                                                    {% for v in produto.visibilidades %}
-                                                        {% if v.nome not in visSet %}
-                                                            <option value="{{ v.nome }}" {{ v.nome == _get.visibilidade ? 'selected' : '' }}>{{ v.nome }}</option>
-                                                            {% set _ = visSet.append(v.nome) %}
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                {% for v in todasVisibilidades %}
+                                                    <option value="{{ v.nome }}" {{ v.nome == _get.visibilidade ? 'selected' : '' }}>{{ v.nome }}</option>
                                                 {% endfor %}
                                             </select>
                                         </form>

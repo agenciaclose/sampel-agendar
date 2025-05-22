@@ -3,6 +3,8 @@ namespace Agencia\Close\Controllers\Painel\ProdutosPainel;
 
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\ProdutosVisibilidade;
+use Agencia\Close\Models\Painel\CargosPainel;
+
 
 class ProdutosVisibilidadeController extends Controller
 {
@@ -11,7 +13,11 @@ class ProdutosVisibilidadeController extends Controller
         $this->setParams($params);
         $model = new ProdutosVisibilidade();
         $visibilidades = $model->getAll()->getResult();
-        $this->render('painel/pages/produtos/visibilidade/index.twig', ['visibilidades' => $visibilidades]);
+
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+
+        $this->render('painel/pages/produtos/visibilidade/index.twig', ['visibilidades' => $visibilidades, 'cargos' => $cargos]);
     }
 
     public function create($params)
@@ -36,7 +42,10 @@ class ProdutosVisibilidadeController extends Controller
         $editar = $model->getById($params['id'])->getResult()[0];
         $visibilidades = $model->getAll()->getResult();
 
-        $this->render('painel/pages/produtos/visibilidade/form.twig', ['editar' => $editar, 'visibilidades' => $visibilidades]);
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+
+        $this->render('painel/pages/produtos/visibilidade/form.twig', ['editar' => $editar, 'visibilidades' => $visibilidades, 'cargos' => $cargos]);
     }
 
     public function update($params)
