@@ -31,7 +31,7 @@ class ProdutosEmailService
         $email->setBody('email/produtos/novo_pedido.twig', $dados);
         // Buscar emails configurados
         $emailsPainel = new EmailsPainel();
-        $config = $emailsPainel->getByTipo('novo_pedido')->getResultSingle();
+        $config = $emailsPainel->getByTipo('novo_pedido');
         if ($config && !empty($config['lista_emails'])) {
             $lista = explode(',', $config['lista_emails']);
             foreach ($lista as $mail) {

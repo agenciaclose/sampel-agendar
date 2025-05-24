@@ -11,11 +11,11 @@ class EmailsPainel extends Model
     protected $table = 'config_emails';
 
   
-    public function getByTipo($tipo): Read
+    public function getByTipo($tipo)
     {
         $read = new Read();
         $read->FullRead("SELECT * FROM {$this->table} WHERE email_tipo = :tipo LIMIT 1", "tipo={$tipo}");
-        return $read;
+        return $read->getResultSingle();
     }
 
     public function salvar($tipo, $lista_emails)
