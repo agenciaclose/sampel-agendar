@@ -6,6 +6,7 @@ use Agencia\Close\Helpers\Upload;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\ProdutosPainel;
 use Agencia\Close\Models\Painel\ProdutosVisibilidade;
+use Agencia\Close\Services\Email\ProdutosEmailService;
 
 class ProdutosPainelController extends Controller
 {

@@ -42,6 +42,14 @@ class EmailAdapter
     {
         //$this->mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
         $this->mail->addAddress($email); //Name is optional
+
+        // $emails = explode(',', $email);
+        // foreach ($emails as $mail) {
+        //     $mail = trim($mail);
+        //     if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        //         $this->mail->addAddress($mail);
+        //     }
+        // }
     }
 
     public function setSubject($subject)

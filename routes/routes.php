@@ -171,6 +171,7 @@ $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar");
 $router->post("/painel/equipe/editarSave", "EquipesController:editarSave");
 
+
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
 $router->get("/{errorCode}", "ErrorController:show", 'error');

@@ -7,6 +7,7 @@ use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PedidosPainel;
 use Agencia\Close\Models\Painel\ProdutosPainel;
 use Agencia\Close\Models\Painel\EquipesPainel;
+use Agencia\Close\Services\Email\ProdutosEmailService;
 
 class PedidosPainelController extends Controller
 {
@@ -165,8 +166,17 @@ class PedidosPainelController extends Controller
         $this->setParams($params);
         $model = new PedidosPainel();
         $save = $model->addPedidoSave($params);
+
+        //FAZ O ENVIO DO EMAIL
         if($save === 'success'){
-           echo '1'; 
+            // Buscar o último pedido criado
+            $ultimoPedido = $model->getUltimoPedidoID();
+            if ($ultimoPedido->getResult()) {
+                $id_pedido = $ultimoPedido->getResultSingle()['id'];
+                $emailService = new ProdutosEmailService();
+                $emailService->enviarNovoPedido(['id_pedido' => $id_pedido]);
+            }
+            echo '1';
         }
     }
 

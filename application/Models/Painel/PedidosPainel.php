@@ -533,4 +533,11 @@ class PedidosPainel extends Model
         return $itens;
     }
 
+    public function getUltimoPedidoID()
+    {
+        $read = new Read();
+        $read->FullRead("SELECT id FROM pedidos ORDER BY id DESC LIMIT 1");
+        return $read;
+    }
+
 }

@@ -1,0 +1,36 @@
+{% extends "layout/layoutPanel.twig" %}
+
+{% block title %}Configuração de E-mails{% endblock %}
+
+{% block body %}
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row"></div>
+        <div class="content-body">
+            <section>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="mb-0">Configuração de E-mails para Novos Pedidos</h4>
+                      </div>
+                      <div class="card-body">
+                        <form method="post" action="{{ DOMAIN }}/painel/configuracoes/emails/salvar">
+                          <div class="form-group my-2">
+                            <label for="lista_emails">E-mails para notificação de novos pedidos</label>
+                            <input type="text" class="form-control tagsinput" id="lista_emails" name="lista_emails" value="{{ lista_emails|e }}" data-role="tagsinput" placeholder="Digite os e-mails separados por vírgula">
+                            <small class="form-text text-muted">Separe os e-mails por vírgula. Exemplo: email1@dominio.com, email2@dominio.com</small>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %} 
