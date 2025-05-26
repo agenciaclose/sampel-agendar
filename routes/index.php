@@ -25,6 +25,7 @@ require  __DIR__ . '/painel/dashboard/contratos.php';
 require  __DIR__ . '/painel/dashboard/visitas.php';
 require  __DIR__ . '/painel/importar.php';
 require  __DIR__ . '/painel/fornecedores.php';
+require  __DIR__ . '/painel/emails.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");

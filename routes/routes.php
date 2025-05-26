@@ -171,12 +171,6 @@ $router->post("/painel/equipe/cadastro", "EquipesController:cadastroSave");
 $router->get("/painel/equipe/editar/{id}", "EquipesController:editar");
 $router->post("/painel/equipe/editarSave", "EquipesController:editarSave");
 
-// PAINEL CONFIGURAÇÃO DE EMAILS
-$router->namespace("Agencia\Close\Controllers\Painel\Config");
-$router->get("/painel/configuracoes/emails", "EmailsController:index");
-$router->post("/painel/configuracoes/emails/salvar", "EmailsController:salvar");
-
-
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
 $router->get("/{errorCode}", "ErrorController:show", 'error');
