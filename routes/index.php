@@ -31,7 +31,10 @@ require  __DIR__ . '/painel/configEmails.php';
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
 $router->get("/{errorCode}", "ErrorController:show", 'error');
 
-$router->dispatch();
-if ($router->error()) {
-    echo "Página não encontrada.";
-}
+var_dump($router);
+die();
+
+// $router->dispatch();
+// if ($router->error()) {
+//     echo "Página não encontrada.";
+// }
