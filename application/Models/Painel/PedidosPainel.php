@@ -205,25 +205,25 @@ class PedidosPainel extends Model
             $qtd_caixa = $params['qtd_caixa'];
         }
 
-        if($params['emitente_codigo'] != ''){
+        if (isset($params['emitente_codigo']) && $params['emitente_codigo'] != '') {
             $emitente_codigo = $params['emitente_codigo'];
         }
-        if($params['emitente_nome'] != ''){
+        if (isset($params['emitente_nome']) && $params['emitente_nome'] != '') {
             $emitente_nome = $params['emitente_nome'];
         }
-        if($params['emitente_cep'] != ''){
+        if (isset($params['emitente_cep']) && $params['emitente_cep'] != '') {
             $emitente_cep = $params['emitente_cep'];
         }
-        if($params['emitente_endereco'] != ''){
+        if (isset($params['emitente_endereco']) && $params['emitente_endereco'] != '') {
             $emitente_endereco = $params['emitente_endereco'];
         }
-        if($params['emitente_bairrro'] != ''){
+        if (isset($params['emitente_bairrro']) && $params['emitente_bairrro'] != '') {
             $emitente_bairrro = $params['emitente_bairrro'];
         }
-        if($params['emitente_cidade'] != ''){
+        if (isset($params['emitente_cidade']) && $params['emitente_cidade'] != '') {
             $emitente_cidade = $params['emitente_cidade'];
         }
-        if($params['emitente_estado'] != ''){
+        if (isset($params['emitente_estado']) && $params['emitente_estado'] != '') {
             $emitente_estado = $params['emitente_estado'];
         }
 
@@ -326,25 +326,25 @@ class PedidosPainel extends Model
             $qtd_caixa = $params['qtd_caixa'];
         }
         
-        if($params['emitente_codigo'] != ''){
+        if (isset($params['emitente_codigo']) && $params['emitente_codigo'] != '') {
             $emitente_codigo = $params['emitente_codigo'];
         }
-        if($params['emitente_nome'] != ''){
+        if (isset($params['emitente_nome']) && $params['emitente_nome'] != '') {
             $emitente_nome = $params['emitente_nome'];
         }
-        if($params['emitente_cep'] != ''){
+        if (isset($params['emitente_cep']) && $params['emitente_cep'] != '') {
             $emitente_cep = $params['emitente_cep'];
         }
-        if($params['emitente_endereco'] != ''){
+        if (isset($params['emitente_endereco']) && $params['emitente_endereco'] != '') {
             $emitente_endereco = $params['emitente_endereco'];
         }
-        if($params['emitente_bairrro'] != ''){
+        if (isset($params['emitente_bairrro']) && $params['emitente_bairrro'] != '') {
             $emitente_bairrro = $params['emitente_bairrro'];
         }
-        if($params['emitente_cidade'] != ''){
+        if (isset($params['emitente_cidade']) && $params['emitente_cidade'] != '') {
             $emitente_cidade = $params['emitente_cidade'];
         }
-        if($params['emitente_estado'] != ''){
+        if (isset($params['emitente_estado']) && $params['emitente_estado'] != '') {
             $emitente_estado = $params['emitente_estado'];
         }
 
