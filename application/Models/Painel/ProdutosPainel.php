@@ -33,9 +33,9 @@ class ProdutosPainel extends Model
             $where .= " AND produtos.id IN (
                 SELECT pv.id_produto
                 FROM produtos_visibilidades pv
-                JOIN visibilidades v ON v.id = pv.id_visibilidade
-                JOIN usuario_roles ur ON ur.id_role = v.cargo
-                WHERE ur.id_user = {$user_id}
+                LEFT JOIN visibilidades v ON v.id = pv.id_visibilidade
+                LEFT JOIN usuario_roles ur ON ur.id_role = v.cargo
+                WHERE v.cargo = 0 OR ur.id_user = {$user_id}
             )";
         }
 
