@@ -133,11 +133,15 @@ class ProdutosPainel extends Model
         }
 
         $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
+
         if(empty($params['visibilidade_id'])) {
             $params['visibilidade_id'] = null;
         }
+        unset($params['visibilidade_id']);
+
         $visibilidades = isset($params['visibilidades']) ? $params['visibilidades'] : [];
         unset($params['visibilidades']);
+
         $create = new Create();
         $create->ExeCreate('produtos', $params);
         $id_produto = $create->getResult();
@@ -160,9 +164,7 @@ class ProdutosPainel extends Model
         unset($params['id']);
 
         $params['preco'] = str_replace(',', '.', str_replace('.', '', $params['preco']));
-        if(empty($params['visibilidade_id'])) {
-            $params['visibilidade_id'] = null;
-        }
+        if(empty($params['visibilidade_id'])) { unset($params['visibilidade_id']); }
         $visibilidades = isset($params['visibilidades']) ? $params['visibilidades'] : [];
         unset($params['visibilidades']);
         $update = new Update();
