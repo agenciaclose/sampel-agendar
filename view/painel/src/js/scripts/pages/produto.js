@@ -32,7 +32,7 @@ $(document).ready(function () {
                 if (data == "1") {
                     swal({type: 'success', title: 'Salvo com sucesso', showConfirmButton: false, timer: 2000});
                     setTimeout(function(){
-                       // window.location.reload();
+                       window.location.reload();
                     }, 2000);
                     $('.form-load').removeClass('show');
                 } else {
