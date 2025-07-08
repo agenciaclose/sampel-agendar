@@ -28,14 +28,15 @@ class ProdutosPainel extends Model
 
         // Filtro por visibilidade da role se não for admin
         $user_tipo = $_SESSION['sampel_user_tipo'] ?? null;
-        $user_id = $_SESSION['sampel_user_tipo'] ?? null;
+        $user_id = $_SESSION['sampel_user_id'] ?? null;
         if ($user_tipo != 1 && $user_id) {
             $where .= " AND produtos.id IN (
                 SELECT pv.id_produto
                 FROM produtos_visibilidades pv
                 LEFT JOIN visibilidades v ON v.id = pv.id_visibilidade
-                LEFT JOIN usuario_roles ur ON ur.id_role = v.cargo
-                WHERE v.cargo = 0 OR ur.id_user = {$user_id}
+                LEFT JOIN visibilidades_cargos vc ON vc.id_visibilidade = v.id
+                LEFT JOIN usuario_roles ur ON ur.id_role = vc.id_cargo
+                WHERE vc.id_cargo IS NULL OR ur.id_user = {$user_id}
             )";
         }
 

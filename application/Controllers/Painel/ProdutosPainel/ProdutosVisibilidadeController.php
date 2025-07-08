@@ -23,13 +23,21 @@ class ProdutosVisibilidadeController extends Controller
     public function create($params)
     {
         $this->setParams($params);
-        $this->render('painel/pages/produtos/visibilidade/form.twig', []);
+        $cargos = new CargosPainel();
+        $cargos = $cargos->getCargosList()->getResult();
+        $this->render('painel/pages/produtos/visibilidade/form.twig', ['cargos' => $cargos]);
     }
 
     public function store($params)
     {
         $this->setParams($params);
         $model = new ProdutosVisibilidade();
+        
+        // Converter cargos para array se não for
+        if (isset($params['cargos']) && !is_array($params['cargos'])) {
+            $params['cargos'] = [$params['cargos']];
+        }
+        
         $model->create($params);
         header('Location: ' . DOMAIN . '/painel/produtos/visibilidade');
         exit;
@@ -40,12 +48,18 @@ class ProdutosVisibilidadeController extends Controller
         $this->setParams($params);
         $model = new ProdutosVisibilidade();
         $editar = $model->getById($params['id'])->getResult()[0];
-        $visibilidades = $model->getAll()->getResult();
+        
+        // Converter string de cargos para array
+        if (isset($editar['cargos_ids']) && !empty($editar['cargos_ids'])) {
+            $editar['cargos_ids'] = explode(',', $editar['cargos_ids']);
+        } else {
+            $editar['cargos_ids'] = [];
+        }
 
         $cargos = new CargosPainel();
         $cargos = $cargos->getCargosList()->getResult();
 
-        $this->render('painel/pages/produtos/visibilidade/form.twig', ['editar' => $editar, 'visibilidades' => $visibilidades, 'cargos' => $cargos]);
+        $this->render('painel/pages/produtos/visibilidade/form.twig', ['editar' => $editar, 'cargos' => $cargos]);
     }
 
     public function update($params)
@@ -54,6 +68,12 @@ class ProdutosVisibilidadeController extends Controller
         $model = new ProdutosVisibilidade();
         $id = $params['id'];
         unset($params['id']);
+        
+        // Converter cargos para array se não for
+        if (isset($params['cargos']) && !is_array($params['cargos'])) {
+            $params['cargos'] = [$params['cargos']];
+        }
+        
         $model->update($id, $params);
         header('Location: ' . DOMAIN . '/painel/produtos/visibilidade');
         exit;

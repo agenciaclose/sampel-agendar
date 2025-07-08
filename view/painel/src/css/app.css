@@ -3624,7 +3624,7 @@ body:after {
     max-width: 360px;
 }
 .dark-layout .select2-container .select2-selection, .dark-layout .select2-container .select2-search__field, .dark-layout .select2-container .select2-selection__placeholder {
-  background: #222529;
+  background: transparent;
   border-color: #3b4253;
   color: #b4b7bd;
 }
@@ -3676,7 +3676,6 @@ body:after {
   top: 2px !important;
 }
 .select2-container .select2-selection--multiple .select2-selection__rendered {
-  display: inline-flex !important;
   margin: 0;
   align-content: center;
   align-items: center;

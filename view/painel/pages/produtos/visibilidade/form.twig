@@ -23,14 +23,13 @@
                                         <small class="form-text text-muted">Defina um nome claro para identificar a visibilidade do produto, como 'Público', 'Privado', 'Restrito', etc.</small>
                                     </div>
                                     <div class="mb-2">
-                                        <label for="cargo" class="form-label"><b>Associar ao Cargo</b></label>
-                                        <select name="cargo" id="cargo" class="form-control">
-                                            <option value="0">Todos os Cargos</option>
+                                        <label for="cargos" class="form-label"><b>Associar aos Cargos</b></label>
+                                        <select name="cargos[]" id="cargos" class="form-control select2" multiple="multiple" data-placeholder="Selecione os cargos">
                                             {% for c in cargos %}
-                                                <option value="{{ c.id }}" {% if c.id in editar.cargo %}selected{% endif %}>{{ c.role }}</option>
+                                                <option value="{{ c.id }}" {% if c.id in editar.cargos_ids %}selected{% endif %}>{{ c.role }}</option>
                                             {% endfor %}
                                         </select>
-                                        <small class="form-text text-muted">Selecione o cargo que deseja associar a esta visibilidade.</small>
+                                        <small class="form-text text-muted">Selecione um ou mais cargos que terão acesso a esta visibilidade. Deixe vazio para todos os cargos.</small>
                                     </div>
                                     <div class="mb-2">
                                         <label for="cor" class="form-label"><b>Cor de Identificação</b></label>
@@ -52,7 +51,7 @@
                                             <tr>
                                                 <th>Nome</th>
                                                 <th>Cor</th>
-                                                <th>Cargo</th>
+                                                <th>Cargos</th>
                                                 <th width="150">Ação</th>
                                             </tr>
                                         </thead>
@@ -62,19 +61,21 @@
                                                 <td>{{ v.nome }}</td>
                                                 <td><span style="background:{{ v.cor }};padding:5px 15px;border-radius:4px;color:#fff">{{ v.cor }}</span></td>
                                                 <td>
-                                                    {% if v.cargo == 0 %}
-                                                        Todos os Cargos
+                                                    {% if v.cargos_nomes %}
+                                                        {{ v.cargos_nomes|replace({',' : ', '}) }}
                                                     {% else %}
-                                                        {{ v.role }}
+                                                        <span class="text-muted">Todos os Cargos</span>
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ DOMAIN }}/painel/produtos/visibilidade/edit/{{ v.id }}" class="btn btn-sm btn-warning">Editar</a>
-                                                    <a href="{{ DOMAIN }}/painel/produtos/visibilidade/delete/{{ v.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ DOMAIN }}/painel/produtos/visibilidade/edit/{{ v.id }}" class="btn btn-sm btn-warning">Editar</a>
+                                                        <a href="{{ DOMAIN }}/painel/produtos/visibilidade/delete/{{ v.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             {% else %}
-                                            <tr><td colspan="3">Nenhuma visibilidade cadastrada.</td></tr>
+                                            <tr><td colspan="4">Nenhuma visibilidade cadastrada.</td></tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>
@@ -87,12 +88,39 @@
         </div>
     </div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+<style>
+.select2-container--bootstrap4 .select2-selection--multiple {
+    min-height: 38px;
+    padding: 4px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #23272b;
+}
+.select2-container--bootstrap4 .select2-selection__choice {
+    color: #fff !important;
+    background: #007bff;
+}
+.select2-container--bootstrap4 .select2-selection__choice__remove {
+    color: #fff !important;
+    margin-right: 4px;
+}
+.select2-container--bootstrap4 .select2-search--inline .select2-search__field {
+    color: #fff !important;
+}
+.select2-container {
+    z-index: 9999 !important;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#datatable_visibilidades').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        }
+    $('.select2').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        placeholder: $(this).data('placeholder') || 'Selecione os cargos',
+        allowClear: true
     });
 });
 </script>
