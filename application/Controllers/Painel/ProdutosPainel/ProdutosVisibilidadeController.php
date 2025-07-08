@@ -59,7 +59,14 @@ class ProdutosVisibilidadeController extends Controller
         $cargos = new CargosPainel();
         $cargos = $cargos->getCargosList()->getResult();
 
-        $this->render('painel/pages/produtos/visibilidade/form.twig', ['editar' => $editar, 'cargos' => $cargos]);
+        // Buscar todas as visibilidades cadastradas
+        $visibilidades = $model->getAll()->getResult();
+
+        $this->render('painel/pages/produtos/visibilidade/form.twig', [
+            'editar' => $editar,
+            'cargos' => $cargos,
+            'visibilidades' => $visibilidades
+        ]);
     }
 
     public function update($params)
