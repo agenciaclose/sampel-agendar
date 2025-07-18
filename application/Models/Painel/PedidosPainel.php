@@ -470,14 +470,14 @@ class PedidosPainel extends Model
     public function getPedidosTransportadoras()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido in ('5', '6') AND ativo = 'S'");
+        $itens->FullRead("SELECT * FROM pedidos WHERE status_pedido in ('5', '6', '11') AND ativo = 'S'");
         return $itens;
     }
 
     public function getPedidosTransportadorasTotal()
     {
         $itens = new Read();
-        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido in ('5', '6') AND ativo = 'S'");
+        $itens->FullRead("SELECT SUM(valor_total_pedido) as valor_total_pedido FROM pedidos WHERE status_pedido in ('5', '6', '11') AND ativo = 'S'");
         return $itens;
     }
 

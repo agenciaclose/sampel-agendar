@@ -4670,6 +4670,11 @@ img.fancybox__image {
   color: #ea5455 !important
 }
 
+.bg-label-pink {
+  background-color: #4a2f4a !important;
+  color: #d63384 !important
+}
+
 .bg-label-light {
   background-color: #32364c !important;
   color: #44475b !important
@@ -4732,6 +4737,16 @@ img.fancybox__image {
 
 .bg-label-hover-danger:hover {
   background-color: #ea5455 !important;
+  color: #fff !important
+}
+
+.bg-label-hover-pink {
+  background-color: #4a2f4a !important;
+  color: #d63384 !important
+}
+
+.bg-label-hover-pink:hover {
+  background-color: #d63384 !important;
   color: #fff !important
 }
 

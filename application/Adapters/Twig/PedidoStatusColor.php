@@ -27,6 +27,7 @@ class PedidoStatusColor extends AbstractExtension
             case '7': $return = 'blue'; break;
             case '8': $return = 'teal'; break;
             case '10': $return = 'cyan'; break;
+            case '11': $return = 'pink'; break;
         }
 
         return $return;
