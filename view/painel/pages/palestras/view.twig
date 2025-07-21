@@ -124,6 +124,11 @@
                                                 <th>Nome</th>
                                                 <th>Email</th>
                                                 <th>Telefone</th>
+                                                <th class="d-none">CPF</th>
+                                                <th class="d-none">Empresa</th>
+                                                <th class="d-none">Cargo</th>
+                                                <th class="d-none">Cidade</th>
+                                                <th class="d-none">Estado</th>
                                                 <th width="25" class="text-end">Ações</th>
                                             </tr>
                                         </thead>
@@ -141,6 +146,11 @@
 													<td class="ps-0">
 														{{ lista.telefone }}
 													</td>
+                                                    <td class="d-none">{{ lista.cpf }}</td>
+                                                    <td class="d-none">{{ lista.empresa }}</td>
+                                                    <td class="d-none">{{ lista.cargo }}</td>
+                                                    <td class="d-none">{{ lista.cidade }}</td>
+                                                    <td class="d-none">{{ lista.estado }}</td>
 
 													<td class="text-end pe-0">
 														<div class="d-flex justify-content-between" style="margin-top: 5px;">
