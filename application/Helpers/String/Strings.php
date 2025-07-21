@@ -2,6 +2,9 @@
 
 namespace Agencia\Close\Helpers\String;
 
+use Agencia\Close\Conn\Conn;
+use Agencia\Close\Conn\Read;
+
 class Strings
 {
     public static function removePreposition(string $preposition)
@@ -46,8 +49,12 @@ class Strings
          return "('" . implode("','", $arrayString) . "')";
     }
 
-    public static function buscarEndereco(string $cep): string
+    public static function buscarEnderecoComCache(string $cep, $id, $endereco = ''): string
     {
+        // Se já tem endereço salvo, retorna ele
+        if (!empty($endereco)) {
+            return $endereco;
+        }
         $cep = preg_replace('/[^0-9]/', '', $cep);
         if(strlen($cep) != 8) return '';
         $url = "https://viacep.com.br/ws/{$cep}/json/";
@@ -55,12 +62,24 @@ class Strings
         if($response === FALSE) return '';
         $data = json_decode($response, true);
         if(isset($data['erro']) && $data['erro'] === true) return '';
-        $endereco = [];
-        if(!empty($data['logradouro'])) $endereco[] = $data['logradouro'];
-        if(!empty($data['bairro'])) $endereco[] = $data['bairro'];
-        if(!empty($data['localidade'])) $endereco[] = $data['localidade'];
-        if(!empty($data['uf'])) $endereco[] = $data['uf'];
-        return implode(', ', $endereco);
+        $enderecoCompleto = [];
+        if(!empty($data['logradouro'])) $enderecoCompleto[] = $data['logradouro'];
+        if(!empty($data['bairro'])) $enderecoCompleto[] = $data['bairro'];
+        if(!empty($data['localidade'])) $enderecoCompleto[] = $data['localidade'];
+        if(!empty($data['uf'])) $enderecoCompleto[] = $data['uf'];
+        $enderecoStr = implode(', ', $enderecoCompleto);
+        // Salva no banco
+        if (!empty($enderecoStr) && !empty($id)) {
+            Strings::enderecoStr($enderecoStr, $id);
+        }
+        return $enderecoStr;
+    }
+
+    public static function enderecoStr($endereco, $id): Read
+    {
+        $read = new Read();
+        $read->FullRead("UPDATE palestras_participantes SET endereco = :endereco WHERE id = :id", "endereco={$endereco}&id={$id}");
+        return $read;
     }
 
 }

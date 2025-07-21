@@ -47,8 +47,8 @@ class TemplateAdapter
         $this->twig->addExtension(new JsonDecode());
         $this->globals();
 
-        $this->twig->addFilter(new \Twig\TwigFilter('buscarEndereco', function ($cep) {
-            return Strings::buscarEndereco($cep);
+        $this->twig->addFilter(new \Twig\TwigFilter('buscarEnderecoComCache', function ($cep, $id = null, $endereco = '') {
+            return \Agencia\Close\Helpers\String\Strings::buscarEnderecoComCache($cep, $id, $endereco);
         }));
 
         return $this->twig;
