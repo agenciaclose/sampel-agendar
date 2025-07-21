@@ -31,6 +31,26 @@
 						{% else %}
 							<button type="button" class="btn btn-warning px-2 mt-4 me-1" data-bs-toggle="modal" data-bs-target="#sorteio"><i class="fa-light fa-trophy-star"></i> Realizar Sorteio</button>
 						{% endif %}
+						<div class="btn btn-light me-1 mt-1">
+							<a class="text-black" href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}?presenca=Sim" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Confirmados">
+								<i class="fa-solid fa-shield-check fa-lg text-warning"></i>
+							</a>
+						</div>
+						<div class="btn btn-light me-1 mt-1">
+							<a class="text-black" href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}?presenca=No" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Não confirmados">
+								<i class="fa-solid fa-shield fa-lg text-dark"></i>
+							</a>
+						</div>
+						<div class="btn btn-light me-1 mt-1">
+							<a class="text-black" href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}?feedback=Sim" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Com Feedback">
+								<i class="fa-solid fa-message-smile fa-lg text-warning"></i>
+							</a>
+						</div>
+						<div class="btn btn-light me-1 mt-1">
+							<a class="text-black" href="{{ DOMAIN }}/palestras/inscricao/lista/{{ palestra.id }}?feedback=No" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sem Feedback">
+								<i class="fa-solid fa-message-smile fa-lg text-dark"></i>
+							</a>
+						</div>
 					</div>
 					{% endif %}
 				{% endif %}
@@ -54,7 +74,7 @@
 						{% if _session.sampel_user_id == palestra.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
 							<button type="button" data-bs-toggle="modal" data-bs-target="#editar_palestra" class="btn btn-success text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-pen-to-square"></i> Editar Evento</button>
 						{% endif %}
-						<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="btn btn-dark btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
+						<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}" class="btn btn-primary text-black btn-sm rounded-pill me-2 mb-2"><i class="fa-solid fa-user-plus"></i> Inscreva-se</a>
 						<a class="btn btn-warning btn-sm rounded-pill me-2 mb-2" href="{{ DOMAIN }}/palestras/qrcode/{{ palestra.id }}"><i class="fa-solid fa-qrcode"></i> Ver QRCode</a>
 
 						<div class="btn-group dropstart d-block">
@@ -149,21 +169,24 @@
 						<tr>
 							<td class="d-none">{{ palestra.id }}</td>
 							<td class="ps-0 text-uppercase">
-								<span class="d-flex justify-content-start text-nowrap" {{ lista.presenca == 'Sim' ? 'data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}>
-									<div class="ms-2 row">
-										{{ lista.nome }}
-										<div class="d-block d-sm-none p-0">
-											<div class="col-md-6 col-sm-12">
-												<div class="text-lowercase">{{ lista.email }}</div>
-												{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
-												<div>{{ lista.empresa }}</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
-											</div>
+								<div class="ms-2">
+									{{ lista.nome }}
+									<div class="d-flex justify-content-start">
+										<div {{ lista.presenca == 'Sim' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PRESENÇA CONFIRMADA"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="PRESENÇA AINDA NÃO CONFIRMADA"' }}><i class="fa-solid fa-shield-check fa-lg"></i></div>
+										<div {{ lista.feedback != '' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FEEDBACK CONCLUÍDO"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM FEEDBACK"' }}><i class="fa-solid fa-message-smile fa-lg"></i></div>
+										<div {{ lista.certificado == 'Sim' ? 'class="ms-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CERTIFICADO EMITIDO"' : 'class="ms-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="SEM CERTIFICADO"' }}><i class="fa-solid fa-file-certificate fa-lg"></i></div>
+									</div>
+									<div class="d-block d-sm-none p-0">
+										<div class="col-md-6 col-sm-12">
+											<div class="text-lowercase">{{ lista.email }}</div>
+											{% if lista.cidade != '' %}<div>{{ lista.cidade }}, {{ lista.estado }}</div>{% endif %}
+											<div>{{ lista.empresa }}</div>
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<a href="{{ DOMAIN }}/palestras/inscricao/{{ palestra.id }}/{{ lista.id }}?action=success" target="_blank" class="badge bg-warning text-black mt-2"><i class="fa-regular fa-arrow-up-right-from-square"></i> VER INSCRIÇÃO</a>
 										</div>
 									</div>
-								</span>
+								</div>
 							</td>
 							<td class="ps-0 no-mobile text-uppercase">{{ lista.empresa }}</td>
 							<td class="ps-0 no-mobile text-uppercase text-nowrap">{{ lista.telefone }}</td>

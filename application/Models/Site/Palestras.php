@@ -176,21 +176,34 @@ class Palestras extends Model
     {
         $read = new Read();
         if(!empty($_GET['setor'])){
-            $setor = "AND vi.setor = '".$_GET['setor']."'";
+            $setor = "AND pp.setor = '".$_GET['setor']."'";
         }else{
             $setor = "";
         }
 
         if(!empty($_GET['presenca'])){
-            $presenca = "AND vi.presenca = '".$_GET['presenca']."'";
+            $presenca = "AND pp.presenca = '".$_GET['presenca']."'";
         }else{
             $presenca = "";
         }
 
-        $read->FullRead("SELECT pp.*, p.id AS palestra_id FROM palestras_participantes AS pp
-                        INNER JOIN palestras AS p ON p.id = pp.id_palestra
-                        INNER JOIN usuarios AS u ON u.id = p.id_empresa
-                        WHERE p.id_empresa = :user_id  AND p.id = :id_palestra $setor $presenca ORDER BY pp.`data` DESC", "user_id={$id_empresa}&id_palestra={$id_palestra}");
+        // Filtro de feedback
+        if(!empty($_GET['feedback'])){
+            if($_GET['feedback'] == "Sim"){
+                $feedback = "AND (SELECT COUNT(*) FROM feedback_palestra fp WHERE fp.user_codigo = pp.codigo) > 0";
+            }else{
+                $feedback = "AND (SELECT COUNT(*) FROM feedback_palestra fp WHERE fp.user_codigo = pp.codigo) = 0";
+            }
+        }else{
+            $feedback = "";
+        }
+
+        $read->FullRead("SELECT pp.*, p.id AS palestra_id, 
+            (SELECT CASE WHEN COUNT(*) > 0 THEN 'Sim' ELSE '' END FROM feedback_palestra fp WHERE fp.user_codigo = pp.codigo) as feedback
+            FROM palestras_participantes AS pp
+            INNER JOIN palestras AS p ON p.id = pp.id_palestra
+            INNER JOIN usuarios AS u ON u.id = p.id_empresa
+            WHERE p.id_empresa = :user_id  AND p.id = :id_palestra $setor $presenca $feedback ORDER BY pp.`data` DESC", "user_id={$id_empresa}&id_palestra={$id_palestra}");
         return $read;
     }
 

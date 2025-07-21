@@ -1582,9 +1582,12 @@ img.alignright{
   font-size: 15px;
   color: #ffffff;
   text-decoration: none;
-  padding: 0 15px;
+  padding: 0 10px;
   font-weight: 400;
   border-bottom: 3px solid transparent;
+}
+.wbc_menu > li:last-child > a {
+  padding-right: 0;
 }
 
 .wbc_menu ul li a{
@@ -4921,6 +4924,13 @@ span.fr-counter {
   }
   .minhas-inscricoes {
     margin-top: -3rem
+  }
+  .auth-wrapper.auth-basic {
+    min-height: 70vh;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
   }
 }
 
