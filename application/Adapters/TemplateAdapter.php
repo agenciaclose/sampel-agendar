@@ -47,6 +47,10 @@ class TemplateAdapter
         $this->twig->addExtension(new JsonDecode());
         $this->globals();
 
+        $this->twig->addFilter(new \Twig\TwigFilter('buscarEndereco', function ($cep) {
+            return Strings::buscarEndereco($cep);
+        }));
+
         return $this->twig;
     }
 

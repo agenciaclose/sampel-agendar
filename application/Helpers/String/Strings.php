@@ -46,4 +46,21 @@ class Strings
          return "('" . implode("','", $arrayString) . "')";
     }
 
+    public static function buscarEndereco(string $cep): string
+    {
+        $cep = preg_replace('/[^0-9]/', '', $cep);
+        if(strlen($cep) != 8) return '';
+        $url = "https://viacep.com.br/ws/{$cep}/json/";
+        $response = @file_get_contents($url);
+        if($response === FALSE) return '';
+        $data = json_decode($response, true);
+        if(isset($data['erro']) && $data['erro'] === true) return '';
+        $endereco = [];
+        if(!empty($data['logradouro'])) $endereco[] = $data['logradouro'];
+        if(!empty($data['bairro'])) $endereco[] = $data['bairro'];
+        if(!empty($data['localidade'])) $endereco[] = $data['localidade'];
+        if(!empty($data['uf'])) $endereco[] = $data['uf'];
+        return implode(', ', $endereco);
+    }
+
 }

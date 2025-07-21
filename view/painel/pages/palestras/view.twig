@@ -126,6 +126,7 @@
                                                 <th>Telefone</th>
                                                 <th class="d-none">CPF</th>
                                                 <th class="d-none">Empresa</th>
+                                                <th class="d-none">Endereço</th>
                                                 <th class="d-none">Cidade</th>
                                                 <th class="d-none">Estado</th>
                                                 <th width="25" class="text-end">Ações</th>
@@ -147,6 +148,7 @@
 													</td>
                                                     <td class="d-none">{{ lista.cpf }}</td>
                                                     <td class="d-none">{{ lista.empresa }}</td>
+                                                    <td class="d-none">{{ lista.cep|buscarEndereco }}</td>
                                                     <td class="d-none">{{ lista.cidade }}</td>
                                                     <td class="d-none">{{ lista.estado }}</td>
 
