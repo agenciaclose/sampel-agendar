@@ -6,6 +6,7 @@ use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Site\Visitas;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Models\Painel\InscricaoPainel;
+use Agencia\Close\Adapters\EmailAdapter;
 
 use League\Csv\Writer;
 use League\Csv\CannotInsertRecord;
@@ -52,7 +53,39 @@ class VisitasController extends Controller
     {
         $this->setParams($params);
         $visita = new VisitasPainel();
-        $visita = $visita->visitaStatus($params['id'], 'Recusado');
+        $visita->visitaStatus($params['id'], 'Recusado');
+
+        // Buscar dados do evento
+        $visitaModel = new Visitas();
+        $visitaInfo = $visitaModel->listarVisitaID($params['id'])->getResult()[0];
+
+        // Buscar membros da equipe
+        $equipes = $visitaModel->listaEquipesVisita($params['id'])->getResult();
+
+        // Buscar inscritos
+        $inscritos = $visitaModel->listarInscricoes($params['id'])->getResult();
+
+        // Enviar e-mail para membros da equipe
+        foreach ($equipes as $membro) {
+            if (!empty($membro['email'])) {
+                $email = new EmailAdapter();
+                $email->setSubject('EVENTO: ' . $visitaInfo['nome'] . ' CANCELADO');
+                $email->setBody('email/visitas/evento_reprovado.twig', ['visita' => $visitaInfo, 'usuario' => $membro]);
+                $email->addAddress($membro['email']);
+                $email->send('Evento cancelado');
+            }
+        }
+
+        // Enviar e-mail para inscritos
+        foreach ($inscritos as $inscrito) {
+            if (!empty($inscrito['email'])) {
+                $email = new EmailAdapter();
+                $email->setSubject('EVENTO: ' . $visitaInfo['nome'] . ' CANCELADO');
+                $email->setBody('email/visitas/evento_reprovado.twig', ['visita' => $visitaInfo, 'usuario' => $inscrito]);
+                $email->addAddress($inscrito['email']);
+                $email->send('Evento cancelado');
+            }
+        }
     }
 
     public function excluir($params)

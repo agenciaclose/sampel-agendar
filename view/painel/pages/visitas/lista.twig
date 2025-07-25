@@ -37,7 +37,7 @@
                                                     <th>Visita</th>
                                                     <th>Responsável</th>
                                                     <th>Pessoas</th>
-                                                    <th width="175">Status</th>
+                                                    <th width="250">Status</th>
                                                     <th class="text-end">Data da Visita</th>
                                                 </tr>
                                             </thead>
@@ -71,25 +71,29 @@
                                                         <div><small><a href="{{ DOMAIN }}/painel/visita/ver/{{ visita.visita_id }}">Ver lista</a></small></div>
                                                     </td>
                                                     <td>
-                                                        <div>
+                                                        <div class="d-flex align-items-center justify-content-start gap-1 flex-wrap">
                                                             {% if visita.status_visita == 'Concluido' %}
-                                                                <div class="input-group input-group-sm d-flex align-items-center">
+                                                                <div class="d-flex align-items-center">
                                                                     <span class="badge bg-primary text-white text-uppercase">{{ visita.status_visita }}</span>
-                                                                    <span class="input-group-text bg-white text-black border-0 px-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
+                                                                    <span class="input-group-text bg-white text-black border-0 py-0 px-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Comparecimentos"><b>{{ visita.presencas }}/{{ visita.total_inscricao }}</b></span>
                                                                 </div>	
                                                             {% endif %}
                                                             {% if visita.status_visita == 'Aguardando' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Pendente' %}<span class="badge bg-warning text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Aprovado' %}<span class="badge bg-success text-black text-uppercase">{{ visita.status_visita }}</span>{% endif %}
                                                             {% if visita.status_visita == 'Recusado' %}<span class="badge bg-danger text-white text-uppercase">{{ visita.status_visita }}</span>{% endif %}
+                                                            <div class="btn-group dropstart">
+                                                                <button type="button" class="badge bg-secondary border-0 text-white text-uppercase" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="fa-regular fa-cog"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="aprovar" class="visita-status dropdown-item fw-bold text-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aprovar">Aprovar</a></li>
+                                                                        <li><a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status dropdown-item fw-bold text-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar">Cancelar</a></li>
+                                                                    </ul>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-
-                                                        {% if (visita.status_visita != 'Aprovado') and (visita.status_visita != 'Concluido') %}
-                                                        <div class="d-flex justify-content-start" style="margin-top: 5px;">
-                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="aprovar" class="visita-status badge bg-info text-black" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aprovar"><i class="fa-solid fa-check"></i></a>
-                                                            <a href="javascript:void(0);" data-visita="{{ visita.visita_id }}" data-action="reprovar" class="visita-status badge bg-danger text-black ms-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Recusar"><i class="fa-regular fa-xmark"></i></a>
-                                                        </div>
-                                                        {% endif %}
 
                                                     </td>
 
