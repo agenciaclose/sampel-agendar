@@ -346,6 +346,7 @@ $(document).ready(function() {
 						$('#emitente_bairrro').val(emitenteData.bairro);
 						$('#emitente_cidade').val(emitenteData.cidade);
 						$('#emitente_estado').val(emitenteData.uf);
+						$('#transportadora').val(emitenteData.nomeTransp);
 
 					} else {
 						$('.emitent-dados').html('<div class="text-primary fw-bold">Informações do Emitente</div><div>Nenhum informação encontrada.</div>');
@@ -356,6 +357,7 @@ $(document).ready(function() {
 						$('#emitente_bairrro').val('');
 						$('#emitente_cidade').val('');
 						$('#emitente_estado').val('');
+						$('#transportadora').val('');
 					}
 				}
 			});
@@ -368,6 +370,7 @@ $(document).ready(function() {
 			$('#emitente_bairrro').val('');
 			$('#emitente_cidade').val('');
 			$('#emitente_estado').val('');
+			$('#transportadora').val('');
 		}
 	});
 });

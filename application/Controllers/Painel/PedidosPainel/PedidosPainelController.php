@@ -253,7 +253,7 @@ class PedidosPainelController extends Controller
     public function getEmitentData($params)
     {
         $emitenteNome = urlencode($params['emitenteNome']);
-        $url = "http://187.92.201.2:8080/api/intranet/v1/emitente/$emitenteNome";
+        $url = "http://187.92.201.2:8180/api/intranet/v1/emitente/$emitenteNome";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
