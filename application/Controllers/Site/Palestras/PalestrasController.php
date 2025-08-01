@@ -76,6 +76,9 @@ class PalestrasController extends Controller
             $palestra = $palestra->getResult()[0];
         }
 
+        $totalInscricoes = new Palestras();
+        $totalInscricoes = $totalInscricoes->getTotalInscricoes($params['id'])->getResultSingle();
+
         if(isset($_GET['action'])){
 
             $inscricao = new Palestras();
@@ -92,7 +95,7 @@ class PalestrasController extends Controller
             $barcode = '';
         }
         
-        $this->render('pages/palestras/inscricao.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'inscricao' => $inscricao, 'barcode' => $barcode]);
+        $this->render('pages/palestras/inscricao.twig', ['menu' => 'palestras', 'palestra' => $palestra, 'inscricao' => $inscricao, 'barcode' => $barcode, 'total_inscricao' => $totalInscricoes['total_inscricoes']]);
     }
 
 

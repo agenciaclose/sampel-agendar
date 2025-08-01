@@ -65,6 +65,13 @@ class Palestras extends Model
         return $read;
     }
 
+    public function getTotalInscricoes($id): read
+    {
+        $read = new Read();
+        $read->FullRead("SELECT count(id) AS total_inscricoes FROM palestras_participantes AS pp WHERE pp.id_palestra = :id", "id={$id}");
+        return $read;
+    }
+
     public function lastPalestra()
     {
         $read = new Read();

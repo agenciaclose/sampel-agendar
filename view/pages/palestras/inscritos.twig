@@ -231,9 +231,19 @@
 					<div class="row">
 						
 						<div class="col-md-12 col-12">
-							<div class="mb-3">
-								<label class="form-label">Nome da Palestra</label>
-								<input type="text" class="form-control form-control-sm" name="title" value="{{palestra.title}}" required="required">
+							<div class="row">
+								<div class="col-md-8 col-sm-12">
+									<div class="mb-3">
+										<label class="form-label">Nome da Palestra</label>
+										<input type="text" class="form-control form-control-sm" name="title" value="{{palestra.title}}" required="required">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-12">
+									<div class="mb-3">
+										<label for="qtd" class="form-label">Qtd. Max. de Participantes</label>
+										<input type="number" name="qtd" class="form-control form-control-sm" id="qtd" value="{{palestra.qtd}}" required="required">
+									</div>
+								</div>
 							</div>
 							
 							<div class="row">

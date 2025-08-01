@@ -45,105 +45,119 @@
 
 				<div class="{{ _get.action != '' ? 'col-md-6' : 'col-md-6' }} col-sm-12 col-12 mb-5 position-relative">
 					
-					{% if _get.action == '' %}
+					{% if palestra.qtd > 0 and palestra.qtd <= total_inscricao %}
 						<div class="form_inscricao">
-
-							<div class="alert-3 alert-none">
-								<div class="alert alert-danger" role="alert">
-									<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
-								</div>
+							<div class="alert alert-warning text-center py-5" role="alert">
+								<div><i class="fa-solid fa-circle-exclamation fa-3x mb-4"></i></div>
+								<h4 class="text-black">Inscrições esgotadas</h4> 
+								<div>Limite de inscrições para esse evento foi alcançado.</div>
 							</div>
-							<div class="alert-2 alert-none">
-								<div class="alert alert-warning" role="alert">
-									<i class="fa-solid fa-circle-exclamation"></i> Este usuário já participou de uma palestra.
-								</div>
-							</div>
-
-							<form action="javascript:void(0)" id="form_inscricao" method="POST">
-							
-								<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
-
-								<div class="row">
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="cpf" class="form-label">Seu CPF *</label>
-											<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
-											<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
-										</div>
-									</div>
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="empresa" class="form-label">Nome da sua Empresa *</label>
-											<input type="text" name="empresa" class="form-control rounded-pill" id="empresa" value="" required="required">
-										</div>
-									</div>
-
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="nome" class="form-label">Seu Nome Completo *</label>
-											<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
-										</div>
-									</div>
-									
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="email" class="form-label">Seu Email *</label>
-											<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
-											<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="cep" class="form-label">Seu CEP *</label>
-											<input type="text" name="cep" class="form-control rounded-pill cep" id="cep" value="" required="required">
-											<input type="hidden" name="cidade" id="cidade" value="">
-											<input type="hidden" name="estado" id="estado" value="">
-											<div class="endereco ms-3"></div>
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label class="form-label">Setor de Atuação *</label>
-											<select class="form-control rounded-pill" id="setor" name="setor" required="required">
-												<option value="">Selecione</option>
-												<option value="Auto Center">Auto Center</option>
-												<option value="Autopeças">Autopeças</option>
-												<option value="Balconista">Balconista</option>
-												<option value="Distribuidora">Distribuidora</option>
-												<option value="Estoquista">Estoquista</option>
-												<option value="Frotista">Frotista</option>
-												<option value="Mecânico / Reparador">Mecânico / Reparador</option>
-												<option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
-											</select>
-										</div>
-										<div class="mb-3 outros" style="display: none">
-											<input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
-										</div>
-									</div>
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label for="telefone" class="form-label">Seu Whatsapp *</label>
-											<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
-											<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
-										</div>
-									</div>
-									
-									<div class="col-md-6 col-12">
-										<div class="mb-3">
-											<label class="form-label"></label>
-											<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">
-											<button type="submit" class="rounded-pill btn btn-warning w-100" disabled><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
-										</div>
-									</div>
-
-								</div>
-
-							</form>
-							
 						</div>
+					{% else %}					
+
+						{% if _get.action == '' %}
+							<div class="form_inscricao">
+
+								<div class="alert-3 alert-none">
+									<div class="alert alert-danger" role="alert">
+										<i class="fa-sharp fa-solid fa-bug"></i> Aconteceu algum erro. Tente novamente mais tarde ou entre em contato com o suporte.
+									</div>
+								</div>
+								<div class="alert-2 alert-none">
+									<div class="alert alert-warning" role="alert">
+										<i class="fa-solid fa-circle-exclamation"></i> Este usuário já participou de uma palestra.
+									</div>
+								</div>
+
+								<form action="javascript:void(0)" id="form_inscricao" method="POST">
+								
+									<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+
+									<div class="row">
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="cpf" class="form-label">Seu CPF *</label>
+												<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
+												<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+											</div>
+										</div>
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="empresa" class="form-label">Nome da sua Empresa *</label>
+												<input type="text" name="empresa" class="form-control rounded-pill" id="empresa" value="" required="required">
+											</div>
+										</div>
+
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="nome" class="form-label">Seu Nome Completo *</label>
+												<input type="text" name="nome" class="form-control rounded-pill" id="nome" value="" required="required">
+											</div>
+										</div>
+										
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="email" class="form-label">Seu Email *</label>
+												<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
+												<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="cep" class="form-label">Seu CEP *</label>
+												<input type="text" name="cep" class="form-control rounded-pill cep" id="cep" value="" required="required">
+												<input type="hidden" name="cidade" id="cidade" value="">
+												<input type="hidden" name="estado" id="estado" value="">
+												<div class="endereco ms-3"></div>
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label class="form-label">Setor de Atuação *</label>
+												<select class="form-control rounded-pill" id="setor" name="setor" required="required">
+													<option value="">Selecione</option>
+													<option value="Auto Center">Auto Center</option>
+													<option value="Autopeças">Autopeças</option>
+													<option value="Balconista">Balconista</option>
+													<option value="Distribuidora">Distribuidora</option>
+													<option value="Estoquista">Estoquista</option>
+													<option value="Frotista">Frotista</option>
+													<option value="Mecânico / Reparador">Mecânico / Reparador</option>
+													<option value="Vendas / Telemarketing">Vendas / Telemarketing</option>
+												</select>
+											</div>
+											<div class="mb-3 outros" style="display: none">
+												<input type="text" name="setor_outros" class="form-control rounded-pill" placeholder="Qual?">
+											</div>
+										</div>
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label for="telefone" class="form-label">Seu Whatsapp *</label>
+												<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
+												<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
+											</div>
+										</div>
+										
+										<div class="col-md-6 col-12">
+											<div class="mb-3">
+												<label class="form-label"></label>
+												<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">
+												<button type="submit" class="rounded-pill btn btn-warning w-100" disabled><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
+											</div>
+										</div>
+
+									</div>
+
+								</form>
+								
+							</div>
+						{% endif %}
+
 					{% endif %}
+
+
 					
 				</div>
 
