@@ -38,15 +38,12 @@ class ProdutosEmailService
             foreach ($lista as $mail) {
                 $mail = trim($mail);
                 if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                    $email->addAddress($mail);
+                    $email->addCC($mail);
                 }
             }
         } else {
-            $email->addAddress('souza.marketing@sampel.com.br'); // fallback
+            $email->addCC('souza.marketing@sampel.com.br'); // fallback
         }
-        
-        // Sempre enviar cópia para marketing
-        $email->addCC('souza.marketing@sampel.com.br');
         
         $email->send('Novo pedido criado com sucesso!');
     }
@@ -114,9 +111,21 @@ class ProdutosEmailService
         if (empty($emails_para_enviar)) {
             $email->addAddress('ricardo@agenciaclose.com.br');
         }
-        
-        // Sempre enviar cópia para marketing
-        $email->addCC('souza.marketing@sampel.com.br');
+
+        // Buscar emails configurados
+        $emailsPainel = new EmailsPainel();
+        $config = $emailsPainel->getByTipo('novo_pedido');
+        if ($config && !empty($config['lista_emails'])) {
+            $lista = explode(',', $config['lista_emails']);
+            foreach ($lista as $mail) {
+                $mail = trim($mail);
+                if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+                    $email->addCC($mail);
+                }
+            }
+        } else {
+            $email->addCC('souza.marketing@sampel.com.br'); // fallback
+        }
         
         $email->send('Status do pedido alterado com sucesso!');
     }
