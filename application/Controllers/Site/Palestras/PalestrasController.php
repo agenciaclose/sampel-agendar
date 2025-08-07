@@ -119,14 +119,14 @@ class PalestrasController extends Controller
 
     public function checkCadastroCampo($params)
     {
-        $this->setParams($params);
-        $check = new Palestras();
-        $check = $check->checkCadastroCampo($this->params)->getResult();
-        if ($check) {
-            echo '1';
-        }else{
+        // $this->setParams($params);
+        // $check = new Palestras();
+        // $check = $check->checkCadastroCampo($this->params)->getResult();
+        // if ($check) {
+        //     echo '1';
+        // }else{
             echo '0';
-        }
+        //}
     }
 
     public function checkCadastro($params)

@@ -96,7 +96,8 @@ class Palestras extends Model
     public function checkCadastro($params)
     {
         $read = new Read();
-        $cpf = $this->clearCPF($params['cpf']);
+        //$cpf = $this->clearCPF($params['cpf']);
+        $cpf = $this->clearCPF('00000000000');
         $read->FullRead("SELECT * FROM palestras_participantes WHERE cpf = :cpf AND id_palestra = :id_palestra", "cpf={$cpf}&id_palestra={$params['id_palestra']}");
         return $read;
     }
