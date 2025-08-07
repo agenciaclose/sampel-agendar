@@ -25,6 +25,8 @@ require  __DIR__ . '/painel/dashboard/contratos.php';
 require  __DIR__ . '/painel/dashboard/visitas.php';
 require  __DIR__ . '/painel/importar.php';
 require  __DIR__ . '/painel/fornecedores.php';
+
+// CONFIGURAÇÃO DE EMAILS
 require  __DIR__ . '/painel/configemails.php';
 
 // ERROR

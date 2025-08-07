@@ -22,6 +22,6 @@ class ConfigemailsController extends Controller
         $model = new EmailsPainel();
         $model->salvar('novo_pedido', $lista_emails);
         $_SESSION['flash_success'] = 'E-mails salvos com sucesso!';
-        $this->redirectUrl(DOMAIN . '/painel/configuracoes/emails-config');
+        $this->redirectUrl(DOMAIN . '/painel/configuracoes/emailsconfig');
     }
 } 
