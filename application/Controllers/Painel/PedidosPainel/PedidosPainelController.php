@@ -208,10 +208,28 @@ class PedidosPainelController extends Controller
     {
         $this->setParams($params);
         $model = new PedidosPainel();
+        
+        // Buscar o status atual do pedido antes de alterar
+        $pedido_atual = $model->getPedidoID($params['id'])->getResult();
+        $status_anterior = null;
+        if ($pedido_atual) {
+            $status_anterior = $pedido_atual[0]['status_pedido'];
+        }
+        
         if($params['status_pedido'] == '0'){
             $model->statusRecusadoSave($params);
         }else{
             $model->statusPedidoSave($params);
+        }
+        
+        // Enviar email de notificação de alteração de status
+        if ($status_anterior != $params['status_pedido']) {
+            $emailService = new ProdutosEmailService();
+            $emailService->enviarStatusPedido([
+                'id_pedido' => $params['id'],
+                'novo_status' => $params['status_pedido'],
+                'status_anterior' => $status_anterior
+            ]);
         }
     }
 
