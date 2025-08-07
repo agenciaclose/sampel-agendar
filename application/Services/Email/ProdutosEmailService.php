@@ -42,8 +42,12 @@ class ProdutosEmailService
                 }
             }
         } else {
-            $email->addAddress('ricardo@agenciaclose.com.br'); // fallback
+            $email->addAddress('souza.marketing@sampel.com.br'); // fallback
         }
+        
+        // Sempre enviar cópia para marketing
+        $email->addCC('souza.marketing@sampel.com.br');
+        
         $email->send('Novo pedido criado com sucesso!');
     }
 
@@ -110,6 +114,9 @@ class ProdutosEmailService
         if (empty($emails_para_enviar)) {
             $email->addAddress('ricardo@agenciaclose.com.br');
         }
+        
+        // Sempre enviar cópia para marketing
+        $email->addCC('souza.marketing@sampel.com.br');
         
         $email->send('Status do pedido alterado com sucesso!');
     }

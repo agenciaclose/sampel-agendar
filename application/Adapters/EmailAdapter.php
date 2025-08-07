@@ -52,6 +52,11 @@ class EmailAdapter
         // }
     }
 
+    public function addCC(string $email)
+    {
+        $this->mail->addCC($email); //Name is optional
+    }
+
     public function setSubject($subject)
     {
         $this->mail->Subject = $subject;
