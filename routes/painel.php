@@ -42,13 +42,13 @@ $router->post("/painel/visita/inscricao/cadastro", "InscricaoController:inscrica
 $router->post("/painel/visita/inscricao/cadastro-qrcode", "InscricaoController:inscricaoCadastroQRcode");
 
 // PAINEL VISITAS CONFIGURACOES
-$router->namespace("Agencia\Close\Controllers\Painel\Config");
-$router->get("/painel/visitas/config", "ConfigController:index");
-$router->post("/painel/visitas/config/save", "ConfigController:save");
-$router->post("/painel/visitas/config/save/regras", "ConfigController:saveRegras");
-$router->post("/painel/visitas/config/save/opcional", "ConfigController:saveOpcional");
-$router->post("/painel/visitas/config/edit/opcional", "ConfigController:editOpcional");
-$router->post("/painel/visitas/config/delete/opcional", "ConfigController:deleteOpcional");
+$router->namespace("Agencia\Close\Controllers\Painel\Emailsconfig");
+$router->get("/painel/visitas/config", "EmailsconfigController:index");
+$router->post("/painel/visitas/config/save", "EmailsconfigController:save");
+$router->post("/painel/visitas/config/save/regras", "EmailsconfigController:saveRegras");
+$router->post("/painel/visitas/config/save/opcional", "EmailsconfigController:saveOpcional");
+$router->post("/painel/visitas/config/edit/opcional", "EmailsconfigController:editOpcional");
+$router->post("/painel/visitas/config/delete/opcional", "EmailsconfigController:deleteOpcional");
 
 // PAINEL PALESTRAS
 $router->namespace("Agencia\Close\Controllers\Painel\Palestras");

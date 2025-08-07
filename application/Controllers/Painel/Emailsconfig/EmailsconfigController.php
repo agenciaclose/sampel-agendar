@@ -1,12 +1,12 @@
 <?php
 
-namespace Agencia\Close\Controllers\Painel\Config;
+namespace Agencia\Close\Controllers\Painel\Emailsconfig;
 
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Helpers\Upload;
 use Agencia\Close\Models\Painel\ConfigPainel;
 
-class ConfigController extends Controller
+class EmailsconfigController extends Controller
 {
 
     public function index($params)
