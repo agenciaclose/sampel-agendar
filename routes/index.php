@@ -27,7 +27,7 @@ require  __DIR__ . '/painel/importar.php';
 require  __DIR__ . '/painel/fornecedores.php';
 
 // CONFIGURAÇÃO DE EMAILS
-require  __DIR__ . '/painel/configemails.php';
+//require  __DIR__ . '/painel/configemails.php';
 
 // ERROR
 $router->group("error")->namespace("Agencia\Close\Controllers\Error");
