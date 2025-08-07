@@ -98,3 +98,7 @@ $router->get("/painel/equipes/cargos/edit/{id}", "CargosController:editCargo");
 $router->post("/painel/equipes/cargos/add/save", "CargosController:addCargoSave");
 $router->post("/painel/equipes/cargos/edit/save", "CargosController:editCargoSave");
 $router->post("/painel/equipes/cargos/remove", "CargosController:deleteCargo");
+
+$router->namespace("Agencia\Close\Controllers\Painel\Emailsconfig");
+$router->get("/painel/configuracoes/emailsconfig", "ConfigemailsController:configEmails", "configemails");
+$router->post("/painel/configuracoes/emailsconfig/salvar", "ConfigemailsController:salvar", "salvar");
