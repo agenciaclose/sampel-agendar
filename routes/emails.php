@@ -13,5 +13,6 @@ $router->get("/eventos/sendEmailEquipeEventos/{evento_id}", "HomeController:send
 // SEND EMAIL PRODUTOS
 $router->namespace("Agencia\Close\Controllers\Site\Emails");
 $router->post('/emails/novo-pedido', 'EmailController:enviarEmailNovoPedido');  
+$router->post('/emails/status-pedido', 'EmailController:enviarEmailStatusPedido');
 $router->post('/emails/estoque-minimo', 'EmailController:enviarEmailEstoqueMinimo');
 $router->post('/emails/estoque-zerado', 'EmailController:enviarEmailEstoqueZerado');

@@ -12,6 +12,14 @@ class EmailController extends Controller
         $service = new ProdutosEmailService();
         $service->enviarNovoPedido($params);
     }
+
+    public function enviarEmailStatusPedido($params)
+    {
+        $this->setParams($params);
+        $service = new ProdutosEmailService();
+        $service->enviarStatusPedido($params);
+    }
+
     public function enviarEmailEstoqueMinimo($params)
     {
         $this->setParams($params);

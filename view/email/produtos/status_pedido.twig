@@ -1,0 +1,108 @@
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#181b20;color:#fff;font-family:sans-serif;border-radius:8px;padding:24px 0 0 0;">
+    <tr>
+        <td colspan="3" style="padding:16px 24px 0 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
+                <tr>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Retirada em nome:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;">{{ pedido.equipe }}</div>
+                    </td>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Estado de despacho:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;">{{ pedido.estado_pedido }}</div>
+                    </td>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Vincular a um Tipo de Evento:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;">{{ pedido.tipo_evento }}</div>
+                    </td>
+                    {% if pedido.tipo_evento != 'extra' %}
+                    <td style="padding:4px 0 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Nome do Evento:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;">{{ evento.data_evento|date("d-m-Y") }} - {{ evento.nome_evento }}</div>
+                    </td>
+                    {% endif %}
+                    <td style="padding:4px 0 4px 0;vertical-align:top;">
+                       <a href="{{ DOMAIN }}/painel/pedidos/view/{{ pedido.id }}" style="text-decoration:none;color:#fff;font-size:12px;background:#4caf50;padding:4px 16px;border-radius:8px;">Ver Pedido</a>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Informações sobre o Pedido:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;">{{ pedido.descricao_pedido }}</div>
+                    </td>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Valor Total do Pedido:</div>
+                        <div style="font-weight:bold;color:#4caf50;font-size:16px;">R$ {{ pedido.valor_total_pedido|number_format(2, ',', '.') }}</div>
+                    </td>
+                    <td style="padding:4px 0 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Status do Pedido:</div>
+                        <span class="btn border-0 rounded-0 text-black text-uppercase bg-{{ pedido.status_pedido|pedidoStatusColor }}" style="background-color:{{ pedido.status_pedido|pedidoStatusColor }};padding:4px 16px;color:#000;">{{ pedido.status_pedido|pedidoStatus|raw }}</span>
+                    </td>
+                </tr>
+            </table>
+            {% if status_anterior is defined and novo_status is defined and status_anterior != novo_status %}
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;background:#2c3e50;border-radius:8px;padding:16px;">
+                <tr>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Status Anterior:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;color:#e74c3c;">{{ status_anterior|pedidoStatus|raw }}</div>
+                    </td>
+                    <td style="padding:4px 12px 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Novo Status:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;color:#27ae60;">{{ novo_status|pedidoStatus|raw }}</div>
+                    </td>
+                    <td style="padding:4px 0 4px 0;vertical-align:top;">
+                        <div style="font-size:12px;color:#aaa;">Data da Alteração:</div>
+                        <div style="font-weight:bold;text-transform:uppercase;color:#f39c12;">{{ "now"|date("d/m/Y H:i") }}</div>
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
+                </tr>
+            </table>
+        </td>
+    </tr>
+  <tr><td colspan="3" style="height:24px;"></td></tr>
+  <tr>
+    <td colspan="3" style="padding:0 24px;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#23262b;border-radius:8px;overflow:hidden;">
+        <thead>
+          <tr style="background:#23262b;color:#fff;font-size:13px;">
+            <th style="padding:8px 4px;"></th>
+            <th style="padding:8px 4px;text-align:left;">Nome Produto</th>
+            <th style="padding:8px 4px;">Código</th>
+            <th style="padding:8px 4px;">Embalagem</th>
+            <th style="padding:8px 4px;">Unidades</th>
+            <th style="padding:8px 4px;">Quantidade</th>
+            <th style="padding:8px 4px;">Qtd Total</th>
+            <th style="padding:8px 4px;">Valor Total (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for produto in itens %}
+          <tr style="background:#23262b;color:#fff;font-size:13px;">
+            <td style="padding:4px 2px;">
+              {% if produto.imagem != '' %}
+                <img src="{{ produto.imagem }}" width="40" style="border-radius:4px;">
+              {% else %}
+                <span style="display:inline-block;width:40px;height:40px;background:#333;border-radius:4px;"></span>
+              {% endif %}
+            </td>
+            <td style="padding:4px 2px;">{{ produto.nome }}</td>
+            <td style="padding:4px 2px;text-align:center;">{{ produto.codigo }}</td>
+            <td style="padding:4px 2px;text-align:center;">{{ produto.embalagem }}</td>
+            <td style="padding:4px 2px;text-align:center;">{{ produto.unidades }}</td>
+            <td style="padding:4px 2px;text-align:center;"><span style="background:#4caf50;color:#fff;padding:2px 8px;border-radius:8px;">{{ produto.qtd_escolhida }}</span></td>
+            <td style="padding:4px 2px;text-align:center;">{{ produto.qt_total }}</td>
+            <td style="padding:4px 2px;text-align:center;color:#4caf50;">R$ {{ produto.valor_total|number_format(2, ',', '.') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <tr><td colspan="3" style="height:24px;"></td></tr>
+  
+</table> 
