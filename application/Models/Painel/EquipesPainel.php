@@ -22,7 +22,7 @@
         public function getEquipesList()
         {
             $read = new Read();
-            $read->FullRead("SELECT * FROM usuarios WHERE tipo = '4' ORDER BY `nome` ASC");
+            $read->FullRead("SELECT * FROM usuarios WHERE tipo in (4, 1) ORDER BY `nome` ASC");
             return $read;
         }
 
