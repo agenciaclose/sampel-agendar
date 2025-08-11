@@ -59,12 +59,17 @@
 								</div>
 
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
-									<label for="descricao_pedido" class="form-label d-block">Informações sobre o Pedido</label>
-									<input class="form-control text-uppercase" name="descricao_pedido" id="descricao_pedido" placeholder="Descrição do Pedido">
+									<label for="data_retirada" class="form-label d-block">Data de Retirada</label>
+									<input type="date" class="form-control" id="data_retirada" name="data_retirada">
 								</div>
+
 
 							</div>
 
+							<div class="mb-1 flex-fill w-md-100 me-md-1">
+								<label for="descricao_pedido" class="form-label d-block">Informações sobre o Pedido</label>
+								<textarea name="descricao_pedido" maxlength="300" id="descricao_pedido" class="form-control text-uppercase" placeholder="Descrição do Pedido"></textarea>
+							</div>
 						</div>
 					</div>
 
@@ -72,6 +77,15 @@
 						<div class="card-body">
 
 							<div class="d-flex justify-content-between flex-wrap align-items-end">
+
+								<div class="mb-1 flex-fill w-md-100 me-md-1">
+									<label for="tipo_envio" class="form-label d-block">Tipo de Envio</label>
+									<select class="form-control text-uppercase" name="tipo_envio" id="tipo_envio">
+										<option value="Transportadora">Transportadora</option>
+										<option value="Correios">Correios</option>
+										<option value="Presencial">Presencial</option>
+									</select>
+								</div>
 
 								<div class="mb-1 flex-fill w-md-100 me-md-1">
 									<label for="transportadora" class="form-label d-block">Transportadora</label>
