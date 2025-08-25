@@ -94,6 +94,9 @@
 							Outros ações
 						</a>
 						<ul class="dropdown-menu py-1">
+							{% if _session.sampel_user_tipo == 1 or _session.sampel_user_id == visita.id_empresa %}
+								<li><a class="dropdown-item" href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visita/inscricao/link-inscricao?visita={{ visita.id }}" data-bs-toggle="modal-remote" data-bs-target="#linkinscricao"><i class="fa-solid fa-link"></i> Criar Link de Inscrição</a></li>
+							{% endif %}
 							<li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#shared_{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
 							<li><a class="dropdown-item" href="{{ DOMAIN }}/visita/feedback/{{ visita.visita_id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Link de Feedback</a></li>
 							<li><a class="dropdown-item" href="{{ DOMAIN }}/visita/recepcao/{{ visita.visita_id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
@@ -461,6 +464,13 @@
 	</div>
 </div>
 
+<div class="modal fade" id="linkinscricao" tabindex="-1" role="dialog" aria-labelledby="linkinscricaoLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
 
 <script src="{{ PATH }}/view/src/js/services/visitas.js"></script>
 

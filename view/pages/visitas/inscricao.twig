@@ -17,7 +17,7 @@
 				</div>
 				<div class="text-end">
 					<h3 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total de inscrições"><span class="badge text-bg-warning"><i class="fa-solid fa-users"></i> {{ visita.inscricoes }} / {{ visita.qtd_visitas }}</span></h3>
-					{% if _session.sampel_user_tipo == 1 %}
+					{% if _session.sampel_user_tipo == 1 or _session.sampel_user_id == visita.id_empresa %}
 						<a href="javascript:void(0)" data-bs-remote="{{ DOMAIN }}/visita/inscricao/link-inscricao?visita={{ visita.id }}" data-bs-toggle="modal-remote" data-bs-target="#linkinscricao" class="btn btn-warning btn-sm fw-bold">CRIAR LINK DE INSCRIÇÃO</a>
 					{% endif %}
 				</div>
