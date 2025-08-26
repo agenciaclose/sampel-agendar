@@ -10,9 +10,18 @@ use Agencia\Close\Services\Login\Logon;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\VisitasPainel;
+use Agencia\Close\Services\Mailchimp\MailchimpService;
 
 class VisitasController extends Controller
 {
+    private MailchimpService $mailchimpService;
+
+    public function __construct($router)
+    {
+        parent::__construct($router);
+        $this->mailchimpService = new MailchimpService();
+    }
+
     public function visitas($params)
     {
         $this->setParams($params);
@@ -232,6 +241,10 @@ class VisitasController extends Controller
                 if ($cadastro) {
                     $last = new Visitas();
                     $last = $last->lastInscricao()->getResult()[0];
+                    
+                    // Integração automática com Mailchimp
+                    $this->integrarComMailchimp($params, 'visita');
+                    
                     echo $last['id'];
                 }
 
@@ -243,6 +256,10 @@ class VisitasController extends Controller
                     if ($cadastro) {
                         $last = new Visitas();
                         $last = $last->lastInscricao()->getResult()[0];
+                        
+                        // Integração automática com Mailchimp
+                        $this->integrarComMailchimp($params, 'visita');
+                        
                         echo $last['id'];
                     }
                 }else{
@@ -257,6 +274,10 @@ class VisitasController extends Controller
             if ($cadastro) {
                 $last = new Visitas();
                 $last = $last->lastInscricao()->getResult()[0];
+                
+                // Integração automática com Mailchimp
+                $this->integrarComMailchimp($params, 'evento');
+                
                 echo $last['id'];
             }
         }
@@ -297,6 +318,47 @@ class VisitasController extends Controller
         $checkCadastro = new Visitas();
         $checkCadastro = $checkCadastro->checkCadastro($params)->getResult();
         return $checkCadastro;
+    }
+
+    /**
+     * Integra automaticamente com o Mailchimp após inscrição
+     */
+    private function integrarComMailchimp($params, $tipoInscricao)
+    {
+        try {
+            // Processar nome completo para separar nome e sobrenome
+            $nomeCompleto = $params['nome'] ?? '';
+            $nome = '';
+            $sobrenome = '';
+            
+            if (!empty($nomeCompleto)) {
+                $partesNome = explode(' ', trim($nomeCompleto));
+                if (count($partesNome) > 1) {
+                    $nome = $partesNome[0];
+                    $sobrenome = implode(' ', array_slice($partesNome, 1));
+                } else {
+                    $nome = $nomeCompleto;
+                }
+            }
+            
+            // Preparar dados para o Mailchimp
+            $dadosMailchimp = [
+                'email' => $params['email'],
+                'nome' => $nome,
+                'sobrenome' => $sobrenome,
+                'empresa' => $params['empresa'] ?? '',
+                'telefone' => $params['telefone'] ?? '',
+                'cargo' => $params['setor'] ?? '',
+                'tipo_inscricao' => $tipoInscricao
+            ];
+
+            // Processar inscrição automaticamente no Mailchimp
+            $this->mailchimpService->processarInscricaoAutomatica($dadosMailchimp);
+
+        } catch (\Exception $e) {
+            // Log do erro, mas não interrompe o fluxo da inscrição
+            error_log("Erro na integração automática com Mailchimp: " . $e->getMessage());
+        }
     }
 
     public function printEtiqueta($params)

@@ -41,6 +41,8 @@ $router->get("/painel/visita/inscricao/{id}", "InscricaoController:inscricao");
 $router->post("/painel/visita/inscricao/cadastro", "InscricaoController:inscricaoCadastro");
 $router->post("/painel/visita/inscricao/cadastro-qrcode", "InscricaoController:inscricaoCadastroQRcode");
 
+
+
 // PAINEL VISITAS CONFIGURACOES
 $router->namespace("Agencia\Close\Controllers\Painel\Emailsconfig");
 $router->get("/painel/visitas/config", "EmailsconfigController:index");

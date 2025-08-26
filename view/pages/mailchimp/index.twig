@@ -1,0 +1,295 @@
+{% extends "layout/layoutMain.twig" %}
+
+{% block title %}Newsletter - {{ NAME }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Estatísticas -->
+            {% if estatisticas.success %}
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ estatisticas.data.total_inscritos }}</h4>
+                            <p class="card-text">Total Inscritos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ estatisticas.data.inscricoes_mes }}</h4>
+                            <p class="card-text">Este Mês</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ estatisticas.data.taxa_retencao }}%</h4>
+                            <p class="card-text">Taxa Retenção</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ estatisticas.data.total_cancelamentos }}</h4>
+                            <p class="card-text">Cancelamentos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Formulário de Inscrição -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-envelope me-2"></i>
+                        Newsletter
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-4">
+                        Inscreva-se em nossa newsletter para receber as últimas novidades e atualizações sobre eventos, palestras e visitas técnicas.
+                    </p>
+                    
+                    <form id="newsletterForm" method="POST" action="{{ path_for('mailchimp.subscribe') }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nome" class="form-label">Nome *</label>
+                                <input type="text" class="form-control" id="nome" name="nome" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="sobrenome" class="form-label">Sobrenome *</label>
+                                <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="form-text">Seu email será usado apenas para envio da newsletter.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="empresa" class="form-label">Empresa</label>
+                            <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nome da sua empresa ou organização">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="aceite" name="aceite" required>
+                                <label class="form-check-label" for="aceite">
+                                    Concordo em receber e-mails da {{ NAME }}. Posso cancelar a inscrição a qualquer momento.
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                <span id="submitText">Inscrever-se</span>
+                                <span id="submitLoading" class="d-none">
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    Processando...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center">
+                        <p class="text-muted mb-2">Já está inscrito?</p>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#unsubscribeModal">
+                            <i class="fas fa-user-minus me-2"></i>
+                            Cancelar Inscrição
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Adicionais -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Sobre nossa Newsletter
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>O que você receberá:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Novos eventos e palestras</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Visitas técnicas programadas</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Dicas e conteúdos exclusivos</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Ofertas especiais para inscritos</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Frequência de envio:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-calendar text-info me-2"></i>Máximo 2 vezes por mês</li>
+                                <li><i class="fas fa-clock text-info me-2"></i>Horários estratégicos</li>
+                                <li><i class="fas fa-mobile-alt text-info me-2"></i>Otimizado para mobile</li>
+                                <li><i class="fas fa-shield-alt text-info me-2"></i>100% seguro e confiável</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Cancelar Inscrição -->
+<div class="modal fade" id="unsubscribeModal" tabindex="-1" aria-labelledby="unsubscribeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="unsubscribeModalLabel">
+                    <i class="fas fa-user-minus me-2"></i>
+                    Cancelar Inscrição
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted mb-3">
+                    Tem certeza que deseja cancelar sua inscrição? Você não receberá mais nossas newsletters.
+                </p>
+                <form id="unsubscribeForm" method="POST" action="{{ path_for('mailchimp.unsubscribe') }}">
+                    <div class="mb-3">
+                        <label for="emailUnsubscribe" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="emailUnsubscribe" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="motivo" class="form-label">Motivo (opcional)</label>
+                        <textarea class="form-control" id="motivo" name="motivo" rows="3" placeholder="Conte-nos por que está cancelando..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="unsubscribeForm" class="btn btn-danger">
+                    <i class="fas fa-user-minus me-2"></i>
+                    Cancelar Inscrição
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form de inscrição
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitLoading = document.getElementById('submitLoading');
+            
+            // Mostrar loading
+            submitBtn.disabled = true;
+            submitText.classList.add('d-none');
+            submitLoading.classList.remove('d-none');
+            
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Sucesso
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                    this.reset();
+                } else {
+                    // Erro
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: 'Erro ao processar a solicitação. Tente novamente.',
+                    confirmButtonText: 'OK'
+                });
+            })
+            .finally(() => {
+                // Restaurar botão
+                submitBtn.disabled = false;
+                submitText.classList.remove('d-none');
+                submitLoading.classList.add('d-none');
+            });
+        });
+    }
+    
+    // Form de cancelamento
+    const unsubscribeForm = document.getElementById('unsubscribeForm');
+    if (unsubscribeForm) {
+        unsubscribeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inscrição Cancelada!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                    this.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('unsubscribeModal')).hide();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: 'Erro ao processar a solicitação. Tente novamente.',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -4,12 +4,19 @@ namespace Agencia\Close\Controllers\Site\Palestras;
 
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Agencia\Close\Models\Site\Palestras;
-
+use Agencia\Close\Services\Mailchimp\MailchimpService;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PalestrasPainel;
 
 class PalestrasController extends Controller
 {
+    private MailchimpService $mailchimpService;
+
+    public function __construct($router)
+    {
+        parent::__construct($router);
+        $this->mailchimpService = new MailchimpService();
+    }
 
     public function index($params)
     {
@@ -109,6 +116,10 @@ class PalestrasController extends Controller
             if ($cadastro) {
                 $last = new Palestras();
                 $last = $last->lastInscricao()->getResult()[0];
+                
+                // Integração automática com Mailchimp
+                $this->integrarComMailchimp($params, 'palestra');
+                
                 echo $last['id'];
             }
         }else{
@@ -134,6 +145,47 @@ class PalestrasController extends Controller
         $checkCadastro = new Palestras();
         $checkCadastro = $checkCadastro->checkCadastro($params)->getResult();
         return $checkCadastro;
+    }
+
+    /**
+     * Integra automaticamente com o Mailchimp após inscrição
+     */
+    private function integrarComMailchimp($params, $tipoInscricao)
+    {
+        try {
+            // Processar nome completo para separar nome e sobrenome
+            $nomeCompleto = $params['nome'] ?? '';
+            $nome = '';
+            $sobrenome = '';
+            
+            if (!empty($nomeCompleto)) {
+                $partesNome = explode(' ', trim($nomeCompleto));
+                if (count($partesNome) > 1) {
+                    $nome = $partesNome[0];
+                    $sobrenome = implode(' ', array_slice($partesNome, 1));
+                } else {
+                    $nome = $nomeCompleto;
+                }
+            }
+            
+            // Preparar dados para o Mailchimp
+            $dadosMailchimp = [
+                'email' => $params['email'],
+                'nome' => $nome,
+                'sobrenome' => $sobrenome,
+                'empresa' => $params['empresa'] ?? '',
+                'telefone' => $params['telefone'] ?? '',
+                'cargo' => $params['setor'] ?? '',
+                'tipo_inscricao' => $tipoInscricao
+            ];
+
+            // Processar inscrição automaticamente no Mailchimp
+            $this->mailchimpService->processarInscricaoAutomatica($dadosMailchimp);
+
+        } catch (\Exception $e) {
+            // Log do erro, mas não interrompe o fluxo da inscrição
+            error_log("Erro na integração automática com Mailchimp: " . $e->getMessage());
+        }
     }
 
     public function inscricaoCadastroQRcode($params)

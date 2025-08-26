@@ -4,6 +4,7 @@ namespace Agencia\Close\Controllers\Painel\Palestras;
 
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PalestrasPainel;
+use Agencia\Close\Services\Mailchimp\MailchimpService;
 use Shuchkin\SimpleXLSX;
 
 use League\Csv\Writer;
@@ -11,6 +12,13 @@ use League\Csv\CannotInsertRecord;
 
 class PalestrasController extends Controller
 {
+    private MailchimpService $mailchimpService;
+
+    public function __construct($router)
+    {
+        parent::__construct($router);
+        $this->mailchimpService = new MailchimpService();
+    }
 
     public function index($params)
     {
@@ -102,13 +110,15 @@ class PalestrasController extends Controller
         }
     }
 
-
     public function SaveCadastroParticipante($params)
     {
         $this->setParams($params);
         $save = new PalestrasPainel();
         $save = $save->saveCadastroParticipante($this->params);
         if ($save) {
+            // Integração automática com Mailchimp
+            $this->integrarComMailchimp($this->params, 'palestra_painel');
+            
             echo '1';
         } else {
             echo '0';
@@ -189,6 +199,47 @@ class PalestrasController extends Controller
         } catch (CannotInsertRecord $e) {
             // Captura erros de inserção
             echo 'Erro ao inserir registro: ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Integra automaticamente com o Mailchimp após inscrição
+     */
+    private function integrarComMailchimp($params, $tipoInscricao)
+    {
+        try {
+            // Processar nome completo para separar nome e sobrenome
+            $nomeCompleto = $params['nome'] ?? '';
+            $nome = '';
+            $sobrenome = '';
+            
+            if (!empty($nomeCompleto)) {
+                $partesNome = explode(' ', trim($nomeCompleto));
+                if (count($partesNome) > 1) {
+                    $nome = $partesNome[0];
+                    $sobrenome = implode(' ', array_slice($partesNome, 1));
+                } else {
+                    $nome = $nomeCompleto;
+                }
+            }
+            
+            // Preparar dados para o Mailchimp
+            $dadosMailchimp = [
+                'email' => $params['email'],
+                'nome' => $nome,
+                'sobrenome' => $sobrenome,
+                'empresa' => $params['empresa'] ?? '',
+                'telefone' => $params['telefone'] ?? '',
+                'cargo' => $params['setor'] ?? '',
+                'tipo_inscricao' => $tipoInscricao
+            ];
+
+            // Processar inscrição automaticamente no Mailchimp
+            $this->mailchimpService->processarInscricaoAutomatica($dadosMailchimp);
+
+        } catch (\Exception $e) {
+            // Log do erro, mas não interrompe o fluxo da inscrição
+            error_log("Erro na integração automática com Mailchimp: " . $e->getMessage());
         }
     }
 
