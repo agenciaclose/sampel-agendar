@@ -238,7 +238,7 @@ class Visitas extends Model
     {
         $read = new Read();
         $cpf = $this->clearCPF($params['cpf']);
-        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE (cpf = :cpf OR email = :email OR telefone = :telefone)", "cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}");
+        $read->FullRead("SELECT * FROM visitas_inscricoes WHERE presenca = 'Sim' AND (cpf = :cpf OR email = :email OR telefone = :telefone)", "cpf={$cpf}&email={$params['email']}&telefone={$params['telefone']}");
         return $read;
     }
 

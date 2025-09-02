@@ -221,6 +221,7 @@ class VisitasController extends Controller
         $this->setParams($params);
         $check = new Visitas();
         $check = $check->checkCadastroCampo($this->params)->getResult();
+        
         if ($check) {
             echo $check[0]['data_visita'];
         }else{
