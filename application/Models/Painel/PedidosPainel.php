@@ -250,6 +250,7 @@ class PedidosPainel extends Model
             'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido,
             'transportadora' => $transportadora,
+            'data_retirada' => $params['data_retirada'],
             'expedicao' => $expedicao,
             'qtd_caixa' => $qtd_caixa
         ]);
@@ -370,6 +371,7 @@ class PedidosPainel extends Model
             'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido,
             'transportadora' => $transportadora,
+            'data_retirada' => $params['data_retirada'],
             'expedicao' => $expedicao,
             'qtd_caixa' => $qtd_caixa
         ], 'WHERE id = :id', "id={$id_pedido}");
