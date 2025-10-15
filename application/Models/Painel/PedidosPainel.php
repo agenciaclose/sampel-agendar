@@ -181,10 +181,6 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
-        $transportadora = '';
-        $expedicao = '';
-        $qtd_caixa = '';
-
         $emitente_codigo = '';
         $emitente_nome = '';
         $emitente_cep = '';
@@ -193,18 +189,6 @@ class PedidosPainel extends Model
         $emitente_cidade = '';
         $emitente_estado = '';
         
-        if (isset($params['transportadora'])){
-            $transportadora = $params['transportadora'];
-        }
-
-        if (isset($params['expedicao'])){
-            $expedicao = $params['expedicao'];
-        }
-
-        if (isset($params['qtd_caixa'])){
-            $qtd_caixa = $params['qtd_caixa'];
-        }
-
         if (isset($params['emitente_codigo']) && $params['emitente_codigo'] != '') {
             $emitente_codigo = $params['emitente_codigo'];
         }
@@ -249,10 +233,10 @@ class PedidosPainel extends Model
             'emitente_cidade' => $emitente_cidade,
             'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido,
-            'transportadora' => $transportadora,
+            'transportadora' => $params['transportadora'],
             'data_retirada' => $params['data_retirada'],
-            'expedicao' => $expedicao,
-            'qtd_caixa' => $qtd_caixa
+            'expedicao' => $params['expedicao'],
+            'qtd_caixa' => $params['qtd_caixa']
         ]);
 
         //RETORNA O ID DO PEDIDO
@@ -302,11 +286,6 @@ class PedidosPainel extends Model
             $params['id_evento'] = 0;
         }
 
-        
-        $transportadora = '';
-        $expedicao = '';
-        $qtd_caixa = '';
-
         $emitente_codigo = '';
         $emitente_nome = '';
         $emitente_cep = '';
@@ -314,19 +293,7 @@ class PedidosPainel extends Model
         $emitente_bairrro = '';
         $emitente_cidade = '';
         $emitente_estado = '';
-        
-        if (isset($params['transportadora'])){
-            $transportadora = $params['transportadora'];
-        }
-
-        if (isset($params['expedicao'])){
-            $expedicao = $params['expedicao'];
-        }
-
-        if (isset($params['qtd_caixa'])){
-            $qtd_caixa = $params['qtd_caixa'];
-        }
-        
+                
         if (isset($params['emitente_codigo']) && $params['emitente_codigo'] != '') {
             $emitente_codigo = $params['emitente_codigo'];
         }
@@ -370,10 +337,10 @@ class PedidosPainel extends Model
             'emitente_cidade' => $emitente_cidade,
             'emitente_estado' => $emitente_estado,
             'valor_total_pedido' => $valor_total_pedido,
-            'transportadora' => $transportadora,
+            'transportadora' => $params['transportadora'],
             'data_retirada' => $params['data_retirada'],
-            'expedicao' => $expedicao,
-            'qtd_caixa' => $qtd_caixa
+            'expedicao' => $params['expedicao'],
+            'qtd_caixa' => $params['qtd_caixa']
         ], 'WHERE id = :id', "id={$id_pedido}");
 
 
