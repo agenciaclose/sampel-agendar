@@ -258,22 +258,45 @@ class Visitas extends Model
             $porevento = " OR cpf = '".$params['valor']."' AND v.id = '".$params['id_visita']."' ";
         }
 
-        if($params['tipo_visita'] != 'visita'){
-            //$porEvento = " AND id_visita = '".$params['id_visita']."' ";
-            $porEvento = "";
-            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) < 365";
+        $porEvento = "";
+        if($params['tipo_visita'] == 'visita'){
+            $porEventoTipo = " AND v.tipo <> 'evento' ";
         }else{
-            $porEvento = "";
-            $porEventoTipo = " AND DATEDIFF(CURDATE(), vi.`data`) < 365 AND v.tipo <> 'evento' ";
+            $porEventoTipo = "";
         }
 
-        $read->FullRead("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
+        // Primeiro busca a última inscrição (sem filtro de data) para verificar se existe
+        $readUltima = new Read();
+        $readUltima->FullRead("SELECT vi.*, v.data_visita, vi.`data` as data_inscricao FROM visitas_inscricoes AS vi
                         INNER JOIN visitas AS v ON v.id = vi.id_visita 
                         WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porevento
                         $porEvento
                         $porEventoTipo
                         ORDER BY vi.`data` DESC, vi.id DESC LIMIT 1");
-        return $read;
+        
+        $ultimaInscricao = $readUltima->getResult();
+        
+        // Se não encontrou nenhuma inscrição, retorna vazio
+        if(!$ultimaInscricao){
+            return $read;
+        }
+        
+        // Verifica se a última inscrição foi há 365 dias ou mais (1 ano ou mais)
+        $dataUltimaInscricao = $ultimaInscricao[0]['data_inscricao'];
+        $readCheck = new Read();
+        $readCheck->FullRead("SELECT DATEDIFF(CURDATE(), :data_inscricao) as dias_diferenca", "data_inscricao={$dataUltimaInscricao}");
+        $diasResult = $readCheck->getResult();
+        
+        // Se a última inscrição foi há 365 dias ou mais, retorna vazio (para o controller retornar '0')
+        if($diasResult && isset($diasResult[0]['dias_diferenca'])){
+            $diasDiferenca = (int)$diasResult[0]['dias_diferenca'];
+            if($diasDiferenca >= 365){
+                return $read; // Retorna vazio
+            }
+        }
+        
+        // Se a última inscrição foi há menos de 365 dias, retorna o resultado
+        return $readUltima;
 
     }
 
