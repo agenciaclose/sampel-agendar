@@ -261,10 +261,10 @@ class Visitas extends Model
         if($params['tipo_visita'] != 'visita'){
             //$porEvento = " AND id_visita = '".$params['id_visita']."' ";
             $porEvento = "";
-            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) <= 365";
+            $porEventoTipo = "AND DATEDIFF(CURDATE(), vi.`data`) < 365";
         }else{
             $porEvento = "";
-            $porEventoTipo = " AND DATEDIFF(CURDATE(), vi.`data`) <= 365 AND v.tipo <> 'evento' ";
+            $porEventoTipo = " AND DATEDIFF(CURDATE(), vi.`data`) < 365 AND v.tipo <> 'evento' ";
         }
 
         $read->FullRead("SELECT vi.*, v.data_visita FROM visitas_inscricoes AS vi
@@ -272,7 +272,7 @@ class Visitas extends Model
                         WHERE presenca = 'Sim' AND ".$params['campo']." = '".$params['valor']."' $porevento
                         $porEvento
                         $porEventoTipo
-                        ORDER BY vi.id DESC LIMIT 1");
+                        ORDER BY vi.`data` DESC, vi.id DESC LIMIT 1");
         return $read;
 
     }
