@@ -251,7 +251,21 @@ class VisitasController extends Controller
 
             }else{
 
-                if(!$this->checkCadastro($params)){
+                // Verifica se há link_inscricao sem restrição
+                $temLinkSemRestricao = false;
+                if(!empty($params['link_inscricao'])){
+                    $visita = new Visitas();
+                    $link_codigo = $visita->getLinkInscricao($params['id_visita'], $params['link_inscricao']);
+                    if($link_codigo->getResult()){
+                        $link_data = $link_codigo->getResult()[0];
+                        if(isset($link_data['restricao']) && $link_data['restricao'] == 'N'){
+                            $temLinkSemRestricao = true;
+                        }
+                    }
+                }
+
+                // Se não tem link sem restrição, verifica se já existe cadastro
+                if($temLinkSemRestricao || !$this->checkCadastro($params)){
                     $cadastro = new Visitas();
                     $cadastro = $cadastro->inscricaoCadastro($params);
                     if ($cadastro) {
