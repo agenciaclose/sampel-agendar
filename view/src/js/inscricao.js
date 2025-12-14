@@ -264,12 +264,30 @@ $('#cpf').change(function() {
 function inscricaoAutoComplete(campo, cpf) {
     let DOMAIN = $('body').data('domain');
     
+    // Adicionar loading nos campos - desabilitar e adicionar classe de loading
+    var camposLoading = $('#nome, #empresa, #email, #setor, #cep, #cidade, #estado, #telefone');
+    camposLoading.prop('disabled', true).addClass('loading-field');
+    
+    // Adicionar spinner visual nos campos
+    camposLoading.each(function() {
+        var $field = $(this);
+        var $parent = $field.parent();
+        if (!$parent.find('.loading-spinner-auto').length) {
+            $parent.css('position', 'relative');
+            $parent.append('<span class="loading-spinner-auto" style="position: absolute; right: 15px; top: 50%; pointer-events: none; z-index: 10;"><i class="fa-solid fa-spinner fa-spin"></i></span>');
+        }
+    });
+
     $.ajax({
         type: "POST",
         url: DOMAIN + '/visita/inscricao/inscricaoAutocomplete',
         data: { 'cpf': cpf },
         dataType: 'json',
         success: function(data) {
+            // Remover loading dos campos
+            camposLoading.prop('disabled', false).removeClass('loading-field');
+            $('.loading-spinner-auto').remove();
+            
             if (data != '') {
                 // Preencher os campos do formulário
                 $("#empresa").val(data.empresa);
@@ -291,6 +309,12 @@ function inscricaoAutoComplete(campo, cpf) {
                 $('#estado').val('');
                 $('#telefone').val('');
             }
+        },
+        error: function() {
+            // Remover loading dos campos em caso de erro
+            camposLoading.prop('disabled', false).removeClass('loading-field');
+            $('.loading-spinner-auto').remove();
         }
     });
+
 }
