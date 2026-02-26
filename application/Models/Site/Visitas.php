@@ -6,6 +6,7 @@ use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Create;
 use Agencia\Close\Conn\Update;
+use Agencia\Close\Conn\Delete;
 use Agencia\Close\Models\Model;
 
 class Visitas extends Model
@@ -510,6 +511,51 @@ class Visitas extends Model
     public function updateLinkInscricao($codigo){
         $read = new Read();
         $read->FullRead("UPDATE `visitas_links_inscricoes` SET `qtd_usado` = `qtd_usado` + 1 WHERE `codigo` = :codigo", "codigo={$codigo}");
-    }   
+    }
+
+    /**
+     * Lista os links de inscrição do usuário logado para um evento (visita).
+     */
+    public function listarLinksByUserAndEvento($id_evento, $id_user): Read
+    {
+        $read = new Read();
+        $read->FullRead(
+            "SELECT * FROM visitas_links_inscricoes WHERE id_evento = :id_evento AND id_user = :id_user ORDER BY codigo ASC",
+            "id_evento={$id_evento}&id_user={$id_user}"
+        );
+        return $read;
+    }
+
+    /**
+     * Atualiza qtd_usos e restricao de um link (apenas se pertencer ao usuário).
+     */
+    public function updateLinkInscricaoEditar($codigo, $id_user, $qtd_usos, $restricao): bool
+    {
+        $update = new Update();
+        $update->ExeUpdate(
+            'visitas_links_inscricoes',
+            [
+                'qtd_usos' => (int) $qtd_usos,
+                'restricao' => $restricao === 'N' ? 'N' : 'S'
+            ],
+            'WHERE codigo = :codigo AND id_user = :id_user',
+            "codigo={$codigo}&id_user={$id_user}"
+        );
+        return (bool) $update->getResult();
+    }
+
+    /**
+     * Deleta um link de inscrição pertencente ao usuário informado.
+     */
+    public function deleteLinkInscricao($codigo, $id_user): bool
+    {
+        $delete = new Delete();
+        $delete->ExeDelete(
+            'visitas_links_inscricoes',
+            'WHERE codigo = :codigo AND id_user = :id_user',
+            "codigo={$codigo}&id_user={$id_user}"
+        );
+        return (bool) $delete->getResult();
+    }
 
 }

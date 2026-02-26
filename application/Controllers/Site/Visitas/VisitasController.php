@@ -579,6 +579,72 @@ class VisitasController extends Controller
         $this->render('components/inscricao/link_inscricao.twig', ['visita' => $visita]);
     }
 
+    /**
+     * Página para o usuário gerenciar (listar e editar) seus links de inscrição da visita.
+     */
+    public function linksGerenciar($params)
+    {
+        $this->setParams($params);
+        if (empty($_SESSION['sampel_user_id'])) {
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+            return;
+        }
+        $visita = new Visitas();
+        $visita = $visita->listarVisitaID($params['id'])->getResult();
+        if (empty($visita)) {
+            $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
+            return;
+        }
+        $visita = $visita[0];
+        $links = new Visitas();
+        $links = $links->listarLinksByUserAndEvento($visita['id'], $_SESSION['sampel_user_id'])->getResult();
+        $this->render('pages/visitas/links_gerenciar.twig', ['menu' => 'visitas', 'visita' => $visita, 'links' => $links ?: []]);
+    }
+
+    /**
+     * Salva edição de um link (qtd_usos, restricao). Apenas o dono do link pode editar.
+     */
+    public function linkInscricaoEditarSave($params)
+    {
+        $this->setParams($params);
+        if (empty($_SESSION['sampel_user_id'])) {
+            echo 'error';
+            return;
+        }
+        $codigo = $params['codigo'] ?? '';
+        $qtd_usos = (int) ($params['qtd_usos'] ?? 0);
+        $restricao = isset($params['restricao']) && $params['restricao'] === 'N' ? 'N' : 'S';
+        if ($codigo === '') {
+            echo 'error';
+            return;
+        }
+        $visita = new Visitas();
+        $ok = $visita->updateLinkInscricaoEditar($codigo, $_SESSION['sampel_user_id'], $qtd_usos, $restricao);
+        echo $ok ? 'success' : 'error';
+    }
+
+    /**
+     * Deleta um link de inscrição do usuário logado.
+     */
+    public function linkInscricaoDelete($params)
+    {
+        $this->setParams($params);
+        if (empty($_SESSION['sampel_user_id'])) {
+            echo 'error';
+            return;
+        }
+
+        $codigo = $params['codigo'] ?? '';
+        if ($codigo === '') {
+            echo 'error';
+            return;
+        }
+
+        $visita = new Visitas();
+        $ok = $visita->deleteLinkInscricao($codigo, $_SESSION['sampel_user_id']);
+        echo $ok ? 'success' : 'error';
+    }
+
     public function linkIncricaoSave($params)
     {
         $this->setParams($params);

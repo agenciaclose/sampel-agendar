@@ -1,0 +1,209 @@
+{% extends "layout/layoutMaster.twig" %}
+
+{% block title %} Gerenciar meus Links - {{ visita.title }} {% endblock %}
+
+{% block body %}
+
+<div class="container py-5">
+
+	<session>
+		<div class="row mb-4">
+			<div class="col-12">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="text-warning">Lista: {{ visita.title }}</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Gerenciar meus Links</li>
+					</ol>
+				</nav>
+				<h5 class="text-warning mb-2">Gerenciar meus Links de Inscrição</h5>
+				<p class="small opacity-75">Altere a quantidade de usos e a restrição de cada link. Apenas os links criados por você aparecem aqui.</p>
+			</div>
+		</div>
+
+		<div class="card mb-4">
+			<div class="card-body">
+				<h6 class="card-title text-warning mb-3"><i class="fa-solid fa-link"></i> Criar novo Link de Inscrição</h6>
+				<form id="form-criar-link" class="d-flex flex-wrap align-items-end gap-2">
+					<input type="hidden" name="id_evento" value="{{ visita.id }}">
+					<div class="d-flex align-items-center gap-2">
+						<label class="form-label mb-0 small">Qtd. de usos</label>
+						<input type="number" name="qtd_usos" class="form-control form-control-sm" placeholder="Ex: 10" min="1" style="width: 90px;">
+					</div>
+					<div class="form-check mb-0" title="Cadastro sem restrições (mesmo e-mail/CPF pode se inscrever mais de uma vez)">
+						<input type="checkbox" name="restricao" class="form-check-input" value="N">
+						<label class="form-check-label small">Sem restrição</label>
+					</div>
+					<button type="submit" class="btn btn-warning btn-sm">Gerar link</button>
+				</form>
+				<div id="criar-link-msg" class="small mt-2"></div>
+			</div>
+		</div>
+
+		{% if links|length > 0 %}
+		<div class="table-responsive">
+			<table class="table table-hover align-middle table-sm">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Link de inscrição</th>
+						<th>Qtd. usos</th>
+						<th>Usados</th>
+						<th>Restrição</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for link in links %}
+					<tr data-codigo="{{ link.codigo }}">
+						<td><code>{{ link.codigo }}</code></td>
+						<td>
+							<div class="d-flex align-items-center gap-1 flex-wrap">
+								<input type="text" class="form-control form-control-sm link-url" readonly value="{{ DOMAIN }}/visita/inscricao/{{ visita.id }}?link_inscricao={{ link.codigo }}" style="max-width: 280px;">
+								<button type="button" class="btn btn-outline-warning btn-sm copiar-link" data-url="{{ DOMAIN }}/visita/inscricao/{{ visita.id }}?link_inscricao={{ link.codigo }}" title="Copiar link"><i class="fa-solid fa-copy"></i></button>
+							</div>
+						</td>
+						<td>
+							<form class="form-link-editar d-inline-flex align-items-center gap-1" data-codigo="{{ link.codigo }}">
+								<input type="number" name="qtd_usos" class="form-control form-control-sm" value="{{ link.qtd_usos }}" min="1" style="width: 70px;">
+								<input type="hidden" name="codigo" value="{{ link.codigo }}">
+								<div class="form-check form-check-inline d-flex align-items-center gap-1 ms-2" title="Sem restrição de cadastro (mesmo e-mail/CPF pode se inscrever mais de uma vez)">
+									<input type="checkbox" name="restricao" class="form-check-input" value="N" {{ link.restricao == 'N' ? 'checked' : '' }}>
+									<label class="form-check-label small m-0">Sem restrição</label>
+								</div>
+								<button type="submit" class="btn btn-warning btn-sm">Salvar</button>
+							</form>
+						</td>
+						<td>{{ link.qtd_usado }}</td>
+						<td>
+							{% if link.restricao == 'N' %}
+								<span class="badge bg-success">Sem restrição</span>
+							{% else %}
+								<span class="badge bg-secondary">Com restrição</span>
+							{% endif %}
+						</td>
+						<td>
+							<button type="button" class="btn btn-outline-danger btn-sm deletar-link" data-codigo="{{ link.codigo }}" title="Excluir link">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<div class="alert alert-danger">
+			<p class="mb-0">Você ainda não criou nenhum link de inscrição para esta visita.</p>
+		</div>
+		{% endif %}
+
+		<div class="mt-3">
+			<a href="{{ DOMAIN }}/visita/lista/{{ visita.visita_id }}" class="btn btn-outline-warning"><i class="fa-solid fa-arrow-left"></i> Voltar à lista de inscrições</a>
+		</div>
+	</session>
+</div>
+
+<script>
+$(function() {
+	var DOMAIN = $('body').data('domain');
+
+	$('#form-criar-link').on('submit', function(e) {
+		e.preventDefault();
+		var $form = $(this);
+		var $msg = $('#criar-link-msg');
+		$msg.removeClass('text-success text-danger').text('Gerando...');
+		$form.find('button[type="submit"]').prop('disabled', true);
+		$.ajax({
+			type: 'POST',
+			url: DOMAIN + '/visita/inscricao/link-inscricao/save',
+			data: $form.serialize(),
+			success: function(codigo) {
+				$msg.addClass('text-success').text('Link criado com sucesso! Atualizando...');
+				location.reload();
+			},
+			error: function() {
+				$msg.addClass('text-danger').text('Erro ao criar o link.');
+				$form.find('button[type="submit"]').prop('disabled', false);
+			}
+		});
+	});
+
+	$(document).on('submit', '.form-link-editar', function(e) {
+		e.preventDefault();
+		var $form = $(this);
+		var $row = $form.closest('tr');
+		var $msg = $row.find('.msg-editar');
+		var codigo = $form.find('input[name="codigo"]').val();
+		var qtd_usos = $form.find('input[name="qtd_usos"]').val();
+		var restricao = $form.find('input[name="restricao"]').is(':checked') ? 'N' : 'S';
+
+		$msg.removeClass('text-success text-danger').text('');
+		$.ajax({
+			type: 'POST',
+			url: DOMAIN + '/visita/inscricao/link/editar',
+			data: { codigo: codigo, qtd_usos: qtd_usos, restricao: restricao },
+			success: function(res) {
+				if (res === 'success') {
+					swal({type: 'success', title: 'Salvo com sucesso!', showConfirmButton: false, timer: 1500});
+					setTimeout(function() { location.reload(); }, 1500);
+				} else {
+					swal({type: 'error', title: 'Erro ao salvar!', showConfirmButton: false, timer: 1500});
+				}
+			},
+			error: function() {
+				swal({type: 'error', title: 'Erro ao salvar!', showConfirmButton: false, timer: 1500});
+			}
+		});
+	});
+
+	$(document).on('click', '.copiar-link', function() {
+		var url = $(this).data('url');
+		if (navigator.clipboard && window.isSecureContext) {
+			navigator.clipboard.writeText(url).then(function() {
+				alert('Link copiado!');
+			});
+		} else {
+			var ta = document.createElement('textarea');
+			ta.value = url;
+			ta.style.position = 'fixed';
+			ta.style.left = '-9999px';
+			document.body.appendChild(ta);
+			ta.select();
+			try {
+				document.execCommand('copy');
+				alert('Link copiado!');
+			} catch (err) {}
+			document.body.removeChild(ta);
+		}
+	});
+
+	$(document).on('click', '.deletar-link', function() {
+		var $btn = $(this);
+		var codigo = $btn.data('codigo');
+		if (!confirm('Deseja realmente excluir este link de inscrição?')) {
+			return;
+		}
+
+		$btn.prop('disabled', true);
+
+		$.ajax({
+			type: 'POST',
+			url: DOMAIN + '/visita/inscricao/link/deletar',
+			data: { codigo: codigo },
+			success: function(res) {
+				if (res === 'success') {
+					$btn.closest('tr').remove();
+				} else {
+					alert('Erro ao excluir o link.');
+					$btn.prop('disabled', false);
+				}
+			},
+			error: function() {
+				alert('Erro ao excluir o link.');
+				$btn.prop('disabled', false);
+			}
+		});
+	});
+});
+</script>
+{% endblock %}

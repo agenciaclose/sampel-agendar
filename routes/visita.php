@@ -37,6 +37,9 @@ $router->post("/visita/inscricao/editar", "VisitasController:inscricaoEditarSave
 
 $router->post("/visita/inscricao/link-inscricao", "VisitasController:linkIncricao");
 $router->post("/visita/inscricao/link-inscricao/save", "VisitasController:linkIncricaoSave");
+$router->get("/visita/links/{id}", "VisitasController:linksGerenciar");
+$router->post("/visita/inscricao/link/editar", "VisitasController:linkInscricaoEditarSave");
+$router->post("/visita/inscricao/link/deletar", "VisitasController:linkInscricaoDelete");
 
 //SORTEIO
 $router->post("/visita/sortear", "VisitasController:sortear");
