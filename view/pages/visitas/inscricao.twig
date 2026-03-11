@@ -105,7 +105,7 @@
 									</div>
 								</div>
 							
-							{% elseif visita.status_inscricoes == 'Concluido' %}
+							{% elseif visita.status_inscricoes == 'Concluido' and not (link_codigo != '' and link_codigo.qtd_usos > link_codigo.qtd_usado) %}
 
 								<div class="form_inscricao">
 									<div class="alert alert-danger text-center py-5" role="alert">
