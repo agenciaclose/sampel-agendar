@@ -105,7 +105,7 @@
 									</div>
 								</div>
 							
-							{% elseif visita.status_inscricoes == 'Concluido' and not (link_codigo != '' and (link_codigo.qtd_usos == 0 or link_codigo.qtd_usos > link_codigo.qtd_usado)) %}
+							{% elseif visita.status_inscricoes == 'Concluido' and not (_get.link_inscricao != '' and link_codigo != '' and (link_codigo.qtd_usos == 0 or link_codigo.qtd_usos > link_codigo.qtd_usado)) %}
 
 								<div class="form_inscricao">
 									<div class="alert alert-danger text-center py-5" role="alert">
@@ -127,7 +127,8 @@
 							(visita.status_visita != 'Concluido' and visita.status_visita != 'Recusado' and _get.a == 'qr') or
 							(visita.status_visita != 'Recusado' and now|date('Y-m-d') < visita.data_close) or
 							(_session.sampel_user_id != '' and visita.status_visita != 'Concluido') or
-							(link_codigo != '' and (link_codigo.qtd_usos == 0 or link_codigo.qtd_usos > link_codigo.qtd_usado))
+							(visita.status_visita != 'Concluido' and visita.status_visita != 'Recusado' and now|date('Y-m-d') > visita.data_close and link_codigo != '' and link_codigo.qtd_usos > link_codigo.qtd_usado) or
+							(_get.link_inscricao != '' and link_codigo != '' and (link_codigo.qtd_usos == 0 or link_codigo.qtd_usos > link_codigo.qtd_usado))
 						%}
 							
 							{% if _get.action == '' %}
