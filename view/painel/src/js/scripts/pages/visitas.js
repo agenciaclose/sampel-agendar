@@ -161,6 +161,45 @@ $(document).ready(function () {
 
 });
 
+$('.dataTable_list_export').on('click', '.btn-excluir-inscricao', function (e) {
+    e.preventDefault();
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
+    var codigo = $btn.data('codigo');
+    var DOMAIN = $('body').data('domain');
+
+    swal({
+        title: "Deseja excluir esta inscrição?",
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: "Sim, excluir",
+        denyButtonText: "Cancelar"
+    }).then((result) => {
+        if (!result.value) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: DOMAIN + '/painel/inscricao/delete',
+            data: { codigo: codigo },
+            success: function (data) {
+                if (data == "1") {
+                    swal({type: 'success', title: 'INSCRIÇÃO EXCLUÍDA!', showConfirmButton: false, timer: 1200});
+                    $row.fadeOut(400, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    swal({type: 'error', title: 'ERRO AO EXCLUIR!', showConfirmButton: false, timer: 1500});
+                }
+            },
+            error: function () {
+                swal({type: 'error', title: 'ERRO AO EXCLUIR!', showConfirmButton: false, timer: 1500});
+            }
+        });
+    });
+});
+
 $('#setor').change(function() {
 	if($(this).val() == 'Outros'){
 		$('.outros').show();

@@ -126,9 +126,10 @@
 
 													<td class="text-end pe-0">
 														{{ visita.data_visita | date("d-m-Y") }}
-														<div class="d-flex">
+														<div class="d-flex justify-content-end">
 															<a href="{{ DOMAIN }}/etiqueta/{{ lista.codigo }}" target="_blank" class="badge bg-dark"><i class="fa-regular fa-arrow-up-right-from-square"></i> Ver</a>
 															<a href="{{ DOMAIN }}/painel/inscricao/edit/{{ lista.codigo }}" class="badge bg-warning ms-2"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+															<a href="javascript:void(0)" class="badge bg-danger text-white ms-2 btn-excluir-inscricao" data-codigo="{{ lista.codigo }}"><i class="fa-regular fa-trash-can"></i> Excluir</a>
 														</div>
 													</td>
 
@@ -149,6 +150,6 @@
         </div>
     </div>
 
-	<script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js"></script>
+	<script src="{{ PATH }}/view/painel/src/js/scripts/pages/visitas.js?1"></script>
 
 {% endblock %}

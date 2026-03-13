@@ -153,6 +153,18 @@ class VisitasController extends Controller
 
     }
 
+    public function excluirInscricao($params)
+    {
+        $this->setParams($params);
+        $visita = new VisitasPainel();
+        $delete = $visita->inscricaoExcluir($params['codigo']);
+        if($delete){
+            echo '1';
+        }else{
+            echo '0';
+        }
+    }
+
     public function exportVisitantes($filename = 'emails_eventos.csv')
     {
         // Cria uma instância de Visitas e obtém os dados

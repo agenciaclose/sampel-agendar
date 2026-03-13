@@ -28,6 +28,7 @@ $router->get("/painel/visita/status/reprovar/{id}", "VisitasController:reprovar"
 $router->get("/painel/visita/excluir/{id}", "VisitasController:excluir");
 $router->get("/painel/inscricao/edit/{codigo}", "VisitasController:editarInscricao");
 $router->post("/painel/inscricao/edit/save", "VisitasController:editarInscricaoSave");
+$router->post("/painel/inscricao/delete", "VisitasController:excluirInscricao");
 
 $router->get("/painel/inscricao/visitas/exportemails", "VisitasController:exportVisitantes");
 

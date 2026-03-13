@@ -113,6 +113,13 @@ class VisitasPainel extends Model
         return $update;
     }
 
+    public function inscricaoExcluir($codigo)
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `visitas_inscricoes` WHERE `codigo` = :codigo", "codigo={$codigo}");
+        return $read;
+    }
+
     function clearCPF($palavra){
         $palavra = trim(preg_replace("/[\s]+/", " ", $palavra));
         trim($palavra);
