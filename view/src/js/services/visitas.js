@@ -82,6 +82,51 @@ $('.remover_equipe').click(function (e) {
 
 });
 
+$('#tabela_dinamica').on('click', '.btn-excluir-inscricao', function (e) {
+
+    e.preventDefault();
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
+    var DOMAIN = $('body').data('domain');
+    var id = $btn.data('id');
+    var visita = $btn.data('visita');
+
+    swal({
+        title: "Deseja excluir esta inscrição?",
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: "Sim",
+        denyButtonText: `Não`
+    }).then((result) => {
+        if (!result.value) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            data: { id: id, visita_id: visita },
+            url: DOMAIN + '/visita/inscricao/excluir',
+            success: function (data) {
+
+                if (data === "success") {
+                    swal({type: 'success', title: 'INSCRIÇÃO EXCLUÍDA!', showConfirmButton: false, timer: 1500});
+                    $row.fadeOut(400, function () {
+                        $(this).remove();
+                    });
+                } else if (data === "forbidden") {
+                    swal({type: 'warning', title: 'Você não tem permissão para excluir esta inscrição.', showConfirmButton: false, timer: 2000});
+                } else {
+                    swal({type: 'error', title: 'ERRO AO EXCLUIR!', showConfirmButton: false, timer: 1500});
+                }
+            },
+            error: function () {
+                swal({type: 'error', title: 'ERRO AO EXCLUIR!', showConfirmButton: false, timer: 1500});
+            }
+        });
+    });
+});
+
 
 // GERA QRCODE DA PALESTRA
 function qrcodeGenVisitas(id_visita) {

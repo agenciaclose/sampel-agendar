@@ -418,6 +418,44 @@ class VisitasController extends Controller
         $sortear = $sortear->sortear($params);
     }
 
+    public function inscricaoExcluir($params)
+    {
+        $this->setParams($params);
+
+        if (empty($_SESSION['sampel_user_id'])) {
+            echo 'error';
+            return;
+        }
+
+        $idInscricao = (int)($params['id'] ?? 0);
+        $idVisita = (int)($params['visita_id'] ?? 0);
+        if ($idInscricao <= 0 || $idVisita <= 0) {
+            echo 'error';
+            return;
+        }
+
+        $visitasModel = new Visitas();
+        $visita = $visitasModel->listarVisitaID($idVisita)->getResult();
+        if (!$visita) {
+            echo 'error';
+            return;
+        }
+
+        $visita = $visita[0];
+
+        if (
+            $_SESSION['sampel_user_id'] != $visita['id_empresa'] &&
+            $_SESSION['sampel_user_id'] != 1 &&
+            $_SESSION['sampel_user_id'] != 4
+        ) {
+            echo 'forbidden';
+            return;
+        }
+
+        $delete = $visitasModel->inscricaoExcluir($idInscricao);
+        echo $delete ? 'success' : 'error';
+    }
+
     public function sorteados($params)
     {
         $this->setParams($params);

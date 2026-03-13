@@ -215,6 +215,12 @@
 									<i class="fa-regular fa-pen-to-square fs-6"></i>
 									<div class="mt-1">EDITAR</div>
 								</a>
+								{% if _session.sampel_user_id == visita.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 %}
+								<a href="javascript:void(0)" class="badge bg-danger text-black ms-2 btn-excluir-inscricao" data-id="{{ lista.id }}" data-visita="{{ lista.visita_id }}">
+									<i class="fa-regular fa-trash-can fs-6"></i>
+									<div class="mt-1">EXCLUIR</div>
+								</a>
+								{% endif %}
 							</td>
 						</tr>
 					{% endfor %}

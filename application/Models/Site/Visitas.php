@@ -249,6 +249,13 @@ class Visitas extends Model
         return $read;
     }
 
+    public function inscricaoExcluir($id): Read
+    {
+        $read = new Read();
+        $read->FullRead("DELETE FROM `visitas_inscricoes` WHERE `id` = :id", "id={$id}");
+        return $read;
+    }
+
     public function checkCadastroCampo($params){
        
         $read = new Read();
