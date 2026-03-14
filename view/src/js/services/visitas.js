@@ -156,9 +156,21 @@ function qrcodeGenVisitas(id_visita) {
 
     var DOMAIN = $('body').data('domain');
     var url = DOMAIN + '/visita/inscricao/' + id_visita + '?a=qr';
-    var qrcode = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url);
-    qrcode = (new XMLSerializer()).serializeToString(qrcode);
-    qrcodeSaveVisitas(id_visita, qrcode);
+    var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url) + "&format=svg";
+
+    $.ajax({
+        type: "GET",
+        url: apiUrl,
+        dataType: "text",
+        success: function (svgString) {
+            if (svgString) {
+                qrcodeSaveVisitas(id_visita, svgString);
+            }
+        },
+        error: function () {
+            console.error('Erro ao gerar QR Code');
+        }
+    });
 }
 
 function qrcodeSaveVisitas (id_visita, qrcode){
