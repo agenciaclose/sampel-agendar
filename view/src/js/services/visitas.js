@@ -198,26 +198,20 @@ function qrcodeSaveVisitas (id_visita, qrcode){
 // GERA QRCODE DO FEEDBACK
 function qrcodeGenFeedback(id_visita) {
     var DOMAIN = $('body').data('domain');
-    
+    var url = DOMAIN + '/visita/feedback/' + id_visita;
+    var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url) + "&format=svg";
+
     $.ajax({
-        type: "POST", 
-        async: true, 
-        data: { 
-                "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/visita/feedback/'+id_visita,
-                "image_format": "SVG",
-                "frame_color": "#246CB1",
-                "frame_text_color": "#ffffff",
-                "frame_icon_name": "mobile",
-                "frame_text": "FEEDBACK",
-                "marker_left_template": "version13",
-                "marker_right_template": "version13",
-                "marker_bottom_template": "version13"
-            },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
-        success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
-            qrcodeSaveFeedback(id_visita, qrcode);
+        type: "GET",
+        url: apiUrl,
+        dataType: "text",
+        success: function (svgString) {
+            if (svgString) {
+                qrcodeSaveFeedback(id_visita, svgString);
+            }
+        },
+        error: function () {
+            console.error('Erro ao gerar QR Code do feedback');
         }
     });
 }
