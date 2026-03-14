@@ -158,7 +158,7 @@ function qrcodeGenVisitas(id_visita) {
 
     var url = DOMAIN + '/painel/visita/feedback/' + id_user + '/' + id_visita;
 
-    var qrcode = "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + encodeURIComponent(url);
+    var qrcode = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url);
 
     qrcodeSave(id_visita, id_user, qrcode);
 }
