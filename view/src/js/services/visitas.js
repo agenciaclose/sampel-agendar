@@ -155,12 +155,10 @@ function qrcodeGenVisitas(id_visita) {
     // });
 
     var DOMAIN = $('body').data('domain');
-
     var url = DOMAIN + '/visita/inscricao/' + id_visita + '?a=qr';
-
     var qrcode = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url);
-
-    qrcodeSave(id_visita, id_user, qrcode);
+    qrcode = (new XMLSerializer()).serializeToString(qrcode);
+    qrcodeSaveVisitas(id_visita, qrcode);
 }
 
 function qrcodeSaveVisitas (id_visita, qrcode){
