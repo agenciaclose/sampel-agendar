@@ -1,27 +1,21 @@
 $(document).ready(function () {
 
     if ($('#descricao').length){
-        new FroalaEditor('#descricao', {
-            key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
-            enter: FroalaEditor.ENTER_BR,
-            language: 'pt_br',
-            entities: '',
-            pastePlain: true,
-            attribution: false,
-            theme: 'dark',
-            toolbarButtons: {
-                'moreText': {
-                'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'fontSize', 'clearFormatting'],
-                'buttonsVisible': 2
-                },
-                'moreParagraph': {
-                'buttons': ['alignLeft', 'alignCenter',  'alignRight']
-                },
-                'moreRich': {
-                'buttons': ['emoticons', 'fontAwesome']
-                }
-            }
-        });
+        try {
+            // Importante: evitar que erro de configuração do Froala quebre o resto do JS
+            // (o submit do formulário depende deste arquivo).
+            new FroalaEditor('#descricao', {
+                key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\ZJ]RAe(+%$==",
+                enter: FroalaEditor.ENTER_BR,
+                language: 'pt_br',
+                entities: '',
+                pastePlain: true,
+                attribution: false,
+                theme: 'dark'
+            });
+        } catch (e) {
+            console.error('Erro ao inicializar Froala no cadastro de palestra:', e);
+        }
     }
 
     $("#cadastro_palestra").submit(function (c) {
@@ -111,25 +105,20 @@ $(document).ready(function () {
 function qrcodeGenFeedback(id_palestra) {
     var DOMAIN = $('body').data('domain');
     
+    var url = DOMAIN + '/palestras/feedback/' + id_palestra;
+    var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url) + "&format=svg";
+
     $.ajax({
-        type: "POST", 
-        async: true, 
-        data: { 
-                "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/palestras/feedback/'+id_palestra,
-                "image_format": "SVG",
-                "frame_color": "#246CB1",
-                "frame_text_color": "#ffffff",
-                "frame_icon_name": "mobile",
-                "frame_text": "FEEDBACK",
-                "marker_left_template": "version13",
-                "marker_right_template": "version13",
-                "marker_bottom_template": "version13"
-            },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
-        success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
-            qrcodeSaveFeedback(id_palestra, qrcode);
+        type: "GET",
+        url: apiUrl,
+        dataType: "text",
+        success: function (svgString) {
+            if (svgString) {
+                qrcodeSaveFeedback(id_palestra, svgString);
+            }
+        },
+        error: function () {
+            console.error('Erro ao gerar QR Code do feedback da palestra');
         }
     });
 }
@@ -161,25 +150,20 @@ function qrcodeSaveFeedback (id_palestra, qrcode){
 function qrcodeGenPalestras(id_palestra) {
     var DOMAIN = $('body').data('domain');
     
+    var url = DOMAIN + '/palestras/inscricao/' + id_palestra + '?a=qr';
+    var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url) + "&format=svg";
+
     $.ajax({
-        type: "POST", 
-        async: true, 
-        data: { 
-                "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/palestras/inscricao/'+id_palestra+'?a=qr',
-                "image_format": "SVG",
-                "frame_color": "#246CB1",
-                "frame_text_color": "#ffffff",
-                "frame_icon_name": "mobile",
-                "frame_text": "INSCRIÇÃO",
-                "marker_left_template": "version13",
-                "marker_right_template": "version13",
-                "marker_bottom_template": "version13"
-            },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
-        success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
-            qrcodeSavePalestras(id_palestra, qrcode);
+        type: "GET",
+        url: apiUrl,
+        dataType: "text",
+        success: function (svgString) {
+            if (svgString) {
+                qrcodeSavePalestras(id_palestra, svgString);
+            }
+        },
+        error: function () {
+            console.error('Erro ao gerar QR Code da inscrição da palestra');
         }
     });
 }
@@ -215,25 +199,20 @@ function qrcodeSavePalestras (id_palestra, qrcode){
 function qrcodeGen(id_palestra, user_email, cpf, last) {
     var DOMAIN = $('body').data('domain');
     
+    var url = DOMAIN + '/palestras/feedback/' + cpf + '/' + id_palestra;
+    var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(url) + "&format=svg";
+
     $.ajax({
-        type: "POST", 
-        async: true, 
-        data: { 
-                "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/palestra/feedback/'+cpf+'/'+id_palestra,
-                "image_format": "SVG",
-                "frame_color": "#246CB1",
-                "frame_text_color": "#ffffff",
-                "frame_icon_name": "mobile",
-                "frame_text": "SAMPEL",
-                "marker_left_template": "version13",
-                "marker_right_template": "version13",
-                "marker_bottom_template": "version13"
-            },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
-        success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
-            qrcodeSave(id_palestra, cpf, qrcode, last);
+        type: "GET",
+        url: apiUrl,
+        dataType: "text",
+        success: function (svgString) {
+            if (svgString) {
+                qrcodeSave(id_palestra, cpf, svgString, last);
+            }
+        },
+        error: function () {
+            console.error('Erro ao gerar QR Code do feedback da inscrição da palestra');
         }
     });
 }
