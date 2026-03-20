@@ -55,6 +55,10 @@ $router->post("/visita/recepcao/confirmar", "RecepcaoController:confirmarPresenc
 $router->get("/palestras/recepcao/{id}", "RecepcaoController:palestra");
 $router->post("/palestras/recepcao/confirmar", "RecepcaoController:confirmarPresencaPalestra");
 
+// QR CODE (frames/markers) - usado no lugar da API externa
+$router->namespace("Agencia\Close\Controllers\Site\QrCode");
+$router->post("/qr/generate", "QrCodeController:generate");
+
 // PAINEL EQUIPE
 $router->namespace("Agencia\Close\Controllers\Site\Equipes");
 $router->get("/equipes", "EquipesController:equipes");
