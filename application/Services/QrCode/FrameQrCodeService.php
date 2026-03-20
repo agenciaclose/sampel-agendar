@@ -71,6 +71,8 @@ class FrameQrCodeService
             ],
             // Evita "xml header" duplicado quando a gente monta o SVG final
             'svgAddXmlHeader' => false,
+            // Importante: retorna SVG puro (texto). Senão vira data URI e não tem viewBox.
+            'outputBase64' => false,
         ]);
 
         $qrSvg = (new QRCode($options))->render($text);
