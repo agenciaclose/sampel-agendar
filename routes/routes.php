@@ -83,6 +83,10 @@ $router->get("/minha-conta/schedules/{id}", "MinhaContaController:schedulesView"
 $router->get("/minha-conta/downloads", "MinhaContaController:downloads");
 $router->get("/minha-conta/edit-account", "MinhaContaController:editaccount");
 
+// QR CODE (frames/markers) - usado no lugar da API externa
+$router->namespace("Agencia\Close\Controllers\Site\QrCode");
+$router->post("/qr/generate", "QrCodeController:generate");
+
 //PAINEL HOME
 $router->namespace("Agencia\Close\Controllers\Painel\Home");
 $router->get("/painel", "HomeController:index");

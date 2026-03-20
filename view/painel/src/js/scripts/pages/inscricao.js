@@ -56,9 +56,8 @@ function qrcodeGen(id_visita, id_user) {
                 "marker_right_template": "version13",
                 "marker_bottom_template": "version13"
             },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        url: DOMAIN + '/qr/generate',
         success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
             qrcodeSave(id_visita, id_user, qrcode);
         }
     });

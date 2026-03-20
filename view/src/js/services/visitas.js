@@ -133,34 +133,25 @@ function qrcodeGenVisitas(id_visita) {
     var DOMAIN = $('body').data('domain');
     
     $.ajax({
-        type: "POST", 
-        async: true, 
-        data: { 
-                "frame_name": "bottom-frame",
-                "qr_code_text": DOMAIN + '/visita/inscricao/'+id_visita+'?a=qr',
-                "image_format": "SVG",
-                "frame_color": "#246CB1",
-                "frame_text_color": "#ffffff",
-                "frame_icon_name": "mobile",
-                "frame_text": "INSCRIÇÃO",
-                "marker_left_template": "version13",
-                "marker_right_template": "version13",
-                "marker_bottom_template": "version13"
-            },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        type: "POST",
+        async: true,
+        url: DOMAIN + '/qr/generate',
+        data: {
+            "frame_name": "bottom-frame",
+            "qr_code_text": DOMAIN + '/visita/inscricao/' + id_visita + '?a=qr',
+            "image_format": "SVG",
+            "frame_color": "#246CB1",
+            "frame_text_color": "#ffffff",
+            "frame_icon_name": "mobile",
+            "frame_text": "INSCRIÇÃO",
+            "marker_left_template": "version13",
+            "marker_right_template": "version13",
+            "marker_bottom_template": "version13"
+        },
         success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
             qrcodeSaveVisitas(id_visita, qrcode);
         }
     });
-
-    var DOMAIN = $('body').data('domain');
-
-    var url = DOMAIN + '/painel/visita/feedback/' + id_user + '/' + id_visita;
-
-    var qrcode = "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + encodeURIComponent(url);
-
-    qrcodeSave(id_visita, id_user, qrcode);
 }
 
 function qrcodeSaveVisitas (id_visita, qrcode){
@@ -204,9 +195,8 @@ function qrcodeGenFeedback(id_visita) {
                 "marker_right_template": "version13",
                 "marker_bottom_template": "version13"
             },
-        url: 'https://api.qr-code-generator.com/v1/create?access-token=pec_cfJ6r3zAxzXl-jCpj8hEj1_R9-9PlkdC8d_pf0Vjpls62BT9NxSQtnySGh43',
+        url: DOMAIN + '/qr/generate',
         success: function (qrcode) {
-            qrcode = (new XMLSerializer()).serializeToString(qrcode);
             qrcodeSaveFeedback(id_visita, qrcode);
         }
     });
