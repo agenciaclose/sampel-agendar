@@ -80,9 +80,11 @@ class FrameQrCodeService
         $qrSize = $this->extractViewBoxSize($qrSvg);
         $qrInner = $this->extractSvgInner($qrSvg);
 
-        // Layout do frame
-        $pad = 12;
-        $textArea = $frameText !== '' ? 42 : 0;
+        // Layout do frame (tamanhos proporcionais ao tamanho real do QR)
+        // O SVG do QR do chillerlan usa coordenadas de 0..$moduleCount (não escala em pixels).
+        // Por isso aqui tudo deve ser relativo ao $qrSize.
+        $pad = (int) max(5, round($qrSize * 0.16));          // reduz o "vão" azul excessivo
+        $textArea = $frameText !== '' ? (int) max(12, round($qrSize * 0.38)) : 0;
 
         $w = $qrSize + ($pad * 2);
         $h = $qrSize + ($pad * 2) + $textArea;
@@ -90,7 +92,8 @@ class FrameQrCodeService
         $frameStroke = $qrFg; // borda igual à cor do QR
 
         $tx = ($w / 2);
-        $ty = $qrSize + $pad + 30;
+        // baseline do texto (texto fica "próximo" do QR, sem ocupar muito espaço)
+        $ty = $qrSize + $pad + (int) round($textArea * 0.62);
 
         $svg = [];
         $svg[] = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -117,12 +120,19 @@ class FrameQrCodeService
 
         // Texto (ex.: FEEDBACK, INSCRIÇÃO)
         if ($frameText !== '') {
+            $len = mb_strlen($frameText);
+            $fontSize = (int) max(6, round($qrSize * 0.18));
+            // Ajusta para textos maiores não ficarem gigantes.
+            if ($len > 12) {
+                $fontSize = (int) max(5, $fontSize - (int) floor(($len - 12) / 3));
+            }
             $svg[] = sprintf(
-                '<text x="%1$d" y="%2$d" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="%3$s">%4$s</text>',
+                '<text x="%1$d" y="%2$d" text-anchor="middle" font-family="Arial, sans-serif" font-size="%5$d" font-weight="700" fill="%3$s">%4$s</text>',
                 $tx,
                 $ty,
                 htmlspecialchars($qrFg, ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($frameText, ENT_QUOTES, 'UTF-8')
+                htmlspecialchars($frameText, ENT_QUOTES, 'UTF-8'),
+                $fontSize
             );
         }
 
