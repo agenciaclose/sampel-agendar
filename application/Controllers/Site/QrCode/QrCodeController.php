@@ -17,7 +17,9 @@ class QrCodeController extends Controller
             $svg = $service->generateSvg($payload);
 
             // Mantém o mesmo comportamento esperado pelo frontend (XMLSerializer no response).
-            header('Content-Type: image/svg+xml; charset=utf-8');
+            // Importante: não use image/svg+xml pois o jQuery pode parsear como XMLDocument.
+            // Queremos a string SVG crua no JS para salvar corretamente no banco.
+            header('Content-Type: text/plain; charset=utf-8');
             echo $svg;
         } catch (\Throwable $e) {
             http_response_code(400);
