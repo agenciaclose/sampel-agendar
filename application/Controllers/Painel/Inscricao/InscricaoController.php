@@ -42,7 +42,7 @@ class InscricaoController extends Controller
             $params['sampel_user_id'] = $cadastroUser[0]['id'];
         }
 
-        if( !$this->checkCadastro($params['email'], $params['id_visita']) ){
+        if( !$this->checkCadastro($params['cpf'], $params['id_visita']) ){
            
             $cadastro = new InscricaoPainel();
             $cadastro = $cadastro->inscricaoCadastro($params);
@@ -67,10 +67,10 @@ class InscricaoController extends Controller
         $update = $update->inscricaoCadastroQRcode($params);
     }
 
-    public function checkCadastro($email, $visita_id)
+    public function checkCadastro($cpf, $visita_id)
     {
         $checkCadastro = new InscricaoPainel();
-        $checkCadastro = $checkCadastro->checkCadastro($email, $visita_id)->getResult();
+        $checkCadastro = $checkCadastro->checkCadastro($cpf, $visita_id)->getResult();
         return $checkCadastro;
     }
 

@@ -64,14 +64,13 @@ class InscricaoPainel extends Model
         return $read;
     }
 
-    public function checkCadastro($email, $id_visita)
+    public function checkCadastro($cpf, $id_visita)
     {
         $read = new Read();
-        $read->FullRead("SELECT v.*
-                        FROM visitas_inscricoes AS v
-                        INNER JOIN usuarios AS u ON u.id = v.id_user
-                        WHERE v.id_visita = :visita_id AND u.email = :email",
-                        "visita_id={$id_visita}&email={$email}");
+        $read->FullRead("SELECT *
+                        FROM visitas_inscricoes AS 
+                        WHERE id_visita = :visita_id AND cpf = :cpf",
+                        "visita_id={$id_visita}&cpf={$cpf}");
         return $read;
     }
 
