@@ -14,8 +14,9 @@ $router->get("/visitas", "VisitasController:visitas");
 $router->get("/visitas", "VisitasController:agendamentos");
 $router->get("/visitas/outras", "VisitasController:outras");
 $router->get("/visitas/concluidas", "VisitasController:concluidas");
-$router->get("/visita/lista/{id}", "VisitasController:lista");
+$router->get("/visita/lista/{id}/export-inscritos", "VisitasController:exportInscritosExcel");
 $router->get("/visita/lista/{id}/share", "VisitasController:inscritos");
+$router->get("/visita/lista/{id}", "VisitasController:lista");
 
 $router->post("/visita/cadastro/save-qrcode-feedback", "VisitasController:visitaQRcodeFeedbackSave");
 $router->post("/visita/cadastro/save-qrcode", "VisitasController:visitaQRcodeSave");

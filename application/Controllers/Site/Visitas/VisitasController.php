@@ -11,6 +11,7 @@ use Picqer\Barcode\BarcodeGeneratorPNG;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\VisitasPainel;
 use Agencia\Close\Services\Mailchimp\MailchimpService;
+use Shuchkin\SimpleXLSXGen;
 
 class VisitasController extends Controller
 {
@@ -130,6 +131,56 @@ class VisitasController extends Controller
         }else{
             $this->render('pages/error/no-permition.twig', ['menu' => 'visitas']);
         }
+    }
+
+    public function exportInscritosExcel($params)
+    {
+        $this->setParams($params);
+
+        if (empty($_SESSION['sampel_user_id'])) {
+            http_response_code(403);
+            header('Content-Type: text/plain; charset=utf-8');
+            echo 'Acesso negado.';
+            return;
+        }
+
+        $visitasModel = new Visitas();
+        $visitaRows = $visitasModel->listarVisitaID($params['id'])->getResult();
+        if (empty($visitaRows)) {
+            http_response_code(404);
+            header('Content-Type: text/plain; charset=utf-8');
+            echo 'Visita não encontrada.';
+            return;
+        }
+
+        $visita = $visitaRows[0];
+        $lista = $visitasModel->listarVisitasUser($params['id'], $visita['id_empresa'])->getResult();
+
+        $rows = [];
+        $rows[] = ['Nome completo', 'CPF', 'Empresa', 'Cidade', 'Estado'];
+        foreach ($lista as $inscricao) {
+            $rows[] = [
+                $inscricao['nome'] ?? '',
+                $this->formatCpfParaExportacao($inscricao['cpf'] ?? ''),
+                $inscricao['empresa'] ?? '',
+                $inscricao['cidade'] ?? '',
+                $inscricao['estado'] ?? '',
+            ];
+        }
+
+        $filename = 'inscritos_visita_' . (int) $params['id'] . '_' . date('Y-m-d') . '.xlsx';
+        SimpleXLSXGen::fromArray($rows)->downloadAs($filename);
+        exit;
+    }
+
+    private function formatCpfParaExportacao($cpf): string
+    {
+        $digits = preg_replace('/[^0-9]/', '', (string) $cpf);
+        if (strlen($digits) !== 11) {
+            return trim((string) $cpf);
+        }
+
+        return substr($digits, 0, 3) . '.' . substr($digits, 3, 3) . '.' . substr($digits, 6, 3) . '-' . substr($digits, 9, 2);
     }
 
     public function inscritos($params)
