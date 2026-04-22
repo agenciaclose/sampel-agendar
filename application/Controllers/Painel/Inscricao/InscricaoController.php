@@ -69,9 +69,21 @@ class InscricaoController extends Controller
 
     public function checkCadastro($cpf, $visita_id)
     {
+        $cpf = $this->clearCPF($cpf);
         $checkCadastro = new InscricaoPainel();
         $checkCadastro = $checkCadastro->checkCadastro($cpf, $visita_id)->getResult();
         return $checkCadastro;
+    }
+
+    public function clearCPF($cpf)
+    {
+        $cpf = trim(preg_replace("/[\s]+/", " ", $cpf));
+        trim($cpf);
+        $cpf = str_replace("(","",$cpf);
+        $cpf = str_replace(")","",$cpf);
+        $cpf = str_replace("+","",$cpf);
+        $cpf = str_replace("-","",$cpf);
+        return $cpf;
     }
 
     /**
