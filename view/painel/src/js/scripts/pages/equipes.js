@@ -58,7 +58,7 @@ $(document).ready(function () {
                     setTimeout(function(){
                         window.location.reload();
                     }, 1500);
-                } else  if (data == "2")  {e
+                } else  if (data == "2")  {
                     $('button[type="submit"]').prop("disabled", false);
                     swal({type: 'warning', title: 'Email já cadastrado!', showConfirmButton: false, timer: 1500});
                     $('.login-load').hide();
