@@ -20,16 +20,19 @@ class FeedbackPalestrasController extends Controller
 
         if(isset($params['cpf'])){
 
-            $user = new FeedbackPalestras();
-            $user = $user->getUserVisita($params['id'], $params['cpf']);
-            if($user->getResult()){
-                $user = $user->getResult()[0];
+            $userRead = new FeedbackPalestras();
+            $userRead = $userRead->getUserVisita($params['id'], $params['cpf']);
+            $user = '';
+            if($userRead->getResult()){
+                $user = $userRead->getResult()[0];
             }
 
-            $check = new FeedbackPalestras();
-            $check = $check->checkFeedback($params['id'], $params['cpf']);
-            if($check->getResult()){
-                $check = $check->getResult()[0];
+            $checkRead = new FeedbackPalestras();
+            $userCodigo = (is_array($user) && !empty($user['codigo'])) ? $user['codigo'] : '';
+            $checkRead = $checkRead->checkFeedback($params['id'], $userCodigo);
+            $check = $checkRead;
+            if($checkRead->getResult()){
+                $check = $checkRead->getResult()[0];
             }
 
         }else{
@@ -50,7 +53,11 @@ class FeedbackPalestrasController extends Controller
         $user = new FeedbackPalestras();
         $user = $user->getUserVisita($params['id_palestra'], $params['cpf']);
         if($user->getResult()){
-            echo $user->getResult()[0]['cpf'].'/'.$user->getResult()[0]['id_palestra'];
+            $row = $user->getResult()[0];
+            $fb = new FeedbackPalestras();
+            $cpfLimpo = $fb->clearCPF($row['cpf'] ?? '');
+            $ident = ($cpfLimpo !== '') ? $cpfLimpo : ($row['codigo'] ?? '');
+            echo $ident.'/'.$row['id_palestra'];
         }else{
             echo '0';
         }

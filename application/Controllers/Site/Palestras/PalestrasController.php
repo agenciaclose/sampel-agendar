@@ -110,6 +110,12 @@ class PalestrasController extends Controller
     {
         $this->setParams($params);
 
+        $telefone = trim($params['telefone'] ?? '');
+        if ($telefone === '') {
+            echo '0';
+            return;
+        }
+
         if(!$this->checkCadastro($params)){
             $cadastro = new Palestras();
             $cadastro = $cadastro->inscricaoCadastro($params);
@@ -120,7 +126,11 @@ class PalestrasController extends Controller
                 // Integração automática com Mailchimp
                 $this->integrarComMailchimp($params, 'palestra');
                 
-                echo $last['id'];
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
+                    'id' => (int) $last['id'],
+                    'codigo' => $last['codigo'] ?? '',
+                ], JSON_UNESCAPED_UNICODE);
             }
         }else{
             echo '0';

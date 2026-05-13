@@ -78,19 +78,30 @@ $(document).ready(function () {
             url: DOMAIN + '/palestras/inscricao/cadastro',
             success: function (last) {
 
-                if (last != "0") {
-
-                    var id_palestra = $('#id_palestra').val();
-                    var user_email = $('#user_email').val();
-                    var cpf = $('#cpf').val().replace('.', '').replace('-', '');
-                    
-                    qrcodeGen(id_palestra, user_email, cpf, last);
-
-                } else {
+                if (last === "0" || last === 0) {
 
                     $('.alert-2').show();
                     $('button[type="submit"]').prop("disabled", false);
                     $('.form-load').removeClass('show');
+
+                } else {
+
+                    var id_palestra = $('#id_palestra').val();
+                    var user_email = $('#user_email').val();
+                    var payload = last;
+                    if (typeof last === 'string') {
+                        try {
+                            payload = JSON.parse(last);
+                        } catch (e) {
+                            payload = { id: last, codigo: '' };
+                        }
+                    }
+                    var participantId = payload.id != null ? String(payload.id) : '';
+                    var participantCodigo = payload.codigo != null ? String(payload.codigo) : '';
+                    var cpfDigits = $('#cpf').val().replace(/\D/g, '');
+                    var feedbackIdent = (cpfDigits.length > 0) ? cpfDigits : participantCodigo;
+
+                    qrcodeGen(id_palestra, user_email, feedbackIdent, participantId);
 
                 }
             }
@@ -204,7 +215,7 @@ function qrcodeSavePalestras (id_palestra, qrcode){
 
 
 // GERA QRCODE DA INSCRICAO
-function qrcodeGen(id_palestra, user_email, cpf, last) {
+function qrcodeGen(id_palestra, user_email, feedbackIdent, participantId) {
     var DOMAIN = $('body').data('domain');
 
     $.ajax({
@@ -213,7 +224,7 @@ function qrcodeGen(id_palestra, user_email, cpf, last) {
         url: DOMAIN + '/qr/generate',
         data: {
             "frame_name": "bottom-frame",
-            "qr_code_text": DOMAIN + '/palestras/feedback/' + cpf + '/' + id_palestra,
+            "qr_code_text": DOMAIN + '/palestras/feedback/' + feedbackIdent + '/' + id_palestra,
             "image_format": "SVG",
             "frame_color": "#246CB1",
             "frame_text_color": "#ffffff",
@@ -224,17 +235,18 @@ function qrcodeGen(id_palestra, user_email, cpf, last) {
             "marker_bottom_template": "version13"
         },
         success: function (qrcode) {
-            qrcodeSave(id_palestra, cpf, qrcode, last);
+            qrcodeSave(id_palestra, feedbackIdent, qrcode, participantId);
         }
     });
 }
 
-function qrcodeSave (id_palestra, cpf, qrcode, last){
+function qrcodeSave (id_palestra, feedbackIdent, qrcode, participantId){
     var DOMAIN = $('body').data('domain');
 
     const formData = new FormData()
     formData.append('id_palestra', id_palestra);
-    formData.append('cpf', cpf);
+    formData.append('cpf', feedbackIdent);
+    formData.append('id_participante', participantId);
     formData.append('qrcode', qrcode);
 
     $.ajax({
@@ -246,7 +258,7 @@ function qrcodeSave (id_palestra, cpf, qrcode, last){
         contentType: false,
         processData: false,
         success: function(data) {
-            window.location.href = DOMAIN + '/palestras/inscricao/'+id_palestra+'/'+last+'?action=success';
+            window.location.href = DOMAIN + '/palestras/inscricao/'+id_palestra+'/'+participantId+'?action=success';
         }
     });
 }

@@ -25,13 +25,16 @@ class FeedbackPalestras extends Model
         return $create;
     }
 
-    public function getUserVisita($id_palestra, $cpf): read
+    public function getUserVisita($id_palestra, $ident): read
     {
         $read = new Read();
-        if($cpf != ''){
-        	$cpf = "AND cpf = '".$this->clearCPF($cpf)."'";
+        $identSql = '';
+        if ($ident != '') {
+            $identLimpo = $this->clearCPF($ident);
+            $identEsc = str_replace("'", "''", $identLimpo);
+            $identSql = "AND (cpf = '".$identEsc."' OR codigo = '".$identEsc."')";
         }
-        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra $cpf", "id_palestra={$id_palestra}");
+        $read->FullRead("SELECT * FROM palestras_participantes WHERE id_palestra = :id_palestra $identSql", "id_palestra={$id_palestra}");
         return $read;
     }
 
@@ -57,11 +60,15 @@ class FeedbackPalestras extends Model
         $read->FullRead("UPDATE `palestras_participantes` SET `presenca` = 'Sim' WHERE `codigo` = '".$params['user_codigo']."'");
     }
 
-    public function checkFeedback($id_palestra, $cpf): Read
+    public function checkFeedback($id_palestra, $userCodigo): Read
     {
         $read = new Read();
-        $cpf = $this->clearCPF($cpf);
-        $read->FullRead("SELECT * FROM feedback_palestra WHERE id_palestra = :id_palestra AND user_cpf = :user_cpf LIMIT 1", "id_palestra={$id_palestra}&user_cpf={$cpf}");
+        if ($userCodigo === '' || $userCodigo === null) {
+            $read->FullRead("SELECT * FROM feedback_palestra WHERE 1=0");
+            return $read;
+        }
+        $userCodigoEsc = str_replace("'", "''", $userCodigo);
+        $read->FullRead("SELECT * FROM feedback_palestra WHERE id_palestra = :id_palestra AND user_codigo = :user_codigo LIMIT 1", "id_palestra={$id_palestra}&user_codigo={$userCodigoEsc}");
         return $read;
     }
 

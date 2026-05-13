@@ -168,7 +168,12 @@ class Palestras extends Model
     public function inscricaoCadastroQRcode($params)
     {
         $read = new Read();
-        $cpf = $this->clearCPF($params['cpf']);
+        if (!empty($params['id_participante'])) {
+            $id = (int) $params['id_participante'];
+            $read->FullRead("UPDATE `palestras_participantes` SET `qrcode` = :qrcode WHERE `id_palestra` = :id_palestra AND `id` = :id", "qrcode={$params['qrcode']}&id_palestra={$params['id_palestra']}&id={$id}");
+            return $read;
+        }
+        $cpf = $this->clearCPF($params['cpf'] ?? '');
         $read->FullRead("UPDATE `palestras_participantes` SET `qrcode` = :qrcode WHERE `id_palestra` = :id_palestra AND `cpf` = :cpf", "qrcode={$params['qrcode']}&id_palestra={$params['id_palestra']}&cpf={$cpf}");
         return $read;
     }
