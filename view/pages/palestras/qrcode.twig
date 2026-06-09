@@ -13,12 +13,20 @@
 	<div class="row">
 	    <div class="col-md-6">
             <div class="d-flex align-items-center qrcode_inscricao" style="min-height:100vh;">
+                {% if palestra.qrcode_inscricao %}
                 {{ palestra.qrcode_inscricao|raw }}
+                {% else %}
+                <p class="text-secondary">QR Code de inscrição indisponível.</p>
+                {% endif %}
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex align-items-center qrcode_feedback" style="min-height:100vh;">
+                {% if palestra.qrcode_feedback %}
                 {{ palestra.qrcode_feedback|raw }}
+                {% else %}
+                <p class="text-secondary">QR Code de feedback indisponível.</p>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -93,6 +93,52 @@ class Palestras extends Model
         return $read;
     }
 
+    /**
+     * Garante que a palestra possua QR codes de inscrição e feedback.
+     * Gera e persiste automaticamente quando estiverem ausentes.
+     */
+    public function ensureQrCodes(int $idPalestra): ?array
+    {
+        $read = $this->getPalestra($idPalestra);
+        if (!$read->getResult()) {
+            return null;
+        }
+
+        $palestra = $read->getResult()[0];
+        $service = new \Agencia\Close\Services\QrCode\FrameQrCodeService();
+        $baseUrl = rtrim(DOMAIN, '/');
+
+        if (empty($palestra['qrcode_feedback'])) {
+            $svg = $service->generateSvg([
+                'qr_code_text' => $baseUrl . '/palestras/feedback/' . $idPalestra,
+                'frame_color' => '#79a722',
+                'frame_text_color' => '#ffffff',
+                'frame_text' => 'FEEDBACK',
+                'marker_left_template' => 'version13',
+                'marker_right_template' => 'version13',
+                'marker_bottom_template' => 'version13',
+            ]);
+            $this->palestraQRcodeFeedbackSave(['id_palestra' => $idPalestra, 'qrcode' => $svg]);
+            $palestra['qrcode_feedback'] = $svg;
+        }
+
+        if (empty($palestra['qrcode_inscricao'])) {
+            $svg = $service->generateSvg([
+                'qr_code_text' => $baseUrl . '/palestras/inscricao/' . $idPalestra . '?a=qr',
+                'frame_color' => '#246CB1',
+                'frame_text_color' => '#ffffff',
+                'frame_text' => 'INSCRIÇÃO',
+                'marker_left_template' => 'version13',
+                'marker_right_template' => 'version13',
+                'marker_bottom_template' => 'version13',
+            ]);
+            $this->palestraQRcodeSave(['id_palestra' => $idPalestra, 'qrcode' => $svg]);
+            $palestra['qrcode_inscricao'] = $svg;
+        }
+
+        return $palestra;
+    }
+
     public function checkCadastro($params)
     {
         $read = new Read();

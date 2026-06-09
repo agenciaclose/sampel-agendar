@@ -67,8 +67,17 @@ class PalestrasController extends Controller
     }
 
     public function palestraGetQRcode($params){
-        $palestra = new Palestras();
-        $palestra = $palestra->getPalestra($params['id'])->getResult()[0];
+        $this->setParams($params);
+
+        $palestras = new Palestras();
+        $palestra = $palestras->ensureQrCodes((int) $params['id']);
+
+        if (!$palestra) {
+            http_response_code(404);
+            echo 'Palestra não encontrada.';
+            return;
+        }
+
         $this->render('pages/palestras/qrcode.twig', ['menu' => 'palestras', 'palestra' => $palestra]);
     }
 
