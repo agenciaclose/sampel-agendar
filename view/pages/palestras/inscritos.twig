@@ -91,6 +91,7 @@
 								Outros ações
 							</a>
 							<ul class="dropdown-menu py-1">
+								<li><a class="dropdown-item" href="javascript:void(0)" onclick="exportInscritosPalestra('{{ palestra.id }}'); return false;"><i class="fa-regular fa-file-excel"></i> Exporta Inscritos</a></li>
 								<li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#sharedPalestras_{{ palestra.id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
 								<li><a class="dropdown-item" href="{{ DOMAIN }}/palestras/feedback/{{ palestra.id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Link de Feedback</a></li>
 								<li><a class="dropdown-item" href="{{ DOMAIN }}/palestras/recepcao/{{ palestra.id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
@@ -146,7 +147,14 @@
 				{% endif %}
 			{% endif %}
 
+			{% if _get.q == 'share' %}
+			<div class="col-sm-12 col-md-6 text-end align-self-end">
+				<a class="btn btn-warning btn-sm" href="javascript:void(0)" onclick="exportInscritosPalestra('{{ palestra.id }}'); return false;"><i class="fa-regular fa-file-excel"></i> Exporta Inscritos</a>
+			</div>
+			{% endif %}
+
 		</div>
+
 
 		<hr>
 

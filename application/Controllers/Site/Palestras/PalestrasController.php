@@ -7,6 +7,7 @@ use Agencia\Close\Models\Site\Palestras;
 use Agencia\Close\Services\Mailchimp\MailchimpService;
 use Agencia\Close\Controllers\Controller;
 use Agencia\Close\Models\Painel\PalestrasPainel;
+use Shuchkin\SimpleXLSXGen;
 
 class PalestrasController extends Controller
 {
@@ -212,6 +213,59 @@ class PalestrasController extends Controller
         $this->setParams($params);
         $update = new Palestras();
         $update = $update->inscricaoCadastroQRcode($params);
+    }
+
+    public function exportInscritosExcel($params)
+    {
+        $this->setParams($params);
+
+        if (empty($_SESSION['sampel_user_id'])) {
+            http_response_code(403);
+            header('Content-Type: text/plain; charset=utf-8');
+            echo 'Acesso negado.';
+            return;
+        }
+
+        $palestrasModel = new Palestras();
+        $palestraRows = $palestrasModel->getPalestra($params['id'])->getResult();
+        if (empty($palestraRows)) {
+            http_response_code(404);
+            header('Content-Type: text/plain; charset=utf-8');
+            echo 'Palestra não encontrada.';
+            return;
+        }
+
+        $palestra = $palestraRows[0];
+        $lista = $palestrasModel->listarPalestraInscritos($params['id'], $palestra['id_empresa'])->getResult();
+
+        $rows = [];
+        $rows[] = ['Nome completo', 'CPF', 'Empresa', 'Telefone', 'Email', 'Setor', 'Cidade', 'Estado'];
+        foreach ($lista as $inscricao) {
+            $rows[] = [
+                $inscricao['nome'] ?? '',
+                $this->formatCpfParaExportacao($inscricao['cpf'] ?? ''),
+                $inscricao['empresa'] ?? '',
+                $inscricao['telefone'] ?? '',
+                $inscricao['email'] ?? '',
+                $inscricao['setor'] ?? '',
+                $inscricao['cidade'] ?? '',
+                $inscricao['estado'] ?? '',
+            ];
+        }
+
+        $filename = 'inscritos_palestra_' . (int) $params['id'] . '_' . date('Y-m-d') . '.xlsx';
+        SimpleXLSXGen::fromArray($rows)->downloadAs($filename);
+        exit;
+    }
+
+    private function formatCpfParaExportacao($cpf): string
+    {
+        $digits = preg_replace('/[^0-9]/', '', (string) $cpf);
+        if (strlen($digits) !== 11) {
+            return trim((string) $cpf);
+        }
+
+        return substr($digits, 0, 3) . '.' . substr($digits, 3, 3) . '.' . substr($digits, 6, 3) . '-' . substr($digits, 9, 2);
     }
 
 

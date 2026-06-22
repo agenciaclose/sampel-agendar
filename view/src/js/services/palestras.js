@@ -264,6 +264,59 @@ function qrcodeSave (id_palestra, feedbackIdent, qrcode, participantId){
 }
 // ##
 
+function exportInscritosPalestra(palestraId) {
+    var DOMAIN = $('body').data('domain') || $('body').attr('data-domain');
+    if (!DOMAIN) {
+        return;
+    }
+    var qs = window.location.search || '';
+    swal({
+        title: 'Gerando Lista de Inscritos',
+        text: 'Por favor, aguarde...',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        onOpen: function () {
+            swal.showLoading();
+        }
+    });
+    fetch(DOMAIN + '/palestras/inscricao/lista/' + palestraId + '/export-inscritos' + qs, {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,*/*' }
+    }).then(function (response) {
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+        }
+        var cd = response.headers.get('Content-Disposition');
+        var filename = 'inscritos_palestra_' + palestraId + '.xlsx';
+        if (cd) {
+            var m = /filename="([^"]+)"/i.exec(cd) || /filename=([^;\s]+)/i.exec(cd);
+            if (m && m[1]) {
+                filename = m[1].replace(/\+/g, ' ');
+                try {
+                    filename = decodeURIComponent(filename);
+                } catch (e) { /* ignore */ }
+            }
+        }
+        return response.blob().then(function (blob) {
+            return { blob: blob, filename: filename };
+        });
+    }).then(function (r) {
+        swal.close();
+        var url = window.URL.createObjectURL(r.blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = r.filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    }).catch(function () {
+        swal.close();
+        swal({ type: 'error', title: 'Não foi possível gerar a lista.', showConfirmButton: false, timer: 2500 });
+    });
+}
+
 
 $('#setor').change(function() {
 	if($(this).val() == 'Outros'){

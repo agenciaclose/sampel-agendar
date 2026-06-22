@@ -15,6 +15,7 @@ $router->get("/palestras/inscricao/{id}/{inscricao}", "PalestrasController:inscr
 $router->get("/palestras/qrcode/{id}", "PalestrasController:palestraGetQRcode");
 
 $router->get("/palestras/inscricao/lista/{id}", "PalestrasController:palestraInscritos");
+$router->get("/palestras/inscricao/lista/{id}/export-inscritos", "PalestrasController:exportInscritosExcel");
 
 $router->post("/palestras/inscricao/cadastro", "PalestrasController:inscricaoCadastro");
 $router->post("/palestras/inscricao/cadastro-qrcode", "PalestrasController:inscricaoCadastroQRcode");
