@@ -270,9 +270,7 @@
 			<div class="modal-header">
 				<h1 class="modal-title fs-5"><b>Lista de Equipes</b></h1>
 				{% if 'add' in permissions.equipes or permissions == 'all' and visita.status_visita != 'Concluido' %}
-					{% if equipevisita|length < 4 %}
-					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> MÍNIMO DE 4 MEMBROS PARA ENVIO</button>
-					{% elseif visita.email_equipe == 'N' %}
+					{% if visita.email_equipe == 'N' %}
 					<button type="button" data-visita="{{ visita.visita_id }}" class="send_email_equipe btn btn-warning"><i class="fa-solid fa-paper-plane"></i> ENVIAR EMAIL PARA TODOS</button>
 					{% else %}
 					<button type="button" class="btn btn-secondary"><i class="fa-solid fa-shield-check"></i> EMAIL DE EQUIPE ENVIADO</button>
