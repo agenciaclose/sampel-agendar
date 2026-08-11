@@ -42,12 +42,6 @@
                                 </li>
                                 {% endif %}
 
-                                {% if 'view' in permissions.visitas or permissions == 'all' %}
-                                <li class="menu-item">
-                                    <a href="javascript:void(0);"><i class="fa-thin fa-users-medical"></i> Visitas</a>
-                                </li>
-                                {% endif %}
-
                                 {% if 'view' in permissions.palestras or permissions == 'all' %}
                                 <li class="menu-item {{ menu == 'palestras' ? 'current-menu-item' }}">
                                     <a href="javascript:void(0);"><i class="fa-thin fa-microphone-lines"></i> Palestras</a>
