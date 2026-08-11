@@ -13,7 +13,11 @@
     define('PASS_MAIN', 'oG7ElprDRWDiRWNAEL');
     define('DBSA_MAIN', 'sampel_evento');
 
-    define('MAIL_HOST', 'mail.grupoestevaocaputto.com.br');
-    define('MAIL_EMAIL', 'mkt@grupoestevaocaputto.com.br');
-    define('MAIL_USER', 'mkt@grupoestevaocaputto.com.br');
-    define('MAIL_PASSWORD', '@Sampel2310#');
+    // SMTP local do próprio servidor (mesmo padrão dos outros projetos que funcionam com Cloudflare):
+    // conexão em localhost:25 sem TLS não passa por DNS externo, então o proxy não interfere.
+    define('MAIL_HOST', 'localhost');
+    define('MAIL_PORT', 25);
+    define('MAIL_ENCRYPTION', 'none');
+    define('MAIL_EMAIL', 'nao_responda@buscanarede.com.br');
+    define('MAIL_USER', 'nao_responda@buscanarede.com.br');
+    define('MAIL_PASSWORD', 'Close235689#');

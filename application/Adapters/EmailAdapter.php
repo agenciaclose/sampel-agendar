@@ -4,18 +4,17 @@ namespace Agencia\Close\Adapters;
 
 use Agencia\Close\Helpers\Result;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 class EmailAdapter
 {
     private PHPMailer $mail;
     private Result $result;
+
     const Host = MAIL_HOST;
     const Email = MAIL_EMAIL;
     const User = MAIL_USER;
     const Password = MAIL_PASSWORD;
-    const name_site = NAME;
 
     /**
      * @throws Exception
@@ -23,53 +22,69 @@ class EmailAdapter
     public function __construct()
     {
         $this->result = new Result();
-        $this->mail = new PHPMailer(false);
-        //Server settings
-//        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $this->mail = new PHPMailer(true);
         $this->mail->isSMTP();
-        $this->mail->CharSet = 'UTF-8';//Send using SMTP
-        $this->mail->Host = self::Host;                     //Set the SMTP server to send through
-        $this->mail->SMTPAuth = true;                                   //Enable SMTP authentication
-        $this->mail->Username = self::User;                     //SMTP username
-        $this->mail->Password = self::Password;                               //SMTP password
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $this->mail->Port = 587;
+        $this->mail->CharSet = 'UTF-8';
+        $this->mail->Host = self::Host;
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = self::User;
+        $this->mail->Password = self::Password;
+        $this->mail->Port = defined('MAIL_PORT') ? (int) MAIL_PORT : 587;
+        $this->mail->SMTPSecure = $this->resolveEncryption();
+        $this->mail->Timeout = 15;
+        $this->mail->SMTPKeepAlive = false;
+
+        if ($this->mail->SMTPSecure === false) {
+            // Sem criptografia (ex.: localhost:25). Desliga o STARTTLS automático do
+            // PHPMailer 6, que falharia validando o certificado contra "localhost".
+            $this->mail->SMTPAutoTLS = false;
+        }
+
         $this->mail->setFrom(self::Email, NAME);
         $this->mail->isHTML(true);
     }
 
-    public function addAddress(string $email)
+    private function resolveEncryption()
     {
-        //$this->mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-        $this->mail->addAddress($email); //Name is optional
+        $encryption = defined('MAIL_ENCRYPTION') ? strtolower((string) MAIL_ENCRYPTION) : 'tls';
 
-        // $emails = explode(',', $email);
-        // foreach ($emails as $mail) {
-        //     $mail = trim($mail);
-        //     if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-        //         $this->mail->addAddress($mail);
-        //     }
-        // }
+        if ($encryption === 'ssl' || $encryption === 'smtps') {
+            return PHPMailer::ENCRYPTION_SMTPS;
+        }
+
+        if ($encryption === 'none' || $encryption === '') {
+            return false;
+        }
+
+        return PHPMailer::ENCRYPTION_STARTTLS;
     }
 
-    public function addCC(string $email)
+    public function addAddress(string $email): void
     {
-        $this->mail->addCC($email); //Name is optional
+        $this->mail->addAddress($email);
     }
 
-    public function setSubject($subject)
+    public function setSubject($subject): void
     {
         $this->mail->Subject = $subject;
     }
 
-    public function setBody(string $file, array $data = [])
+    public function setBody(string $file, array $data = []): void
     {
         $template = new TemplateAdapter();
         $mail = $template->render($file, $data);
         $this->mail->Body = $mail;
+        $altBody = strip_tags($mail);
+        $altBody = html_entity_decode($altBody, ENT_QUOTES, 'UTF-8');
+        $this->mail->AltBody = $altBody;
     }
 
-    public function send($result)
+    public function addAttachment(string $path, string $name = ''): void
+    {
+        $this->mail->addAttachment($path, $name);
+    }
+
+    public function send($result): void
     {
         try {
             $this->mail->send();
@@ -77,9 +92,9 @@ class EmailAdapter
             $this->result->setMessage($result);
         } catch (Exception $e) {
             $this->result->setError(true);
-            $this->result->setMessage('Falha ao enviar o E-mail!!!');
+            $this->result->setMessage('Não foi possível enviar o e-mail. Tente novamente em instantes.');
             $this->result->setInfo([
-                'message' => "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}"
+                'message' => "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}",
             ]);
         }
     }
@@ -87,16 +102,5 @@ class EmailAdapter
     public function getResult(): Result
     {
         return $this->result;
-    }
-
-    public function o()
-    {
-//            $this->mail->addReplyTo('info@example.com', 'Information');
-//            $this->mail->addCC('cc@example.com');
-//            $this->mail->addBCC('bcc@example.com');
-
-//            //Attachments
-//            $this->mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-//            $this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
     }
 }
