@@ -109,11 +109,8 @@ class HomeController extends Controller
     {
         $this->setParams($params);
 
-        $equipesall = new Visitas();
-        $equipesall = $equipesall->listaEquipesAll()->getResult();
-
         $equipes = new Visitas();
-        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult();
+        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult() ?: [];
 
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
@@ -126,7 +123,11 @@ class HomeController extends Controller
         $dataVisita = new \DateTime($visita['data_visita']);
         $dataFormatada = $dataVisita->format('d/m/Y');
 
-        foreach($equipesall as $lista){
+        $email = null;
+        foreach($equipes as $lista){
+            if (empty($lista['email'])) {
+                continue;
+            }
 
             $email = new EmailAdapter();
             $email->setSubject('Visita na Fabrica: '. $dataFormatada);
@@ -139,7 +140,9 @@ class HomeController extends Controller
                 
         $sendUpdate = new Visitas();
         $sendUpdate = $sendUpdate->sendUpdate($params['visita_id']);
-        $email->getResult();
+        if ($email) {
+            $email->getResult();
+        }
     }
 
     //ENVIAR EMAIL DE ESTATISTICA PARA EQUIPE
@@ -285,11 +288,8 @@ class HomeController extends Controller
     {
         $this->setParams($params);
 
-        $equipesall = new Visitas();
-        $equipesall = $equipesall->listaEquipesAll()->getResult();
-
         $equipes = new EventosModel();
-        $equipes = $equipes->listaEquipesEvento($params['evento_id'])->getResult();
+        $equipes = $equipes->listaEquipesEvento($params['evento_id'])->getResult() ?: [];
 
         $evento = new EventosModel();
         $evento = $evento->listarEventosID($params['evento_id'])->getResult()[0];
@@ -302,21 +302,26 @@ class HomeController extends Controller
         $dataEvento = new \DateTime($evento['data_evento_inicio']);
         $dataFormatada = $dataEvento->format('d/m/Y');
 
-        foreach($equipesall as $lista){
+        $email = null;
+        foreach($equipes as $lista){
+            if (empty($lista['email'])) {
+                continue;
+            }
 
             $email = new EmailAdapter();
             $email->setSubject($evento['nome_evento'].': '. $dataFormatada);
     
             $email->setBody('components/email/emailEquipeEvento.twig', $data);
             $email->addAddress($lista['email']);
-            //$email->addAddress('rl.cold.dev@gmail.com');
             $email->send('Email enviado para a Equipe');
 
         }
                 
         $sendUpdate = new EventosModel();
         $sendUpdate = $sendUpdate->sendUpdate($params['evento_id']);
-        $email->getResult();
+        if ($email) {
+            $email->getResult();
+        }
     }
 
 
