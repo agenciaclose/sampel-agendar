@@ -150,8 +150,8 @@ class HomeController extends Controller
     {
         $this->setParams($params);
 
-        $equipesall = new Visitas();
-        $equipesall = $equipesall->listaEquipesAll()->getResult();
+        $equipes = new Visitas();
+        $equipes = $equipes->listaEquipesVisita($params['visita_id'])->getResult() ?: [];
 
         $visita = new Visitas();
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
@@ -186,7 +186,11 @@ class HomeController extends Controller
             'faltas' => $faltas
         ];
 
-        foreach($equipesall as $lista){
+        $email = null;
+        foreach($equipes as $lista){
+            if (empty($lista['email'])) {
+                continue;
+            }
 
             $email = new EmailAdapter();
             $email->setSubject('Estatisticas da visita: '. $dataFormatada);
@@ -196,7 +200,9 @@ class HomeController extends Controller
             $email->send('Email enviado com sucesso');
 
         }
-        $email->getResult();
+        if ($email) {
+            $email->getResult();
+        }
     }
 
     //ENVIAR EMAIL DE ESTATISTICA PARA EQUIPE
@@ -243,12 +249,16 @@ class HomeController extends Controller
         $visita = $visita->listarVisitaID($params['visita_id'])->getResult()[0];
 
         $equipe = new Visitas();
-        $equipe = $equipe->listaEquipes()->getResult();
+        $equipe = $equipe->listaEquipesVisita($params['visita_id'])->getResult() ?: [];
 
         $dataVisita = new \DateTime($visita['data_visita']);
         $dataFormatada = $dataVisita->format('d/m/Y');
 
+        $email = null;
         foreach($equipe as $lista){
+            if (empty($lista['email'])) {
+                continue;
+            }
             $data = [
                 'visita' => $visita,
             ];
@@ -256,11 +266,12 @@ class HomeController extends Controller
             $email->setSubject('Novo evento criado: '. $dataFormatada);
             $email->setBody('components/email/emailNovoEvento.twig', $data);
             $email->addAddress($lista['email']);
-            //$email->addAddress('rl.cold.dev@gmail.com');
             $email->send('Email enviado com sucesso');
 
         }
-        $email->getResult();
+        if ($email) {
+            $email->getResult();
+        }
     }
 
     //ENVIAR EMAIL DE NOVO EVENTO PARA EQUIPE

@@ -73,21 +73,26 @@ class AgendarController extends Controller
         $visita = $visita->listarVisitaID($id)->getResult()[0];
 
         $equipe = new Visitas();
-        $equipe = $equipe->listaEquipes()->getResult();
+        $equipe = $equipe->listaEquipesVisita($id)->getResult() ?: [];
 
         $dataVisita = new \DateTime($visita['data_visita']);
         $dataFormatada = $dataVisita->format('d/m/Y');
 
+        $email = null;
         foreach($equipe as $lista){
+            if (empty($lista['email'])) {
+                continue;
+            }
             $data = ['visita' => $visita];
             $email = new EmailAdapter();
             $email->setSubject('Sampel - Eventos - Informações do evento: '. $dataFormatada);
             $email->setBody('components/email/emailNovoEvento.twig', $data);
             $email->addAddress($lista['email']);
-            //$email->addAddress('rl.cold.dev@gmail.com');
             $email->send('Email enviado com sucesso');
 
         }
-        $email->getResult();
+        if ($email) {
+            $email->getResult();
+        }
     }
 }
