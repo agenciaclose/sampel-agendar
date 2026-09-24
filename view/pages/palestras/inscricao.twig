@@ -65,7 +65,7 @@
 								</div>
 								<div class="alert-2 alert-none">
 									<div class="alert alert-warning" role="alert">
-										<i class="fa-solid fa-circle-exclamation"></i> Este usuário já participou de uma palestra.
+										<i class="fa-solid fa-circle-exclamation"></i> Não foi possível concluir a inscrição. Verifique os dados e tente novamente.
 									</div>
 								</div>
 
@@ -79,7 +79,6 @@
 											<div class="mb-3">
 												<label for="cpf" class="form-label">Seu CPF</label>
 												<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="">
-												<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
 											</div>
 										</div>
 
@@ -101,7 +100,6 @@
 											<div class="mb-3">
 												<label for="email" class="form-label">Seu Email *</label>
 												<input type="email" name="email" class="form-control rounded-pill" id="email" value="" required="required">
-												<div id="valida-email" class="invalid-feedback">Email já cadastrado.</div>
 											</div>
 										</div>
 										<div class="col-md-6 col-12">
@@ -137,7 +135,6 @@
 											<div class="mb-3">
 												<label for="telefone" class="form-label">Seu Whatsapp *</label>
 												<input type="text" name="telefone" class="form-control rounded-pill telefone" id="telefone" value="" required="required">
-												<div id="valida-telefone" class="invalid-feedback">Telefone já cadastrado.</div>
 											</div>
 										</div>
 										
@@ -145,7 +142,7 @@
 											<div class="mb-3">
 												<label class="form-label"></label>
 												<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">
-												<button type="submit" class="rounded-pill btn btn-warning w-100" disabled><i class="fa-solid fa-unlock-alt me-2"></i> SALVAR SUA INSCRIÇÃO</button>
+												<button type="submit" class="rounded-pill btn btn-warning w-100"><i class="fa-solid fa-check me-2"></i> SALVAR SUA INSCRIÇÃO</button>
 											</div>
 										</div>
 

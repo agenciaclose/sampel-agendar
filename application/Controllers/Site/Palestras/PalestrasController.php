@@ -126,23 +126,22 @@ class PalestrasController extends Controller
             return;
         }
 
-        if(!$this->checkCadastro($params)){
-            $cadastro = new Palestras();
-            $cadastro = $cadastro->inscricaoCadastro($params);
-            if ($cadastro) {
-                $last = new Palestras();
-                $last = $last->lastInscricao()->getResult()[0];
-                
-                // Integração automática com Mailchimp
-                $this->integrarComMailchimp($params, 'palestra');
-                
-                header('Content-Type: application/json; charset=utf-8');
-                echo json_encode([
-                    'id' => (int) $last['id'],
-                    'codigo' => $last['codigo'] ?? '',
-                ], JSON_UNESCAPED_UNICODE);
-            }
-        }else{
+        // Sem restrição de CPF/e-mail/inscrição prévia: sempre permite novo cadastro
+        $cadastro = new Palestras();
+        $cadastro = $cadastro->inscricaoCadastro($params);
+        if ($cadastro) {
+            $last = new Palestras();
+            $last = $last->lastInscricao()->getResult()[0];
+
+            // Integração automática com Mailchimp
+            $this->integrarComMailchimp($params, 'palestra');
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'id' => (int) $last['id'],
+                'codigo' => $last['codigo'] ?? '',
+            ], JSON_UNESCAPED_UNICODE);
+        } else {
             echo '0';
         }
 
