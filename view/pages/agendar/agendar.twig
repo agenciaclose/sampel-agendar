@@ -50,8 +50,8 @@
 							<div class="row">
 								<div class="mb-3 col-md-4 col-sm-12 col-12">
 									<label for="qtd_visitas" class="form-label">Selecione seu Estado</label>
-									<select class="form-control" name="estado" id="estado">
-										<option>SELECIONE</option>
+									<select class="form-control" name="estado" id="estado" required>
+										<option value="">SELECIONE</option>
 										{% for estado in estados %}
 											<option data-min="{{ estado.limit_min }}" data-max="{{ estado.limit }}" value="{{ estado.sigla }}">{{ estado.estado }}</option>
 	                                    {% endfor %}
@@ -70,7 +70,7 @@
 							<div class="row digitar_qtd" style="display:none">
 								<div class="mb-3 col-md-12 col-sm-12 col-12">
 									<label for="qtd_visitas" class="form-label">Quantidade máxima</label>
-									<input type="text" name="qtd_visitas" class="form-control" id="qtd_visitas">
+									<input type="number" name="qtd_visitas" class="form-control" id="qtd_visitas">
 								</div>
 							</div>
 

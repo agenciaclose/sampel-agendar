@@ -227,8 +227,8 @@ class VisitasController extends Controller
         if(isset($_GET['action'])){
             
             //SE CHEGAR A 60% APROVA A VISITA
-            if($visita['status_visita'] == 'Pendente'){
-                $porcentagem = $visita['qtd_visitas'] * 0.6;
+            if($visita['status_visita'] == 'Pendente' && (int) $visita['qtd_visitas'] > 0){
+                $porcentagem = (int) $visita['qtd_visitas'] * 0.6;
                 if ($visita['inscricoes'] >= $porcentagem) {
                     $update_status = new Visitas();
                     $update_status = $update_status->updateStatusVisita($params['id']);

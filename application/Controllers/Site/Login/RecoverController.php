@@ -52,14 +52,20 @@ class RecoverController extends Controller
         $this->setParams($params);
         $update = new User();
         $update = $update->saveUserPrivateCode($params);
-        $this->sendEmailRecover($params['email']);
+        $this->sendEmailRecover($params['email'] ?? '');
     }
 
     //ENVIAR EMAIL DE NOVO EVENTO PARA EQUIPE
     public function sendEmailRecover($email)
     {
         $usuario = new User();
-        $usuario = $usuario->getUserByEmail($email)->getResult()[0];
+        $usuario = $usuario->getUserByEmail((string) $email)->getResult();
+
+        // Resposta idêntica para e-mail inexistente, para não revelar quais e-mails estão cadastrados
+        if (empty($usuario[0]['email'])) {
+            return;
+        }
+        $usuario = $usuario[0];
 
         $data = ['usuario' => $usuario];
         $email = new EmailAdapter();

@@ -309,7 +309,7 @@
 														</div>
 													</div>
 													
-													{% set porcentagem = (visita.total_inscricao / visita.qtd_visitas) * 100  %}
+													{% set porcentagem = visita.qtd_visitas|default(0) > 0 ? (visita.total_inscricao / visita.qtd_visitas) * 100 : 0 %}
 													{% if porcentagem >= 100 %}
 														{% set porcentagem = 100 %}
 													{% endif %}

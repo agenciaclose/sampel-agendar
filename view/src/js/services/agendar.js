@@ -26,6 +26,7 @@ $(document).ready(function () {
 
                 } else {
 
+                    swal({type: 'warning', title: 'Selecione o estado e a quantidade de participantes.', showConfirmButton: false, timer: 2500});
                     $('button[type="submit"]').prop("disabled", false);
                     $('.form-load').removeClass('show');
 

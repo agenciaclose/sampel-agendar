@@ -28,6 +28,13 @@ class AgendarController extends Controller
     public function cadastro($params)
     {
     	$this->setParams($params);
+
+        $estado = trim($this->params['estado'] ?? '');
+        if ($estado === '' || $estado === 'SELECIONE' || (int) ($this->params['qtd_visitas'] ?? 0) <= 0) {
+            echo '0';
+            return;
+        }
+
         $save = new Agendar();
         $save = $save->saveCadastro($this->params);
         $last = new Agendar();
