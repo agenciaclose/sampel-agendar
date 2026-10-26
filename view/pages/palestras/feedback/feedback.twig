@@ -167,8 +167,8 @@
 					<div class="col-md-6 col-sm-12 text-center">
 						<form action="javascript:void(0)" id="check_inscricao" method="POST">
 							<div class="mb-3">
-								<label class="form-label"><h3>Informe seu CPF</h3></label>
-								<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" maxlength="11">
+								<label class="form-label"><h3>Digite seu CPF ou RG</h3></label>
+								<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
 							</div>
 							<div class="mb-3">
 								<input type="hidden" name="id_palestra" id="id_palestra" value="{{ palestra.id }}">

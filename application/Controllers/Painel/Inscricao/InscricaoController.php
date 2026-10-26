@@ -77,13 +77,7 @@ class InscricaoController extends Controller
 
     public function clearCPF($cpf)
     {
-        $cpf = trim(preg_replace("/[\s]+/", " ", $cpf));
-        trim($cpf);
-        $cpf = str_replace("(","",$cpf);
-        $cpf = str_replace(")","",$cpf);
-        $cpf = str_replace("+","",$cpf);
-        $cpf = str_replace("-","",$cpf);
-        return $cpf;
+        return preg_replace('/\D+/', '', (string) $cpf) ?? '';
     }
 
     /**

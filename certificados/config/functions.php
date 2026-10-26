@@ -421,14 +421,25 @@ function get_client_ip() {
 }
 
 function formatarCPF($cpf) {
-    $cpf = (string)$cpf;
-    if(strlen($cpf) != 11) {
-        return "CPF inválido";
+    $digits = preg_replace('/\D+/', '', (string) $cpf) ?? '';
+    if ($digits === '') {
+        return '';
     }
-    return substr($cpf, 0, 3) . '.' .
-           substr($cpf, 3, 3) . '.' .
-           substr($cpf, 6, 3) . '-' .
-           substr($cpf, 9, 2);
+    // CPF: 11 dígitos
+    if (strlen($digits) === 11) {
+        return substr($digits, 0, 3) . '.' .
+               substr($digits, 3, 3) . '.' .
+               substr($digits, 6, 3) . '-' .
+               substr($digits, 9, 2);
+    }
+    // RG: corpo com pontos + dígito verificador
+    if (strlen($digits) >= 8) {
+        $body = substr($digits, 0, -1);
+        $dv = substr($digits, -1);
+        $bodyFmt = preg_replace('/\B(?=(\d{3})+(?!\d))/', '.', $body);
+        return $bodyFmt . '-' . $dv;
+    }
+    return $digits;
 }
 
 function formatarData($dataOriginal) {

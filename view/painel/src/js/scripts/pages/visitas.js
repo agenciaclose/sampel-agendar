@@ -220,10 +220,36 @@ options = {
 
 $('.telefone').mask(maskBehavior, options);
 $('.cep').mask('00000-000', {reverse: true, clearIfNotMatch: true});
-$('.cpf').mask('000.000.000-00', {reverse: true, clearIfNotMatch: true});
 $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 
-$('.cpf_number').mask('00000000000', {reverse: true, clearIfNotMatch: true});
+function limparDocumentoIdentidade(valor) {
+    return String(valor || '').replace(/\D+/g, '');
+}
+
+function limparCamposDocumentoIdentidade($ctx) {
+    $ctx.find('.cpf, .cpf_number').each(function () {
+        $(this).val(limparDocumentoIdentidade($(this).val()));
+    });
+}
+
+$(document).on('input', '.cpf, .cpf_number', function () {
+    var limpo = limparDocumentoIdentidade($(this).val());
+    if ($(this).val() !== limpo) {
+        $(this).val(limpo);
+    }
+});
+
+$(document).on('submit', 'form', function () {
+    limparCamposDocumentoIdentidade($(this));
+});
+
+(function ($) {
+    var originalSerialize = $.fn.serialize;
+    $.fn.serialize = function () {
+        limparCamposDocumentoIdentidade(this);
+        return originalSerialize.call(this);
+    };
+})(jQuery);
 
 $(document).ready(function () {
     $("#form_inscricao_editar").submit(function (c) {

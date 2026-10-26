@@ -16,13 +16,15 @@ class MinhasInscricoesController extends Controller
     {
         $this->setParams($params);
 
+        $cpf = preg_replace('/\D+/', '', (string) ($params['cpf'] ?? '')) ?? '';
+
         $checklist = new MinhasInscricoes();
-        $checklist = $checklist->getLista($params['cpf']);
+        $checklist = $checklist->getLista($cpf);
 
         //if($checklist->getResult()){
 
             $expire = time() + 3600 * 24 * 365;
-            setcookie("sampel_user_cpf", $params['cpf'], $expire);
+            setcookie("sampel_user_cpf", $cpf, $expire);
             echo '1';
 
         // }else{

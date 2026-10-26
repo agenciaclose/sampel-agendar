@@ -154,9 +154,9 @@
 											{% if visita.tipo == 'visita' %}
 											<div class="col-md-6 col-12">
 												<div class="mb-3">
-													<label for="cpf" class="form-label">Seu CPF *</label>
-													<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="" required="required">
-													<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+													<label for="cpf" class="form-label">Informe seu CPF ou seu RG *</label>
+													<input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="" required="required" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
+													<div id="valida-cpf" class="invalid-feedback">CPF/RG já cadastrado.</div>
 												</div>
 											</div>
 											{% endif %}
@@ -164,9 +164,9 @@
 											{% if visita.tipo == 'evento' %}
 											<div class="col-md-6 col-12">
 												<div class="mb-3">
-													<label for="cpf" class="form-label">Seu CPF *</label>
-													<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required">
-													<div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+													<label for="cpf" class="form-label">Informe seu CPF ou seu RG *</label>
+													<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" required="required" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
+													<div id="valida-cpf" class="invalid-feedback">CPF/RG já cadastrado.</div>
 												</div>
 											</div>
 											{% endif %}
@@ -329,7 +329,7 @@
 												<div class="text-uppercase">{{ inscricao.nome }}</div>
 											</div>
 											<div class="mb-2">
-												<div class="text-body-tertiary fw-bold"><small>CPF</small></div>
+												<div class="text-body-tertiary fw-bold"><small>CPF/RG</small></div>
 												<div class="">{{ inscricao.cpf|UserCPF }}</div>
 											</div>
 											<div class="mb-2">

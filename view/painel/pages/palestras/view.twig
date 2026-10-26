@@ -51,8 +51,8 @@
 			                                </div>
 			                                <div class="mb-1 row">
 												<div class="col-md-6">
-													<label class="form-label">CPF</label>
-													<input type="number" class="form-control cpf" name="cpf" id="cpf" value="{{ editar.cpf }}">
+													<label class="form-label">Informe seu CPF ou seu RG</label>
+													<input type="text" class="form-control cpf" name="cpf" id="cpf" value="{{ editar.cpf }}" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
 												</div>
 												<div class="col-md-6">
 													<label class="form-label">Email</label>
@@ -124,7 +124,7 @@
                                                 <th>Nome</th>
                                                 <th>Email</th>
                                                 <th>Telefone</th>
-                                                <th class="d-none">CPF</th>
+                                                <th class="d-none">CPF/RG</th>
                                                 <th class="d-none">Empresa</th>
                                                 <th class="d-none">Endereço</th>
                                                 <th class="d-none">Cidade</th>

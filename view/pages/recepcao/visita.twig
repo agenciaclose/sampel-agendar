@@ -20,7 +20,8 @@
 					<div class="card-body">
 						<form action="javascript:void(0);" method="POST" id="confirmar-presenca">
 
-							<input class="form-control form-control-lg text-center" type="text" name="codigo" placeholder="CÓDIGO OU CPF OU EMAIL">
+							<label class="form-label text-center w-100" for="codigo_recepcao">Informe seu CPF ou seu RG</label>
+							<input class="form-control form-control-lg text-center" type="text" name="codigo" id="codigo_recepcao" placeholder="digite apenas números, código ou e-mail" autocomplete="off">
 							<input type="hidden" name="id_visita" id="id_visita" value="{{ visita.visita_id }}">
 							<hr>
 							<div id="sendContentModal"><button type="submit" class="btn btn-warning btn-lg w-100 fw-bold rounded-0">VERIFICAR INSCRIÇÃO</button></div>
@@ -44,7 +45,7 @@
 						<thead>
 							<tr>
 								<th>NOME</th>
-								<th class="text-end">CPF</th>
+								<th class="text-end">CPF/RG</th>
 							</tr>
 						</thead>
 						<tbody>

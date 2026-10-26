@@ -5,24 +5,53 @@ namespace Agencia\Close\Models\Site;
 use Agencia\Close\Conn\Conn;
 use Agencia\Close\Conn\Read;
 use Agencia\Close\Conn\Create;
+use Agencia\Close\Helpers\Document\DocumentoIdentidade;
 use Agencia\Close\Models\Model;
 
 class Recepcao extends Model
 {
+    /**
+     * Monta a cláusula de busca por código, e-mail e documento (CPF/RG só dígitos).
+     */
+    private function clausulaBuscaInscricao(string $busca, string $digitos, bool $incluirEmail = false): array
+    {
+        $conds = ["`codigo` = :busca", "`cpf` = :busca"];
+        if ($incluirEmail) {
+            $conds[] = "`email` = :busca";
+        }
+        $parse = "busca={$busca}";
+
+        if ($digitos !== '' && $digitos !== $busca) {
+            $conds[] = "`cpf` = :digitos";
+            $parse .= "&digitos={$digitos}";
+        } elseif ($digitos !== '') {
+            // busca já é só dígitos: cpf = :busca já cobre
+        }
+
+        return [
+            'sql' => '(' . implode(' OR ', $conds) . ')',
+            'parse' => $parse,
+        ];
+    }
 
     public function confirmarPresenca($params): Read
     {
+        $busca = trim((string) ($params['codigo'] ?? ''));
+        $digitos = DocumentoIdentidade::onlyDigits($busca);
+        $idVisita = (int) ($params['id_visita'] ?? 0);
+        $filtro = $this->clausulaBuscaInscricao($busca, $digitos, true);
+
         $update = new Read();
-        $update->FullRead("UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE 
-        id_visita = '".$params['id_visita']."' AND cpf = '".$params['codigo']."' OR
-        id_visita = '".$params['id_visita']."' AND codigo = '".$params['codigo']."' OR
-        id_visita = '".$params['id_visita']."' AND email = '".$params['codigo']."'");
+        $update->FullRead(
+            "UPDATE `visitas_inscricoes` SET `presenca` = 'Sim' WHERE `id_visita` = :id_visita AND {$filtro['sql']}",
+            "id_visita={$idVisita}&{$filtro['parse']}"
+        );
 
         $read = new Read();
-        $read->FullRead("SELECT * FROM `visitas_inscricoes` WHERE 
-        id_visita = '".$params['id_visita']."' AND cpf = '".$params['codigo']."' OR
-        id_visita = '".$params['id_visita']."' AND codigo = '".$params['codigo']."' OR
-        id_visita = '".$params['id_visita']."' AND email = '".$params['codigo']."'");
+        $read->FullRead(
+            "SELECT * FROM `visitas_inscricoes` WHERE `id_visita` = :id_visita AND {$filtro['sql']}",
+            "id_visita={$idVisita}&{$filtro['parse']}"
+        );
         return $read;
     }
 
@@ -42,14 +71,16 @@ class Recepcao extends Model
 
     public function confirmarPresencaPalestra($params): Read
     {
-        if (strlen($params['codigo']) > 8) {
-            $codigo = " AND `cpf` = '".$params['codigo']."'";
-        } else {
-            $codigo = " AND `codigo` = '".$params['codigo']."'";
-        }
+        $busca = trim((string) ($params['codigo'] ?? ''));
+        $digitos = DocumentoIdentidade::onlyDigits($busca);
+        $idPalestra = (int) ($params['id_palestra'] ?? 0);
+        $filtro = $this->clausulaBuscaInscricao($busca, $digitos, false);
 
         $read = new Read();
-        $read->FullRead("UPDATE `palestras_participantes` SET `presenca` = 'Sim' WHERE `id_palestra` = '".$params['id_palestra']."' $codigo");
+        $read->FullRead(
+            "UPDATE `palestras_participantes` SET `presenca` = 'Sim' WHERE `id_palestra` = :id_palestra AND {$filtro['sql']}",
+            "id_palestra={$idPalestra}&{$filtro['parse']}"
+        );
         return $read;
     }
 

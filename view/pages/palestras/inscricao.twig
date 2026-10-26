@@ -77,8 +77,8 @@
 
 										<div class="col-md-6 col-12">
 											<div class="mb-3">
-												<label for="cpf" class="form-label">Seu CPF</label>
-												<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="">
+												<label for="cpf" class="form-label">Informe seu CPF ou seu RG</label>
+												<input type="text" name="cpf" class="form-control rounded-pill cpf cpf_autocomplete" id="cpf" value="" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
 											</div>
 										</div>
 
@@ -217,7 +217,7 @@
 												<div class="text-uppercase">{{ inscricao.nome }}</div>
 											</div>
 											<div class="mb-2">
-												<div class="text-body-tertiary fw-bold"><small>CPF</small></div>
+												<div class="text-body-tertiary fw-bold"><small>CPF/RG</small></div>
 												<div class="">{{ inscricao.cpf|UserCPF }}</div>
 											</div>
 											<div class="mb-2">

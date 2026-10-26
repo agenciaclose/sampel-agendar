@@ -20,7 +20,7 @@ $(document).ready(function () {
 
                     var id_visita = $('#id_visita').val();
                     var user_email = $('#user_email').val();
-                    var cpf = $('#cpf').val().replace('.', '').replace('-', '');
+                    var cpf = String($('#cpf').val() || '').replace(/\D+/g, '');
                     
                     qrcodeGen(id_visita, user_email, cpf, last);
 

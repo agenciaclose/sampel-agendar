@@ -65,15 +65,7 @@ class Feedback extends Model
     }
 
     function clearCPF($palavra){
-        $palavra = trim(preg_replace("/[\s]+/", " ", $palavra));
-        trim($palavra);
-        $palavra = str_replace("(","",$palavra);
-        $palavra = str_replace(")","",$palavra);
-        $palavra = str_replace("+","",$palavra);
-        $palavra = str_replace("-","",$palavra);
-        $palavra = str_replace(".","",$palavra);
-        $palavra = str_replace(" ","",$palavra);
-        return($palavra);
+        return preg_replace('/\D+/', '', (string) $palavra) ?? '';
     }
 
 

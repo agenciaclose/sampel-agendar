@@ -97,9 +97,9 @@
                                             
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
-                                                    <label for="cpf" class="form-label">Seu CPF *</label>
-                                                    <input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ inscricao.cpf }}" required="required">
-                                                    <div id="valida-cpf" class="invalid-feedback">CPF já cadastrado.</div>
+                                                    <label for="cpf" class="form-label">Informe seu CPF ou seu RG *</label>
+                                                    <input type="text" name="cpf" class="form-control rounded-pill cpf" id="cpf" value="{{ inscricao.cpf }}" required="required" placeholder="digite apenas números" inputmode="numeric" autocomplete="off">
+                                                    <div id="valida-cpf" class="invalid-feedback">CPF/RG já cadastrado.</div>
                                                 </div>
                                             </div>
 

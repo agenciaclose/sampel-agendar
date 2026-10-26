@@ -238,7 +238,7 @@ class PalestrasController extends Controller
         $lista = $palestrasModel->listarPalestraInscritos($params['id'], $palestra['id_empresa'])->getResult();
 
         $rows = [];
-        $rows[] = ['Nome completo', 'CPF', 'Empresa', 'Telefone', 'Email', 'Setor', 'Cidade', 'Estado'];
+        $rows[] = ['Nome completo', 'CPF/RG', 'Empresa', 'Telefone', 'Email', 'Setor', 'Cidade', 'Estado'];
         foreach ($lista as $inscricao) {
             $rows[] = [
                 $inscricao['nome'] ?? '',
@@ -259,12 +259,7 @@ class PalestrasController extends Controller
 
     private function formatCpfParaExportacao($cpf): string
     {
-        $digits = preg_replace('/[^0-9]/', '', (string) $cpf);
-        if (strlen($digits) !== 11) {
-            return trim((string) $cpf);
-        }
-
-        return substr($digits, 0, 3) . '.' . substr($digits, 3, 3) . '.' . substr($digits, 6, 3) . '-' . substr($digits, 9, 2);
+        return \Agencia\Close\Helpers\Document\DocumentoIdentidade::format($cpf);
     }
 
 

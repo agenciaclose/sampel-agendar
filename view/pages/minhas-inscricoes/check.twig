@@ -16,16 +16,16 @@
 
 				<hr class="w-25 m-auto mb-3">
 
-				<div class="text-center">Insira seu CPF para listar <br><b>suas inscrições</b>, verificar suas <b>credenciais de eventos</b> <br>e emitir seus <b>certificados</b>. </div>
+				<div class="text-center">Insira seu CPF/RG para listar <br><b>suas inscrições</b>, verificar suas <b>credenciais de eventos</b> <br>e emitir seus <b>certificados</b>. </div>
 
 				<div class="col-12 col-sm-4 m-auto py-5 text-center">
 					<div class="form-load"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
 					<form action="javascript:void(0)" id="minhas_inscricoes" method="POST">
 						<div class="mb-3">
-							<label class="form-label">Informe seu CPF</label>
-							<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="apenas numeros" />
+							<label class="form-label">Digite seu CPF ou RG</label>
+							<input type="text" class="form-control rounded-pill cpf_number text-center" id="cpf" name="cpf" placeholder="digite apenas números" inputmode="numeric" autocomplete="off" />
 						</div>
-						{% if _get.cpf == 'error' %}<div class="mb-2 text-warning fw-bold">CPF não encontrado</div>{% endif %}
+						{% if _get.cpf == 'error' %}<div class="mb-2 text-warning fw-bold">CPF/RG não encontrado</div>{% endif %}
 						
 						<div class="mb-3">
 							<button type="submit" class="btn btn-warning btn-lg fw-bold rounded-pill"><i class="fa-solid fa-list"></i> VER MINHAS INSCRIÇÕES</button>

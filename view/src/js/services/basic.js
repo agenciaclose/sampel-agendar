@@ -71,10 +71,59 @@ function eraseCookie(name) {
 
 $('.telefone').mask(maskBehavior, options);
 $('.cep').mask('00000-000', {reverse: true, clearIfNotMatch: true});
-$('.cpf').mask('000.000.000-00', {reverse: true, clearIfNotMatch: true});
 $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 
-$('.cpf_number').mask('00000000000', {reverse: true, clearIfNotMatch: true});
+// CPF/RG: sem máscara no front — só dígitos na digitação e limpeza no envio
+function limparDocumentoIdentidade(valor) {
+    return String(valor || '').replace(/\D+/g, '');
+}
+
+function limparCamposDocumentoIdentidade($ctx) {
+    $ctx.find('.cpf, .cpf_number').each(function () {
+        $(this).val(limparDocumentoIdentidade($(this).val()));
+    });
+}
+
+function removerMascaraDocumentoIdentidade() {
+    var $campos = $('.cpf, .cpf_number, #cpf');
+    if (!$campos.length) {
+        return;
+    }
+    // Remove qualquer máscara jQuery Mask ainda ligada ao campo
+    if (typeof $campos.unmask === 'function') {
+        try { $campos.unmask(); } catch (e) {}
+    }
+    $campos.each(function () {
+        var $el = $(this);
+        $el.removeAttr('maxlength');
+        $el.removeData('mask');
+        $el.off('.mask');
+        $el.val(limparDocumentoIdentidade($el.val()));
+    });
+}
+
+removerMascaraDocumentoIdentidade();
+$(document).ready(removerMascaraDocumentoIdentidade);
+
+$(document).on('input keyup blur', '.cpf, .cpf_number, #cpf', function () {
+    var limpo = limparDocumentoIdentidade($(this).val());
+    if ($(this).val() !== limpo) {
+        $(this).val(limpo);
+    }
+});
+
+$(document).on('submit', 'form', function () {
+    limparCamposDocumentoIdentidade($(this));
+});
+
+// Garante limpeza também em AJAX que usa form.serialize() (antes do serialize do handler da página)
+(function ($) {
+    var originalSerialize = $.fn.serialize;
+    $.fn.serialize = function () {
+        limparCamposDocumentoIdentidade(this);
+        return originalSerialize.call(this);
+    };
+})(jQuery);
 
 $('.codigo').on('input', function() {
     var valor = $(this).val();
