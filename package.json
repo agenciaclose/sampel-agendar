@@ -4,9 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "dev": "webpack --env NODE_ENV=local --mode development",
-    "watch": "webpack --watch --env NODE_ENV=local --mode development",
-    "prod": "webpack --env NODE_ENV=evento --mode production"
+    "dev": "node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --env NODE_ENV=local --mode development",
+    "watch": "node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --watch --env NODE_ENV=local --mode development",
+    "prod": "node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --env NODE_ENV=evento --mode production"
   },
   "author": "Agnência Close",
   "license": "ISC",
@@ -28,7 +28,6 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "babel-loader": "^8.1.0",
-    "node": "^16.0.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.0",
