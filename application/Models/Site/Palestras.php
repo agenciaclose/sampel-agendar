@@ -57,6 +57,22 @@ class Palestras extends Model
         return $update;
     }
 
+    public function palestraExcluir(int $id): bool
+    {
+        $id = (int) $id;
+        if ($id <= 0) {
+            return false;
+        }
+
+        $read = new Read();
+        $read->FullRead("DELETE FROM `feedback_palestra` WHERE id_palestra = :id", "id={$id}");
+        $read->FullRead("DELETE FROM `palestras_imagens` WHERE id_palestra = :id", "id={$id}");
+        $read->FullRead("DELETE FROM `palestras_participantes` WHERE id_palestra = :id", "id={$id}");
+        $read->FullRead("DELETE FROM `palestras` WHERE id = :id", "id={$id}");
+
+        return true;
+    }
+
 
     public function getPalestra($id): read
     {

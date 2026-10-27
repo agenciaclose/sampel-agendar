@@ -95,6 +95,9 @@
 								<li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#sharedPalestras_{{ palestra.id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Compartilhar Lista</a></li>
 								<li><a class="dropdown-item" href="{{ DOMAIN }}/palestras/feedback/{{ palestra.id }}"><i class="fa-sharp fa-light fa-share-nodes"></i> Link de Feedback</a></li>
 								<li><a class="dropdown-item" href="{{ DOMAIN }}/palestras/recepcao/{{ palestra.id }}"><i class="fa-solid fa-shield-check"></i> Confirmar Presença</a></li>
+								{% if permissions == 'all' or 'add' in permissions.palestras or _session.sampel_user_id == palestra.id_empresa or _session.sampel_user_id == 1 or _session.sampel_user_id == 4 or _session.sampel_user_id == 16 %}
+								<li><a class="dropdown-item text-danger excluir_palestra" href="javascript:void(0);" data-id="{{ palestra.id }}" data-title="{{ palestra.title|e('html_attr') }}" data-redirect="{{ DOMAIN }}/palestras"><i class="fa-solid fa-trash-can"></i> Excluir Evento</a></li>
+								{% endif %}
 							</ul>
 						</div>
 					</div>

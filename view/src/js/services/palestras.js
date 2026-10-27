@@ -318,6 +318,50 @@ function exportInscritosPalestra(palestraId) {
 }
 
 
+$(document).on('click', '.excluir_palestra', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var title = $(this).data('title') || 'esta palestra';
+    var redirect = $(this).data('redirect') || '';
+    var DOMAIN = $('body').data('domain') || $('body').attr('data-domain');
+
+    swal({
+        title: 'Excluir palestra?',
+        text: 'Isso remove "' + title + '" e todas as inscrições. Essa ação não pode ser desfeita.',
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: 'Sim, excluir',
+        denyButtonText: 'Não'
+    }).then(function (result) {
+        if (!result.value) {
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            data: { id: id },
+            url: DOMAIN + '/palestras/excluir',
+            success: function (data) {
+                if (data == '1') {
+                    swal({ type: 'success', title: 'Palestra excluída!', showConfirmButton: false, timer: 1500 });
+                    setTimeout(function () {
+                        if (redirect) {
+                            window.location.href = redirect;
+                        } else {
+                            location.reload();
+                        }
+                    }, 1500);
+                } else {
+                    swal({ type: 'warning', title: 'Não foi possível excluir.', showConfirmButton: false, timer: 2000 });
+                }
+            },
+            error: function () {
+                swal({ type: 'error', title: 'Erro ao excluir.', showConfirmButton: false, timer: 2000 });
+            }
+        });
+    });
+});
+
 $('#setor').change(function() {
 	if($(this).val() == 'Outros'){
 		$('.outros').show();

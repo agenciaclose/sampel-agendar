@@ -57,6 +57,43 @@ class PalestrasController extends Controller
         $save = $save->palestraEditar($params);
     }
 
+    public function palestraExcluir($params)
+    {
+        $this->setParams($params);
+
+        if (empty($_SESSION['sampel_user_id'])) {
+            echo '0';
+            return;
+        }
+
+        $id = (int) ($params['id'] ?? 0);
+        if ($id <= 0) {
+            echo '0';
+            return;
+        }
+
+        $palestras = new Palestras();
+        $palestra = $palestras->getPalestra($id)->getResult();
+        if (empty($palestra[0])) {
+            echo '0';
+            return;
+        }
+        $palestra = $palestra[0];
+
+        $userId = (int) $_SESSION['sampel_user_id'];
+        $isAdmin = (int) ($_SESSION['sampel_user_tipo'] ?? 0) === 1
+            || in_array($userId, [1, 4, 16], true);
+        $isOwner = (int) ($palestra['id_empresa'] ?? 0) === $userId;
+        $hasAdd = (bool) $this->checkPermissionsUser('palestras', '"add"');
+
+        if (!$isAdmin && !$isOwner && !$hasAdd) {
+            echo '0';
+            return;
+        }
+
+        echo $palestras->palestraExcluir($id) ? '1' : '0';
+    }
+
     public function palestraQRcodeFeedbackSave($params){
         $save = new Palestras();
         $save = $save->palestraQRcodeFeedbackSave($params);
